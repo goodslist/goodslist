@@ -1,0 +1,33 @@
+.header_container {
+  width: 100%;
+  margin: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border: 0 0 1px 0 solid #ebe8e4;
+  box-shadow: 0 0 0.3125rem 0 rgb(20 12 0 / 20%);
+  z-index: 1;
+}
+
+.header {
+  max-width: 800px;
+  min-width: 320px;
+  height: 60px;
+  padding: 0;
+  margin: auto;
+  text-align: left;
+}
+
+.logo_container {
+  margin: 0 0 0 20px;
+  height: 60px;
+  left: 20px;
+}
+.logo {
+  margin: 0;
+  font-size: 21px;
+  line-height: 60px;
+  font-family: 'Montserrat', sans-serif;
+}
