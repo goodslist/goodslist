@@ -49,7 +49,8 @@ export async function getStaticProps() {
 // }
 
 // const Home: NextPage = ({ eventList }) => {
-const Home: NextPage = (eventList) => {
+const Home: NextPage = ({ eventList }: props) => {
+  console.log(eventList)
   return (
     <>
       <Head>
