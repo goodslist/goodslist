@@ -32,16 +32,24 @@ export async function getStaticProps() {
     }
     eventList.push(data)
   })
-
-  return {
-    props: {
-      eventList,
-    },
+  type PageProps = {
+    eventList: Event[]
   }
-}
+  const props: PageProps = {
+    eventList: eventList,
+  }
 
-const Home: NextPage = ({ eventList }) => {
-  // console.log(data[0].events[0].event_name)
+  return { props }
+}
+//   return {
+//     props: {
+//       eventList,
+//     },
+//   }
+// }
+
+// const Home: NextPage = ({ eventList }) => {
+const Home: NextPage = ({ eventList }: PageProps) => {
   return (
     <>
       <Head>
