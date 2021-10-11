@@ -1,0 +1,277 @@
+.total_bar_container {
+  width: 100%;
+  height: 40px;
+  padding: 0 20px;
+  border: 0 0 1px 0 solid #ebe8e4;
+  box-shadow: 0 0 0.3125rem 0 rgb(20 12 0 / 6%);
+  position: fixed;
+  top: 60px;
+  background-color: #333;
+  z-index: 1;
+}
+
+.total_bar {
+  max-width: 800px;
+  min-width: 320px;
+  height: 40px;
+  padding: 0 20px;
+  margin: auto;
+}
+
+.total {
+  line-height: 40px;
+  margin: 0;
+  text-align: right;
+  font-size: 20px;
+  color: #fff;
+  font-family: sans-serif;
+}
+
+.main_container {
+  width: 100%;
+  margin: 160px 0 40px 0;
+}
+
+.main {
+  max-width: 800px;
+  min-width: 320px;
+  margin: auto;
+  padding: 20px 0;
+  background-color: #fff;
+}
+
+.event_title_container {
+  width: 100%;
+  margin: 0 0 20px 0;
+  padding: 0 20px;
+  text-align: left;
+}
+
+/* .h1 {
+  font-size: 21px;
+} */
+.h1 {
+  margin: 0;
+  font-size: 2.4rem;
+  font-weight: normal;
+}
+
+.contant_name_container {
+  margin: 0;
+  padding: 0 20px;
+  text-align: left;
+}
+
+.content_name {
+  margin: 0;
+  font-size: 18px;
+}
+
+.event_date {
+  font-size: 12px;
+  color: #666;
+}
+
+.goodslistul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 800px;
+}
+.goodslist {
+  list-style: none;
+  line-height: 20px;
+  padding: 10px 10px;
+  margin: 0;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: right;
+  justify-content: right;
+  -webkit-align-items: right;
+  align-items: right;
+}
+.goodslisthead {
+  list-style: none;
+  line-height: 20px;
+  padding: 10px 10px;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+  margin: 0;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: right;
+  justify-content: right;
+  -webkit-align-items: right;
+  align-items: right;
+}
+.goodscontainer {
+  border-bottom: 1px solid #ccc;
+}
+
+.goodsname {
+  width: 100%;
+  text-align: left;
+  font-size: 1.4rem;
+}
+.subtotalcontainer {
+  text-align: right;
+}
+.subtotalcount {
+  font-size: 15px;
+  color: #666;
+}
+.subtotal {
+  width: 300px;
+  margin-left: 10px;
+  margin-right: 0;
+  font-size: 18px;
+  font-family: sans-serif;
+}
+
+.goods_type_container {
+  width: auto;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  font-family: sans-serif;
+  font-size: 1.4rem;
+  text-align: left;
+}
+
+.goods_price_container {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  font-family: sans-serif;
+  text-align: right;
+  margin: 0 0 0 10px;
+  white-space: nowrap;
+  font-size: 1.4rem;
+}
+
+.plus_minus_container {
+  width: 100px;
+  min-width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.plusButtonOn {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 42px;
+  cursor: pointer;
+  background-color: #68a9cf;
+  top: 0;
+  margin-left: 20px;
+  position: relative;
+  border: 0;
+  transition: all 0.3s;
+}
+
+.plusButtonOn span::before,
+.plusButtonOn span::after {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: 8px;
+  width: 50%;
+  height: 2px;
+  margin: 0;
+  background: #fff;
+  transition: all 0.3s;
+}
+
+.plusButtonOn span::after {
+  transform: rotate(90deg);
+}
+
+.plusButtonOff {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 42px;
+  background-color: #ccc;
+  top: 0;
+  margin-left: 20px;
+  position: relative;
+  border: 0;
+  transition: all 0.3s;
+}
+
+.plusButtonOff span::before,
+.plusButtonOff span::after {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: 8px;
+  width: 50%;
+  height: 2px;
+  margin: 0;
+  background: #fff;
+  transition: all 0.3s;
+}
+
+.plusButtonOff span::after {
+  transform: rotate(90deg);
+}
+/* #A6C78E #68a9cf */
+
+.minusButtonOn {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 42px;
+  cursor: pointer;
+  background-color: rgb(209, 104, 104);
+  top: 0;
+  margin-left: 20px;
+  position: relative;
+  border: 0;
+  transition: all 0.3s;
+}
+
+.minusButtonOn span::before,
+.minusButtonOn span::after {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: 8px;
+  width: 50%;
+  height: 2px;
+  margin: 0;
+  background: #fff;
+  transition: all 0.3s;
+}
+
+.minusButtonOff {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 42px;
+  background-color: #ccc;
+  top: 0;
+  margin-left: 20px;
+  position: relative;
+  border: 0;
+  transition: all 0.3s;
+}
+
+.minusButtonOff span::before,
+.minusButtonOff span::after {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: 8px;
+  width: 50%;
+  height: 2px;
+  margin: 0;
+  background: #fff;
+  transition: all 0.3s;
+}
