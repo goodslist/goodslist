@@ -23,7 +23,7 @@ export async function getStaticProps() {
     .select('event_id, event_name, contents(content_id, content_name)')
 
   const eventList: Event[] = []
-  data.map((doc) => {
+  data.map((doc?) => {
     const data: Event = {
       content_id: doc.contents.content_id,
       content_name: doc.contents.content_name,
