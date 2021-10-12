@@ -150,8 +150,8 @@
 }
 
 .plus_minus_container {
-  width: 100px;
-  min-width: 100px;
+  width: 120px;
+  min-width: 120px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -159,8 +159,8 @@
 
 .plusButtonOn {
   display: inline-block;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border-radius: 42px;
   cursor: pointer;
   background-color: #68a9cf;
@@ -169,6 +169,7 @@
   position: relative;
   border: 0;
   transition: all 0.3s;
+  outline: none;
 }
 
 .plusButtonOn span::before,
@@ -176,8 +177,8 @@
   display: block;
   content: '';
   position: absolute;
-  top: 14px;
-  left: 8px;
+  top: 19px;
+  left: 10px;
   width: 50%;
   height: 2px;
   margin: 0;
@@ -191,8 +192,8 @@
 
 .plusButtonOff {
   display: inline-block;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border-radius: 42px;
   background-color: #ccc;
   top: 0;
@@ -200,6 +201,7 @@
   position: relative;
   border: 0;
   transition: all 0.3s;
+  outline: none;
 }
 
 .plusButtonOff span::before,
@@ -207,8 +209,8 @@
   display: block;
   content: '';
   position: absolute;
-  top: 14px;
-  left: 8px;
+  top: 19px;
+  left: 10px;
   width: 50%;
   height: 2px;
   margin: 0;
@@ -223,8 +225,8 @@
 
 .minusButtonOn {
   display: inline-block;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border-radius: 42px;
   cursor: pointer;
   background-color: rgb(209, 104, 104);
@@ -233,6 +235,7 @@
   position: relative;
   border: 0;
   transition: all 0.3s;
+  outline: none;
 }
 
 .minusButtonOn span::before,
@@ -240,8 +243,8 @@
   display: block;
   content: '';
   position: absolute;
-  top: 14px;
-  left: 8px;
+  top: 19px;
+  left: 10px;
   width: 50%;
   height: 2px;
   margin: 0;
@@ -251,8 +254,8 @@
 
 .minusButtonOff {
   display: inline-block;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border-radius: 42px;
   background-color: #ccc;
   top: 0;
@@ -260,6 +263,7 @@
   position: relative;
   border: 0;
   transition: all 0.3s;
+  outline: none;
 }
 
 .minusButtonOff span::before,
@@ -267,8 +271,8 @@
   display: block;
   content: '';
   position: absolute;
-  top: 14px;
-  left: 8px;
+  top: 19px;
+  left: 10px;
   width: 50%;
   height: 2px;
   margin: 0;
