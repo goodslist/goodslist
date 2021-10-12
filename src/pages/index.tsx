@@ -69,7 +69,7 @@ const Home: React.FC<Props> = ({ eventList }) => (
       <main className={styles.main}>
         <h1 className={styles.title}>Goodsist</h1>
 
-        <p className={styles.description}>グッズ代が計算できるWEBアプリ</p>
+        <h2 className={styles.sub_title}>グッズ代が計算できるWEBアプリ</h2>
 
         <form action='https://qiita.com' method='GET'>
           <input
