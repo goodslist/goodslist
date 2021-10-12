@@ -80,25 +80,25 @@ const Home: React.FC<Props> = ({ eventList }) => (
           <input type='submit' value='&#xf002' />
         </form>
         <div className={styles.grid}>
+          <p className={styles.new_hot_label}>新しいイベント</p>
           <ul className={styles.card}>
-            <h3>新しいイベント</h3>
             {eventList.map((event) => (
               <li key={event.event_id}>
                 <Link href={'event/' + event.event_id}>
                   <a>
-                    {event.content_name} {event.event_name}
+                    <b>{event.content_name}</b> {event.event_name}
                   </a>
                 </Link>
               </li>
             ))}
           </ul>
+          <p className={styles.new_hot_label}>人気イベント</p>
           <ul className={styles.card}>
-            <h3>人気なイベント</h3>
             {eventList.map((event) => (
               <Link href={'event/' + event.event_id}>
                 <a>
                   <li key={event.event_id}>
-                    {event.content_name} {event.event_name}
+                    <b>{event.content_name}</b> {event.event_name}
                   </li>
                 </a>
               </Link>

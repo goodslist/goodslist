@@ -39,8 +39,16 @@
   margin-top: 3rem;
 }
 
+.new_hot_label {
+  width: 100%;
+  text-align: left;
+  padding: 0 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
 .card {
-  margin: 1rem;
+  margin: 0 0 20px 0;
   padding: 1.5rem;
   text-align: left;
   color: inherit;
