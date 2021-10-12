@@ -115,9 +115,11 @@
 }
 .subtotalcontainer {
   text-align: right;
+  width: 100%;
+  background-color: #ddd;
 }
 .subtotalcount {
-  font-size: 15px;
+  font-size: 14px;
   color: #666;
 }
 .subtotal {
@@ -170,6 +172,7 @@
   border: 0;
   transition: all 0.3s;
   outline: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .plusButtonOn span::before,

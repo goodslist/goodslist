@@ -73,11 +73,13 @@ const Home: React.FC<Props> = ({ eventList }) => (
 
         <form action='https://qiita.com' method='GET'>
           <input
-            className={styles.seach}
+            className={styles.search}
             type='seach'
             placeholder='アーティスト・イベント・作品名等で検索'
           ></input>
-          <input type='submit' name='submit' value='検索' />
+          <button className={styles.submit_search} type='submit' name='submit' value='検索'>
+            <span></span>
+          </button>
         </form>
         <div className={styles.grid}>
           <ul className={styles.card}>

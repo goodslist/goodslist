@@ -181,7 +181,7 @@ const Home = ({ goodsLists }: Props) => {
     setgoodsGroupCounts(goodsGroupCounts)
   }, [goodsList])
 
-  let aaa = 'a'
+  let aaa = 0
   return (
     <>
       <Head>
@@ -218,8 +218,8 @@ const Home = ({ goodsLists }: Props) => {
           <ul className={styles.goodslistul}>
             {goodsList.map((goods, index) =>
               (() => {
-                if (aaa == goods.goods_name) {
-                  aaa = goods.goods_name
+                if (aaa == goods.goods_group) {
+                  aaa = goods.goods_group
                   return (
                     <>
                       <li className={styles.goodslist} key={goods.goods_id}>
@@ -247,7 +247,7 @@ const Home = ({ goodsLists }: Props) => {
                     </>
                   )
                 } else {
-                  aaa = goods.goods_name
+                  aaa = goods.goods_group
                   return (
                     <>
                       <li className={styles.goodslisthead}>
