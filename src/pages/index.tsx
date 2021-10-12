@@ -7,7 +7,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useState, useEffect, useCallback } from 'react'
 import Footer from '../components/Footer'
-import Header from '../components/Header'
+import Navber from '../components/Navber'
 import { supabase } from '../components/supabase'
 import styles from '../styles/Home.module.css'
 
@@ -64,8 +64,7 @@ const Home: React.FC<Props> = ({ eventList }) => (
         rel='stylesheet'
       />
     </Head>
-    <Header />
-    <div className={styles.container}>
+    <div className={styles.main_container}>
       <main className={styles.main}>
         <h1 className={styles.title}>Goodsist</h1>
 
@@ -106,9 +105,12 @@ const Home: React.FC<Props> = ({ eventList }) => (
           </ul>
         </div>
       </main>
-
-      <Footer />
     </div>
   </>
 )
 export default Home
+
+//数字を3桁ごとにカンマ区切りする。
+const numberFormat = (num: number): string => {
+  return num.toLocaleString()
+}

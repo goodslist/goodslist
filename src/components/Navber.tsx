@@ -1,7 +1,7 @@
-import Link from 'next/dist/client/link';
-import styles from '../styles/Header.module.css';
+import Link from 'next/dist/client/link'
+import styles from '../styles/Header.module.css'
 
-export default function Header() {
+export default function Navbar() {
   return (
     <div className={styles.header_container}>
       <div className={styles.header}>
@@ -14,5 +14,5 @@ export default function Header() {
         </div>
       </div>
     </div>
-  );
+  )
 }
