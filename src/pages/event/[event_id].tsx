@@ -208,9 +208,9 @@ const Home = ({ goodsLists }: Props) => {
             <h1 className={styles.h1}>{goodsList[0].event_name}</h1>
           </div>
           <div className={styles.event_menu_container}>
-            <div className={styles.event_date}>
+            <p className={styles.event_date}>
               日程：{dateFormat(goodsList[0].first_date, goodsList[0].one_date)}
-            </div>
+            </p>
           </div>
           <div className={styles.event_menu_container}>
             <div className={styles.event_title_container}></div>

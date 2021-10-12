@@ -64,6 +64,10 @@ const Home: React.FC<Props> = ({ eventList }) => (
         href='https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap&text=Goodsist'
         rel='stylesheet'
       />
+      <link
+        href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
+        rel='stylesheet'
+      ></link>
     </Head>
     <div className={styles.main_container}>
       <main className={styles.main}>
@@ -71,15 +75,9 @@ const Home: React.FC<Props> = ({ eventList }) => (
 
         <h2 className={styles.sub_title}>グッズ代が計算できるWEBアプリ</h2>
 
-        <form action='https://qiita.com' method='GET'>
-          <input
-            className={styles.search}
-            type='seach'
-            placeholder='アーティスト・イベント・作品名等で検索'
-          ></input>
-          <button className={styles.submit_search} type='submit' name='submit' value='検索'>
-            <span></span>
-          </button>
+        <form method='get' action='#' className={styles.search_container}>
+          <input type='text' className={styles.search} placeholder='キーワード検索' />
+          <input type='submit' value='&#xf002' />
         </form>
         <div className={styles.grid}>
           <ul className={styles.card}>
@@ -97,13 +95,13 @@ const Home: React.FC<Props> = ({ eventList }) => (
           <ul className={styles.card}>
             <h3>人気なイベント</h3>
             {eventList.map((event) => (
-              <li key={event.event_id}>
-                <Link href={'event/' + event.event_id}>
-                  <a>
+              <Link href={'event/' + event.event_id}>
+                <a>
+                  <li key={event.event_id}>
                     {event.content_name} {event.event_name}
-                  </a>
-                </Link>
-              </li>
+                  </li>
+                </a>
+              </Link>
             ))}
           </ul>
         </div>
