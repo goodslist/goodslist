@@ -223,25 +223,27 @@ const Home = ({ goodsLists }: Props) => {
                   return (
                     <>
                       <li className={styles.goodslist} key={goods.goods_id}>
-                        <div className={styles.goods_type_container}>
-                          {goods.goods_type} {goods.color} {goods.size}
-                        </div>
-                        <div className={styles.goods_price_container}>
-                          &yen;{numberFormat(goods.price)} x {goods.goods_count}
-                        </div>
-                        <div className={styles.plus_minus_container}>
-                          <button
-                            onClick={() => minusGoodsCounts(index)}
-                            className={minusButtonOnOff(goods.goods_count)}
-                          >
-                            <span></span>
-                          </button>
-                          <button
-                            onClick={() => plusGoodsCounts(index)}
-                            className={plusButtonOnOff(goods.goods_count)}
-                          >
-                            <span></span>
-                          </button>
+                        <div className={styles.goods_detail_container}>
+                          <div className={styles.goods_type_container}>
+                            {goods.goods_type} {goods.color} {goods.size}
+                          </div>
+                          <div className={styles.goods_price_container}>
+                            &yen;{numberFormat(goods.price)} x {goods.goods_count}
+                          </div>
+                          <div className={styles.plus_minus_container}>
+                            <button
+                              onClick={() => minusGoodsCounts(index)}
+                              className={minusButtonOnOff(goods.goods_count)}
+                            >
+                              <span></span>
+                            </button>
+                            <button
+                              onClick={() => plusGoodsCounts(index)}
+                              className={plusButtonOnOff(goods.goods_count)}
+                            >
+                              <span></span>
+                            </button>
+                          </div>
                         </div>
                       </li>
                     </>

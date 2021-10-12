@@ -116,7 +116,6 @@
 .subtotalcontainer {
   text-align: right;
   width: 100%;
-  background-color: #ddd;
 }
 .subtotalcount {
   font-size: 14px;
@@ -130,14 +129,20 @@
   font-family: sans-serif;
 }
 
+.goods_detail_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+}
+
 .goods_type_container {
-  width: auto;
   display: flex;
   justify-content: left;
   align-items: center;
   font-family: sans-serif;
   font-size: 1.4rem;
-  text-align: left;
+  text-align: right;
+  width: auto;
 }
 
 .goods_price_container {
@@ -146,16 +151,18 @@
   align-items: center;
   font-family: sans-serif;
   text-align: right;
-  margin: 0 0 0 10px;
+  margin: 0 10px 0 10px;
   white-space: nowrap;
   font-size: 1.4rem;
+  width: 110px;
+  min-width: 110px;
 }
 
 .plus_minus_container {
-  width: 120px;
-  min-width: 120px;
+  width: 90px;
+  min-width: 90px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -167,7 +174,7 @@
   cursor: pointer;
   background-color: #68a9cf;
   top: 0;
-  margin-left: 20px;
+  margin-left: 10px;
   position: relative;
   border: 0;
   transition: all 0.3s;
@@ -200,7 +207,7 @@
   border-radius: 42px;
   background-color: #ccc;
   top: 0;
-  margin-left: 20px;
+  margin-left: 10px;
   position: relative;
   border: 0;
   transition: all 0.3s;
@@ -234,7 +241,7 @@
   cursor: pointer;
   background-color: rgb(209, 104, 104);
   top: 0;
-  margin-left: 20px;
+  margin: 0;
   position: relative;
   border: 0;
   transition: all 0.3s;
@@ -262,7 +269,7 @@
   border-radius: 42px;
   background-color: #ccc;
   top: 0;
-  margin-left: 20px;
+  margin: 0;
   position: relative;
   border: 0;
   transition: all 0.3s;
