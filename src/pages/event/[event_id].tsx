@@ -220,7 +220,7 @@ const Home = ({ goodsLists }: Props) => {
           <div className={styles.event_link_container}>
             <a href={goodsList[0].url} target='_blank'>
               <p className={styles.tag_official}>
-                Official site
+                Official
                 <span>
                   <Official_mobile />
                 </span>
