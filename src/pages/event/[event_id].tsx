@@ -14,6 +14,8 @@ import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
 import Calendar from '../img/calendar.svg'
 import Official_mobile from '../img/official_mobile.svg'
+import Icon_witter from '../img/icon_twitter.svg'
+import Line from '../img/line.svg'
 
 class EventInfo {
   content_id: number = 0
@@ -210,10 +212,10 @@ const Home = ({ goodsLists }: Props) => {
             <h1 className={styles.h1}>{goodsList[0].event_name}</h1>
           </div>
           <div className={styles.event_menu_container}>
-            <Calendar />
             <p className={styles.event_date}>
               {dateFormat(goodsList[0].first_date, goodsList[0].one_date)}
             </p>
+            <Calendar />
           </div>
           <div className={styles.event_link_container}>
             <a href={goodsList[0].url} target='_blank'>
@@ -221,6 +223,22 @@ const Home = ({ goodsLists }: Props) => {
                 Official site
                 <span>
                   <Official_mobile />
+                </span>
+              </p>
+            </a>
+            <a href={goodsList[0].url} target='_blank'>
+              <p className={styles.tag_twitter}>
+                共有
+                <span>
+                  <Icon_witter />
+                </span>
+              </p>
+            </a>
+            <a href={goodsList[0].url} target='_blank'>
+              <p className={styles.tag_line}>
+                共有
+                <span>
+                  <Line />
                 </span>
               </p>
             </a>
@@ -277,25 +295,27 @@ const Home = ({ goodsLists }: Props) => {
                         </span>
                       </li>
                       <li className={styles.goodslist} key={goods.goods_id}>
-                        <div className={styles.goods_type_container}>
-                          {goods.goods_type} {goods.color} {goods.size}
-                        </div>
-                        <div className={styles.goods_price_container}>
-                          &yen;{numberFormat(goods.price)} x {goods.goods_count}
-                        </div>
-                        <div className={styles.plus_minus_container}>
-                          <button
-                            onClick={() => minusGoodsCounts(index)}
-                            className={minusButtonOnOff(goods.goods_count)}
-                          >
-                            <span></span>
-                          </button>
-                          <button
-                            onClick={() => plusGoodsCounts(index)}
-                            className={plusButtonOnOff(goods.goods_count)}
-                          >
-                            <span></span>
-                          </button>
+                        <div className={styles.goods_detail_container}>
+                          <div className={styles.goods_type_container}>
+                            {goods.goods_type} {goods.color} {goods.size}
+                          </div>
+                          <div className={styles.goods_price_container}>
+                            &yen;{numberFormat(goods.price)} x {goods.goods_count}
+                          </div>
+                          <div className={styles.plus_minus_container}>
+                            <button
+                              onClick={() => minusGoodsCounts(index)}
+                              className={minusButtonOnOff(goods.goods_count)}
+                            >
+                              <span></span>
+                            </button>
+                            <button
+                              onClick={() => plusGoodsCounts(index)}
+                              className={plusButtonOnOff(goods.goods_count)}
+                            >
+                              <span></span>
+                            </button>
+                          </div>
                         </div>
                       </li>
                     </>
