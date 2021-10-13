@@ -16,6 +16,7 @@ import Calendar from '../img/calendar.svg'
 import Official_mobile from '../img/official_mobile.svg'
 import Icon_witter from '../img/icon_twitter.svg'
 import Line from '../img/line.svg'
+import Button_top from '../../components/Button_top'
 
 class EventInfo {
   content_id: number = 0
@@ -42,10 +43,6 @@ type PathParams = {
   event_id: string
 }
 
-// // ページコンポーネントに渡されるデータ
-// type Props = {
-//   goodsList: Goods[]
-// }
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
 export const getStaticPaths: GetStaticPaths<PathParams> = async () => {
@@ -112,6 +109,11 @@ const Home = ({ goodsLists }: Props) => {
   // //グッズの情報の配列
   const [goodsList, setGoodsList] = useState([...goodsLists])
 
+  //合計金額
+  const [TotalPrice, setTotalPrice] = useState(0)
+
+  const [TotalCount, setTotalCount] = useState(0)
+
   class GoodsGroupCount {
     goods_group: number = 0
     goods_group_count: number = 0
@@ -135,9 +137,6 @@ const Home = ({ goodsLists }: Props) => {
   const [goodsGroupCounts, setgoodsGroupCounts] = useState<GoodsGroupCount[]>([
     ...newGoodsGroupCounts,
   ])
-
-  //合計金額
-  const [TotalPrice, setTotalPrice] = useState(0)
 
   //プラスボタンが押されるとグッズのカウントを+1する。
   const plusGoodsCounts = (id: number) => {
@@ -170,22 +169,24 @@ const Home = ({ goodsLists }: Props) => {
   //グッズのカウントが更新されたら、合計金額を更新する。
   useEffect(() => {
     const newgoodsList = [...goodsList]
-    let total = 0
+    let newTotalPrice = 0
+    let newTotalCount = 0
     const test = newgoodsList.map((newgoods, index) => {
-      total = total + newgoods.price * newgoods.goods_count
-      // goodsGroupCounts[newgoods.goods_group - 1].sub_total_price =
-      //   goodsGroupCounts[newgoods.goods_group - 1].sub_total_price +
-      //   newgoods.price * newgoods.goods_count
+      newTotalPrice = newTotalPrice + newgoods.price * newgoods.goods_count
+      newTotalCount = newTotalCount + newgoods.goods_count
     })
     const test2 = goodsGroupCounts.map((goodsGroupCount, index) => {
       goodsGroupCount.sub_total_price = goodsGroupCount.price * goodsGroupCount.goods_group_count
     })
-    if (total > 999999) total = 999999
-    setTotalPrice(total)
+    if (newTotalPrice > 999999) newTotalPrice = 999999
+    setTotalPrice(newTotalPrice)
+    setTotalCount(newTotalCount)
     setgoodsGroupCounts(goodsGroupCounts)
   }, [goodsList])
 
-  let aaa = 0
+  let group_flag = 0
+  let goods_type_area: JSX.Element
+
   return (
     <>
       <Head>
@@ -201,7 +202,9 @@ const Home = ({ goodsLists }: Props) => {
       <div className={styles.main_container}>
         <div className={styles.total_bar_container}>
           <div className={styles.total_bar}>
-            <p className={styles.total}>&yen;{numberFormat(TotalPrice)}</p>
+            <p className={styles.total}>
+              {TotalCount} &yen;{numberFormat(TotalPrice)}
+            </p>
           </div>
         </div>
         <div className={styles.main}>
@@ -246,39 +249,8 @@ const Home = ({ goodsLists }: Props) => {
           <ul className={styles.goodslistul}>
             {goodsList.map((goods, index) =>
               (() => {
-                if (aaa == goods.goods_group) {
-                  aaa = goods.goods_group
-                  return (
-                    <>
-                      <li className={styles.goodslist} key={goods.goods_id}>
-                        <div className={styles.goods_detail_container}>
-                          <div className={styles.goods_type_container}>
-                            {goods.goods_type} {goods.color} {goods.size}
-                          </div>
-                          <div className={styles.goods_price_container}>
-                            &yen;{numberFormat(goods.price)} x {goods.goods_count}
-                          </div>
-                          <div className={styles.plus_minus_container}>
-                            <button
-                              onClick={() => minusGoodsCounts(index)}
-                              className={minusButtonOnOff(goods.goods_count)}
-                            >
-                              <span></span>
-                            </button>
-                            <button
-                              onClick={() => plusGoodsCounts(index)}
-                              className={plusButtonOnOff(goods.goods_count)}
-                            >
-                              <span></span>
-                            </button>
-                          </div>
-                        </div>
-                      </li>
-                    </>
-                  )
-                } else {
-                  aaa = goods.goods_group
-                  return (
+                if (group_flag != goods.goods_group) {
+                  goods_type_area = (
                     <>
                       <li className={styles.goodslisthead}>
                         <span className={styles.goodsname}>{goods.goods_name}</span>
@@ -294,36 +266,46 @@ const Home = ({ goodsLists }: Props) => {
                           </span>
                         </span>
                       </li>
-                      <li className={styles.goodslist} key={goods.goods_id}>
-                        <div className={styles.goods_detail_container}>
-                          <div className={styles.goods_type_container}>
-                            {goods.goods_type} {goods.color} {goods.size}
-                          </div>
-                          <div className={styles.goods_price_container}>
-                            &yen;{numberFormat(goods.price)} x {goods.goods_count}
-                          </div>
-                          <div className={styles.plus_minus_container}>
-                            <button
-                              onClick={() => minusGoodsCounts(index)}
-                              className={minusButtonOnOff(goods.goods_count)}
-                            >
-                              <span></span>
-                            </button>
-                            <button
-                              onClick={() => plusGoodsCounts(index)}
-                              className={plusButtonOnOff(goods.goods_count)}
-                            >
-                              <span></span>
-                            </button>
-                          </div>
-                        </div>
-                      </li>
                     </>
                   )
+                } else {
+                  goods_type_area = <></>
                 }
+                group_flag = goods.goods_group
+                return (
+                  <>
+                    {goods_type_area}
+                    <li className={styles.goodslist} key={goods.goods_id}>
+                      <div className={styles.goods_detail_container}>
+                        <div className={styles.goods_type_container}>
+                          {goods.goods_type} {goods.color} {goods.size}
+                        </div>
+                        <div className={styles.goods_price_container}>
+                          &yen;{numberFormat(goods.price)} x {goods.goods_count}
+                        </div>
+                        <div className={styles.plus_minus_container}>
+                          <button
+                            onClick={() => minusGoodsCounts(index)}
+                            className={minusButtonOnOff(goods.goods_count)}
+                          >
+                            <span></span>
+                          </button>
+                          <button
+                            onClick={() => plusGoodsCounts(index)}
+                            className={plusButtonOnOff(goods.goods_count)}
+                          >
+                            <span></span>
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                  </>
+                )
               })(),
             )}
           </ul>
+
+          <Button_top />
         </div>
       </div>
     </>

@@ -204,9 +204,9 @@
   content: '';
   position: absolute;
   top: 19px;
-  left: 10px;
-  width: 50%;
-  height: 2px;
+  left: 12px;
+  width: 40%;
+  height: 3px;
   margin: 0;
   background: #fff;
   transition: all 0.3s;
@@ -236,9 +236,9 @@
   content: '';
   position: absolute;
   top: 19px;
-  left: 10px;
-  width: 50%;
-  height: 2px;
+  left: 12px;
+  width: 40%;
+  height: 3px;
   margin: 0;
   background: #fff;
   transition: all 0.3s;
@@ -270,9 +270,9 @@
   content: '';
   position: absolute;
   top: 19px;
-  left: 10px;
-  width: 50%;
-  height: 2px;
+  left: 12px;
+  width: 40%;
+  height: 3px;
   margin: 0;
   background: #fff;
   transition: all 0.3s;
@@ -298,9 +298,9 @@
   content: '';
   position: absolute;
   top: 19px;
-  left: 10px;
-  width: 50%;
-  height: 2px;
+  left: 12px;
+  width: 40%;
+  height: 3px;
   margin: 0;
   background: #fff;
   transition: all 0.3s;
@@ -402,4 +402,33 @@
   width: 20px;
   height: 20px;
   fill: #fff;
+}
+
+.button_go_top {
+  width: 60px;
+  height: 60px;
+  position: fixed;
+  left: 50px;
+  bottom: 50px;
+  z-index: 1;
+  background-color: #000;
+  color: #fff;
+  left: auto;
+  bottom: 50px;
+  margin: 0 0 0 20px;
+  border-radius: 60px;
+}
+.button_go_top_active {
+  width: 60px;
+  height: 60px;
+  position: fixed;
+  left: 50px;
+  bottom: 50px;
+  z-index: 1;
+  background-color: red;
+  color: #fff;
+  left: auto;
+  bottom: 50px;
+  margin: 0 0 0 20px;
+  border-radius: 60px;
 }
