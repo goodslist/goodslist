@@ -209,7 +209,6 @@ const Home = ({ goodsLists }: Props) => {
           </div>
           <div className={styles.event_menu_container}>
             <p className={styles.event_date}>
-              <image src='images/calendar.svg' />
               {dateFormat(goodsList[0].first_date, goodsList[0].one_date)}
             </p>
           </div>
