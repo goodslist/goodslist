@@ -10,7 +10,6 @@ import Footer from '../components/Footer'
 import Navber from '../components/Navber'
 import { supabase } from '../components/supabase'
 import styles from '../styles/Home.module.css'
-import Calendar from './img/calendar.svg'
 
 type EventInfo = {
   content_id: number
@@ -75,7 +74,6 @@ const Home: React.FC<Props> = ({ eventList }) => (
         <h1 className={styles.title}>Goodsist</h1>
 
         <h2 className={styles.sub_title}>グッズ代が計算できるWEBアプリ</h2>
-        <Calendar />
         <form method='get' action='#' className={styles.search_container}>
           <input type='text' className={styles.search} placeholder='キーワード検索' />
           <input type='submit' value='&#xf002' />
