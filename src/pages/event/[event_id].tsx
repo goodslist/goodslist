@@ -234,44 +234,68 @@ const Home = ({ goodsLists }: Props) => {
           </div>
         </div>
         <div className={styles.main}>
-          <div className={styles.contant_name_container}>
-            <p className={styles.content_name}>{goodsList[0].content_name}</p>
-          </div>
-          <div className={styles.event_title_container}>
-            <h1 className={styles.h1}>{goodsList[0].event_name}</h1>
-          </div>
-          <div className={styles.event_menu_container}>
-            <p className={styles.event_date}>
-              {dateFormat(goodsList[0].first_date, goodsList[0].one_date)}
-            </p>
-            <Calendar />
-          </div>
-          <div className={styles.event_link_container}>
-            <a href={goodsList[0].url} target='_blank'>
-              <p className={styles.tag_official}>
-                Official
-                <span>
-                  <Official_mobile />
-                </span>
-              </p>
-            </a>
-            <a href={goodsList[0].url} target='_blank'>
-              <p className={styles.tag_twitter}>
-                共有
-                <span>
-                  <Icon_witter />
-                </span>
-              </p>
-            </a>
-            <a href={goodsList[0].url} target='_blank'>
-              <p className={styles.tag_line}>
-                共有
-                <span>
-                  <Line />
-                </span>
-              </p>
-            </a>
-          </div>
+          <ul className={styles.goodslistul}>
+            {goodsList.map((goods, index) =>
+              (() => {
+                if (group_flag != goods.goods_group) {
+                  goods_type_area = (
+                    <>
+                      <li className={styles.goodslisthead}>
+                        <span className={styles.goodsname}>{goods.goods_name}</span>
+                      </li>
+                      <li className={styles.goodslist}>
+                        <span className={styles.subtotalcontainer}>
+                          <span onClick={() => hiddenGoods(goods.goods_group)}>あ　</span>
+                          <span className={styles.subtotalcount}>
+                            {goodsGroupCounts[goods.goods_group - 1].goods_group_count}点
+                          </span>
+                          <span className={styles.subtotal}>
+                            &yen;
+                            {numberFormat(goodsGroupCounts[goods.goods_group - 1].sub_total_price)}
+                          </span>
+                        </span>
+                      </li>
+                    </>
+                  )
+                } else {
+                  goods_type_area = <></>
+                }
+                group_flag = goods.goods_group
+                return (
+                  <>
+                    {goods_type_area}
+                    <li
+                      className={goodsGroupCounts[goods.goods_group - 1].group_flag}
+                      key={goods.goods_id}
+                    >
+                      <div className={styles.goods_detail_container}>
+                        <div className={styles.goods_type_container}>
+                          {goods.goods_type} {goods.color} {goods.size}
+                        </div>
+                        <div className={styles.goods_price_container}>
+                          &yen;{numberFormat(goods.price)} x {goods.goods_count}
+                        </div>
+                        <div className={styles.plus_minus_container}>
+                          <button
+                            onClick={() => minusGoodsCounts(index)}
+                            className={minusButtonOnOff(goods.goods_count)}
+                          >
+                            <span></span>
+                          </button>
+                          <button
+                            onClick={() => plusGoodsCounts(index)}
+                            className={plusButtonOnOff(goods.goods_count)}
+                          >
+                            <span></span>
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                  </>
+                )
+              })(),
+            )}
+          </ul>
         </div>
       </div>
     </>
