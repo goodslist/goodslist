@@ -104,31 +104,12 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     }
     goodsList.push(goods)
   })
-  type PageProps = {
-    goodsLists: Goods[]
-  }
-  const props: PageProps = {
-    goodsLists: goodsList,
-  }
 
-  return { props }
-}
-
-const Home = ({ goodsLists }: Props) => {
-  const router = useRouter()
-  // //グッズの情報の配列
-  const [goodsList, setGoodsList] = useState([...goodsLists])
-
-  //合計金額
-  const [TotalPrice, setTotalPrice] = useState(0)
-
-  const [TotalCount, setTotalCount] = useState(0)
-
-  const newGoodsGroupCounts: GoodsGroupCount[] = []
+  const goodsGroupCount: GoodsGroupCount[] = []
   let now_goods_group = 1
   goodsList.map((goods, index) => {
     if (goods.goods_group == now_goods_group) {
-      newGoodsGroupCounts[now_goods_group - 1] = {
+      goodsGroupCount[now_goods_group - 1] = {
         goods_group: goods.goods_group,
         goods_group_count: 0,
         price: goods.price,
@@ -138,9 +119,30 @@ const Home = ({ goodsLists }: Props) => {
       now_goods_group++
     }
   })
-  const [goodsGroupCounts, setgoodsGroupCounts] = useState<GoodsGroupCount[]>([
-    ...newGoodsGroupCounts,
-  ])
+
+  type PageProps = {
+    goodsLists: Goods[]
+    goodsGroupCount: GoodsGroupCount[]
+  }
+  const props: PageProps = {
+    goodsLists: goodsList,
+    goodsGroupCount: goodsGroupCount,
+  }
+
+  return { props }
+}
+
+const Home = ({ goodsLists, goodsGroupCount }: Props) => {
+  const router = useRouter()
+  // //グッズの情報の配列
+  const [goodsList, setGoodsList] = useState([...goodsLists])
+
+  //合計金額
+  const [TotalPrice, setTotalPrice] = useState(0)
+
+  const [TotalCount, setTotalCount] = useState(0)
+
+  const [goodsGroupCounts, setgoodsGroupCounts] = useState<GoodsGroupCount[]>([...goodsGroupCount])
 
   //プラスボタンが押されるとグッズのカウントを+1する。
   const plusGoodsCounts = (id: number) => {
