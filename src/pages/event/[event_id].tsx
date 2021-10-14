@@ -19,6 +19,8 @@ import Line from '../img/line.svg'
 import Reset from '../img/reset.svg'
 import Save from '../img/save.svg'
 import Button_top from '../../components/Button_top'
+// import ScrollButton from '../../components/ScrollButton'
+import { animateScroll as scroll } from 'react-scroll'
 
 class EventInfo {
   content_id: number = 0
@@ -228,6 +230,18 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     }
   }
 
+  // const [scrollY, setScrollY] = useState(window.screenY)
+
+  // const [scrollButtonOnOff, setScrollButtonOnOff] = useState(styles.scroll_button_hidden)
+
+  // if (scrollY > 100) {
+  //   setScrollButtonOnOff(styles.scroll_button)
+  // }
+
+  const scrollToTop = () => {
+    scroll.scrollToTop()
+  }
+
   return (
     <>
       <Head>
@@ -360,6 +374,9 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
               })(),
             )}
           </ul>
+          <div className={styles.scroll_button} onClick={scrollToTop}>
+            a
+          </div>
         </div>
       </div>
     </>
