@@ -119,6 +119,7 @@ const Home = ({ goodsLists }: Props) => {
     goods_group_count: number = 0
     price: number = 0
     sub_total_price: number = 0
+    group_flag = styles.goodslist
   }
 
   const newGoodsGroupCounts: GoodsGroupCount[] = []
@@ -130,6 +131,7 @@ const Home = ({ goodsLists }: Props) => {
         goods_group_count: 0,
         price: goods.price,
         sub_total_price: 0,
+        group_flag: styles.goodslist,
       }
       now_goods_group++
     }
@@ -186,6 +188,17 @@ const Home = ({ goodsLists }: Props) => {
 
   let group_flag = 0
   let goods_type_area: JSX.Element
+  const [goods_hidden_flag, setGoods_hidden_flag] = useState(styles.goodslist)
+
+  const hiddenGoods = (goods_group: number) => {
+    if (goodsGroupCounts[goods_group - 1].group_flag == styles.goodslist) {
+      setGoods_hidden_flag(styles.goodslist_hidden)
+      goodsGroupCounts[goods_group - 1].group_flag = styles.goodslist_hidden
+    } else {
+      setGoods_hidden_flag(styles.goodslist)
+      goodsGroupCounts[goods_group - 1].group_flag = styles.goodslist
+    }
+  }
 
   return (
     <>
@@ -257,6 +270,7 @@ const Home = ({ goodsLists }: Props) => {
                       </li>
                       <li className={styles.goodslist}>
                         <span className={styles.subtotalcontainer}>
+                          <span onClick={() => hiddenGoods(goods.goods_group)}>あ　</span>
                           <span className={styles.subtotalcount}>
                             {goodsGroupCounts[goods.goods_group - 1].goods_group_count}点合計
                           </span>
@@ -275,7 +289,10 @@ const Home = ({ goodsLists }: Props) => {
                 return (
                   <>
                     {goods_type_area}
-                    <li className={styles.goodslist} key={goods.goods_id}>
+                    <li
+                      className={goodsGroupCounts[goods.goods_group - 1].group_flag}
+                      key={goods.goods_id}
+                    >
                       <div className={styles.goods_detail_container}>
                         <div className={styles.goods_type_container}>
                           {goods.goods_type} {goods.color} {goods.size}
@@ -304,8 +321,6 @@ const Home = ({ goodsLists }: Props) => {
               })(),
             )}
           </ul>
-
-          <Button_top />
         </div>
       </div>
     </>
@@ -355,7 +370,6 @@ function plusButtonOnOff(goodsCount: number) {
     return styles.plusButtonOff
   }
 }
-
 //マイナスボタンをグッズのカウントが0の時はオフ、1以上の時はオンに切り替える。
 const minusButtonOnOff = (goodsCount: number) => {
   if (goodsCount > 0) {
@@ -364,17 +378,15 @@ const minusButtonOnOff = (goodsCount: number) => {
     return styles.minusButtonOff
   }
 }
-//日付を年月日にする。
-const dateFormat = (date: string, one_date: boolean): string => {
-  const result = date.split('-')
-  let date_string = result[0] + '年' + result[1] + '月' + result[2] + '日'
-  if (one_date == false) date_string = date_string + '～'
-  return date_string
-}
-
 //数字を3桁ごとにカンマ区切りする。
 const numberFormat = (num: number): string => {
   return num.toLocaleString()
 }
+const dateFormat = (date: string, one_date: boolean): string => {
+  const result = date.split('-')
+  let date_string = result[0] + '年' + result[1] + '月' + result[2] + '日'
+  if (one_date == false) date_string = date_string + '～'
 
+  return date_string
+}
 export default Home

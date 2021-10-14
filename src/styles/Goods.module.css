@@ -105,6 +105,22 @@
   justify-content: right;
   -webkit-align-items: right;
   align-items: right;
+  transition: all 0.3s;
+}
+.goodslist_hidden {
+  list-style: none;
+  line-height: 20px;
+  padding: 10px 10px;
+  margin: 0;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: right;
+  justify-content: right;
+  -webkit-align-items: right;
+  align-items: right;
+  transition: all 0.3s;
+  background-color: red;
+  top: 0;
 }
 .goodslisthead {
   list-style: none;
