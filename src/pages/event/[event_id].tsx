@@ -144,6 +144,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
 
   const [goodsGroupCounts, setgoodsGroupCounts] = useState<GoodsGroupCount[]>([...goodsGroupCount])
 
+  //リセットボタンが押された場合、グッズとグループのカウントを0にする
   const reset = (goodsList: Goods[]) => {
     const newgoodsList = [...goodsList]
     const test = newgoodsList.map((newgoods, index) => {
@@ -204,7 +205,10 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     resetOnOff(newTotalPrice)
   }, [goodsList])
 
+  //リセットボタンのオンオフフラグ
   const [reset_flag, setReset_flag] = useState(styles.reset_off)
+
+  //合計金額を参照し、リセットボタンのオンオフを切り替える。
   const resetOnOff = (newTotalPrice: number) => {
     if (newTotalPrice > 0) setReset_flag(styles.reset)
     else setReset_flag(styles.reset_off)
@@ -245,7 +249,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
               </span>
               リセット
             </div>
-            <div className={styles.save}>
+            <div className={styles.save_off}>
               <span>
                 <Save />
               </span>
