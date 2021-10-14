@@ -283,7 +283,6 @@ const Home = ({ goodsLists }: Props) => {
                       </li>
                       <li className={styles.goodslist}>
                         <span className={styles.subtotalcontainer}>
-                          <span onClick={() => hiddenGoods(goods.goods_group)}>あ　</span>
                           <span className={styles.subtotalcount}>
                             {goodsGroupCounts[goods.goods_group - 1].goods_group_count}点
                           </span>
