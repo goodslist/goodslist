@@ -246,6 +246,32 @@ const Home = ({ goodsLists }: Props) => {
             </p>
             <Calendar />
           </div>
+          <div className={styles.event_link_container}>
+            <a href={goodsList[0].url} target='_blank'>
+              <p className={styles.tag_official}>
+                Official
+                <span>
+                  <Official_mobile />
+                </span>
+              </p>
+            </a>
+            <a href={goodsList[0].url} target='_blank'>
+              <p className={styles.tag_twitter}>
+                共有
+                <span>
+                  <Icon_witter />
+                </span>
+              </p>
+            </a>
+            <a href={goodsList[0].url} target='_blank'>
+              <p className={styles.tag_line}>
+                共有
+                <span>
+                  <Line />
+                </span>
+              </p>
+            </a>
+          </div>
           <ul className={styles.goodslistul}>
             {goodsList.map((goods, index) =>
               (() => {
