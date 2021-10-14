@@ -150,6 +150,10 @@
   display: flex;
   justify-content: right;
 }
+.goods_detail_test {
+  width: 100px;
+  background-color: red;
+}
 
 .goods_type_container {
   display: flex;
