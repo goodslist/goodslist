@@ -98,7 +98,6 @@
   width: 100%;
   margin: 160px 0 40px 0;
   text-align: center;
-  background-color: red;
 }
 
 .main {
@@ -255,8 +254,6 @@
   margin: 0 10px 0 0;
   white-space: nowrap;
   font-size: 1.4rem;
-  width: 100px;
-  min-width: 100px;
 }
 
 .plus_minus_container {
@@ -392,8 +389,8 @@
 }
 .event_link_container {
   width: 100%;
-  padding: 0 20px;
-  height: 30px;
+  padding: 20px;
+  height: 70px;
   display: flex;
   justify-content: left;
   align-items: center;

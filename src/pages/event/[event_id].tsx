@@ -41,6 +41,14 @@ class Goods extends EventInfo {
   goods_count: number = 0
 }
 
+class GoodsGroupCount {
+  goods_group: number = 0
+  goods_group_count: number = 0
+  price: number = 0
+  sub_total_price: number = 0
+  group_flag = styles.goodslist
+}
+
 type PathParams = {
   event_id: string
 }
@@ -115,14 +123,6 @@ const Home = ({ goodsLists }: Props) => {
   const [TotalPrice, setTotalPrice] = useState(0)
 
   const [TotalCount, setTotalCount] = useState(0)
-
-  class GoodsGroupCount {
-    goods_group: number = 0
-    goods_group_count: number = 0
-    price: number = 0
-    sub_total_price: number = 0
-    group_flag = styles.goodslist
-  }
 
   const newGoodsGroupCounts: GoodsGroupCount[] = []
   let now_goods_group = 1
@@ -215,7 +215,7 @@ const Home = ({ goodsLists }: Props) => {
         />
       </Head>
       <div className={styles.main_container}>
-        <div className={styles.total_bar_container}>
+        <div className={styles.total_bar_container} id='concept'>
           <div className={styles.total_bar}>
             <div className={styles.reset}>
               <span>

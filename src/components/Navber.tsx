@@ -1,6 +1,6 @@
 import Link from 'next/dist/client/link'
 import styles from '../styles/Header.module.css'
-
+import React from 'react'
 export default function Navbar() {
   return (
     <div className={styles.header_container}>
