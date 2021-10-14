@@ -34,10 +34,7 @@ export default function Button_top() {
 
   return (
     <>
-      <div className={scroll} onClick={returnButtonTop}>
-        {/* <div className={scroll ? 'scroll scroll' : 'scroll'} onClick={returnButtonTop}> */}
-        あ2
-      </div>
+      <div className={scroll} onClick={returnButtonTop}></div>
     </>
   )
 }

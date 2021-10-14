@@ -281,9 +281,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
             <h1 className={styles.h1}>{goodsList[0].event_name}</h1>
           </div>
           <div className={styles.event_menu_container}>
-            <p className={styles.event_date}>
-              {dateFormat(goodsList[0].first_date, goodsList[0].one_date)}
-            </p>
+            <p className={styles.event_date}>{dateFormat(goodsList[0].first_date)}</p>
             <Calendar />
           </div>
           <div className={styles.event_link_container}>
@@ -403,10 +401,19 @@ const minusButtonOnOff = (goodsCount: number) => {
 const numberFormat = (num: number): string => {
   return num.toLocaleString()
 }
-const dateFormat = (date: string, one_date: boolean): string => {
+const dateFormat = (date: string): string => {
+  const WeekJp = ['日', '月', '火', '水', '木', '金', '土']
   const result = date.split('-')
-  let date_string = result[0] + '年' + result[1] + '月' + result[2] + '日'
-  if (one_date == false) date_string = date_string + '～'
+  let date_string =
+    result[0] +
+    '年' +
+    result[1] +
+    '月' +
+    result[2] +
+    '日' +
+    '(' +
+    WeekJp[new Date(date).getDay()] +
+    ')'
 
   return date_string
 }

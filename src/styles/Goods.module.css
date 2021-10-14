@@ -182,7 +182,7 @@
 }
 
 .contant_name_container {
-  margin: 0;
+  margin: 10px 0 0 0;
   padding: 0 20px;
   text-align: left;
 }
@@ -560,12 +560,12 @@
   width: 60px;
   height: 60px;
   border-radius: 60px;
-  background-color: red;
+  background-color: #000;
   position: fixed;
   bottom: 30px;
   left: 30px;
   opacity: 0.7;
   transition: all 0.3s;
-  /* visibility: hidden; */
+  visibility: hidden;
   visibility: visible;
 }
