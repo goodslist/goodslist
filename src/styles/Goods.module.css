@@ -146,6 +146,7 @@
 }
 
 .goods_detail_container {
+  width: 100%;
   display: flex;
   justify-content: right;
 }
