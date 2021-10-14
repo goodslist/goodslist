@@ -215,9 +215,10 @@ const Home = ({ goodsLists }: Props) => {
       <div className={styles.main_container}>
         <div className={styles.total_bar_container}>
           <div className={styles.total_bar}>
-            <p className={styles.total}>
-              {TotalCount} &yen;{numberFormat(TotalPrice)}
-            </p>
+            <div className={styles.reset}>リセット</div>
+            <div className={styles.save}>保存</div>
+            <div className={styles.total_count}>{TotalCount}点</div>
+            <div className={styles.total}>&yen;{numberFormat(TotalPrice)}</div>
           </div>
         </div>
         <div className={styles.main}>
@@ -272,7 +273,7 @@ const Home = ({ goodsLists }: Props) => {
                         <span className={styles.subtotalcontainer}>
                           <span onClick={() => hiddenGoods(goods.goods_group)}>あ　</span>
                           <span className={styles.subtotalcount}>
-                            {goodsGroupCounts[goods.goods_group - 1].goods_group_count}点合計
+                            {goodsGroupCounts[goods.goods_group - 1].goods_group_count}点
                           </span>
                           <span className={styles.subtotal}>
                             &yen;
