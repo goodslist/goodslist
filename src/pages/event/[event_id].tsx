@@ -234,6 +234,18 @@ const Home = ({ goodsLists }: Props) => {
           </div>
         </div>
         <div className={styles.main}>
+          <div className={styles.contant_name_container}>
+            <p className={styles.content_name}>{goodsList[0].content_name}</p>
+          </div>
+          <div className={styles.event_title_container}>
+            <h1 className={styles.h1}>{goodsList[0].event_name}</h1>
+          </div>
+          <div className={styles.event_menu_container}>
+            <p className={styles.event_date}>
+              {dateFormat(goodsList[0].first_date, goodsList[0].one_date)}
+            </p>
+            <Calendar />
+          </div>
           <ul className={styles.goodslistul}>
             {goodsList.map((goods, index) =>
               (() => {
