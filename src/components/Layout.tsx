@@ -12,8 +12,8 @@ export default function Layout({ children }: Props) {
     <>
       <Navbar />
       <main>{children}</main>
-      <Button_top />
       <Footer />
+      <Button_top />
     </>
   )
 }
