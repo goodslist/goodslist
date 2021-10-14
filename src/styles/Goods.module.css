@@ -147,7 +147,6 @@
 
 .goods_detail_container {
   display: flex;
-  flex-direction: row;
   justify-content: right;
 }
 
@@ -402,33 +401,4 @@
   width: 20px;
   height: 20px;
   fill: #fff;
-}
-
-.button_go_top {
-  width: 60px;
-  height: 60px;
-  position: fixed;
-  left: 50px;
-  bottom: 50px;
-  z-index: 1;
-  background-color: #000;
-  color: #fff;
-  left: auto;
-  bottom: 50px;
-  margin: 0 0 0 20px;
-  border-radius: 60px;
-}
-.button_go_top_active {
-  width: 60px;
-  height: 60px;
-  position: fixed;
-  left: 50px;
-  bottom: 50px;
-  z-index: 1;
-  background-color: red;
-  color: #fff;
-  left: auto;
-  bottom: 50px;
-  margin: 0 0 0 20px;
-  border-radius: 60px;
 }
