@@ -2,9 +2,9 @@ import styles from '../styles/Button_top.module.css'
 import * as React from 'react'
 import { useEffect } from 'react'
 
-export default function App() {
+export default function Button_top() {
   // scroll が高さを超えているとき trueになるstate
-  const [go_top, setGo_top] = React.useState(false)
+  const [scroll, setScroll] = React.useState(styles.button_scroll)
   const returnButtonTop = () => {
     window.scrollTo({
       top: 0,
@@ -16,9 +16,9 @@ export default function App() {
     const scrollAction = () => {
       if (150 > window.scrollY) {
         // 150の値は 判定したい高さに変更する
-        setGo_top(true)
+        setScroll(styles.button_scroll)
       } else {
-        setGo_top(false)
+        setScroll(styles.button_scroll_active)
       }
     }
     window.addEventListener('scroll', scrollAction, {
@@ -34,7 +34,8 @@ export default function App() {
 
   return (
     <>
-      <div className={go_top ? 'scroll go_top' : 'scroll'} onClick={returnButtonTop}>
+      <div className={scroll} onClick={returnButtonTop}>
+        {/* <div className={scroll ? 'scroll scroll' : 'scroll'} onClick={returnButtonTop}> */}
         あ2
       </div>
     </>

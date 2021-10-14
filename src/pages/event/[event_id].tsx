@@ -238,9 +238,9 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
   //   setScrollButtonOnOff(styles.scroll_button)
   // }
 
-  const scrollToTop = () => {
-    scroll.scrollToTop()
-  }
+  // const scrollToTop = () => {
+  //   scroll.scrollToTop()
+  // }
 
   return (
     <>
@@ -374,9 +374,9 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
               })(),
             )}
           </ul>
-          <div className={styles.scroll_button} onClick={scrollToTop}>
+          {/* <div className={styles.scroll_button} onClick={scrollToTop}>
             a
-          </div>
+          </div> */}
         </div>
       </div>
     </>

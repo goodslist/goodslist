@@ -1,31 +1,43 @@
-.button_go_top {
+.button_scroll {
   width: 60px;
   height: 60px;
   position: fixed;
-  left: 50px;
-  bottom: 50px;
-  z-index: 1;
+  left: 20px;
+  bottom: 20px;
   background-color: #000;
   color: #fff;
-  left: auto;
-  bottom: 50px;
-  margin: 0 0 0 20px;
+  margin: 0;
   border-radius: 60px;
+  transition: all 0.3s;
+  visibility: hidden;
+  opacity: 0;
 }
-.button_go_top_active {
+.button_scroll_active {
   width: 60px;
   height: 60px;
   position: fixed;
-  left: 50px;
-  bottom: 50px;
-  z-index: 1;
-  background-color: red;
+  left: 20px;
+  bottom: 20px;
+  background-color: #000;
   color: #fff;
-  left: auto;
-  bottom: 50px;
-  margin: 0 0 0 20px;
+  margin: 0;
   border-radius: 60px;
+  opacity: 0.7;
+  transition: all 0.3s;
+  visibility: visible;
+  cursor: pointer;
 }
+
+.button_scroll_active::before {
+  left: 3px;
+  width: 4px;
+  height: 4px;
+  border-top: 1px solid #7a0;
+  border-right: 1px solid #7a0;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
 .scroll {
   position: fixed;
   top: 0;
