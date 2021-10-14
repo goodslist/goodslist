@@ -148,11 +148,11 @@
 .goods_detail_container {
   width: 100%;
   display: flex;
-  justify-content: right;
+  justify-content: flex-end;
 }
 .goods_detail_test {
   width: 100px;
-  background-color: red;
+  background-color: blue;
 }
 
 .goods_type_container {
