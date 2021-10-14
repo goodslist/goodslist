@@ -28,7 +28,7 @@
 .reset {
   min-width: 65px;
   padding: 0 10px;
-  font-size: 12x;
+  font-size: 12px;
   color: #fff;
   line-height: 40px;
   position: relative;
@@ -40,8 +40,8 @@
   display: block;
   content: '';
   position: absolute;
-  top: 5px;
-  left: -10px;
+  top: 6px;
+  left: -5px;
   width: 20px;
   height: 20px;
   color: #fff;
@@ -65,8 +65,8 @@
   display: block;
   content: '';
   position: absolute;
-  top: 4px;
-  left: 10px;
+  top: 5px;
+  left: 5px;
   width: 20px;
   height: 20px;
   color: #fff;
