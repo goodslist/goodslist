@@ -150,10 +150,6 @@
   display: flex;
   justify-content: flex-end;
 }
-.goods_detail_test {
-  width: 100px;
-  background-color: blue;
-}
 
 .goods_type_container {
   display: flex;

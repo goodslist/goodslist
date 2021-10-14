@@ -277,8 +277,7 @@ const Home = ({ goodsLists }: Props) => {
                     {goods_type_area}
                     <li className={styles.goodslist} key={goods.goods_id}>
                       <div className={styles.goods_detail_container}>
-                        <div className={styles.goods_detail_test}>あ</div>
-                        {/* <div className={styles.goods_type_container}>
+                        <div className={styles.goods_type_container}>
                           {goods.goods_type} {goods.color} {goods.size}
                         </div>
                         <div className={styles.goods_price_container}>
@@ -297,7 +296,7 @@ const Home = ({ goodsLists }: Props) => {
                           >
                             <span></span>
                           </button>
-                        </div> */}
+                        </div>
                       </div>
                     </li>
                   </>
