@@ -144,6 +144,19 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
 
   const [goodsGroupCounts, setgoodsGroupCounts] = useState<GoodsGroupCount[]>([...goodsGroupCount])
 
+  const reset = (goodsList: Goods[]) => {
+    const newgoodsList = [...goodsList]
+    const test = newgoodsList.map((newgoods, index) => {
+      newgoods.goods_count = 0
+    })
+    setGoodsList(newgoodsList)
+    const newGoodsGroupCounts = [...goodsGroupCounts]
+    const test2 = newGoodsGroupCounts.map((newGoodsGroupCount, index) => {
+      newGoodsGroupCount.goods_group_count = 0
+    })
+    setgoodsGroupCounts(newGoodsGroupCounts)
+  }
+
   //プラスボタンが押されるとグッズのカウントを+1する。
   const plusGoodsCounts = (id: number) => {
     const newgoodsList = [...goodsList]
@@ -188,7 +201,14 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     setTotalPrice(newTotalPrice)
     setTotalCount(newTotalCount)
     setgoodsGroupCounts(goodsGroupCounts)
+    resetOnOff(newTotalPrice)
   }, [goodsList])
+
+  const [reset_flag, setReset_flag] = useState(styles.reset_off)
+  const resetOnOff = (newTotalPrice: number) => {
+    if (newTotalPrice > 0) setReset_flag(styles.reset)
+    else setReset_flag(styles.reset_off)
+  }
 
   let group_flag = 0
   let goods_type_area: JSX.Element
@@ -219,7 +239,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
       <div className={styles.main_container}>
         <div className={styles.total_bar_container} id='concept'>
           <div className={styles.total_bar}>
-            <div className={styles.reset}>
+            <div className={reset_flag} onClick={() => reset(goodsList)}>
               <span>
                 <Reset />
               </span>
@@ -369,4 +389,5 @@ const dateFormat = (date: string, one_date: boolean): string => {
 
   return date_string
 }
+
 export default Home
