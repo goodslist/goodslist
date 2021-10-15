@@ -78,7 +78,7 @@ const Home: React.FC<Props> = ({ eventList }) => (
           <input
             type='text'
             className={styles.search}
-            placeholder='アーティスト・イベント・作品名等で検索'
+            placeholder='アーティスト・イベント名で検索'
           />
           <span className={styles.search_button}>
             <Search />
