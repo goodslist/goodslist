@@ -10,7 +10,7 @@ import Footer from '../components/Footer'
 import Navber from '../components/Navber'
 import { supabase } from '../components/supabase'
 import styles from '../styles/Home.module.css'
-import Calendar from './img/calendar.svg'
+import Search from './img/search.svg'
 
 type EventInfo = {
   content_id: number
@@ -73,12 +73,16 @@ const Home: React.FC<Props> = ({ eventList }) => (
     <div className={styles.main_container}>
       <main className={styles.main}>
         <h1 className={styles.title}>Goodsist</h1>
-
         <h2 className={styles.sub_title}>グッズ代が計算できるWEBアプリ</h2>
-        <Calendar />
         <form method='get' action='#' className={styles.search_container}>
-          <input type='text' className={styles.search} placeholder='キーワード検索' />
-          <input type='submit' value='&#xf002' />
+          <input
+            type='text'
+            className={styles.search}
+            placeholder='アーティスト・イベント・作品名等で検索'
+          />
+          <span className={styles.search_button}>
+            <Search />
+          </span>
         </form>
         <div className={styles.grid}>
           <p className={styles.new_hot_label}>新しいイベント</p>

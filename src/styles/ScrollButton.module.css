@@ -25,9 +25,9 @@
   transition: all 0.3s;
   cursor: pointer;
 }
-.button_scroll_active:hover {
+/* .button_scroll_active:hover {
   background-color: red;
-}
+} */
 
 .button_scroll_active::before {
   content: '';
