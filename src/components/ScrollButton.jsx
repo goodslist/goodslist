@@ -1,5 +1,6 @@
 import React from 'react'
-import { animateScroll as scroll } from 'react-scroll' //import
+import { animateScroll as scroll } from 'react-scroll'
+import styles from '../styles/ScrollButton.module.css'
 
 class ScrollButton extends React.Component {
   // scrollToTopの実装
@@ -8,7 +9,7 @@ class ScrollButton extends React.Component {
   }
 
   render() {
-    return <button onClick={this.scrollToTop}>Click</button>
+    return <div className={styles.button_scroll_active} onClick={this.scrollToTop}></div>
   }
 }
 export default ScrollButton
