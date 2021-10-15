@@ -2,6 +2,7 @@ import Navbar from './Navber'
 import Footer from './Footer'
 import Button_top from './Button_top'
 import { ReactNode } from 'react'
+import ScrollButton from './ScrollButton'
 
 type Props = {
   children: ReactNode
@@ -13,7 +14,8 @@ export default function Layout({ children }: Props) {
       <Navbar />
       <main>{children}</main>
       <Footer />
-      <Button_top />
+      <ScrollButton />
+      {/* <Button_top /> */}
     </>
   )
 }
