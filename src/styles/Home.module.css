@@ -62,6 +62,14 @@
   box-sizing: border-box;
 }
 
+.new_event_border li:first-child {
+  border: none;
+}
+
+.hot_event_border li:first-child {
+  border: none;
+}
+
 /* .card:hover,
 .card:focus,
 .card:active {
@@ -75,6 +83,10 @@
   padding: 10px 0;
   border-top: 1px solid #ccc;
   font-size: 1.4rem;
+}
+
+.card li:first-child {
+  border: none;
 }
 .card li a {
   display: block;

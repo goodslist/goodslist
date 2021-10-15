@@ -86,7 +86,7 @@ const Home: React.FC<Props> = ({ eventList }) => (
         </form>
         <div className={styles.grid}>
           <p className={styles.new_hot_label}>新しいイベント</p>
-          <ul className={styles.card}>
+          <ul className={`${styles.card} ${styles.new_event_border}`}>
             {eventList.map((event) => (
               <li key={event.event_id}>
                 <Link href={'event/' + event.event_id}>
@@ -98,15 +98,15 @@ const Home: React.FC<Props> = ({ eventList }) => (
             ))}
           </ul>
           <p className={styles.new_hot_label}>人気イベント</p>
-          <ul className={styles.card}>
+          <ul className={`${styles.card} ${styles.hot_event_border}`}>
             {eventList.map((event) => (
-              <Link href={'event/' + event.event_id}>
-                <a>
-                  <li key={event.event_id}>
+              <li key={event.event_id}>
+                <Link href={'event/' + event.event_id}>
+                  <a>
                     <b>{event.content_name}</b> {event.event_name}
-                  </li>
-                </a>
-              </Link>
+                  </a>
+                </Link>
+              </li>
             ))}
           </ul>
         </div>
