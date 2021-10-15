@@ -148,6 +148,27 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
   //グッズグループごとの個数の配列
   const [goodsGroupCounts, setgoodsGroupCounts] = useState<GoodsGroupCount[]>([...goodsGroupCount])
 
+  //購入優先に並び替える
+  const sortBuy = () => {
+    const newGoodsGroupCounts = [...goodsGroupCounts]
+    let group_count_true: GoodsGroupCount[] = []
+    let group_count_false: GoodsGroupCount[] = []
+    const test = newGoodsGroupCounts.map((newGoodsGroupCount, index) => {
+      if (newGoodsGroupCount.goods_group_count > 0) group_count_true.push(newGoodsGroupCount)
+      else group_count_false.push(newGoodsGroupCount)
+    })
+    const sortedGroupCounts = group_count_true.concat(group_count_false)
+    setgoodsGroupCounts(sortedGroupCounts)
+    const newgoodsList = [...goodsList]
+    const sortedNewgoodsList: Goods[] = []
+    const test2 = sortedGroupCounts.map((sortedGroupCount, index) => {
+      const test3 = newgoodsList.map((newgoods, index) => {
+        if (sortedGroupCount.goods_group == newgoods.goods_group) sortedNewgoodsList.push(newgoods)
+      })
+    })
+    setGoodsList(sortedNewgoodsList)
+  }
+
   //リセットボタンが押された場合、グッズとグループのカウントを0にする
   const reset = (goodsList: Goods[]) => {
     const newgoodsList = [...goodsList]
@@ -323,7 +344,8 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
                       </li>
                       <li className={styles.goodslist}>
                         <span className={styles.subtotalcontainer}>
-                          <span onClick={() => hiddenGoods(goods.goods_group)}>あ　</span>
+                          {/* <span onClick={() => sortBuy()}>ソート　</span>
+                          <span onClick={() => hiddenGoods(goods.goods_group)}>あ　</span> */}
                           <span className={styles.subtotalcount}>
                             {goodsGroupCounts[goods.goods_group - 1].goods_group_count}点
                           </span>

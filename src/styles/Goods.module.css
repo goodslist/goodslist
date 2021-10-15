@@ -218,6 +218,10 @@
   margin: 0;
   padding: 0;
   max-width: 800px;
+  transition: all 0.3s;
+}
+.goodslistul li {
+  transition: all 0.3s;
 }
 .goodslist {
   list-style: none;
