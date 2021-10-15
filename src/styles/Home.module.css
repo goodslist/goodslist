@@ -55,13 +55,16 @@
   text-decoration: none;
   border: 1px solid #eaeaea;
   border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
   min-width: 300px;
   max-width: 400px;
   background-color: #fff;
   box-sizing: border-box;
+  transition: all 0.3s;
 }
 
+.card:hover {
+  filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.1));
+}
 .new_event_border li:first-child {
   border: none;
 }
@@ -132,6 +135,12 @@
   border: 1px solid #999;
   border-radius: 3rem;
   background-color: #fff;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.search:hover {
+  filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.2));
 }
 .search_container {
   position: relative;
@@ -154,4 +163,5 @@
   fill: #68a9cf;
   top: 8px;
   right: 10px;
+  cursor: pointer;
 }

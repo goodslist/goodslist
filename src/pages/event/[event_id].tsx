@@ -142,8 +142,10 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
   //合計金額
   const [TotalPrice, setTotalPrice] = useState(0)
 
+  //合計個数
   const [TotalCount, setTotalCount] = useState(0)
 
+  //グッズグループごとの個数の配列
   const [goodsGroupCounts, setgoodsGroupCounts] = useState<GoodsGroupCount[]>([...goodsGroupCount])
 
   //リセットボタンが押された場合、グッズとグループのカウントを0にする
