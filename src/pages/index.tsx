@@ -97,7 +97,6 @@ const Home = ({ eventList }: Props) => {
           <h2 className={styles.sub_title}>グッズ代が計算できるWEBアプリ</h2>
           <form action='' className={styles.search_container} onSubmit={clickButton}>
             <input
-              autoFocus
               type='text'
               className={styles.search}
               placeholder='アーティスト・イベント名で検索'
