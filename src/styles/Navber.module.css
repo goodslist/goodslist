@@ -18,7 +18,7 @@
   padding: 0;
   margin: auto;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   font-family: sans-serif;
   text-align: right;
@@ -29,9 +29,6 @@
   min-width: 180px;
   height: 60px;
   text-align: left;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 .logo {
   margin: 0;
@@ -40,17 +37,20 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-.login_container {
+.login_signup_container {
+  display: flex;
+}
+.login {
   width: 60px;
   font-size: 1rem;
   height: 60px;
   text-align: center;
-  padding: 40px 0 0 0;
+  padding: 36px 0 0 0;
   position: relative;
   cursor: pointer;
 }
 
-.login_container span {
+.login span {
   display: block;
   content: '';
   position: absolute;
@@ -59,17 +59,17 @@
   width: 20px;
   height: 20px;
 }
-.login_container svg {
+.login svg {
   width: 30px;
   height: 30px;
   fill: #000;
 }
 
-.signup_container {
+.signup {
   width: 60px;
   font-size: 1rem;
   height: 60px;
   text-align: center;
-  padding: 40px 0 0 0;
+  padding: 36px 0 0 0;
   cursor: pointer;
 }

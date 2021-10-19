@@ -13,13 +13,15 @@ export default function Navbar() {
             </a>
           </Link>
         </div>
-        <div className={styles.login_container}>
-          <span>
-            <Login />
-          </span>
-          ログイン
+        <div className={styles.login_signup_container}>
+          <div className={styles.login}>
+            <span>
+              <Login />
+            </span>
+            ログイン
+          </div>
+          <div className={styles.signup}>新規登録</div>
         </div>
-        <div className={styles.signup_container}>新規登録</div>
       </div>
     </div>
   )
