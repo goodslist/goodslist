@@ -6,43 +6,43 @@ import Link from 'next/link'
 export default function Output() {
   const router = useRouter()
 
-  const word = router.query.word
+  const searchWord = router.query.word
 
   class SearchResult {
     event_id: number = 0
     content_name: string = ''
     event_name: string = ''
-    content_name_hira: string = ''
   }
 
   const [searchResults, setSearchResults] = useState<SearchResult[]>([])
 
   let newSearchResults: SearchResult[] = []
 
-  async function abc() {
+  async function search() {
     const { data, error } = await supabase
-      .from('events')
-      .select('event_id, event_name, contents(content_name, content_name_hira, content_name_kana)')
-      .ilike('event_name', '%' + word + '%')
+      .from('searches')
+      .select('event_id, event_name, content_name, search_word')
+      .ilike('search_word', '%' + searchWord + '%')
     data?.map((doc) => {
       const searchResult: SearchResult = {
         event_id: doc.event_id,
-        content_name: doc.contents.content_name,
         event_name: doc.event_name,
-        content_name_hira: doc.contents.content_name_hira,
+        content_name: doc.content_name,
       }
       newSearchResults.push(searchResult)
     })
     setSearchResults(newSearchResults)
   }
   useEffect(() => {
-    abc()
+    search()
   }, [])
 
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
       {/* パラメータの表示 */}
-      <h1>input：{word}</h1>
+      <h1>
+        {searchWord}　を含む検索結果({searchResults.length}件)
+      </h1>
       <ul>
         {searchResults?.map((searchResult) => (
           <>

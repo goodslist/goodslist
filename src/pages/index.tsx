@@ -95,8 +95,9 @@ const Home = ({ eventList }: Props) => {
         <main className={styles.main}>
           <h1 className={styles.title}>Goodsist</h1>
           <h2 className={styles.sub_title}>グッズ代が計算できるWEBアプリ</h2>
-          <form method='get' action='#' className={styles.search_container} onSubmit={clickButton}>
+          <form action='' className={styles.search_container} onSubmit={clickButton}>
             <input
+              autoFocus
               type='text'
               className={styles.search}
               placeholder='アーティスト・イベント名で検索'
