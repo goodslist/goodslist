@@ -1,6 +1,7 @@
 import Link from 'next/dist/client/link'
 import styles from '../styles/Navber.module.css'
 import React from 'react'
+import Login from '../pages/img/login.svg'
 export default function Navbar() {
   return (
     <div className={styles.header_container}>
@@ -12,7 +13,12 @@ export default function Navbar() {
             </a>
           </Link>
         </div>
-        <div className={styles.login_container}>ログイン</div>
+        <div className={styles.login_container}>
+          <span>
+            <Login />
+          </span>
+          ログイン
+        </div>
         <div className={styles.signup_container}>新規登録</div>
       </div>
     </div>
