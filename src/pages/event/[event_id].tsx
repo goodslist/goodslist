@@ -5,7 +5,7 @@ import { GetStaticProps } from 'next'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import Footer from '../../components/Footer'
 import { supabase } from '../../components/supabase'
 import styles from '../../styles/Goods.module.css'
@@ -45,10 +45,11 @@ class Goods extends EventInfo {
 
 class GoodsGroupCount {
   goods_group: number = 0
+  goods_name: string = ''
   goods_group_count: number = 0
   price: number = 0
   sub_total_price: number = 0
-  group_flag = styles.goodslist
+  open_flag: boolean = true
 }
 
 type PathParams = {
@@ -113,10 +114,11 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     if (goods.goods_group == now_goods_group) {
       goodsGroupCount[now_goods_group - 1] = {
         goods_group: goods.goods_group,
+        goods_name: goods.goods_name,
         goods_group_count: 0,
         price: goods.price,
         sub_total_price: 0,
-        group_flag: styles.goodslist,
+        open_flag: true,
       }
       now_goods_group++
     }
@@ -239,18 +241,48 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     else setReset_flag(styles.reset_off)
   }
 
-  let group_flag = 0
+  let group_flag = 1
   let goods_type_area: JSX.Element
   const [goods_hidden_flag, setGoods_hidden_flag] = useState(styles.goodslist)
 
-  const hiddenGoods = (goods_group: number) => {
-    if (goodsGroupCounts[goods_group - 1].group_flag == styles.goodslist) {
-      setGoods_hidden_flag(styles.goodslist_hidden)
-      goodsGroupCounts[goods_group - 1].group_flag = styles.goodslist_hidden
+  // const goods_detail_css = useRef(styles.goods_list_li)
+
+  const [goods_detail_css, setGoods_Detaol_Css] = useState(styles.goods_list_li)
+
+  const xyz = (number: number) => {
+    if (goods_detail_css == styles.goods_list_li) setGoods_Detaol_Css(styles.goods_list_li_active)
+    else setGoods_Detaol_Css(styles.goods_list_li)
+  }
+
+  const [goods_items_css, setGoods_Items_Css] = useState(styles.goods_items_container)
+
+  const abxyz = (number: number) => {
+    if (goods_items_css == styles.goods_items_container)
+      setGoods_Items_Css(styles.goods_items_container_active)
+    else setGoods_Items_Css(styles.goods_items_container)
+  }
+
+  const [goods_opens, setGoods_Opens] = useState<string[]>([])
+  useEffect(() => {
+    const new_goods_opens: string[] = []
+    const test3 = goodsGroupCounts.map((goodsGroupCount) => {
+      new_goods_opens.push(styles.goods_items_container)
+    })
+    setGoods_Opens(new_goods_opens)
+  }, [])
+
+  const open_close = (num: number) => {
+    const new_oods_opens = [...goods_opens]
+    const newGoodsGroupCounts = [...goodsGroupCounts]
+    if (goodsGroupCounts[num].open_flag == true) {
+      new_oods_opens[num] = styles.goods_items_container_active
+      newGoodsGroupCounts[num].open_flag = false
     } else {
-      setGoods_hidden_flag(styles.goodslist)
-      goodsGroupCounts[goods_group - 1].group_flag = styles.goodslist
+      new_oods_opens[num] = styles.goods_items_container
+      newGoodsGroupCounts[num].open_flag = true
     }
+    setGoods_Opens(new_oods_opens)
+    setgoodsGroupCounts(newGoodsGroupCounts)
   }
 
   // const [scrollY, setScrollY] = useState(window.screenY)
@@ -333,68 +365,62 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
               </p>
             </a>
           </div>
-          <ul className={styles.goodslistul}>
-            {goodsList.map((goods, index) =>
-              (() => {
-                if (group_flag != goods.goods_group) {
-                  goods_type_area = (
-                    <>
-                      <li className={styles.goodslisthead}>
-                        <span className={styles.goodsname}>{goods.goods_name}</span>
-                      </li>
-                      <li className={styles.goodslist}>
-                        <span className={styles.subtotalcontainer}>
-                          {/* <span onClick={() => sortBuy()}>ソート　</span>
-                          <span onClick={() => hiddenGoods(goods.goods_group)}>あ　</span> */}
-                          <span className={styles.subtotalcount}>
-                            {goodsGroupCounts[goods.goods_group - 1].goods_group_count}点
-                          </span>
-                          <span className={styles.subtotal}>
-                            &yen;
-                            {numberFormat(goodsGroupCounts[goods.goods_group - 1].sub_total_price)}
-                          </span>
-                        </span>
-                      </li>
-                    </>
-                  )
-                } else {
-                  goods_type_area = <></>
-                }
-                group_flag = goods.goods_group
-                return (
-                  <>
-                    {goods_type_area}
-                    <li
-                      className={goodsGroupCounts[goods.goods_group - 1].group_flag}
-                      key={goods.goods_id}
-                    >
-                      <div className={styles.goods_detail_container}>
-                        <div className={styles.goods_type_container}>
-                          {goods.goods_type} {goods.color} {goods.size}
-                        </div>
-                        <div className={styles.goods_price_container}>
-                          &yen;{numberFormat(goods.price)} x {goods.goods_count}
-                        </div>
-                        <div className={styles.plus_minus_container}>
-                          <button
-                            onClick={() => minusGoodsCounts(index)}
-                            className={minusButtonOnOff(goods.goods_count)}
-                          >
-                            <span></span>
-                          </button>
-                          <button
-                            onClick={() => plusGoodsCounts(index)}
-                            className={plusButtonOnOff(goods.goods_count)}
-                          >
-                            <span></span>
-                          </button>
-                        </div>
+          <ul className={styles.goods_list_ul}>
+            {goodsGroupCounts.map((group, index) => (
+              <>
+                <li className={goods_detail_css} key={group.goods_group}>
+                  <div className={styles.goods_name}>{group.goods_name}</div>
+                  <div className={styles.goodslist}>
+                    <div className={styles.subtotalcontainer}>
+                      <span onClick={() => open_close(group.goods_group - 1)}></span>
+                      {/* {<span onClick={() => sortBuy()}>ソート　</span>}
+                      // <span onClick={() => hiddenGoods(goods.goods_group)}>あ　</span> } */}
+                      <div className={styles.subtotalcount}>
+                        {goodsGroupCounts[group.goods_group - 1].goods_group_count}点
                       </div>
-                    </li>
-                  </>
-                )
-              })(),
-            )}
+                      <div className={styles.subtotal}>
+                        &yen;
+                        {numberFormat(goodsGroupCounts[group.goods_group - 1].sub_total_price)}
+                      </div>
+                    </div>
+                  </div>
+                  <div className={goods_opens[group.goods_group - 1]}>
+                    {goodsList.map((goods, index) =>
+                      (() => {
+                        if (group.goods_group == goods.goods_group) {
+                          return (
+                            <>
+                              <div className={styles.goods_detail_container}>
+                                <div className={styles.goods_type_container}>
+                                  {goods.goods_type} {goods.color} {goods.size}
+                                </div>
+                                <div className={styles.goods_price_container}>
+                                  &yen;{numberFormat(goods.price)} x {goods.goods_count}
+                                </div>
+                                <div className={styles.plus_minus_container}>
+                                  <button
+                                    onClick={() => minusGoodsCounts(index)}
+                                    className={minusButtonOnOff(goods.goods_count)}
+                                  >
+                                    <span></span>
+                                  </button>
+                                  <button
+                                    onClick={() => plusGoodsCounts(index)}
+                                    className={plusButtonOnOff(goods.goods_count)}
+                                  >
+                                    <span></span>
+                                  </button>
+                                </div>
+                              </div>
+                            </>
+                          )
+                        }
+                      })(),
+                    )}
+                  </div>
+                </li>
+              </>
+            ))}
           </ul>
           {/* <div className={styles.scroll_button} onClick={scrollToTop}>
             a
