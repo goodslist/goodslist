@@ -370,11 +370,11 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
               <>
                 <li className={goods_detail_css} key={group.goods_group}>
                   <div className={styles.goods_name}>{group.goods_name}</div>
-                  <div className={styles.goodslist}>
-                    <div className={styles.subtotalcontainer}>
-                      <span onClick={() => open_close(group.goods_group - 1)}></span>
-                      {/* {<span onClick={() => sortBuy()}>ソート　</span>}
+                  <div className={styles.subtotalcontainer}>
+                    <span onClick={() => open_close(group.goods_group - 1)}></span>
+                    {/* {<span onClick={() => sortBuy()}>ソート　</span>}
                       // <span onClick={() => hiddenGoods(goods.goods_group)}>あ　</span> } */}
+                    <div className={styles.subtotalwrap}>
                       <div className={styles.subtotalcount}>
                         {goodsGroupCounts[group.goods_group - 1].goods_group_count}点
                       </div>
