@@ -108,7 +108,9 @@ const Home = ({ eventList }: Props) => {
             </span>
           </form>
           <div className={styles.grid}>
-            <p className={styles.new_hot_label}>新しいイベント</p>
+            <p className={styles.new_hot_label} onClick={sort}>
+              新しいイベント
+            </p>
             <ul className={`${styles.card} ${styles.new_event_border}`}>
               {eventList.map((event) => (
                 <li key={event.event_id}>
@@ -139,6 +141,10 @@ const Home = ({ eventList }: Props) => {
   )
 }
 export default Home
+
+const sort = () => {
+  alert('aaa')
+}
 
 //数字を3桁ごとにカンマ区切りする。
 const numberFormat = (num: number): string => {

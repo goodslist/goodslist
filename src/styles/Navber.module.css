@@ -37,7 +37,7 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-.login_signup_container {
+.login_sign_up_container {
   display: flex;
 }
 .login {
@@ -65,11 +65,27 @@
   fill: #000;
 }
 
-.signup {
+.sign_up {
   width: 60px;
   font-size: 1rem;
   height: 60px;
   text-align: center;
   padding: 36px 0 0 0;
+  position: relative;
   cursor: pointer;
+}
+
+.sign_up span {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 13px;
+  width: 20px;
+  height: 20px;
+}
+.sign_up svg {
+  width: 30px;
+  height: 30px;
+  fill: #000;
 }
