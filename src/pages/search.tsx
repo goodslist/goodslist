@@ -53,6 +53,7 @@ export default function Output() {
                   <b>{searchResult.content_name}</b>
                   <br />
                   {searchResult.event_name}
+                  <span />
                 </a>
               </Link>
             </li>

@@ -112,6 +112,7 @@ const Home = ({ eventList }: Props) => {
                   <b>{event.content_name}</b>
                   <br />
                   {event.event_name}
+                  <span />
                 </a>
               </Link>
             </li>
@@ -126,6 +127,7 @@ const Home = ({ eventList }: Props) => {
                   <b>{event.content_name}</b>
                   <br />
                   {event.event_name}
+                  <span />
                 </a>
               </Link>
             </li>
