@@ -32,6 +32,7 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
   const { data, error } = await supabase
     .from('events')
     .select('event_id, event_name, contents(content_id, content_name)')
+    .limit(10)
 
   const eventList: EventInfo[] = []
   data?.map((doc) => {
@@ -99,7 +100,7 @@ const Home = ({ eventList }: Props) => {
             <input
               type='text'
               className={styles.search}
-              placeholder='アーティスト・イベント名等で検索'
+              placeholder='アーティスト・イベント名で検索'
               value={input}
               onChange={(e) => setInput(e.target.value)}
             />
