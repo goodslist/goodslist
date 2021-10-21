@@ -288,126 +288,124 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
           rel='stylesheet'
         />
       </Head>
-      <div className={styles.main_container}>
-        <div className={styles.total_bar_container} id='concept'>
-          <div className={styles.total_bar}>
-            <div className={reset_flag} onClick={() => reset(goodsList)}>
-              <span>
-                <Reset />
-              </span>
-              リセット
-            </div>
-            <div className={styles.save_off}>
-              <span>
-                <Save />
-              </span>
-              保存
-            </div>
-            <div className={styles.total_count}>{TotalCount}点</div>
-            <div className={styles.total}>&yen;{numberFormat(TotalPrice)}</div>
+      <div className={styles.total_bar_container} id='concept'>
+        <div className={styles.total_bar}>
+          <div className={reset_flag} onClick={() => reset(goodsList)}>
+            <span>
+              <Reset />
+            </span>
+            リセット
           </div>
+          <div className={styles.save_off}>
+            <span>
+              <Save />
+            </span>
+            保存
+          </div>
+          <div className={styles.total_count}>{TotalCount}点</div>
+          <div className={styles.total}>&yen;{numberFormat(TotalPrice)}</div>
         </div>
-        <div className={styles.main}>
-          <div className={styles.contant_name_container}>
-            <p className={styles.content_name}>{goodsList[0].content_name}</p>
-          </div>
-          <div className={styles.event_title_container}>
-            <h1 className={styles.h1}>{goodsList[0].event_name}</h1>
-          </div>
-          <div className={styles.event_menu_container}>
-            <p className={styles.event_date}>{dateFormat(goodsList[0].first_date)}</p>
-            <Calendar />
-          </div>
-          <div className={styles.event_link_container}>
-            <a href={goodsList[0].url} target='_blank'>
-              <p className={styles.tag_official}>
-                Official
-                <span>
-                  <Official_mobile />
-                </span>
-              </p>
-            </a>
-            <a href={goodsList[0].url} target='_blank'>
-              <p className={styles.tag_twitter}>
-                共有
-                <span>
-                  <Icon_witter />
-                </span>
-              </p>
-            </a>
-            <a href={goodsList[0].url} target='_blank'>
-              <p className={styles.tag_line}>
-                共有
-                <span>
-                  <Line />
-                </span>
-              </p>
-            </a>
-          </div>
-          <ul className={styles.goods_list_ul}>
-            {goodsGroupCounts.map((group, index) => (
-              <>
-                <li className={styles.goods_list_li} key={group.goods_group}>
-                  <div className={styles.goods_name}>{group.goods_name}</div>
-                  <div className={styles.subtotalcontainer}>
-                    <span
-                      className={goodsGroupCounts[group.goods_group - 1].open_arrow_css}
-                      onClick={() => chengeOpenCloseCss(group.goods_group - 1)}
-                    ></span>
-                    {/* {<span onClick={() => sortBuy()}>ソート　</span>}
+      </div>
+      <div className={styles.main}>
+        <div className={styles.contant_name_container}>
+          <p className={styles.content_name}>{goodsList[0].content_name}</p>
+        </div>
+        <div className={styles.event_title_container}>
+          <h1 className={styles.h1}>{goodsList[0].event_name}</h1>
+        </div>
+        <div className={styles.event_menu_container}>
+          <p className={styles.event_date}>{dateFormat(goodsList[0].first_date)}</p>
+          <Calendar />
+        </div>
+        <div className={styles.event_link_container}>
+          <a href={goodsList[0].url} target='_blank'>
+            <p className={styles.tag_official}>
+              Official
+              <span>
+                <Official_mobile />
+              </span>
+            </p>
+          </a>
+          <a href={goodsList[0].url} target='_blank'>
+            <p className={styles.tag_twitter}>
+              共有
+              <span>
+                <Icon_witter />
+              </span>
+            </p>
+          </a>
+          <a href={goodsList[0].url} target='_blank'>
+            <p className={styles.tag_line}>
+              共有
+              <span>
+                <Line />
+              </span>
+            </p>
+          </a>
+        </div>
+        <ul className={styles.goods_list_ul}>
+          {goodsGroupCounts.map((group, index) => (
+            <>
+              <li className={styles.goods_list_li} key={group.goods_group}>
+                <div className={styles.goods_name}>{group.goods_name}</div>
+                <div className={styles.subtotalcontainer}>
+                  <span
+                    className={goodsGroupCounts[group.goods_group - 1].open_arrow_css}
+                    onClick={() => chengeOpenCloseCss(group.goods_group - 1)}
+                  ></span>
+                  {/* {<span onClick={() => sortBuy()}>ソート　</span>}
                       // <span onClick={() => hiddenGoods(goods.goods_group)}>あ　</span> } */}
-                    <div className={styles.subtotalwrap}>
-                      <div className={styles.subtotalcount}>
-                        {goodsGroupCounts[group.goods_group - 1].goods_group_count}点
-                      </div>
-                      <div className={styles.subtotal}>
-                        &yen;
-                        {numberFormat(goodsGroupCounts[group.goods_group - 1].sub_total_price)}
-                      </div>
+                  <div className={styles.subtotalwrap}>
+                    <div className={styles.subtotalcount}>
+                      {goodsGroupCounts[group.goods_group - 1].goods_group_count}点
+                    </div>
+                    <div className={styles.subtotal}>
+                      &yen;
+                      {numberFormat(goodsGroupCounts[group.goods_group - 1].sub_total_price)}
                     </div>
                   </div>
-                  <div className={goodsGroupCounts[group.goods_group - 1].open_flag_css}>
-                    {goodsList.map((goods, index) =>
-                      (() => {
-                        if (group.goods_group == goods.goods_group) {
-                          return (
-                            <>
-                              <div className={styles.goods_detail_container}>
-                                <div className={styles.goods_type_container}>
-                                  {goods.goods_type} {goods.color} {goods.size}
-                                </div>
-                                <div className={styles.goods_price_container}>
-                                  &yen;{numberFormat(goods.price)} x {goods.goods_count}
-                                </div>
-                                <div className={styles.plus_minus_container}>
-                                  <button
-                                    onClick={() => minusGoodsCounts(index)}
-                                    className={minusButtonOnOff(goods.goods_count)}
-                                  >
-                                    <span></span>
-                                  </button>
-                                  <button
-                                    onClick={() => plusGoodsCounts(index)}
-                                    className={plusButtonOnOff(goods.goods_count)}
-                                  >
-                                    <span></span>
-                                  </button>
-                                </div>
+                </div>
+                <div className={goodsGroupCounts[group.goods_group - 1].open_flag_css}>
+                  {goodsList.map((goods, index) =>
+                    (() => {
+                      if (group.goods_group == goods.goods_group) {
+                        return (
+                          <>
+                            <div className={styles.goods_detail_container}>
+                              <div className={styles.goods_type_container}>
+                                {goods.goods_type} {goods.color} {goods.size}
                               </div>
-                            </>
-                          )
-                        }
-                      })(),
-                    )}
-                  </div>
-                </li>
-              </>
-            ))}
-          </ul>
-          {/* <div className={styles.scroll_button} onClick={scrollToTop}>
+                              <div className={styles.goods_price_container}>
+                                &yen;{numberFormat(goods.price)} x {goods.goods_count}
+                              </div>
+                              <div className={styles.plus_minus_container}>
+                                <button
+                                  onClick={() => minusGoodsCounts(index)}
+                                  className={minusButtonOnOff(goods.goods_count)}
+                                >
+                                  <span></span>
+                                </button>
+                                <button
+                                  onClick={() => plusGoodsCounts(index)}
+                                  className={plusButtonOnOff(goods.goods_count)}
+                                >
+                                  <span></span>
+                                </button>
+                              </div>
+                            </div>
+                          </>
+                        )
+                      }
+                    })(),
+                  )}
+                </div>
+              </li>
+            </>
+          ))}
+        </ul>
+        {/* <div className={styles.scroll_button} onClick={scrollToTop}>
             a
           </div> */}
-        </div>
       </div>
     </>
   )

@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { supabase } from '../components/supabase'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import styles from '../styles/Search.module.css'
 
 export default function Output() {
   const router = useRouter()
@@ -43,13 +44,16 @@ export default function Output() {
       <h1>
         {searchWord}　を含む検索結果({searchResults.length}件)
       </h1>
-      <ul>
+      <ul className={styles.card}>
         {searchResults?.map((searchResult) => (
           <>
             <li>
-              <b>{searchResult.content_name}</b>{' '}
               <Link href={'../event/' + searchResult.event_id}>
-                <a>{searchResult.event_name}</a>
+                <a>
+                  <b>{searchResult.content_name}</b>
+                  <br />
+                  {searchResult.event_name}
+                </a>
               </Link>
             </li>
           </>
