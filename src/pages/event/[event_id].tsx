@@ -318,17 +318,17 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
           <Calendar />
         </div>
         <div className={styles.event_link_container}>
-          <a href={goodsList[0].url} target='_blank'>
+          {/* <a href={goodsList[0].url} target='_blank'>
             <p className={styles.tag_official}>
               Official
               <span>
                 <Official_mobile />
               </span>
             </p>
-          </a>
+          </a> */}
           <a href={goodsList[0].url} target='_blank'>
             <p className={styles.tag_twitter}>
-              共有
+              ツイート
               <span>
                 <Icon_witter />
               </span>
@@ -336,7 +336,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
           </a>
           <a href={goodsList[0].url} target='_blank'>
             <p className={styles.tag_line}>
-              共有
+              LINE
               <span>
                 <Line />
               </span>
