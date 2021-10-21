@@ -32,9 +32,10 @@
 }
 .logo {
   margin: 0;
-  font-size: 21px;
+  font-size: 27px;
   line-height: 60px;
   font-family: 'Montserrat', sans-serif;
+  color: #333;
 }
 
 .login_sign_up_container {

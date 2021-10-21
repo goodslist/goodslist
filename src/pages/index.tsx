@@ -1,13 +1,9 @@
 import Link from 'next/link'
 import React from 'react'
 import { GetStaticProps } from 'next'
-/* eslint-disable @next/next/no-page-custom-font */
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import { useState, useEffect, useCallback } from 'react'
-import Footer from '../components/Footer'
-import Navber from '../components/Navber'
 import { supabase } from '../components/supabase'
 import styles from '../styles/Home.module.css'
 import Search from './img/search.svg'
@@ -109,9 +105,7 @@ const Home = ({ eventList }: Props) => {
             </span>
           </form>
           <div className={styles.grid}>
-            <p className={styles.new_hot_label} onClick={sort}>
-              新しいイベント
-            </p>
+            <p className={styles.new_hot_label}>新しいイベント</p>
             <ul className={`${styles.card} ${styles.new_event_border}`}>
               {eventList.map((event) => (
                 <li key={event.event_id}>
@@ -142,12 +136,3 @@ const Home = ({ eventList }: Props) => {
   )
 }
 export default Home
-
-const sort = () => {
-  alert('aaa')
-}
-
-//数字を3桁ごとにカンマ区切りする。
-const numberFormat = (num: number): string => {
-  return num.toLocaleString()
-}
