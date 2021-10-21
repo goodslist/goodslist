@@ -262,26 +262,34 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     else setGoods_Items_Css(styles.goods_items_container)
   }
 
-  const [goods_opens, setGoods_Opens] = useState<string[]>([])
+  const [group_opens, setgroup_opens] = useState<string[]>([])
+  const [group_opens_icons, setgroup_opens_icons] = useState<string[]>([])
   useEffect(() => {
-    const new_goods_opens: string[] = []
+    const new_group_opens: string[] = []
+    const new_group_opens_icons: string[] = []
     const test3 = goodsGroupCounts.map((goodsGroupCount) => {
-      new_goods_opens.push(styles.goods_items_container)
+      new_group_opens.push(styles.goods_items_container)
+      new_group_opens_icons.push(styles.group_arrow_open)
     })
-    setGoods_Opens(new_goods_opens)
+    setgroup_opens(new_group_opens)
+    setgroup_opens_icons(new_group_opens_icons)
   }, [])
 
   const open_close = (num: number) => {
-    const new_oods_opens = [...goods_opens]
+    const new_group_opens = [...group_opens]
+    const new_group_opens_icons = [...group_opens_icons]
     const newGoodsGroupCounts = [...goodsGroupCounts]
     if (goodsGroupCounts[num].open_flag == true) {
-      new_oods_opens[num] = styles.goods_items_container_active
+      new_group_opens[num] = styles.goods_items_container_active
+      new_group_opens_icons[num] = styles.group_arrow_close
       newGoodsGroupCounts[num].open_flag = false
     } else {
-      new_oods_opens[num] = styles.goods_items_container
+      new_group_opens[num] = styles.goods_items_container
+      new_group_opens_icons[num] = styles.group_arrow_open
       newGoodsGroupCounts[num].open_flag = true
     }
-    setGoods_Opens(new_oods_opens)
+    setgroup_opens(new_group_opens)
+    setgroup_opens_icons(new_group_opens_icons)
     setgoodsGroupCounts(newGoodsGroupCounts)
   }
 
@@ -371,7 +379,10 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
                 <li className={goods_detail_css} key={group.goods_group}>
                   <div className={styles.goods_name}>{group.goods_name}</div>
                   <div className={styles.subtotalcontainer}>
-                    <span onClick={() => open_close(group.goods_group - 1)}></span>
+                    <span
+                      className={group_opens_icons[group.goods_group - 1]}
+                      onClick={() => open_close(group.goods_group - 1)}
+                    ></span>
                     {/* {<span onClick={() => sortBuy()}>ソート　</span>}
                       // <span onClick={() => hiddenGoods(goods.goods_group)}>あ　</span> } */}
                     <div className={styles.subtotalwrap}>
@@ -384,7 +395,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
                       </div>
                     </div>
                   </div>
-                  <div className={goods_opens[group.goods_group - 1]}>
+                  <div className={group_opens[group.goods_group - 1]}>
                     {goodsList.map((goods, index) =>
                       (() => {
                         if (group.goods_group == goods.goods_group) {
