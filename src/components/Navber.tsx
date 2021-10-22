@@ -10,24 +10,13 @@ export default function Navbar() {
         <div className={styles.logo_container}>
           <Link href='/'>
             <a>
-              <p className={styles.logo}>Goodsist</p>
+              <p className={styles.logo}>
+                <span>G</span>oodsist
+              </p>
             </a>
           </Link>
         </div>
-        <div className={styles.login_sign_up_container}>
-          <div className={styles.login}>
-            <span>
-              <Login />
-            </span>
-            ログイン
-          </div>
-          <div className={styles.sign_up}>
-            <span>
-              <Sign_up />
-            </span>
-            新規登録
-          </div>
-        </div>
+        <div className={styles.login_sign_up_container}>ログイン / 新規登録</div>
       </div>
     </div>
   )

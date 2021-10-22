@@ -12,10 +12,7 @@ type Props = {
 export default function Layout({ children }: Props) {
   return (
     <>
-      <Navbar />
-      <div className={styles.main_container}>
-        <main className={styles.main}>{children}</main>
-      </div>
+      <div className={styles.main_container}>{children}</div>
       <Footer />
       <ScrollButton />
       {/* <Button_top /> */}

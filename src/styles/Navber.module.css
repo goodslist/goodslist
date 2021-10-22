@@ -1,14 +1,8 @@
 .header_container {
   width: 100%;
   margin: 0;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
   background-color: #fff;
-  border: 0 0 1px 0 solid #ebe8e4;
-  box-shadow: 0 0 0.3125rem 0 rgb(20 12 0 / 20%);
-  z-index: 1;
+  border-bottom: #ccc 1px solid;
 }
 
 .header {
@@ -32,14 +26,24 @@
 }
 .logo {
   margin: 0;
-  font-size: 21px;
+  font-size: 24px;
   line-height: 60px;
   font-family: 'Montserrat', sans-serif;
-  color: #666;
+  color: #000;
+}
+
+.logo span {
+  color: #68a9cf;
 }
 
 .login_sign_up_container {
-  display: flex;
+  margin: 0 20px 0 0;
+  padding: 0 20px;
+  height: 30px;
+  line-height: 30px;
+  background-color: #68a9cf;
+  color: #fff;
+  border-radius: 30px;
 }
 .login {
   width: 60px;

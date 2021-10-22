@@ -21,6 +21,7 @@ import Save from '../img/save.svg'
 import Button_top from '../../components/Button_top'
 // import ScrollButton from '../../components/ScrollButton'
 import { animateScroll as scroll } from 'react-scroll'
+import Navbar from '../../components/Navber'
 
 class EventInfo {
   content_id: number = 0
@@ -372,6 +373,9 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
           rel='stylesheet'
         />
       </Head>
+
+      <Navbar />
+
       <div className={styles.total_bar_container} id='concept'>
         <div className={styles.total_bar}>
           <div className={reset_flag} onClick={() => reset(goodsList)}>
@@ -390,14 +394,12 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
           <div className={styles.total}>&yen;{numberFormat(TotalPrice)}</div>
         </div>
       </div>
-      <div className={styles.main}>
+      <main className={styles.main}>
         <div className={styles.contant_name_container}>
           <p className={styles.content_name}>{goodsList[0].content_name}</p>
         </div>
         <div className={styles.event_title_container}>
-          <h1 className={styles.h1}>
-            {goodsList[0].event_name} {goodsList[0].goods_count} {initialGoodsList[0].goods_count}
-          </h1>
+          <h1 className={styles.h1}>{goodsList[0].event_name}</h1>
         </div>
         <div className={styles.event_menu_container}>
           <p className={styles.event_date}>{dateFormat(goodsList[0].first_date)}</p>
@@ -502,7 +504,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
         {/* <div className={styles.scroll_button} onClick={scrollToTop}>
             a
           </div> */}
-      </div>
+      </main>
     </>
   )
 }
