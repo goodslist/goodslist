@@ -156,16 +156,47 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
   const [goodsGroupCounts, setgoodsGroupCounts] = useState<GoodsGroupCount[]>([...goodsGroupCount])
 
   //購入優先に並び替える
-  const sortBuy = () => {
-    const newGoodsGroupCounts = [...goodsGroupCounts]
-    let group_count_true: GoodsGroupCount[] = []
-    let group_count_false: GoodsGroupCount[] = []
-    const test = newGoodsGroupCounts.map((newGoodsGroupCount, index) => {
-      if (newGoodsGroupCount.goods_group_count > 0) group_count_true.push(newGoodsGroupCount)
-      else group_count_false.push(newGoodsGroupCount)
-    })
-    const sortedGroupCounts = group_count_true.concat(group_count_false)
-    setgoodsGroupCounts(sortedGroupCounts)
+  const sortBuy = (flag: number) => {
+    let sortedGroupCounts: GoodsGroupCount[] = []
+    if (flag == 1) {
+      let group_count_true: GoodsGroupCount[] = []
+      let group_count_false: GoodsGroupCount[] = []
+      const test = goodsGroupCounts.map((newGoodsGroupCount, index) => {
+        if (newGoodsGroupCount.goods_group_count > 0) group_count_true.push(newGoodsGroupCount)
+        else group_count_false.push(newGoodsGroupCount)
+      })
+      group_count_true.sort(function (a, b) {
+        if (a.goods_group > b.goods_group) {
+          return 1
+        }
+        if (a.goods_group < b.goods_group) {
+          return -1
+        }
+        return 0
+      })
+      group_count_false.sort(function (a, b) {
+        if (a.goods_group > b.goods_group) {
+          return 1
+        }
+        if (a.goods_group < b.goods_group) {
+          return -1
+        }
+        return 0
+      })
+
+      sortedGroupCounts = group_count_true.concat(group_count_false)
+    } else {
+      sortedGroupCounts = [...goodsGroupCounts]
+      sortedGroupCounts.sort(function (a, b) {
+        if (a.goods_group > b.goods_group) {
+          return 1
+        }
+        if (a.goods_group < b.goods_group) {
+          return -1
+        }
+        return 0
+      })
+    }
     const newgoodsList = [...goodsList]
     const sortedNewgoodsList: Goods[] = []
     const test2 = sortedGroupCounts.map((sortedGroupCount, index) => {
@@ -173,6 +204,9 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
         if (sortedGroupCount.goods_group == newgoods.goods_group) sortedNewgoodsList.push(newgoods)
       })
     })
+    console.log(sortedGroupCounts)
+    console.log(goodsGroupCounts)
+    setgoodsGroupCounts(sortedGroupCounts)
     setGoodsList(sortedNewgoodsList)
   }
 
@@ -193,11 +227,15 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
   //プラスボタンが押されるとグッズのカウントを+1する。
   const plusGoodsCounts = (id: number) => {
     const newgoodsList = [...goodsList]
+    const newGoodsGroupCounts = [...goodsGroupCounts]
     if (newgoodsList[id].goods_count < 99) {
       newgoodsList[id].goods_count = newgoodsList[id].goods_count + 1
       setGoodsList(newgoodsList)
       //小計のカウントを+1する。
-      goodsGroupCounts[newgoodsList[id].goods_group - 1].goods_group_count++
+      const test2 = newGoodsGroupCounts.map((newGoodsGroupCount, index) => {
+        if (newGoodsGroupCount.goods_group == newgoodsList[id].goods_group)
+          newGoodsGroupCount.goods_group_count++
+      })
       setgoodsGroupCounts(goodsGroupCounts)
       plusButtonOnOff(newgoodsList[id].goods_count)
       minusButtonOnOff(newgoodsList[id].goods_count)
@@ -207,11 +245,15 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
   //マイナスボタンが押されるとグッズのカウントを-1する。
   const minusGoodsCounts = (id: number) => {
     const newgoodsList = [...goodsList]
+    const newGoodsGroupCounts = [...goodsGroupCounts]
     if (newgoodsList[id].goods_count > 0) {
       newgoodsList[id].goods_count = newgoodsList[id].goods_count - 1
       setGoodsList(newgoodsList)
       //小計のカウントを+1する。
-      goodsGroupCounts[newgoodsList[id].goods_group - 1].goods_group_count--
+      const test2 = newGoodsGroupCounts.map((newGoodsGroupCount, index) => {
+        if (newGoodsGroupCount.goods_group == newgoodsList[id].goods_group)
+          newGoodsGroupCount.goods_group_count--
+      })
       setgoodsGroupCounts(goodsGroupCounts)
       plusButtonOnOff(newgoodsList[id].goods_count)
       minusButtonOnOff(newgoodsList[id].goods_count)
@@ -221,21 +263,22 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
   //グッズのカウントが更新されたら、合計金額を更新する。
   useEffect(() => {
     const newgoodsList = [...goodsList]
+    const newGoodsGroupCounts = [...goodsGroupCounts]
     let newTotalPrice = 0
     let newTotalCount = 0
     const test = newgoodsList.map((newgoods, index) => {
       newTotalPrice = newTotalPrice + newgoods.price * newgoods.goods_count
       newTotalCount = newTotalCount + newgoods.goods_count
     })
-    const test2 = goodsGroupCounts.map((goodsGroupCount, index) => {
-      goodsGroupCount.sub_total_price = goodsGroupCount.price * goodsGroupCount.goods_group_count
+    const test2 = newGoodsGroupCounts.map((newGoodsGroupCount, index) => {
+      newGoodsGroupCount.sub_total_price =
+        newGoodsGroupCount.price * newGoodsGroupCount.goods_group_count
     })
     if (newTotalPrice > 999999) newTotalPrice = 999999
     setTotalPrice(newTotalPrice)
     setTotalCount(newTotalCount)
-    setgoodsGroupCounts(goodsGroupCounts)
+    setgoodsGroupCounts(newGoodsGroupCounts)
     resetOnOff(newTotalPrice)
-    console.log('合計金額')
   }, [goodsList])
 
   //リセットボタンのオンオフフラグ
@@ -371,8 +414,14 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
             </p>
           </a>
         </div>
-        <div className={styles.select_sort}>
-          <b>通常順</b> / 購入優先順
+        <div className={styles.sort_container}>
+          <span className={styles.sort_nomal_active} onClick={() => sortBuy(0)}>
+            通常順
+          </span>
+          <span>　/　</span>
+          <span className={styles.sort_buy} onClick={() => sortBuy(1)}>
+            購入優先順
+          </span>
         </div>
         <ul className={styles.goods_list_ul}>
           {goodsGroupCounts.map((group, index) => (
@@ -381,22 +430,22 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
                 <div className={styles.goods_name}>{group.goods_name}</div>
                 <div className={styles.subtotalcontainer}>
                   <span
-                    className={goodsGroupCounts[group.goods_group - 1].open_arrow_css}
-                    onClick={() => chengeOpenCloseCss(group.goods_group - 1)}
+                    className={goodsGroupCounts[index].open_arrow_css}
+                    onClick={() => chengeOpenCloseCss(index)}
                   ></span>
                   {/* {<span onClick={() => sortBuy()}>ソート　</span>}
                       // <span onClick={() => hiddenGoods(goods.goods_group)}>あ　</span> } */}
                   <div className={styles.subtotalwrap}>
                     <div className={styles.subtotalcount}>
-                      {goodsGroupCounts[group.goods_group - 1].goods_group_count}点
+                      {goodsGroupCounts[index].goods_group_count}点
                     </div>
                     <div className={styles.subtotal}>
                       &yen;
-                      {numberFormat(goodsGroupCounts[group.goods_group - 1].sub_total_price)}
+                      {numberFormat(goodsGroupCounts[index].sub_total_price)}
                     </div>
                   </div>
                 </div>
-                <div className={goodsGroupCounts[group.goods_group - 1].open_flag_css}>
+                <div className={goodsGroupCounts[index].open_flag_css}>
                   {goodsList.map((goods, index) =>
                     (() => {
                       if (group.goods_group == goods.goods_group) {
