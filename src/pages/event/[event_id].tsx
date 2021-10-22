@@ -415,7 +415,8 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
           </a>
         </div>
         <div className={styles.sort_container}>
-          <span className={styles.sort_nomal_active} onClick={() => sortBuy(0)}>
+          <span>並び順：　</span>
+          <span className={styles.sort_nomal} onClick={() => sortBuy(0)}>
             通常順
           </span>
           <span>　/　</span>
