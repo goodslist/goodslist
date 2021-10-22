@@ -84,3 +84,12 @@
 .card a:active {
   color: #68a9cf;
 }
+
+.search_result_title {
+  margin: 0 0 20px 0;
+  width: 100%;
+  text-align: center;
+  padding: 0 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+}

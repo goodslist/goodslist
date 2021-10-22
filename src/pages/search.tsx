@@ -41,9 +41,9 @@ export default function Output() {
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
       {/* パラメータの表示 */}
-      <h1>
+      <div className={styles.search_result_title}>
         {searchWord}　を含む検索結果({searchResults.length}件)
-      </h1>
+      </div>
       <ul className={styles.card}>
         {searchResults?.map((searchResult) => (
           <>
