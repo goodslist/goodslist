@@ -144,16 +144,24 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
   const router = useRouter()
 
   // //グッズの情報の配列
-  const [goodsList, setGoodsList] = useState([...goodsLists])
+  const [goodsList, setGoodsList] = useState(goodsLists.map((List) => Object.assign({}, List)))
+
+  // //グッズの情報の初期値の配列(更新しない)
+  const initialGoodsList: Goods[] = [...goodsLists]
+
+  //グッズグループ情報の配列
+  const [goodsGroupCounts, setGoodsGroupCounts] = useState<GoodsGroupCount[]>(
+    goodsGroupCount.map((List) => Object.assign({}, List)),
+  )
+
+  //グッズグループ情報の初期値の配列(更新しない)
+  const initialGoodsGroupCount: GoodsGroupCount[] = [...goodsGroupCount]
 
   //合計金額
   const [TotalPrice, setTotalPrice] = useState(0)
 
   //合計個数
   const [TotalCount, setTotalCount] = useState(0)
-
-  //グッズグループごとの個数の配列
-  const [goodsGroupCounts, setgoodsGroupCounts] = useState<GoodsGroupCount[]>([...goodsGroupCount])
 
   //購入優先に並び替える
   const sortBuy = (flag: number) => {
@@ -206,23 +214,28 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     })
     console.log(sortedGroupCounts)
     console.log(goodsGroupCounts)
-    setgoodsGroupCounts(sortedGroupCounts)
+    setGoodsGroupCounts(sortedGroupCounts)
     setGoodsList(sortedNewgoodsList)
   }
 
   //リセットボタンが押された場合、グッズとグループのカウントを0にする
   const reset = (goodsList: Goods[]) => {
-    const newgoodsList = [...goodsList]
-    const test = newgoodsList.map((newgoods, index) => {
-      newgoods.goods_count = 0
-    })
-    setGoodsList(newgoodsList)
-    const newGoodsGroupCounts = [...goodsGroupCounts]
-    const test2 = newGoodsGroupCounts.map((newGoodsGroupCount, index) => {
-      newGoodsGroupCount.goods_group_count = 0
-    })
-    setgoodsGroupCounts(newGoodsGroupCounts)
+    setGoodsList(initialGoodsList.map((List) => Object.assign({}, List)))
+    setGoodsGroupCounts(initialGoodsGroupCount.map((List) => Object.assign({}, List)))
   }
+
+  // const reset = (goodsList: Goods[]) => {
+  //   const newgoodsList = [...goodsList]
+  //   const test = newgoodsList.map((newgoods, index) => {
+  //     newgoods.goods_count = 0
+  //   })
+  //   setGoodsList(newgoodsList)
+  //   const newGoodsGroupCounts = [...goodsGroupCounts]
+  //   const test2 = newGoodsGroupCounts.map((newGoodsGroupCount, index) => {
+  //     newGoodsGroupCount.goods_group_count = 0
+  //   })
+  //   setGoodsGroupCounts(newGoodsGroupCounts)
+  // }
 
   //プラスボタンが押されるとグッズのカウントを+1する。
   const plusGoodsCounts = (id: number) => {
@@ -236,7 +249,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
         if (newGoodsGroupCount.goods_group == newgoodsList[id].goods_group)
           newGoodsGroupCount.goods_group_count++
       })
-      setgoodsGroupCounts(goodsGroupCounts)
+      setGoodsGroupCounts(goodsGroupCounts)
       plusButtonOnOff(newgoodsList[id].goods_count)
       minusButtonOnOff(newgoodsList[id].goods_count)
     }
@@ -254,7 +267,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
         if (newGoodsGroupCount.goods_group == newgoodsList[id].goods_group)
           newGoodsGroupCount.goods_group_count--
       })
-      setgoodsGroupCounts(goodsGroupCounts)
+      setGoodsGroupCounts(goodsGroupCounts)
       plusButtonOnOff(newgoodsList[id].goods_count)
       minusButtonOnOff(newgoodsList[id].goods_count)
     }
@@ -277,7 +290,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     if (newTotalPrice > 999999) newTotalPrice = 999999
     setTotalPrice(newTotalPrice)
     setTotalCount(newTotalCount)
-    setgoodsGroupCounts(newGoodsGroupCounts)
+    setGoodsGroupCounts(newGoodsGroupCounts)
     resetOnOff(newTotalPrice)
   }, [goodsList])
 
@@ -305,7 +318,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
       newGoodsGroupCounts[group_id].open_flag_css = styles.goods_items_container
       newGoodsGroupCounts[group_id].open_arrow_css = styles.group_arrow_open
     }
-    setgoodsGroupCounts(newGoodsGroupCounts)
+    setGoodsGroupCounts(newGoodsGroupCounts)
   }
 
   // const [scrollY, setScrollY] = useState(window.screenY)
@@ -382,7 +395,9 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
           <p className={styles.content_name}>{goodsList[0].content_name}</p>
         </div>
         <div className={styles.event_title_container}>
-          <h1 className={styles.h1}>{goodsList[0].event_name}</h1>
+          <h1 className={styles.h1}>
+            {goodsList[0].event_name} {goodsList[0].goods_count} {initialGoodsList[0].goods_count}
+          </h1>
         </div>
         <div className={styles.event_menu_container}>
           <p className={styles.event_date}>{dateFormat(goodsList[0].first_date)}</p>
@@ -415,7 +430,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
           </a>
         </div>
         <div className={styles.sort_container}>
-          <span>並び順：　</span>
+          <span>並び替え：　</span>
           <span className={styles.sort_nomal} onClick={() => sortBuy(0)}>
             通常順
           </span>
@@ -679,7 +694,7 @@ export default Home
 //   const [TotalCount, setTotalCount] = useState(0)
 
 //   //グッズグループごとの個数の配列
-//   const [goodsGroupCounts, setgoodsGroupCounts] = useState<GoodsGroupCount[]>([...goodsGroupCount])
+//   const [goodsGroupCounts, setGoodsGroupCounts] = useState<GoodsGroupCount[]>([...goodsGroupCount])
 
 //   //購入優先に並び替える
 //   const sortBuy = () => {
@@ -691,7 +706,7 @@ export default Home
 //       else group_count_false.push(newGoodsGroupCount)
 //     })
 //     const sortedGroupCounts = group_count_true.concat(group_count_false)
-//     setgoodsGroupCounts(sortedGroupCounts)
+//     setGoodsGroupCounts(sortedGroupCounts)
 //     const newgoodsList = [...goodsList]
 //     const sortedNewgoodsList: Goods[] = []
 //     const test2 = sortedGroupCounts.map((sortedGroupCount, index) => {
@@ -713,7 +728,7 @@ export default Home
 //     const test2 = newGoodsGroupCounts.map((newGoodsGroupCount, index) => {
 //       newGoodsGroupCount.goods_group_count = 0
 //     })
-//     setgoodsGroupCounts(newGoodsGroupCounts)
+//     setGoodsGroupCounts(newGoodsGroupCounts)
 //   }
 
 //   //プラスボタンが押されるとグッズのカウントを+1する。
@@ -724,7 +739,7 @@ export default Home
 //       setGoodsList(newgoodsList)
 //       //小計のカウントを+1する。
 //       goodsGroupCounts[newgoodsList[id].goods_group - 1].goods_group_count++
-//       setgoodsGroupCounts(goodsGroupCounts)
+//       setGoodsGroupCounts(goodsGroupCounts)
 //       plusButtonOnOff(newgoodsList[id].goods_count)
 //       minusButtonOnOff(newgoodsList[id].goods_count)
 //     }
@@ -738,7 +753,7 @@ export default Home
 //       setGoodsList(newgoodsList)
 //       //小計のカウントを+1する。
 //       goodsGroupCounts[newgoodsList[id].goods_group - 1].goods_group_count--
-//       setgoodsGroupCounts(goodsGroupCounts)
+//       setGoodsGroupCounts(goodsGroupCounts)
 //       plusButtonOnOff(newgoodsList[id].goods_count)
 //       minusButtonOnOff(newgoodsList[id].goods_count)
 //     }
@@ -759,7 +774,7 @@ export default Home
 //     if (newTotalPrice > 999999) newTotalPrice = 999999
 //     setTotalPrice(newTotalPrice)
 //     setTotalCount(newTotalCount)
-//     setgoodsGroupCounts(goodsGroupCounts)
+//     setGoodsGroupCounts(goodsGroupCounts)
 //     resetOnOff(newTotalPrice)
 //   }, [goodsList])
 
