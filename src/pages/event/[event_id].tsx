@@ -235,6 +235,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     setTotalCount(newTotalCount)
     setgoodsGroupCounts(goodsGroupCounts)
     resetOnOff(newTotalPrice)
+    console.log('合計金額')
   }, [goodsList])
 
   //リセットボタンのオンオフフラグ
@@ -274,6 +275,33 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
 
   // const scrollToTop = () => {
   //   scroll.scrollToTop()
+  // }
+
+  // if (process.browser) {
+  //   var startPos = 0,
+  //     winScrollTop = 0
+  //   // scrollイベントを設定
+  //   const countUp = () => {
+  //     window.addEventListener('scroll', function () {
+  //       winScrollTop = this.scrollY
+  //       if (winScrollTop >= startPos) {
+  //         // 下にスクロールされた時
+  //         if (winScrollTop >= 200) {
+  //           console.log(winScrollTop)
+  //           // 下に200pxスクロールされたら隠す
+  //           // document.getElementById('scrollArea').classList.add('hide');
+  //           return
+  //         }
+  //       } else {
+  //         console.log(winScrollTop)
+  //         // 上にスクロールされた時
+  //         // document.getElementById('scrollArea').classList.remove('hide');
+  //         return
+  //       }
+  //       startPos = winScrollTop
+  //     })
+  //   }
+  //   countUp()
   // }
 
   return (
@@ -318,14 +346,14 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
           <Calendar />
         </div>
         <div className={styles.event_link_container}>
-          {/* <a href={goodsList[0].url} target='_blank'>
+          <a href={goodsList[0].url} target='_blank'>
             <p className={styles.tag_official}>
-              Official
+              公式サイト
               <span>
                 <Official_mobile />
               </span>
             </p>
-          </a> */}
+          </a>
           <a href={goodsList[0].url} target='_blank'>
             <p className={styles.tag_twitter}>
               ツイート
@@ -342,6 +370,9 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
               </span>
             </p>
           </a>
+        </div>
+        <div className={styles.select_sort}>
+          <b>通常順</b> / 購入優先順
         </div>
         <ul className={styles.goods_list_ul}>
           {goodsGroupCounts.map((group, index) => (
