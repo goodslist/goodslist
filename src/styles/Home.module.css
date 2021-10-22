@@ -4,7 +4,11 @@
   font-size: 5rem;
   font-family: 'Montserrat', sans-serif;
   text-align: center;
-  color: #333;
+  color: #666;
+}
+
+.title span {
+  color: #68a9cf;
 }
 
 .sub_title {

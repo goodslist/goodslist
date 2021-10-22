@@ -50,13 +50,13 @@ const Home = ({ eventList }: Props) => {
   const router = useRouter()
   const [input, setInput] = useState<string>()
 
+  //エンターキーを押した時、submitを止める
   const enterForm = (e: React.FormEvent<HTMLFormElement>) => {
-    //エンターキーを押した時、submitを止める
     if (e) e.preventDefault()
     clickButton()
   }
 
-  // 検索ボタンをクリックした時、エンターキーを押した時の処理
+  //入力テキストを元に検索結果へ遷移する
   const clickButton = () => {
     //テキストが未入力の時は無効にする
     if (!input) {
@@ -94,7 +94,9 @@ const Home = ({ eventList }: Props) => {
           rel='stylesheet'
         ></link>
       </Head>
-      <h1 className={styles.title}>Goodsist</h1>
+      <h1 className={styles.title}>
+        <span>G</span>oodsist
+      </h1>
       <h2 className={styles.sub_title}>グッズ代が計算できるWEBアプリ</h2>
       <form className={styles.search_container} onSubmit={enterForm}>
         <input
