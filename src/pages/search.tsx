@@ -3,6 +3,7 @@ import { supabase } from '../components/supabase'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import styles from '../styles/Search.module.css'
+import Navbar from '../components/Navber'
 
 export default function Output() {
   const router = useRouter()
@@ -39,27 +40,30 @@ export default function Output() {
   }, [])
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      {/* パラメータの表示 */}
-      <div className={styles.search_result_title}>
-        {searchWord}　を含む検索結果({searchResults.length}件)
-      </div>
-      <ul className={styles.card}>
-        {searchResults?.map((searchResult) => (
-          <>
-            <li>
-              <Link href={'../event/' + searchResult.event_id}>
-                <a>
-                  <b>{searchResult.content_name}</b>
-                  <br />
-                  {searchResult.event_name}
-                  <span />
-                </a>
-              </Link>
-            </li>
-          </>
-        ))}
-      </ul>
-    </div>
+    <>
+      <Navbar />
+      <main className={styles.main}>
+        {/* パラメータの表示 */}
+        <div className={styles.search_result_title}>
+          {searchWord}　を含む検索結果({searchResults.length}件)
+        </div>
+        <ul className={styles.card}>
+          {searchResults?.map((searchResult) => (
+            <>
+              <li>
+                <Link href={'../event/' + searchResult.event_id}>
+                  <a>
+                    <b>{searchResult.content_name}</b>
+                    <br />
+                    {searchResult.event_name}
+                    <span />
+                  </a>
+                </Link>
+              </li>
+            </>
+          ))}
+        </ul>
+      </main>
+    </>
   )
 }

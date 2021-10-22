@@ -361,6 +361,22 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
   //   countUp()
   // }
 
+  //スクロール量
+  const [scrollY, setScrollY] = useState(0)
+  const [changeNavbarCss, setChangeNavbarCss] = useState(styles.total_bar_container)
+
+  //スクロール量を取得
+  const handleScroll = () => {
+    setScrollY(window.scrollY)
+
+    if (window.scrollY > 60) setChangeNavbarCss(styles.total_bar_container_fixed)
+    else setChangeNavbarCss(styles.total_bar_container)
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+  }, [])
+
   return (
     <>
       <Head>
@@ -376,7 +392,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
 
       <Navbar />
 
-      <div className={styles.total_bar_container} id='concept'>
+      <div className={changeNavbarCss} id='concept'>
         <div className={styles.total_bar}>
           <div className={reset_flag} onClick={() => reset(goodsList)}>
             <span>
