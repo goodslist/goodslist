@@ -369,8 +369,9 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
   const handleScroll = () => {
     setScrollY(window.scrollY)
 
-    if (window.scrollY > 60) setChangeNavbarCss(styles.total_bar_container_fixed)
-    else setChangeNavbarCss(styles.total_bar_container)
+    if (window.scrollY > 60) {
+      setChangeNavbarCss(styles.total_bar_container_fixed)
+    } else setChangeNavbarCss(styles.total_bar_container)
   }
 
   useEffect(() => {

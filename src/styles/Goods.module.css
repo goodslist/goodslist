@@ -256,21 +256,6 @@
   overflow: hidden;
 }
 
-.goodslist_hidden {
-  list-style: none;
-  line-height: 20px;
-  padding: 10px 10px;
-  margin: 0;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-justify-content: right;
-  justify-content: right;
-  -webkit-align-items: right;
-  align-items: center;
-  transition: all 0.3s;
-  background-color: red;
-  top: 0;
-}
 .goodslisthead {
   list-style: none;
   line-height: 20px;
@@ -493,7 +478,7 @@
   height: 40px;
   border-radius: 42px;
   cursor: pointer;
-  background-color: rgb(209, 104, 104);
+  background-color: #cf6775;
   top: 0;
   margin: 0;
   position: relative;
