@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from '../styles/ScrollButton.module.css'
+import 'scroll-behavior-polyfill'
 
 class ScrollButton extends React.Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class ScrollButton extends React.Component {
       scroll_css: styles.button_scroll_active,
     }
   }
+
   // scrollToTopの実装
   scrollToTop = () => {
     window.scrollTo({
