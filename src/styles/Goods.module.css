@@ -345,11 +345,8 @@
   height: 40px;
   font-size: 14px;
   color: #666;
-  display: -webkit-flex;
   display: flex;
-  -webkit-justify-content: flex-end;
   justify-content: flex-end;
-  -webkit-align-items: center;
   align-items: center;
 }
 .subtotal {
