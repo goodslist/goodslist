@@ -6,6 +6,15 @@ const useModal = (props: any) => {
   const closeModal = () => {
     props.setShowModal(false)
   }
+  const reset = () => {
+    props.buttonAction()
+    props.setShowModal(false)
+  }
+
+  const clickModalContent = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    event.stopPropagation()
+    console.log('テスト')
+  }
 
   return (
     <>
@@ -14,9 +23,19 @@ const useModal = (props: any) => {
         className={props.showFlag ? styles.overlay_active : styles.overlay}
         onClick={closeModal}
       >
-        <div id='modalContent' className={styles.modal_container}>
-          <p>This is ModalContent</p>
-          <button onClick={closeModal}>Close</button>
+        <div
+          id='modalContent'
+          className={props.showFlag ? styles.modal_container_active : styles.modal_container}
+          onClick={clickModalContent}
+        >
+          <div className={styles.close_button_container}>
+            <span className={styles.close_button} onClick={closeModal}></span>
+          </div>
+          <div className={styles.title}>{props.title}</div>
+          <div className={styles.text}>{props.text}</div>
+          <button className={styles.button} onClick={reset}>
+            {props.button_text}
+          </button>
         </div>
       </div>
     </>

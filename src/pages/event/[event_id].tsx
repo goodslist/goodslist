@@ -399,13 +399,13 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
 
       <div className={changeNavbarCss} id='concept'>
         <div className={styles.total_bar}>
-          <div className={reset_flag} onClick={() => reset(goodsList)}>
+          <div className={reset_flag} onClick={ShowModal}>
             <span>
               <Reset />
             </span>
             リセット
           </div>
-          <div className={styles.save_off} onClick={ShowModal}>
+          <div className={styles.save_off}>
             <span>
               <Save />
             </span>
@@ -526,7 +526,14 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
             a
           </div> */}
       </main>
-      <Modal showFlag={showModal} setShowModal={setShowModal} />
+      <Modal
+        showFlag={showModal}
+        setShowModal={setShowModal}
+        buttonAction={reset}
+        title='リセットしますか？'
+        text='リセットされる項目：購入数、並び替え、リストの開閉'
+        button_text='リセットする'
+      />
     </>
   )
 }
