@@ -27,7 +27,6 @@ class EventInfo {
   event_id: number = 0
   event_name: string = ''
   first_date: string = '2000-00-00'
-  one_date: boolean = false
   url: string = ''
 }
 
@@ -83,7 +82,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const { data, error } = await supabase
     .from('goods')
     .select(
-      'goods_id, goods_name, goods_group, goods_type, color, size, price, events(event_id, event_name, first_date, one_date, url, contents(content_id, content_name))',
+      'goods_id, goods_name, goods_group, goods_type, color, size, price, events(event_id, event_name, first_date, url, contents(content_id, content_name))',
     )
     .eq('event_id', event_id)
 
@@ -95,7 +94,6 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       event_id: doc.events.event_id,
       event_name: doc.events.event_name,
       first_date: doc.events.first_date,
-      one_date: doc.events.one_date,
       url: doc.events.url,
       goods_id: doc.goods_id,
       goods_name: doc.goods_name,
@@ -162,9 +160,6 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
   //合計個数
   const [TotalCount, setTotalCount] = useState(0)
 
-  //モーダルウインドウの開閉フラグ
-  const [showModal, setShowModal] = useState(false)
-
   //購入優先に並び替える
   const sortBuy = (flag: number) => {
     let sortedGroupCounts: GoodsGroupCount[] = []
@@ -214,16 +209,18 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
         if (sortedGroupCount.goods_group == newgoods.goods_group) sortedNewgoodsList.push(newgoods)
       })
     })
-    console.log(sortedGroupCounts)
-    console.log(goodsGroupCounts)
     setGoodsGroupCounts(sortedGroupCounts)
     setGoodsList(sortedNewgoodsList)
   }
 
   //リセットボタンが押された場合、グッズとグループのカウントを0にする
-  const reset = (goodsList: Goods[]) => {
+  const reset = () => {
     setGoodsList(initialGoodsList.map((List) => Object.assign({}, List)))
     setGoodsGroupCounts(initialGoodsGroupCount.map((List) => Object.assign({}, List)))
+  }
+
+  const save = () => {
+    console.log('セーブしました！')
   }
 
   // const reset = (goodsList: Goods[]) => {
@@ -323,14 +320,63 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     setGoodsGroupCounts(newGoodsGroupCounts)
   }
 
-  const ShowModal = () => {
+  //モーダルウインドウの開閉フラグ
+  const [showModal, setShowModal] = useState(false)
+
+  class ModalProps {
+    title: string
+    text: string
+    button_text: string
+    setShowModal: React.Dispatch<React.SetStateAction<boolean>>
+    buttonAction: React.MouseEventHandler<HTMLDivElement>
+
+    constructor(
+      title: string,
+      text: string,
+      button_text: string,
+      setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
+      buttonAction: React.MouseEventHandler<HTMLDivElement>,
+    ) {
+      this.title = title
+      this.text = text
+      this.button_text = button_text
+      this.setShowModal = setShowModal
+      this.buttonAction = reset
+    }
+  }
+
+  const [modalProps, setModalProps] = useState(new ModalProps('', '', '', setShowModal, reset))
+
+  const ShowModal = (modalAction: string) => {
+    let newModalProps: ModalProps
+    if (modalAction == 'reset') {
+      newModalProps = new ModalProps(
+        'リセットしますか？',
+        'リセットされる項目：購入数、並び替え順、入力欄の開閉。',
+        'リセットする',
+        setShowModal,
+        reset,
+      )
+    } else if (modalAction == 'save') {
+      newModalProps = new ModalProps('リストを保存しました。', '', '', setShowModal, save)
+    } else {
+      newModalProps = new ModalProps(
+        'この機能を利用するにはログインが必要です。',
+        '会員登録（無料）いただくと全ての機能をご利用いただけます。',
+        'ログイン / 新規会員登録',
+        setShowModal,
+        reset,
+      )
+    }
+
+    setModalProps(newModalProps)
     setShowModal(true)
   }
   // const [scrollY, setScrollY] = useState(window.screenY)
 
   // const [scrollButtonOnOff, setScrollButtonOnOff] = useState(styles.scroll_button_hidden)
 
-  // if (scrollY > 100) {
+  // if (scrollY > 100) {せ
   //   setScrollButtonOnOff(styles.scroll_button)
   // }
 
@@ -399,13 +445,13 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
 
       <div className={changeNavbarCss} id='concept'>
         <div className={styles.total_bar}>
-          <div className={reset_flag} onClick={ShowModal}>
+          <div className={reset_flag} onClick={() => ShowModal('reset')}>
             <span>
               <Reset />
             </span>
             リセット
           </div>
-          <div className={styles.save_off}>
+          <div className={styles.save_off} onClick={() => ShowModal('save')}>
             <span>
               <Save />
             </span>
@@ -453,7 +499,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
           </a>
         </div>
         <div className={styles.sort_container}>
-          <span>並び替え：　</span>
+          <span onClick={() => ShowModal('noLogin')}>並び替え：　</span>
           <span className={styles.sort_nomal} onClick={() => sortBuy(0)}>
             通常順
           </span>
@@ -526,14 +572,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
             a
           </div> */}
       </main>
-      <Modal
-        showFlag={showModal}
-        setShowModal={setShowModal}
-        buttonAction={reset}
-        title='リセットしますか？'
-        text='リセットされる項目：購入数、並び替え、リストの開閉'
-        button_text='リセットする'
-      />
+      <Modal showFlag={showModal} modalProps={modalProps} />
     </>
   )
 }

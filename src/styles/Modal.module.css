@@ -5,7 +5,7 @@
   z-index: 2;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.3);
   opacity: 0;
   visibility: hidden;
   transition: 0.2s linear;
@@ -22,7 +22,7 @@
   z-index: 2;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.3);
   opacity: 1;
   visibility: visible;
   transition: 0.2s linear;
@@ -43,7 +43,7 @@
   width: 100%;
   margin: 20px;
   background-color: #fff;
-  padding: 15px;
+  padding: 15px 15px 35px 15px;
   border-radius: 10px;
   cursor: default;
 }
@@ -58,7 +58,7 @@
   width: 100%;
   margin: 20px;
   background-color: #fff;
-  padding: 15px;
+  padding: 15px 15px 35px 15px;
   border-radius: 10px;
 }
 
@@ -121,7 +121,7 @@
 }
 
 .button {
-  margin: 0 0 20px 0;
+  margin: 0;
   width: 270px;
   height: 40px;
   background-color: #68a9cf;
@@ -130,7 +130,11 @@
   font-size: 1.4rem;
   font-weight: bold;
   color: #fff;
-  letter-spacing: 10px;
+  letter-spacing: 2px;
   text-align: center;
   cursor: pointer;
+}
+
+.under_space {
+  height: 10px;
 }
