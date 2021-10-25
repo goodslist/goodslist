@@ -10,7 +10,6 @@ export default function Navbar(props: any) {
   //親から送られてきた関数を実行
   const clickNavLogin = () => {
     setOpenModal(true)
-    console.log('1')
   }
 
   return (

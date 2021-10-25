@@ -1,15 +1,18 @@
 import React from 'react'
 import styles from '../styles/Modal.module.css'
+import { ModalContext } from './modal/ModalContext'
+import { useContext } from 'react'
 
 const Modal = (props: any) => {
+  const { openModal, setOpenModal }: any = useContext(ModalContext)
   //モーダルを閉じる
   const closeModal = () => {
-    props.modalProps.setShowModal(false)
+    setOpenModal(false)
   }
   //親から送られてきた関数を実行
   const reset = () => {
     props.modalProps.buttonAction()
-    props.modalProps.setShowModal(false)
+    setOpenModal(false)
   }
 
   //モーダルウインドウをクリックした時に親要素のモーダルを閉じるが発火しないための処理
@@ -19,15 +22,15 @@ const Modal = (props: any) => {
 
   if (props.modalProps.title == 'リストを保存しました。') {
     setTimeout(function () {
-      props.modalProps.setShowModal(false)
+      setOpenModal(false)
     }, 1000)
   }
 
   return (
     <>
-      <div className={props.showFlag ? styles.overlay_active : styles.overlay} onClick={closeModal}>
+      <div className={openModal ? styles.overlay_active : styles.overlay} onClick={closeModal}>
         <div
-          className={props.showFlag ? styles.modal_container_active : styles.modal_container}
+          className={openModal ? styles.modal_container_active : styles.modal_container}
           onClick={clickModalContent}
         >
           <div className={styles.close_button_container}>

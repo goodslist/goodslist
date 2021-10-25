@@ -3,7 +3,7 @@ import React from 'react'
 import { GetStaticProps } from 'next'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, useContext } from 'react'
 import { supabase } from '../../components/supabase'
 import styles from '../../styles/Goods.module.css'
 import { GetStaticPaths } from 'next'
@@ -20,6 +20,7 @@ import { animateScroll as scroll } from 'react-scroll'
 import Navbar from '../../components/Navber'
 import { numberFormat, dateFormat } from '../../components/Utils'
 import Modal from '../../components/Modal'
+import { ModalContext } from '../../components/modal/ModalContext'
 
 class EventInfo {
   content_id: number = 0
@@ -219,10 +220,6 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     setGoodsGroupCounts(initialGoodsGroupCount.map((List) => Object.assign({}, List)))
   }
 
-  const save = () => {
-    console.log('セーブしました！')
-  }
-
   // const reset = (goodsList: Goods[]) => {
   //   const newgoodsList = [...goodsList]
   //   const test = newgoodsList.map((newgoods, index) => {
@@ -347,6 +344,9 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
 
   const [modalProps, setModalProps] = useState(new ModalProps('', '', '', setShowModal, reset))
 
+  const { openModal, setOpenModal }: any = useContext(ModalContext)
+  console.log(openModal)
+
   const ShowModal = (modalAction: string) => {
     let newModalProps: ModalProps
     if (modalAction == 'reset') {
@@ -358,7 +358,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
         reset,
       )
     } else if (modalAction == 'save') {
-      newModalProps = new ModalProps('リストを保存しました。', '', '', setShowModal, save)
+      newModalProps = new ModalProps('リストを保存しました。', '', '', setShowModal, reset)
     } else {
       newModalProps = new ModalProps(
         'この機能を利用するにはログインが必要です。',
@@ -370,7 +370,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     }
 
     setModalProps(newModalProps)
-    setShowModal(true)
+    setOpenModal(true)
   }
 
   const [showLoginFlag, setshowLoginFlag] = useState(false)
