@@ -37,14 +37,14 @@ const Modal = (props: any) => {
           {props.modalProps.text ? (
             <div className={styles.text}>{props.modalProps.text}</div>
           ) : (
-            <span className={styles.under_space} />
+            <div className={styles.under_space} />
           )}
           {props.modalProps.button_text ? (
             <button className={styles.button} onClick={reset}>
               {props.modalProps.button_text}
             </button>
           ) : (
-            <span className={styles.under_space} />
+            <div className={styles.under_space} />
           )}
         </div>
       </div>

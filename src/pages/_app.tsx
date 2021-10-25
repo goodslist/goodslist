@@ -1,14 +1,17 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Layout from '../components/Layout'
-import { useFlip, FlipProvider } from 'react-easy-flip'
+import { LoginProvider } from '../components/auth/LoginContext'
+import { ModalProvider } from '../components/modal/ModalContext'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <FlipProvider>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </FlipProvider>
+    <LoginProvider>
+      <ModalProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ModalProvider>
+    </LoginProvider>
   )
 }
 export default MyApp

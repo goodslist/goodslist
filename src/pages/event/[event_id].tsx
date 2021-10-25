@@ -362,7 +362,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     } else {
       newModalProps = new ModalProps(
         'この機能を利用するにはログインが必要です。',
-        '会員登録（無料）いただくと全ての機能をご利用いただけます。',
+        '会員登録（無料）いただくと全ての機能をご利用いただけます。Twitter、LINE、Google、Yahooの各種SNSアカウントでもログインできます。',
         'ログイン / 新規会員登録',
         setShowModal,
         reset,
@@ -371,6 +371,12 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
 
     setModalProps(newModalProps)
     setShowModal(true)
+  }
+
+  const [showLoginFlag, setshowLoginFlag] = useState(false)
+  const showLogin = () => {
+    alert('ログイン画面')
+    // setShowModal(true)
   }
   // const [scrollY, setScrollY] = useState(window.screenY)
 
@@ -441,7 +447,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
         />
       </Head>
 
-      <Navbar />
+      <Navbar showLogin={showLogin} />
 
       <div className={changeNavbarCss} id='concept'>
         <div className={styles.total_bar}>
