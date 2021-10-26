@@ -18,9 +18,8 @@ export default function Output() {
 
   const [searchResults, setSearchResults] = useState<SearchResult[]>([])
 
-  let newSearchResults: SearchResult[] = []
-
   async function search() {
+    let newSearchResults: SearchResult[] = []
     const { data, error } = await supabase
       .from('searches')
       .select('event_id, event_name, content_name, search_word')
@@ -47,6 +46,7 @@ export default function Output() {
         <div className={styles.search_result_title}>
           {searchWord}　を含む検索結果({searchResults.length}件)
         </div>
+        {console.log('aaa')}
         <ul className={styles.card}>
           {searchResults?.map((searchResult) => (
             <>

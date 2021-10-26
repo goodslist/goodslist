@@ -70,7 +70,6 @@ export const getStaticPaths: GetStaticPaths<PathParams> = async () => {
       event_id: doc.event_id.toString(),
     },
   }))
-  console.log(paths)
   return { paths, fallback: false }
 }
 
@@ -344,34 +343,35 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
 
   const [modalProps, setModalProps] = useState(new ModalProps('', '', '', setShowModal, reset))
 
-  const { openModal, setOpenModal }: any = useContext(ModalContext)
-  console.log(openModal)
+  // const { openModalFlag, setOpenModalFlag, openModal }: any = useContext(ModalContext)
 
   const ShowModal = (modalAction: string) => {
-    let newModalProps: ModalProps
-    if (modalAction == 'reset') {
-      newModalProps = new ModalProps(
-        'リセットしますか？',
-        'リセットされる項目：購入数、並び替え順、入力欄の開閉。',
-        'リセットする',
-        setShowModal,
-        reset,
-      )
-    } else if (modalAction == 'save') {
-      newModalProps = new ModalProps('リストを保存しました。', '', '', setShowModal, reset)
-    } else {
-      newModalProps = new ModalProps(
-        'この機能を利用するにはログインが必要です。',
-        '会員登録（無料）いただくと全ての機能をご利用いただけます。Twitter、LINE、Google、Yahooの各種SNSアカウントでもログインできます。',
-        'ログイン / 新規会員登録',
-        setShowModal,
-        reset,
-      )
-    }
+    // let newModalProps: ModalProps
+    // if (modalAction == 'reset') {
+    //   newModalProps = new ModalProps(
+    //     'リセットしますか？',
+    //     'リセットされる項目：購入数、並び替え順、入力欄の開閉。',
+    //     'リセットする',
+    //     setShowModal,
+    //     reset,
+    //   )
+    // } else if (modalAction == 'save') {
+    //   newModalProps = new ModalProps('リストを保存しました。', '', '', setShowModal, reset)
+    // } else {
+    //   newModalProps = new ModalProps(
+    //     'この機能を利用するにはログインが必要です。',
+    //     '会員登録（無料）いただくと全ての機能をご利用いただけます。Twitter、LINE、Google、Yahooの各種SNSアカウントでもログインできます。',
+    //     'ログイン / 新規会員登録',
+    //     setShowModal,
+    //     reset,
+    //   )
+    // }
 
-    setModalProps(newModalProps)
-    setOpenModal(true)
+    // setModalProps(newModalProps)
+    console.log('event_id.tsx ShowModal')
+    // openModal()
   }
+  console.log('event_id.tsx')
 
   const [showLoginFlag, setshowLoginFlag] = useState(false)
   const showLogin = () => {
@@ -434,6 +434,8 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     window.addEventListener('scroll', handleScroll)
   }, [])
 
+  const { openModal }: any = useContext(ModalContext)
+
   return (
     <>
       <Head>
@@ -451,13 +453,13 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
 
       <div className={changeNavbarCss} id='concept'>
         <div className={styles.total_bar}>
-          <div className={reset_flag} onClick={() => ShowModal('reset')}>
+          <div className={reset_flag} onClick={() => openModal('reset')}>
             <span>
               <Reset />
             </span>
             リセット
           </div>
-          <div className={styles.save_off} onClick={() => ShowModal('save')}>
+          <div className={styles.save_off} onClick={() => openModal('save')}>
             <span>
               <Save />
             </span>
@@ -514,6 +516,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
             購入優先順
           </span>
         </div>
+        {console.log('event_id.tsx jsx')}
         <ul className={styles.goods_list_ul}>
           {goodsGroupCounts.map((group, index) => (
             <>
@@ -578,7 +581,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
             a
           </div> */}
       </main>
-      <Modal showFlag={showModal} modalProps={modalProps} />
+      {/* <Modal showFlag={showModal} modalProps={modalProps} /> */}
     </>
   )
 }

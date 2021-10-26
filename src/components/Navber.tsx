@@ -5,11 +5,10 @@ import { useContext } from 'react'
 import { ModalContext } from './modal/ModalContext'
 
 export default function Navbar(props: any) {
-  const { openModal, setOpenModal }: any = useContext(ModalContext)
-  console.log(openModal)
+  const { openModalFlag, setOpenModalFlag, openModal }: any = useContext(ModalContext)
   //親から送られてきた関数を実行
   const clickNavLogin = () => {
-    setOpenModal(true)
+    openModal('login')
   }
 
   return (
