@@ -60,6 +60,8 @@
   background-color: #fff;
   padding: 15px 15px 35px 15px;
   border-radius: 10px;
+  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 .close_button_container {

@@ -8,17 +8,14 @@ import React, {
   useState,
   useEffect,
 } from 'react'
-
-import styles from '../../styles/Modal.module.css'
-import Modal from '../Modal'
 import addModalContent from './AddModalContent'
+import login from './Login'
 
 export interface ModalContextProps {
   openModalFlag: boolean
   setOpenModalFlag: Dispatch<SetStateAction<boolean>>
   modalContent: JSX.Element
   setModalContent: Dispatch<SetStateAction<JSX.Element>>
-  // setModalContent: Dispatch<SetStateAction<ReactNode>>
   openModal: (action: string) => void
   closeModal: () => void
 }
@@ -26,13 +23,16 @@ export interface ModalContextProps {
 export const ModalContext = createContext({} as ModalContextProps)
 
 export const useProvideModal = () => {
+  //モーダルの開閉フラグ
   const [openModalFlag, setOpenModalFlag] = useState(false)
-  // const [modalContent, setModalContent] = useState<ReactNode>(<>あああ</>)
-  // const [modalContent, setModalContent] = useState<string>('あああ')
-  const [modalContent, setModalContent] = useState<JSX.Element>(<div>初期</div>)
+  //モーダルのコンテンツ
+  const [modalContent, setModalContent] = useState<JSX.Element>(<></>)
 
+  //モーダルを開く処理
   const openModal = useCallback((action: string) => {
-    setModalContent(addModalContent(action))
+    if (action == 'login') setModalContent(login())
+    //モーダルにコンテンツを追加
+    else setModalContent(addModalContent(action))
     setOpenModalFlag(true)
   }, [])
 
@@ -40,10 +40,6 @@ export const useProvideModal = () => {
     setModalContent(<></>)
     setOpenModalFlag(false)
   }, [])
-
-  // useEffect(() => {
-  //   if (openModalFlag == true) console.log('aaa')
-  // }, [openModalFlag])
 
   return {
     openModalFlag,
@@ -54,7 +50,6 @@ export const useProvideModal = () => {
     closeModal,
   }
 }
-console.log('context')
 
 export const ModalProvider: FC = ({ children }) => {
   const { openModalFlag, setOpenModalFlag, modalContent, setModalContent, openModal, closeModal } =
