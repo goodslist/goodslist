@@ -58,10 +58,8 @@
   width: 100%;
   margin: 20px;
   background-color: #fff;
-  padding: 15px 15px 35px 15px;
+  padding: 15px 15px 55px 15px;
   border-radius: 10px;
-  overflow-y: auto;
-  overflow-y: scroll;
 }
 
 .close_button_container {
@@ -135,8 +133,4 @@
   letter-spacing: 2px;
   text-align: center;
   cursor: pointer;
-}
-
-.under_space {
-  height: 10px;
 }

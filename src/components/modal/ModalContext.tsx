@@ -9,7 +9,6 @@ import React, {
   useEffect,
 } from 'react'
 import addModalContent from './AddModalContent'
-import login from './Login'
 
 export interface ModalContextProps {
   openModalFlag: boolean
@@ -30,14 +29,18 @@ export const useProvideModal = () => {
 
   //モーダルを開く処理
   const openModal = useCallback((action: string) => {
-    if (action == 'login') setModalContent(login())
     //モーダルにコンテンツを追加
-    else setModalContent(addModalContent(action))
+    setModalContent(addModalContent(action))
     setOpenModalFlag(true)
+    if (action == 'save') {
+      setTimeout(function () {
+        closeModal()
+      }, 1000)
+    }
   }, [])
 
   const closeModal = useCallback(() => {
-    setModalContent(<></>)
+    // setModalContent(<></>)
     setOpenModalFlag(false)
   }, [])
 
