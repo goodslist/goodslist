@@ -30,7 +30,7 @@ export const useProvideModal = () => {
   // const [modalContent, setModalContent] = useState<string>('あああ')
   const [modalContent, setModalContent] = useState<JSX.Element>(<div>初期</div>)
 
-  const createModalContent = (action: string) => {
+  const addModalContent = (action: string) => {
     let title: string = ''
     let text: string = ''
     let button_text: string = ''
@@ -59,7 +59,7 @@ export const useProvideModal = () => {
   }
 
   const openModal = useCallback((action: string) => {
-    createModalContent(action)
+    addModalContent(action)
     setOpenModalFlag(true)
   }, [])
 

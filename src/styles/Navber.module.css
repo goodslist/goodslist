@@ -20,13 +20,13 @@
 
 .logo_container {
   margin: 0 0 0 20px;
-  min-width: 180px;
+  white-space: nowrap;
   height: 60px;
   text-align: left;
 }
 .logo {
   margin: 0;
-  font-size: 27px;
+  font-size: 24px;
   line-height: 60px;
   font-family: 'Montserrat', sans-serif;
   color: #000;
