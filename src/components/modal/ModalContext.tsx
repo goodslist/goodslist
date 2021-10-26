@@ -11,6 +11,7 @@ import React, {
 
 import styles from '../../styles/Modal.module.css'
 import Modal from '../Modal'
+import addModalContent from './AddModalContent'
 
 export interface ModalContextProps {
   openModalFlag: boolean
@@ -30,36 +31,8 @@ export const useProvideModal = () => {
   // const [modalContent, setModalContent] = useState<string>('あああ')
   const [modalContent, setModalContent] = useState<JSX.Element>(<div>初期</div>)
 
-  const addModalContent = (action: string) => {
-    let title: string = ''
-    let text: string = ''
-    let button_text: string = ''
-    if (action == 'login') {
-      title = 'ログイン'
-      text = 'Twitter、LINE、Google、Yahoo!japanのアカウントでログインできます。'
-      button_text = 'ログインする'
-      console.log('login')
-    } else if (action == 'reset') {
-      title = 'リセットしますか？'
-      text = 'リセットされる項目：購入数、並び替え順、入力欄の開閉'
-      button_text = 'リセットする'
-    } else {
-      title = 'この機能はログインが必要です。'
-      text =
-        'ログインすると全ての機能を利用できます。Twitter、LINE、Google、Yahoo! JAPANの各ソーシャルアカウントでもログインできます。'
-      button_text = 'ログイン/新規登録する'
-    }
-    setModalContent(
-      <div className={styles.modal_content}>
-        <div className={styles.title}>{title}</div>
-        <div className={styles.text}>{text}</div>
-        <button className={styles.button}>{button_text}</button>
-      </div>,
-    )
-  }
-
   const openModal = useCallback((action: string) => {
-    addModalContent(action)
+    setModalContent(addModalContent(action))
     setOpenModalFlag(true)
   }, [])
 
