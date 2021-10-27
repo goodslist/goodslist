@@ -109,13 +109,15 @@
 .btn_login_google,
 .btn_login_yahoo {
   margin: 0 0 20px 0;
-  padding: 10px;
+  padding: 15px;
   width: 100%;
   min-width: 280px;
   max-width: 500px;
   border: none;
   border-radius: 20px;
+  font-size: 1.7rem;
   color: #fff;
+  cursor: pointer;
 }
 
 .btn_login_twitter {
