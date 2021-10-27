@@ -6,7 +6,8 @@ import { useState, useEffect, useRef, useCallback, useContext } from 'react'
 import { supabase } from '../../components/supabase'
 import styles from '../../styles/Login.module.css'
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
-import Icon_witter from '../img/icon_twitter.svg'
+import IconTwitter from '../img/icon_twitter.svg'
+import IconLine from '../img/line.svg'
 import Navbar from '../../components/Navber'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
@@ -59,8 +60,7 @@ const LoginGate = (data: Props) => {
       <Navbar />
       <main className={styles.main}>
         <div className={styles.content_title}>
-          {/* <span>ログイン / 新規登録</span> */}
-          <span>プライバシー・ポリシー</span>
+          <span>ログイン / 新規登録</span>
         </div>
         <div className={styles.card}>
           <div className={styles.select_login_container}>
@@ -76,8 +76,18 @@ const LoginGate = (data: Props) => {
           </div>
           <div className={styles.btn_container}>
             <div className={styles.terms}>利用規約に同意の上ご利用ください。</div>
-            <button className={styles.btn_login_twitter}>Twitterでログイン</button>
-            <button className={styles.btn_login_line}>LINEでログイン</button>
+            <button className={styles.btn_login_twitter}>
+              Twitterでログイン
+              <span>
+                <IconTwitter />
+              </span>
+            </button>
+            <button className={styles.btn_login_line}>
+              LINEでログイン
+              <span>
+                <IconLine />
+              </span>
+            </button>
             <button className={styles.btn_login_google}>Googleでログイン</button>
             <button className={styles.btn_login_yahoo}>Yahoo! JAPANでログイン</button>
             <hr className={styles.space_bar} />

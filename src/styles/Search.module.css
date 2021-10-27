@@ -1,9 +1,27 @@
 .main {
   max-width: 800px;
   min-width: 320px;
-  margin: 0 auto 40px auto;
+  margin: 80px auto 40px auto;
   padding: 10px 0;
   background-color: #fff;
+}
+
+.content_title {
+  margin: 0 0 60px 0;
+  font-size: 24px;
+  position: relative;
+  text-align: center;
+}
+
+.content_title span:before {
+  position: absolute;
+  bottom: -20px;
+  left: calc(50% - 30px);
+  width: 60px;
+  height: 5px;
+  content: '';
+  border-radius: 3px;
+  background: #68a9cf;
 }
 
 .card {
@@ -94,15 +112,10 @@
 }
 
 .search_result_title {
-  margin: 40px 0;
+  margin: 0 0 20px 0;
   width: 100%;
   text-align: center;
   padding: 0 20px;
   font-size: 1.8rem;
   font-weight: bold;
-}
-
-.content_title {
-  margin: 40px 0;
-  font-size: 30px;
 }

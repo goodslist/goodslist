@@ -24,14 +24,6 @@
   background: #68a9cf;
 }
 
-.content_title:before {
-  left: 0;
-}
-
-.content_title:after {
-  right: 0;
-}
-
 .card {
   margin: 0 10px;
   padding: 5px 0;
@@ -153,9 +145,10 @@
   line-height: 50px;
   min-width: 280px;
   max-width: 500px;
+  position: relative;
   border: none;
-  border-radius: 30px;
-  font-size: 1.6rem;
+  border-radius: 10px;
+  font-size: 1.4rem;
   color: #fff;
   cursor: pointer;
 }
@@ -164,8 +157,40 @@
   background-color: #1da1f2;
 }
 
+.btn_login_twitter span {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 18px;
+  width: 20px;
+  height: 20px;
+  color: #fff;
+}
+.btn_login_twitter svg {
+  width: 28px;
+  height: 28px;
+  fill: #fff;
+}
+
 .btn_login_line {
   background-color: #06c755;
+}
+
+.btn_login_line span {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 18px;
+  width: 20px;
+  height: 20px;
+  color: #fff;
+}
+.btn_login_line svg {
+  width: 28px;
+  height: 28px;
+  fill: #fff;
 }
 
 .btn_login_google {
