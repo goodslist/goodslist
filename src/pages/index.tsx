@@ -114,7 +114,9 @@ const Home = ({ eventList }: Props) => {
           </span>
         </form>
         <div className={styles.grid}>
-          <p className={styles.new_hot_label}>新しいイベント</p>
+          <p className={styles.label_hot_new}>
+            <span>新しいイベント</span>
+          </p>
           <ul className={`${styles.card} ${styles.new_event_border}`}>
             {eventList.map((event) => (
               <li key={event.event_id}>
@@ -129,7 +131,9 @@ const Home = ({ eventList }: Props) => {
               </li>
             ))}
           </ul>
-          <p className={styles.new_hot_label}>人気イベント</p>
+          <p className={styles.label_hot_new}>
+            <span>人気イベント</span>
+          </p>
           <ul className={`${styles.card} ${styles.hot_event_border}`}>
             {eventList.map((event) => (
               <li key={event.event_id}>

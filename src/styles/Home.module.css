@@ -34,12 +34,30 @@
   margin-top: 3rem;
 }
 
-.new_hot_label {
+/* .new_hot_label {
   width: 100%;
   text-align: left;
   padding: 0 20px;
   font-size: 1.8rem;
   font-weight: bold;
+} */
+
+.label_hot_new {
+  margin: 40px 0 40px 0;
+  font-size: 1.8rem;
+  position: relative;
+  text-align: center;
+}
+
+.label_hot_new span:before {
+  position: absolute;
+  bottom: -20px;
+  left: calc(50% - 30px);
+  width: 60px;
+  height: 5px;
+  content: '';
+  border-radius: 3px;
+  background: #68a9cf;
 }
 
 .card {
@@ -144,7 +162,6 @@
   border-radius: 3rem;
   background-color: #edf2f7;
   transition: all 0.5s;
-  cursor: pointer;
   margin: 0 0 40px 0;
   -webkit-appearance: none;
 }
@@ -156,7 +173,7 @@
 }
 
 .search_container {
-  min-width: 280px;
+  min-width: 300px;
   max-width: 80%;
   height: 50px;
   position: relative;
@@ -167,10 +184,10 @@
 
 .search_button {
   position: absolute;
-  width: 30px;
-  height: 30px;
-  top: 0;
-  right: 0;
+  width: 24px;
+  width: 24px;
+  top: 12px;
+  right: 18px;
 }
 
 .search_button svg {
@@ -178,7 +195,7 @@
   width: 24px;
   height: 24px;
   fill: #68a9cf;
-  top: 12px;
-  right: 20px;
+  top: 0;
+  right: 0;
   cursor: pointer;
 }

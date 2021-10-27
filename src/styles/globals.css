@@ -24,3 +24,16 @@ a {
 ::placeholder {
   color: #999;
 }
+
+input {
+  border: 3px solid #fff;
+  background-color: #edf2f7;
+  transition: all 0.5s;
+  -webkit-appearance: none;
+}
+input:focus {
+  outline: none;
+  background-color: #fff;
+  border: 3px solid #bfdcff;
+  transition: all 0.5s;
+}
