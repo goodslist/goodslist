@@ -7,7 +7,7 @@ import { ModalContext } from './modal/ModalContext'
 export default function Navbar(props: any) {
   const { openModalFlag, setOpenModalFlag, openModal }: any = useContext(ModalContext)
   //親から送られてきた関数を実行
-  const clickNavLogin = () => {
+  const clickLoginButton = () => {
     openModal('login')
   }
 
@@ -23,9 +23,11 @@ export default function Navbar(props: any) {
             </a>
           </Link>
         </div>
-        <div className={styles.login_sign_up_container} onClick={clickNavLogin}>
-          ログイン / 新規登録
-        </div>
+        <Link href='/login/'>
+          <a>
+            <div className={styles.login_button}>ログイン / 新規登録</div>
+          </a>
+        </Link>
       </div>
     </div>
   )

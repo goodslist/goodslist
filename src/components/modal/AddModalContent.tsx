@@ -1,16 +1,15 @@
 import styles from '../../styles/Modal.module.css'
-import Modal from '../Modal'
 
 const addModalContent = (action: string) => {
   let title: string = ''
   let text: string = ''
   let button_text: string = ''
   if (action == 'save') {
-    title = '保存しました。'
+    title = 'リストを保存しました。'
     text = ''
     button_text = ''
   } else if (action == 'reset') {
-    title = 'リセットしますか？'
+    title = 'リストをリセットしますか？'
     text = 'リセットされる項目：購入数、並び替え順、入力欄の開閉'
     button_text = 'リセットする'
   } else {

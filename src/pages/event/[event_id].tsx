@@ -8,7 +8,6 @@ import { supabase } from '../../components/supabase'
 import styles from '../../styles/Goods.module.css'
 import { GetStaticPaths } from 'next'
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
-import { useRouter } from 'next/router'
 import Calendar from '../img/calendar.svg'
 import Official_mobile from '../img/official_mobile.svg'
 import Icon_witter from '../img/icon_twitter.svg'
@@ -19,7 +18,6 @@ import Button_top from '../../components/Button_top'
 import { animateScroll as scroll } from 'react-scroll'
 import Navbar from '../../components/Navber'
 import { numberFormat, dateFormat } from '../../components/Utils'
-import Modal from '../../components/Modal'
 import { ModalContext } from '../../components/modal/ModalContext'
 
 class EventInfo {
@@ -138,8 +136,6 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 }
 
 const Home = ({ goodsLists, goodsGroupCount }: Props) => {
-  const router = useRouter()
-
   // //グッズの情報の配列
   const [goodsList, setGoodsList] = useState(goodsLists.map((List) => Object.assign({}, List)))
 
@@ -316,107 +312,6 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     setGoodsGroupCounts(newGoodsGroupCounts)
   }
 
-  //モーダルウインドウの開閉フラグ
-  const [showModal, setShowModal] = useState(false)
-
-  class ModalProps {
-    title: string
-    text: string
-    button_text: string
-    setShowModal: React.Dispatch<React.SetStateAction<boolean>>
-    buttonAction: React.MouseEventHandler<HTMLDivElement>
-
-    constructor(
-      title: string,
-      text: string,
-      button_text: string,
-      setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
-      buttonAction: React.MouseEventHandler<HTMLDivElement>,
-    ) {
-      this.title = title
-      this.text = text
-      this.button_text = button_text
-      this.setShowModal = setShowModal
-      this.buttonAction = reset
-    }
-  }
-
-  const [modalProps, setModalProps] = useState(new ModalProps('', '', '', setShowModal, reset))
-
-  // const { openModalFlag, setOpenModalFlag, openModal }: any = useContext(ModalContext)
-
-  const ShowModal = (modalAction: string) => {
-    // let newModalProps: ModalProps
-    // if (modalAction == 'reset') {
-    //   newModalProps = new ModalProps(
-    //     'リセットしますか？',
-    //     'リセットされる項目：購入数、並び替え順、入力欄の開閉。',
-    //     'リセットする',
-    //     setShowModal,
-    //     reset,
-    //   )
-    // } else if (modalAction == 'save') {
-    //   newModalProps = new ModalProps('リストを保存しました。', '', '', setShowModal, reset)
-    // } else {
-    //   newModalProps = new ModalProps(
-    //     'この機能を利用するにはログインが必要です。',
-    //     '会員登録（無料）いただくと全ての機能をご利用いただけます。Twitter、LINE、Google、Yahooの各種SNSアカウントでもログインできます。',
-    //     'ログイン / 新規会員登録',
-    //     setShowModal,
-    //     reset,
-    //   )
-    // }
-
-    // setModalProps(newModalProps)
-    console.log('event_id.tsx ShowModal')
-    // openModal()
-  }
-  console.log('event_id.tsx')
-
-  const [showLoginFlag, setshowLoginFlag] = useState(false)
-  const showLogin = () => {
-    alert('ログイン画面')
-    // setShowModal(true)
-  }
-  // const [scrollY, setScrollY] = useState(window.screenY)
-
-  // const [scrollButtonOnOff, setScrollButtonOnOff] = useState(styles.scroll_button_hidden)
-
-  // if (scrollY > 100) {せ
-  //   setScrollButtonOnOff(styles.scroll_button)
-  // }
-
-  // const scrollToTop = () => {
-  //   scroll.scrollToTop()
-  // }
-
-  // if (process.browser) {
-  //   var startPos = 0,
-  //     winScrollTop = 0
-  //   // scrollイベントを設定
-  //   const countUp = () => {
-  //     window.addEventListener('scroll', function () {
-  //       winScrollTop = this.scrollY
-  //       if (winScrollTop >= startPos) {
-  //         // 下にスクロールされた時
-  //         if (winScrollTop >= 200) {
-  //           console.log(winScrollTop)
-  //           // 下に200pxスクロールされたら隠す
-  //           // document.getElementById('scrollArea').classList.add('hide');
-  //           return
-  //         }
-  //       } else {
-  //         console.log(winScrollTop)
-  //         // 上にスクロールされた時
-  //         // document.getElementById('scrollArea').classList.remove('hide');
-  //         return
-  //       }
-  //       startPos = winScrollTop
-  //     })
-  //   }
-  //   countUp()
-  // }
-
   //スクロール量
   const [scrollY, setScrollY] = useState(0)
   const [changeNavbarCss, setChangeNavbarCss] = useState(styles.total_bar_container)
@@ -449,7 +344,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
         />
       </Head>
 
-      <Navbar showLogin={showLogin} />
+      <Navbar />
 
       <div className={changeNavbarCss} id='concept'>
         <div className={styles.total_bar}>
@@ -507,7 +402,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
           </a>
         </div>
         <div className={styles.sort_container}>
-          <span onClick={() => ShowModal('noLogin')}>並び替え：　</span>
+          <span onClick={() => openModal('sort')}>並び替え：　</span>
           <span className={styles.sort_nomal} onClick={() => sortBuy(0)}>
             通常順
           </span>
@@ -527,8 +422,6 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
                     className={goodsGroupCounts[index].open_arrow_css}
                     onClick={() => chengeOpenCloseCss(index)}
                   ></span>
-                  {/* {<span onClick={() => sortBuy()}>ソート　</span>}
-                      // <span onClick={() => hiddenGoods(goods.goods_group)}>あ　</span> } */}
                   <div className={styles.subtotalwrap}>
                     <div className={styles.subtotalcount}>
                       {goodsGroupCounts[index].goods_group_count}点
@@ -577,11 +470,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
             </>
           ))}
         </ul>
-        {/* <div className={styles.scroll_button} onClick={scrollToTop}>
-            a
-          </div> */}
       </main>
-      {/* <Modal showFlag={showModal} modalProps={modalProps} /> */}
     </>
   )
 }
