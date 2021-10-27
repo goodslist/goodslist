@@ -58,6 +58,9 @@ const LoginGate = (data: Props) => {
 
       <Navbar />
       <main className={styles.main}>
+        <div className={styles.content_title}>
+          <span>ログイン / 新規登録</span>
+        </div>
         <div className={styles.card}>
           <div className={styles.select_login_container}>
             <button className={selectLogin[0]} onClick={() => changeSelectLogin('login')}>

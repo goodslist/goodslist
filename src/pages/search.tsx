@@ -42,6 +42,7 @@ export default function Output() {
     <>
       <Navbar />
       <main className={styles.main}>
+        <div className={styles.content_title}>検索結果</div>
         {/* パラメータの表示 */}
         <div className={styles.search_result_title}>
           {searchWord}　を含む検索結果({searchResults.length}件)
