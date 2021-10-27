@@ -98,13 +98,13 @@ const LoginGate = (data: Props) => {
             <button className={styles.btn_login_yahoo}>
               Yahoo! JAPANでログイン
               <span>
-                <img src='../../images/yahoo.png' width='35px' height='35' />
+                <img src='../../images/yahoo.png' width='35px' height='35px' />
               </span>
             </button>
             <button className={styles.btn_login_google}>
               Googleでログイン
               <span>
-                <img src='../../images/google.svg' width='50px' height='50px' />
+                <img src='../../images/google.svg' width='26px' height='26px' />
               </span>
             </button>
             <hr className={styles.space_bar} />
