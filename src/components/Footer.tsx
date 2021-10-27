@@ -9,11 +9,15 @@ export default function Footer() {
           <p>
             |　
             <Link href={'/privacy'}>
-              <a>プライバシー・ポリシー</a>
+              <a>
+                <u>プライバシー・ポリシー</u>
+              </a>
             </Link>
             　|　
             <Link href={'/contact'}>
-              <a>お問い合わせ</a>
+              <a>
+                <u>お問い合わせ</u>
+              </a>
             </Link>
             　|
           </p>
