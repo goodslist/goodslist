@@ -194,7 +194,31 @@
 }
 
 .btn_login_google {
-  background-color: #dd5144;
+  box-sizing: border-box;
+  margin: 0 0 20px 0;
+  padding: 0;
+  width: 100%;
+  min-width: 280px;
+  max-width: 500px;
+  position: relative;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.4rem;
+  color: #333;
+  background-color: #fff;
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
+
+.btn_login_google span {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 8px;
+  width: 20px;
+  height: 20px;
+  color: #fff;
 }
 
 .btn_login_yahoo {
@@ -206,15 +230,10 @@
   content: '';
   position: absolute;
   top: 8px;
-  left: 18px;
+  left: 16px;
   width: 20px;
   height: 20px;
   color: #fff;
-}
-.btn_login_yahoo svg {
-  width: 28px;
-  height: 28px;
-  fill: #fff;
 }
 
 .btn_login_mail {

@@ -9,8 +9,11 @@ import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import IconTwitter from '../img/icon_twitter.svg'
 import IconLine from '../img/line.svg'
 import Mail from '../img/mail.svg'
+import Yahoo from '../img/yahoo.png'
 import Password from '../img/password.svg'
+import Google from '../img/google.svg'
 import Navbar from '../../components/Navber'
+import Image from 'next/image'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -95,10 +98,15 @@ const LoginGate = (data: Props) => {
             <button className={styles.btn_login_yahoo}>
               Yahoo! JAPANでログイン
               <span>
-                <IconLine />
+                <img src='../../images/yahoo.png' width='35px' height='35' />
               </span>
             </button>
-            <button className={styles.btn_login_google}>Googleでログイン</button>
+            <button className={styles.btn_login_google}>
+              Googleでログイン
+              <span>
+                <img src='../../images/google.svg' width='50px' height='50px' />
+              </span>
+            </button>
             <hr className={styles.space_bar} />
             <span className={styles.input_mail_container}>
               <input className={styles.input_mail} type='text' placeholder='メールアドレス' />
