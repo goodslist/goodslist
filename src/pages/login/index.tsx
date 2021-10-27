@@ -20,6 +20,29 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 }
 
 const LoginGate = (data: Props) => {
+  const [selectLogin, setSelectLogin] = useState([
+    styles.select_login_active,
+    styles.select_register,
+    styles.select_underbar_login,
+  ])
+
+  const changeSelectLogin = (select: string) => {
+    if (select == 'register') {
+      const newSelectLogin = [
+        styles.select_login,
+        styles.select_register_active,
+        styles.select_underbar_register,
+      ]
+      setSelectLogin(newSelectLogin)
+    } else if (select == 'login') {
+      const newSelectLogin = [
+        styles.select_login_active,
+        styles.select_register,
+        styles.select_underbar_login,
+      ]
+      setSelectLogin(newSelectLogin)
+    }
+  }
   return (
     <>
       <Head>
@@ -37,18 +60,26 @@ const LoginGate = (data: Props) => {
       <main className={styles.main}>
         <div className={styles.card}>
           <div className={styles.select_login_container}>
-            <button className={styles.select_register_active}>新規登録</button>
-            <button className={styles.select_login}>ログイン</button>
+            <button className={selectLogin[0]} onClick={() => changeSelectLogin('login')}>
+              ログイン
+            </button>
+            <button className={selectLogin[1]} onClick={() => changeSelectLogin('register')}>
+              新規登録
+            </button>
           </div>
           <div className={styles.select_underbar_container}>
-            <div className={styles.select_underbar}></div>
+            <div className={selectLogin[2]}></div>
           </div>
           <div className={styles.btn_container}>
-            <div className={styles.terms}>利用規約に同意の上ご登録ください。</div>
-            <button className={styles.btn_login_twitter}>Twitterで新規登録</button>
-            <button className={styles.btn_login_line}>LINEで新規登録</button>
-            <button className={styles.btn_login_google}>Googleで新規登録</button>
-            <button className={styles.btn_login_yahoo}>Yahoo! JAPANで新規登録</button>
+            <div className={styles.terms}>利用規約に同意の上ご利用ください。</div>
+            <button className={styles.btn_login_twitter}>Twitterでログイン</button>
+            <button className={styles.btn_login_line}>LINEでログイン</button>
+            <button className={styles.btn_login_google}>Googleでログイン</button>
+            <button className={styles.btn_login_yahoo}>Yahoo! JAPANでログイン</button>
+            <hr className={styles.space_bar} />
+            <input className={styles.input_mail} type='text' placeholder='メールアドレス' />
+            <input className={styles.input_password} type='password' placeholder='パスワード' />
+            <button className={styles.btn_login_mail}>メールアドレスでログイン</button>
           </div>
         </div>
       </main>

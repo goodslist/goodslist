@@ -37,6 +37,7 @@
   color: #cf6775;
   font-weight: bold;
   cursor: pointer;
+  transition: all 0.3s;
 }
 
 .select_register,
@@ -50,6 +51,7 @@
   color: #666;
   font-weight: bold;
   cursor: pointer;
+  transition: all 0.3s;
 }
 
 .select_underbar_container {
@@ -58,13 +60,23 @@
   background-color: #eee;
 }
 
-.select_underbar {
+.select_underbar_login {
   width: 50%;
   height: 3px;
   background-color: #cf6775;
   position: relative;
   top: 0;
-  left: 0;
+  left: 0px;
+  transition: all 0.3s;
+}
+.select_underbar_register {
+  width: 50%;
+  height: 3px;
+  background-color: #cf6775;
+  position: relative;
+  top: 0;
+  left: 50%;
+  transition: all 0.3s;
 }
 
 .login {
@@ -107,15 +119,17 @@
 .btn_login_twitter,
 .btn_login_line,
 .btn_login_google,
-.btn_login_yahoo {
+.btn_login_yahoo,
+.btn_login_mail {
   margin: 0 0 20px 0;
-  padding: 10px;
   width: 100%;
+  height: 50px;
+  line-height: 50px;
   min-width: 280px;
   max-width: 500px;
   border: none;
-  border-radius: 20px;
-  font-size: 1.7rem;
+  border-radius: 30px;
+  font-size: 1.6rem;
   color: #fff;
   cursor: pointer;
 }
@@ -134,4 +148,26 @@
 
 .btn_login_yahoo {
   background-color: #ff0027;
+}
+
+.btn_login_mail {
+  background-color: #68a9cf;
+}
+
+.space_bar {
+  margin: 20px 0 40px 0;
+  border-top: 1px solid #ccc;
+  border-bottom: 0;
+}
+
+.input_mail,
+.input_password {
+  margin: 0 0 20px 0;
+  padding: 0 0 0 50px;
+  width: 100%;
+  height: 40px;
+  min-width: 280px;
+  max-width: 500px;
+  border-radius: 5px;
+  border: 1px solid #999;
 }
