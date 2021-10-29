@@ -99,11 +99,8 @@ const LoginGate = (data: Props) => {
           <span>新規登録{user ? user.user_name : ''}</span>
         </div>
         <div className={styles.card}>
-          <div className={styles.terms}>
-            <u>利用規約</u>に同意の上ご利用ください。
-          </div>
+          <div className={styles.terms}>全ての項目を入力し、登録を完了してください。</div>
 
-          <hr className={styles.space_bar} />
           <div className={styles.form_container}>
             {email}
             <div className={styles.input_name_container}>
@@ -117,13 +114,17 @@ const LoginGate = (data: Props) => {
               />
             </div>
             <div className={styles.input_error}></div>
+            <div className={styles.notes}>10文字以内。</div>
+            <hr className={styles.space_bar} />
             <div className={styles.birth_gender_container}>
               <div className={styles.input_label}>誕生年月</div>
               <div className={styles.birth_gender}>
-                <select className={styles.input_select}>
-                  <option value='1990'>1990年</option>
-                  <option value='1991'>1991年</option>
-                </select>
+                <span className={styles.select_arrow}>
+                  <select className={styles.input_select_active}>
+                    <option value='1990'>1990年</option>
+                    <option value='1991'>1991年</option>
+                  </select>
+                </span>
 
                 <select className={styles.input_select}>
                   <option value='---'>---</option>
@@ -132,6 +133,8 @@ const LoginGate = (data: Props) => {
               </div>
             </div>
             <div className={styles.input_error}></div>
+            <div className={styles.notes}>パスワードを忘れた時や退会時に必要です。</div>
+            <hr className={styles.space_bar} />
             <div className={styles.birth_gender_container}>
               <div className={styles.input_label}>性別</div>
               <div className={styles.birth_gender}>
@@ -141,12 +144,15 @@ const LoginGate = (data: Props) => {
               </div>
             </div>
             <div className={styles.input_error}></div>
+            <div className={styles.notes}></div>
+            <hr className={styles.space_bar} />
             <button className={styles.btn_login_mail} onClick={() => signup()}>
-              メールアドレスで登録
+              登録を完了する
               <span>
                 <Mail />
               </span>
             </button>
+            <div className={styles.refuse}>登録をやめる</div>
           </div>
         </div>
       </main>

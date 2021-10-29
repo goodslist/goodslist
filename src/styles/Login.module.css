@@ -259,8 +259,8 @@
 
 .space_bar {
   display: inline-block;
-  margin: 20px 0 0 0;
-  width: 90%;
+  margin: 0 0 40px 0;
+  width: 100%;
   border-top: 1px solid #ccc;
   border-bottom: 0;
 }
@@ -325,8 +325,8 @@
 }
 
 .input_label {
-  width: 120px;
-  font-size: 14px;
+  width: 90px;
+  font-size: 12px;
   text-align: left;
 }
 
@@ -348,19 +348,55 @@
   background-color: #fff;
 }
 
-.input_select {
+.input_select,
+.input_select_active {
   width: 120px;
-  padding: 0 20px;
+  padding: 0 20px 0 10px;
   height: 40px;
-  font-size: 18px;
+  font-size: 14px;
+  position: relative;
   color: #fff;
   background-color: #68a9cf;
   border: none;
   border-radius: 5px;
+  letter-spacing: 4px;
 }
+.input_select:focus {
+  outline: none;
+  background-color: #fff;
+  border: 3px solid #bfdcff;
+  transition: all 0.5s;
+}
+.input_select {
+  color: #999;
+  background-color: #edf2f7;
+}
+.input_select_active {
+  color: #fff;
+  background-color: #68a9cf;
+}
+
+.select_arrow span::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border: 0;
+  border-top: solid 3px red;
+  border-right: solid 3px #fff;
+  position: absolute;
+  top: 15px;
+  left: 13px;
+  margin-top: -4px;
+  transform: rotate(-45deg);
+  transition: all 0.7s;
+}
+
 .input_radio,
 .input_radio_active {
-  width: 80px;
+  margin: 0 5px;
+  max-width: 50px;
+  width: 70px;
+  max-width: 70px;
   height: 40px;
   border-radius: 5px;
   font-size: 14px;
@@ -385,4 +421,20 @@
   text-align: left;
   font-size: 1.2rem;
   color: #cf6775;
+}
+
+.notes {
+  padding: 5px 0;
+  width: 100%;
+  font-size: 1.2rem;
+  color: #999;
+  text-align: right;
+}
+
+.refuse {
+  margin: 40px 0;
+  width: 100%;
+  font-size: 1.4rem;
+  text-decoration: underline;
+  color: #999;
 }
