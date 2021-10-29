@@ -25,11 +25,6 @@ a {
   color: #999;
 }
 
-input {
-  border: 3px solid #fff;
-  background-color: #edf2f7;
-  transition: all 0.5s;
-}
 input:focus {
   outline: none;
   background-color: #fff;
@@ -41,4 +36,7 @@ input,
 select {
   -webkit-appearance: none;
   appearance: none;
+  border: 3px solid #fff;
+  background-color: #edf2f7;
+  transition: all 0.5s;
 }

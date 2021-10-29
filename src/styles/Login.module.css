@@ -350,7 +350,7 @@
 
 .input_select,
 .input_select_active {
-  width: 120px;
+  width: 110px;
   padding: 0 20px 0 10px;
   height: 40px;
   font-size: 14px;
@@ -373,7 +373,7 @@
 }
 .input_select_active {
   color: #fff;
-  background-color: #68a9cf;
+  background-color: #edf2f7;
 }
 
 .select_arrow span::before {
