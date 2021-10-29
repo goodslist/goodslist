@@ -118,7 +118,7 @@ const Signup = (data: SignupProps) => {
           <span>新規登録{user ? user.user_name : ''}</span>
         </div>
         <div className={styles.card}>
-          <div className={styles.terms}>全ての項目を入力し、登録を完了してください。</div>
+          <div className={styles.explanation}>全ての項目を入力すると登録完了です。</div>
 
           <div className={styles.form_container}>
             <div className={styles.input_name_container}>

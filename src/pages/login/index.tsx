@@ -135,10 +135,9 @@ const LoginGate = (data: Props) => {
               </span>
             </button>
           </div>
-          <hr className={styles.space_bar} />
+          <hr className={styles.bar_login} />
 
           <div className={styles.form_container}>
-            {email}
             <span className={styles.input_mail_container}>
               <input
                 className={styles.input_mail}
@@ -152,7 +151,6 @@ const LoginGate = (data: Props) => {
               </span>
             </span>
             <div className={styles.input_error}></div>
-            {password}
             <span className={styles.input_password_container}>
               <input
                 className={styles.input_password}
@@ -165,7 +163,9 @@ const LoginGate = (data: Props) => {
                 <Password />
               </span>
             </span>
-            <div className={styles.input_error}>不正な値です。</div>
+            <div className={styles.input_error}>
+              アルファベットと数字の組み合わせで8文字以上が必要です。
+            </div>
             <div className={styles.forgot_password} onClick={() => signOut()}>
               パスワードを忘れた場合
             </div>

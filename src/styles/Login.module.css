@@ -485,3 +485,17 @@
   height: 28px;
   fill: #fff;
 }
+
+.bar_login {
+  display: inline-block;
+  width: 90%;
+  margin: 30px 0 0 0;
+  border-top: 1px solid #ccc;
+  border-bottom: 0;
+}
+
+.explanation {
+  margin: 40px 0 0 0;
+  font-size: 1.4rem;
+  color: #666;
+}
