@@ -75,6 +75,8 @@ export const AuthProvider: FC = ({ children }) => {
         user,
         session,
         signOut,
+        avatar_url: 'https://',
+        sign_up: false,
       }}
     >
       {children}
