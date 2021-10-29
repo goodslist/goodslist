@@ -18,7 +18,7 @@ import { AuthContext } from '../../components/auth/AuthContext'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
-type Signup = {
+type SignupProps = {
   name: string
   birth_year: number
   birth_month: number
@@ -34,27 +34,30 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   }
 }
 
-const LoginGate = (data: Props) => {
+const Signup = (data: SignupProps) => {
   const { user, session, signOut }: any = useContext(AuthContext)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const login = async () => {
-    const { error, data } = await supabase.auth.signIn({ email, password })
-    if (error) {
-      console.log({ error })
-    } else {
-      console.log({ data })
-    }
-  }
+  const [name, setName] = useState('')
+  const [year, setYear] = useState(0)
+  const [month, setMonth] = useState(0)
+  const [gender, setGender] = useState(0)
 
-  const signup = async () => {
-    const { error } = await supabase.auth.signUp({ email, password })
-    if (error) {
-      console.log({ error })
-    } else {
-      console.log({ data })
-    }
-  }
+  // const login = async () => {
+  //   const { error, data } = await supabase.auth.signIn({ email, password })
+  //   if (error) {
+  //     console.log({ error })
+  //   } else {
+  //     console.log({ data })
+  //   }
+  // }
+
+  // const signup = async () => {
+  //   const { error } = await supabase.auth.signUp({ email, password })
+  //   if (error) {
+  //     console.log({ error })
+  //   } else {
+  //     console.log({ data })
+  //   }
+  // }
 
   const [selectLogin, setSelectLogin] = useState([
     styles.select_login_active,
@@ -102,7 +105,6 @@ const LoginGate = (data: Props) => {
           <div className={styles.terms}>全ての項目を入力し、登録を完了してください。</div>
 
           <div className={styles.form_container}>
-            {email}
             <div className={styles.input_name_container}>
               <div className={styles.input_label}>お名前</div>
               <input
@@ -110,7 +112,7 @@ const LoginGate = (data: Props) => {
                 type='text'
                 name='name'
                 placeholder='ニックネーム'
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className={styles.input_error}></div>
@@ -120,7 +122,7 @@ const LoginGate = (data: Props) => {
               <div className={styles.input_label}>誕生年月</div>
               <div className={styles.birth_gender}>
                 <span className={styles.select_arrow}>
-                  <select className={styles.input_select_active}>
+                  <select className={styles.input_select}>
                     <option value='1990'>1990年</option>
                     <option value='1991'>1991年</option>
                   </select>
@@ -146,7 +148,7 @@ const LoginGate = (data: Props) => {
             <div className={styles.input_error}></div>
             <div className={styles.notes}></div>
             <hr className={styles.space_bar} />
-            <button className={styles.btn_login_mail} onClick={() => signup()}>
+            <button className={styles.btn_login_mail}>
               登録を完了する
               <span>
                 <Mail />
@@ -160,4 +162,4 @@ const LoginGate = (data: Props) => {
   )
 }
 
-export default LoginGate
+export default Signup

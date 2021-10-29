@@ -355,10 +355,8 @@
   height: 40px;
   font-size: 14px;
   position: relative;
-  color: #fff;
-  background-color: #68a9cf;
-  border: none;
-  border-radius: 5px;
+  background-color: #edf2f7;
+  border-radius: 10px;
   letter-spacing: 4px;
 }
 .input_select:focus {
@@ -368,11 +366,11 @@
   transition: all 0.5s;
 }
 .input_select {
-  color: #999;
+  color: #666;
   background-color: #edf2f7;
 }
 .input_select_active {
-  color: #fff;
+  color: #666;
   background-color: #edf2f7;
 }
 
@@ -404,7 +402,7 @@
 }
 
 .input_radio {
-  color: #999;
+  color: #666;
   background-color: #edf2f7;
   cursor: pointer;
 }
