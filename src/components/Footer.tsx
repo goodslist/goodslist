@@ -10,7 +10,13 @@ export default function Footer() {
             |　
             <Link href={'/privacy'}>
               <a>
-                <u>プライバシー・ポリシー</u>
+                <u>利用規約</u>　
+              </a>
+            </Link>
+            |　
+            <Link href={'/privacy'}>
+              <a>
+                <u>プライバシーポリシー</u>
               </a>
             </Link>
             　|　

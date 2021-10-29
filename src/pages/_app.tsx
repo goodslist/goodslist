@@ -1,17 +1,17 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Layout from '../components/Layout'
-import { LoginProvider } from '../components/auth/LoginContext'
+import { AuthProvider } from '../components/auth/AuthContext'
 import { ModalProvider } from '../components/modal/ModalContext'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <LoginProvider>
+    <AuthProvider>
       <ModalProvider>
         <Layout>
           <Component {...pageProps} />
         </Layout>
       </ModalProvider>
-    </LoginProvider>
+    </AuthProvider>
   )
 }
 export default MyApp

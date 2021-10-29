@@ -14,8 +14,14 @@ import Password from '../img/password.svg'
 import Google from '../img/google.svg'
 import Navbar from '../../components/Navber'
 import Image from 'next/image'
+import { AuthContext } from '../../components/auth/AuthContext'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
+
+type LoginKey = {
+  email: string
+  password: string
+}
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const data = 'テスト'
@@ -26,6 +32,27 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 }
 
 const LoginGate = (data: Props) => {
+  const { user, session, signOut }: any = useContext(AuthContext)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const login = async () => {
+    const { error, data } = await supabase.auth.signIn({ email, password })
+    if (error) {
+      console.log({ error })
+    } else {
+      console.log({ data })
+    }
+  }
+
+  const signup = async () => {
+    const { error } = await supabase.auth.signUp({ email, password })
+    if (error) {
+      console.log({ error })
+    } else {
+      console.log({ data })
+    }
+  }
+
   const [selectLogin, setSelectLogin] = useState([
     styles.select_login_active,
     styles.select_register,
@@ -49,6 +76,7 @@ const LoginGate = (data: Props) => {
       setSelectLogin(newSelectLogin)
     }
   }
+
   return (
     <>
       <Head>
@@ -65,7 +93,7 @@ const LoginGate = (data: Props) => {
       <Navbar />
       <main className={styles.main}>
         <div className={styles.content_title}>
-          <span>ログイン / 新規登録</span>
+          <span>ログイン / 新規登録{user ? user.user_name : ''}</span>
         </div>
         <div className={styles.card}>
           <div className={styles.select_login_container}>
@@ -73,16 +101,15 @@ const LoginGate = (data: Props) => {
               ログイン
             </button>
             <button className={selectLogin[1]} onClick={() => changeSelectLogin('register')}>
-              新規登録
+              <Link href={'/signup'}>
+                <a>新規登録</a>
+              </Link>
             </button>
           </div>
           <div className={styles.select_underbar_container}>
             <div className={selectLogin[2]}></div>
           </div>
-          <div className={styles.btn_container}>
-            <div className={styles.terms}>
-              <u>利用規約</u>に同意の上ご利用ください。
-            </div>
+          <div className={styles.form_container}>
             <button className={styles.btn_login_twitter}>
               Twitterでログイン
               <span>
@@ -107,26 +134,57 @@ const LoginGate = (data: Props) => {
                 <img src='../../images/google.svg' width='26px' height='26px' />
               </span>
             </button>
-            <hr className={styles.space_bar} />
+          </div>
+          <hr className={styles.space_bar} />
+
+          <div className={styles.form_container}>
+            {email}
             <span className={styles.input_mail_container}>
-              <input className={styles.input_mail} type='text' placeholder='メールアドレス' />
+              <input
+                className={styles.input_mail}
+                type='text'
+                name='email'
+                placeholder='メールアドレス'
+                onChange={(e) => setEmail(e.target.value)}
+              />
               <span>
                 <Mail />
               </span>
             </span>
+            <div className={styles.input_error}></div>
+            {password}
             <span className={styles.input_password_container}>
-              <input className={styles.input_password} type='password' placeholder='パスワード' />
+              <input
+                className={styles.input_password}
+                type='password'
+                name='password'
+                placeholder='パスワード'
+                onChange={(e) => setPassword(e.target.value)}
+              />
               <span>
                 <Password />
               </span>
             </span>
-            <div className={styles.forgot_password}>パスワードを忘れた場合</div>
-            <button className={styles.btn_login_mail}>
+            <div className={styles.input_error}>不正な値です。</div>
+            <div className={styles.forgot_password} onClick={() => signOut()}>
+              パスワードを忘れた場合
+            </div>
+            <button className={styles.btn_login_mail} onClick={() => login()}>
               メールアドレスでログイン
               <span>
                 <Mail />
               </span>
             </button>
+            <button className={styles.btn_login_mail} onClick={() => signup()}>
+              メールアドレスで登録
+              <span>
+                <Mail />
+              </span>
+            </button>
+          </div>
+
+          <div className={styles.terms}>
+            <u>利用規約</u>、<u>プライバシーポリシー</u>に同意の上ご利用ください。
           </div>
         </div>
       </main>

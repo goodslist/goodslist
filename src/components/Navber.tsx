@@ -3,9 +3,18 @@ import styles from '../styles/Navber.module.css'
 import React from 'react'
 import { useContext } from 'react'
 import { ModalContext } from './modal/ModalContext'
+import { AuthContext } from '../components/auth/AuthContext'
+import { useRouter } from 'next/router'
 
 export default function Navbar(props: any) {
-  const { openModalFlag, setOpenModalFlag, openModal }: any = useContext(ModalContext)
+  const { user, session, signOut }: any = useContext(AuthContext)
+  const { openModal }: any = useContext(ModalContext)
+  const router = useRouter()
+  if (router.pathname != '/signup') {
+    if (user?.sign_up == false) {
+      router.replace('/signup')
+    }
+  }
   //親から送られてきた関数を実行
   const clickLoginButton = () => {
     openModal('login')
@@ -25,7 +34,9 @@ export default function Navbar(props: any) {
         </div>
         <Link href='/login/'>
           <a>
-            <div className={styles.login_button}>ログイン / 新規登録</div>
+            <div className={styles.login_button}>
+              {user ? user.user_name : 'ログイン / 新規登録'}
+            </div>
           </a>
         </Link>
       </div>
