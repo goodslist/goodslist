@@ -6,15 +6,12 @@ import { useState, useEffect, useRef, useCallback, useContext } from 'react'
 import { supabase } from '../../components/supabase'
 import styles from '../../styles/Login.module.css'
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
-import IconTwitter from '../img/icon_twitter.svg'
-import IconLine from '../img/line.svg'
 import Mail from '../img/mail.svg'
-import Yahoo from '../img/yahoo.png'
 import Password from '../img/password.svg'
-import Google from '../img/google.svg'
 import Navbar from '../../components/Navber'
 import Image from 'next/image'
 import { AuthContext } from '../../components/auth/AuthContext'
+import Check from '../../../public/images/check.svg'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -37,9 +34,28 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 const Signup = (data: SignupProps) => {
   const { user, session, signOut }: any = useContext(AuthContext)
   const [name, setName] = useState('')
-  const [year, setYear] = useState(0)
+  const [year, setYear] = useState(1990)
   const [month, setMonth] = useState(0)
   const [gender, setGender] = useState(0)
+  const [submit, setSubmit] = useState(false)
+
+  const inputGender = (gender: number) => {
+    setGender(gender)
+  }
+  const inputYear = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // console.log(e.target.value)
+    // alert(e.target.value)
+    setYear(Number(e.target.value))
+  }
+
+  const inputMonth = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMonth(Number(e.target.value))
+  }
+
+  useEffect(() => {
+    if (year > 0 && month > 0 && gender > 0) setSubmit(true)
+    else setSubmit(false)
+  }, [year, month, gender])
 
   // const login = async () => {
   //   const { error, data } = await supabase.auth.signIn({ email, password })
@@ -122,15 +138,32 @@ const Signup = (data: SignupProps) => {
               <div className={styles.input_label}>誕生年月</div>
               <div className={styles.birth_gender}>
                 <span className={styles.select_arrow}>
-                  <select className={styles.input_select}>
+                  <select
+                    className={styles.input_select_active}
+                    onChange={(event: any) => inputYear(event)}
+                  >
                     <option value='1990'>1990年</option>
                     <option value='1991'>1991年</option>
                   </select>
                 </span>
 
-                <select className={styles.input_select}>
-                  <option value='---'>---</option>
+                <select
+                  className={month > 0 ? styles.input_select_active : styles.input_select}
+                  onChange={(event: any) => inputMonth(event)}
+                >
+                  <option value='0'>---</option>
                   <option value='1'>01月</option>
+                  <option value='2'>02月</option>
+                  <option value='3'>03月</option>
+                  <option value='4'>04月</option>
+                  <option value='5'>05月</option>
+                  <option value='6'>06月</option>
+                  <option value='7'>07月</option>
+                  <option value='8'>08月</option>
+                  <option value='9'>09月</option>
+                  <option value='10'>10月</option>
+                  <option value='11'>11月</option>
+                  <option value='12'>12月</option>
                 </select>
               </div>
             </div>
@@ -140,18 +173,33 @@ const Signup = (data: SignupProps) => {
             <div className={styles.birth_gender_container}>
               <div className={styles.input_label}>性別</div>
               <div className={styles.birth_gender}>
-                <label className={styles.input_radio}>女</label>
-                <label className={styles.input_radio}>男</label>
-                <label className={styles.input_radio}>その他</label>
+                <label
+                  className={gender == 1 ? styles.input_radio_active : styles.input_radio}
+                  onClick={() => inputGender(1)}
+                >
+                  女
+                </label>
+                <label
+                  className={gender == 2 ? styles.input_radio_active : styles.input_radio}
+                  onClick={() => inputGender(2)}
+                >
+                  男
+                </label>
+                <label
+                  className={gender == 3 ? styles.input_radio_active : styles.input_radio}
+                  onClick={() => inputGender(3)}
+                >
+                  その他
+                </label>
               </div>
             </div>
             <div className={styles.input_error}></div>
             <div className={styles.notes}></div>
             <hr className={styles.space_bar} />
-            <button className={styles.btn_login_mail}>
+            <button className={submit == true ? styles.btn_singup_active : styles.btn_singup}>
               登録を完了する
               <span>
-                <Mail />
+                <Check />
               </span>
             </button>
             <div className={styles.refuse}>登録をやめる</div>
