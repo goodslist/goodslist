@@ -231,10 +231,10 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     console.log('リセット')
     setGoodsList(initialGoodsList.map((List) => Object.assign({}, List)))
     setGoodsGroupCounts(initialGoodsGroupCount.map((List) => Object.assign({}, List)))
-  }
 
-  const abcde = () => {
-    alert('リセット')
+    //モーダルを閉じる
+    setOpenModalFlag(false)
+    setOpenModalContentFlag(false)
   }
 
   // const reset = (goodsList: Goods[]) => {
@@ -351,12 +351,14 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     window.addEventListener('scroll', handleScroll)
   }, [])
 
-  const { openModalFlag, setOpenModalFlag, openModal, modalType, setModalType }: any =
+  const { openModalFlag, setOpenModalFlag, modalType, setModalType, setOpenModalContentFlag }: any =
     useContext(ModalContext)
 
-  const openResetModal = () => {
+  //モーダルを開く
+  const openModal = (action: string) => {
     setOpenModalFlag(true)
-    setModalType('reset')
+    setModalType(action)
+    setOpenModalContentFlag(true)
   }
 
   return (
@@ -376,7 +378,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
 
       <div className={changeNavbarCss} id='concept'>
         <div className={styles.total_bar}>
-          <div className={reset_flag} onClick={() => openResetModal()}>
+          <div className={reset_flag} onClick={() => openModal('reset')}>
             <span>
               <Reset />
             </span>
@@ -394,10 +396,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
       </div>
       <main className={styles.main}>
         <div className={styles.contant_name_container}>
-          <p className={styles.content_name}>
-            {goodsList[0].content_name}
-            {modalType}
-          </p>
+          <p className={styles.content_name}>{goodsList[0].content_name}</p>
         </div>
         <div className={styles.event_title_container}>
           <h1 className={styles.h1}>{goodsList[0].event_name}</h1>

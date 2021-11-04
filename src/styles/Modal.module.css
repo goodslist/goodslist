@@ -44,7 +44,7 @@
   width: 100%;
   margin: 10px;
   background-color: #fff;
-  padding: 10px;
+  padding: 20px;
   border-radius: 10px;
   cursor: default;
 }
@@ -59,13 +59,13 @@
   width: 100%;
   margin: 10px;
   background-color: #fff;
-  padding: 10px;
+  padding: 20px;
   border-radius: 10px;
 }
 
 .close_button_container {
   width: 100%;
-  margin: 0 0 20px 0;
+  margin: 0 0 10px 0;
   text-align: right;
   height: 20px;
   display: flex;

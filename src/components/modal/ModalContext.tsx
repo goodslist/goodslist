@@ -23,6 +23,8 @@ export interface ModalContextProps {
   setModalType: Dispatch<SetStateAction<string>>
   openModalContentFlag: boolean
   setOpenModalContentFlag: Dispatch<SetStateAction<boolean>>
+  showLogin: boolean
+  setShowLogin: Dispatch<SetStateAction<boolean>>
 }
 
 export const ModalContext = createContext({} as ModalContextProps)
@@ -33,6 +35,8 @@ export const useProvideModal = () => {
 
   //モーダルの開閉フラグ
   const [openModalContentFlag, setOpenModalContentFlag] = useState(false)
+  //ログイン画面か新規登録画面かのフラグ
+  const [showLogin, setShowLogin] = useState(true)
   //モーダルの種類
   const [modalType, setModalType] = useState('')
   //モーダルのコンテンツ
@@ -66,6 +70,8 @@ export const useProvideModal = () => {
     setModalType,
     openModalContentFlag,
     setOpenModalContentFlag,
+    showLogin,
+    setShowLogin,
   }
 }
 
@@ -81,6 +87,8 @@ export const ModalProvider: FC = ({ children }) => {
     setModalType,
     openModalContentFlag,
     setOpenModalContentFlag,
+    showLogin,
+    setShowLogin,
   } = useProvideModal()
 
   return (
@@ -96,6 +104,8 @@ export const ModalProvider: FC = ({ children }) => {
         setModalType,
         openModalContentFlag,
         setOpenModalContentFlag,
+        showLogin,
+        setShowLogin,
       }}
     >
       {/* {openModalFlag && <Modal modalContent={modalContent} onClose={closeModal} />} */}

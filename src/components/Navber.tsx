@@ -10,12 +10,26 @@ import Modal from '../components/modal/Modal'
 
 export default function Navbar(props: any) {
   const { user, session, signOut }: any = useContext(AuthContext)
-  const { openModalFlag, setOpenModalFlag }: any = useContext(ModalContext)
+  const {
+    openModalFlag,
+    setOpenModalFlag,
+    openModalContentFlag,
+    setOpenModalContentFlag,
+    setShowLogin,
+    setModalType,
+  }: any = useContext(ModalContext)
   const router = useRouter()
   if (router.pathname != '/signup') {
     if (user?.sign_up == false) {
       router.replace('/signup')
     }
+  }
+
+  const onClickLogin = () => {
+    setModalType('login')
+    setOpenModalFlag(true)
+    setShowLogin(true)
+    setOpenModalContentFlag(true)
   }
   return (
     <div className={styles.header_container}>
@@ -31,7 +45,7 @@ export default function Navbar(props: any) {
           </Link>
         </div>
         <Modal reset={props.reset} />
-        <div className={styles.login_button} onClick={() => setOpenModalFlag(true)}>
+        <div className={styles.login_button} onClick={() => onClickLogin()}>
           {user ? user.user_name : 'ログイン / 新規登録'}
         </div>
       </div>

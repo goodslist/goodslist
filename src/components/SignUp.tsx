@@ -8,7 +8,7 @@ import { useState, useEffect, useRef, useCallback, useContext } from 'react'
 import { supabase } from './supabase'
 import { ModalContext } from './modal/ModalContext'
 
-export default function Login() {
+export default function SignUp() {
   const { user, session, signOut }: any = useContext(AuthContext)
 
   const {
@@ -50,10 +50,10 @@ export default function Login() {
     }
   }
 
-  const clickLinkSignUp = () => {
+  const clickLinkLogIn = () => {
     setOpenModalContentFlag(false)
     setTimeout(function () {
-      setShowLogin(false)
+      setShowLogin(true)
       setOpenModalContentFlag(true)
     }, 500)
   }
@@ -61,7 +61,7 @@ export default function Login() {
   return (
     <>
       <div className={styles.content_title}>
-        <span>ログイン{user ? user.user_name : ''}</span>
+        <span>新規登録{user ? user.user_name : ''}</span>
       </div>
       <div className={styles.select_login_container}>
         <button
@@ -87,7 +87,7 @@ export default function Login() {
       </div>
       <div className={isSns ? styles.form_container_sns : styles.form_container_mail}>
         <div className={styles.form_login_mail}>
-          <div className={styles.form_header}>メールでログイン</div>
+          <div className={styles.form_header}>メールで新規登録</div>
           <span className={styles.input_mail_container}>
             <input
               className={styles.input_mail}
@@ -120,13 +120,13 @@ export default function Login() {
             パスワードを忘れた場合
           </div>
           <button className={styles.btn_login_mail} onClick={() => login()}>
-            メールアドレスでログイン
+            確認メールを送信
             <span>
               <Mail />
             </span>
           </button>
-          <button className={styles.btn_link_register} onClick={() => clickLinkSignUp()}>
-            新規登録はこちら
+          <button className={styles.btn_link_register} onClick={() => clickLinkLogIn()}>
+            ログインはこちら
           </button>
           {/* <button className={styles.btn_login_mail} onClick={() => signup()}>
             メールアドレスで登録
@@ -136,7 +136,7 @@ export default function Login() {
           </button> */}
         </div>
         <div className={styles.form_login_sns}>
-          <div className={styles.form_header}>SNSでログイン</div>
+          <div className={styles.form_header}>SNSで新規登録</div>
           <button className={styles.btn_login_twitter}>
             Twitter
             <span>
@@ -161,8 +161,8 @@ export default function Login() {
               <img src='../../images/google.svg' width='26px' height='26px' />
             </span>
           </button>
-          <button className={styles.btn_link_register} onClick={() => clickLinkSignUp()}>
-            新規登録はこちら
+          <button className={styles.btn_link_register} onClick={() => clickLinkLogIn()}>
+            ログインはこちら
           </button>
         </div>
       </div>
