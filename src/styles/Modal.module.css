@@ -8,7 +8,7 @@
   background: rgba(0, 0, 0, 0.3);
   opacity: 0;
   visibility: hidden;
-  transition: 0.2s linear;
+  transition: 0.05s linear;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,12 +25,13 @@
   background: rgba(0, 0, 0, 0.3);
   opacity: 1;
   visibility: visible;
-  transition: 0.2s linear;
+  transition: 0.05s linear;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: default;
+  animation: fadeIn 0.2s ease 0.3s 1 normal;
 }
 
 .modal_container {
@@ -41,9 +42,9 @@
   min-width: 300px;
   max-width: 400px;
   width: 100%;
-  margin: 20px;
+  margin: 10px;
   background-color: #fff;
-  padding: 15px 15px 35px 15px;
+  padding: 10px;
   border-radius: 10px;
   cursor: default;
 }
@@ -56,9 +57,9 @@
   min-width: 300px;
   max-width: 400px;
   width: 100%;
-  margin: 20px;
+  margin: 10px;
   background-color: #fff;
-  padding: 15px 15px 55px 15px;
+  padding: 10px;
   border-radius: 10px;
 }
 
@@ -103,6 +104,7 @@
 
 .modal_content {
   width: 100%;
+  overflow: hidden;
 }
 
 .title {

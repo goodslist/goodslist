@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from '../styles/Modal.module.css'
 import { ModalContext } from './modal/ModalContext'
-import { useContext } from 'react'
+import { useContext, useRef, useImperativeHandle, forwardRef } from 'react'
 
 const Modal = (props: any) => {
   const { openModalFlag, modalContent, closeModal }: any = useContext(ModalContext)

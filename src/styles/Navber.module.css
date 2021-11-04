@@ -46,3 +46,8 @@
   border-radius: 30px;
   cursor: pointer;
 }
+
+.portal {
+  position: absolute;
+  background-color: red;
+}

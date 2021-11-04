@@ -19,6 +19,7 @@ import { animateScroll as scroll } from 'react-scroll'
 import Navbar from '../../components/Navber'
 import { numberFormat, dateFormat } from '../../components/Utils'
 import { ModalContext } from '../../components/modal/ModalContext'
+import { forwardRef, useImperativeHandle } from 'react'
 
 class EventInfo {
   content_id: number = 0
@@ -56,6 +57,22 @@ type PathParams = {
 }
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
+
+export interface ChildHandles {
+  getAlert(): void
+}
+
+export const Child = forwardRef<ChildHandles>((props, ref) => {
+  // コンポーネントのインスタンスが拡張されます
+  // 第2引数として渡されたコールバックから返されたもので拡張されます
+  useImperativeHandle(ref, () => ({
+    getAlert() {
+      alert('getAlert from Child')
+    },
+  }))
+
+  return <h1>Hi</h1>
+})
 
 export const getStaticPaths: GetStaticPaths<PathParams> = async () => {
   const { data, error } = await supabase.from('events').select('event_id')
@@ -211,8 +228,13 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
 
   //リセットボタンが押された場合、グッズとグループのカウントを0にする
   const reset = () => {
+    console.log('リセット')
     setGoodsList(initialGoodsList.map((List) => Object.assign({}, List)))
     setGoodsGroupCounts(initialGoodsGroupCount.map((List) => Object.assign({}, List)))
+  }
+
+  const abcde = () => {
+    alert('リセット')
   }
 
   // const reset = (goodsList: Goods[]) => {
@@ -329,7 +351,13 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     window.addEventListener('scroll', handleScroll)
   }, [])
 
-  const { openModal }: any = useContext(ModalContext)
+  const { openModalFlag, setOpenModalFlag, openModal, modalType, setModalType }: any =
+    useContext(ModalContext)
+
+  const openResetModal = () => {
+    setOpenModalFlag(true)
+    setModalType('reset')
+  }
 
   return (
     <>
@@ -344,11 +372,11 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
         />
       </Head>
 
-      <Navbar />
+      <Navbar reset={reset} />
 
       <div className={changeNavbarCss} id='concept'>
         <div className={styles.total_bar}>
-          <div className={reset_flag} onClick={() => openModal('reset')}>
+          <div className={reset_flag} onClick={() => openResetModal()}>
             <span>
               <Reset />
             </span>
@@ -366,7 +394,10 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
       </div>
       <main className={styles.main}>
         <div className={styles.contant_name_container}>
-          <p className={styles.content_name}>{goodsList[0].content_name}</p>
+          <p className={styles.content_name}>
+            {goodsList[0].content_name}
+            {modalType}
+          </p>
         </div>
         <div className={styles.event_title_container}>
           <h1 className={styles.h1}>{goodsList[0].event_name}</h1>
