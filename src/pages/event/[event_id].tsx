@@ -354,7 +354,6 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
   const { openModalFlag, setOpenModalFlag, modalType, setModalType, setOpenModalContentFlag }: any =
     useContext(ModalContext)
 
-  //モーダルを開く
   const openModal = (action: string) => {
     setOpenModalFlag(true)
     setModalType(action)
