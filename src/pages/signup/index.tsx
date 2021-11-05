@@ -32,12 +32,12 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 }
 
 const Signup = (data: SignupProps) => {
-  const { user, session, signOut }: any = useContext(AuthContext)
+  const { user, setUser, session, setSession, signOut }: any = useContext(AuthContext)
   const [name, setName] = useState('')
   const [year, setYear] = useState(1990)
   const [month, setMonth] = useState(0)
   const [gender, setGender] = useState(0)
-  const [submit, setSubmit] = useState(false)
+  const [completeInput, setCompleteInput] = useState(false)
 
   const inputGender = (gender: number) => {
     setGender(gender)
@@ -53,10 +53,33 @@ const Signup = (data: SignupProps) => {
   }
 
   useEffect(() => {
-    if (year > 0 && month > 0 && gender > 0) setSubmit(true)
-    else setSubmit(false)
+    if (year > 0 && month > 0 && gender > 0) setCompleteInput(true)
+    else setCompleteInput(false)
   }, [year, month, gender])
 
+  const submit = async () => {
+    const { data, error } = await supabase
+      .from('users')
+      .update({
+        user_name: name,
+        birth_year: year,
+        birth_month: month,
+        gender: gender,
+        sign_up: true,
+      })
+      .match({ id: session.user.id })
+    if (error) {
+      console.log({ error })
+    } else {
+      const { data: user, error } = await supabase
+        .from('users')
+        .select('id, user_name, avatar_url, sign_up')
+        .eq('id', session.user.id)
+        .single()
+      setUser(user)
+    }
+    console.log({ user })
+  }
   // const login = async () => {
   //   const { error, data } = await supabase.auth.signIn({ email, password })
   //   if (error) {
@@ -196,7 +219,10 @@ const Signup = (data: SignupProps) => {
             <div className={styles.input_error}></div>
             <div className={styles.notes}></div>
             <hr className={styles.space_bar} />
-            <button className={submit == true ? styles.btn_singup_active : styles.btn_singup}>
+            <button
+              className={completeInput == true ? styles.btn_singup_active : styles.btn_singup}
+              onClick={() => submit()}
+            >
               登録を完了する
               <span>
                 <Check />

@@ -1,10 +1,11 @@
-import React, { createContext, FC, useState, useEffect } from 'react'
+import React, { Dispatch, SetStateAction, createContext, FC, useState, useEffect } from 'react'
 import { Session, User } from '@supabase/supabase-js'
 import { supabase } from '../../components/supabase'
 import { useRouter } from 'next/router'
 
 interface AuthContextProps {
   user: User | null | undefined
+  setUser: Dispatch<SetStateAction<User | null | undefined>>
   session: Session | null | undefined
   avatar_url: string | null | undefined
   sign_up: boolean
@@ -15,14 +16,7 @@ const signOut = () => {
   supabase.auth.signOut()
 }
 
-export const AuthContext = createContext<AuthContextProps>({
-  user: null,
-  session: undefined,
-  signOut: signOut,
-  avatar_url: 'https://',
-  sign_up: false,
-})
-
+export const AuthContext = createContext({} as AuthContextProps)
 export const AuthProvider: FC = ({ children }) => {
   const [user, setUser] = useState<User | null | undefined>(undefined)
   const [session, setSession] = useState<Session | null | undefined>(undefined)
@@ -73,6 +67,7 @@ export const AuthProvider: FC = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        setUser,
         session,
         signOut,
         avatar_url: 'https://',

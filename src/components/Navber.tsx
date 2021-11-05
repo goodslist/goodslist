@@ -45,9 +45,13 @@ export default function Navbar(props: any) {
           </Link>
         </div>
         <Modal reset={props.reset} />
-        <div className={styles.login_button} onClick={() => onClickLogin()}>
-          {user ? user.user_name : 'ログイン / 新規登録'}
-        </div>
+        <Link href='/login'>
+          <a>
+            <div className={styles.login_button}>
+              {user ? user.user_name : 'ログイン / 新規登録'}
+            </div>
+          </a>
+        </Link>
       </div>
     </div>
   )

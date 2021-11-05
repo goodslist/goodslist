@@ -6,6 +6,7 @@ import { ModalProvider } from '../components/modal/ModalContext'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
+      <div id='modal' />
       <ModalProvider>
         <Layout>
           <Component {...pageProps} />

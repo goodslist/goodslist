@@ -33,7 +33,7 @@ export default function SignUp() {
     }
   }
 
-  const signup = async () => {
+  const signUp = async () => {
     const { error, data } = await supabase.auth.signUp({ email, password })
     if (error) {
       console.log({ error })
@@ -119,7 +119,7 @@ export default function SignUp() {
           <div className={styles.forgot_password} onClick={() => signOut()}>
             パスワードを忘れた場合
           </div>
-          <button className={styles.btn_login_mail} onClick={() => login()}>
+          <button className={styles.btn_login_mail} onClick={() => signUp()}>
             確認メールを送信
             <span>
               <Mail />

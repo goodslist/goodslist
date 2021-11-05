@@ -1,40 +1,29 @@
-import Link from 'next/link'
-import React from 'react'
-import type { NextPage } from 'next'
-import Head from 'next/head'
+import styles from '../../styles/Login.module.css'
+import Twitter from '../../../public/images/twitter.svg'
+import Line from '../../../public/images/line.svg'
+import Mail from '../../../public/images/mail.svg'
+import Password from '../../../public/images/password.svg'
+import { AuthContext } from '../../components/auth/AuthContext'
 import { useState, useEffect, useRef, useCallback, useContext } from 'react'
 import { supabase } from '../../components/supabase'
-import styles from '../../styles/Login.module.css'
-import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
-import IconTwitter from '../img/icon_twitter.svg'
-import IconLine from '../img/line.svg'
-import Mail from '../img/mail.svg'
-import Yahoo from '../img/yahoo.png'
-import Password from '../img/password.svg'
-import Google from '../img/google.svg'
+import { ModalContext } from '../../components/modal/ModalContext'
+import Head from 'next/head'
 import Navbar from '../../components/Navber'
-import Image from 'next/image'
-import { AuthContext } from '../../components/auth/AuthContext'
 
-type Props = InferGetStaticPropsType<typeof getStaticProps>
-
-type LoginKey = {
-  email: string
-  password: string
-}
-
-export const getStaticProps = async (context: GetStaticPropsContext) => {
-  const data = 'テスト'
-
-  return {
-    props: { data },
-  }
-}
-
-const LoginGate = (data: Props) => {
+export default function Login() {
   const { user, session, signOut }: any = useContext(AuthContext)
+
+  const {
+    openModalFlag,
+    setOpenModalFlag,
+    modalType,
+    openModalContentFlag,
+    setOpenModalContentFlag,
+    setShowLogin,
+  }: any = useContext(ModalContext)
+
   //ログインか新規登録かのフラグ
-  const [isLogin, setIsLogin] = useState(true)
+  const [isSns, setIsSns] = useState(true)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const login = async () => {
@@ -47,7 +36,7 @@ const LoginGate = (data: Props) => {
   }
 
   const signup = async () => {
-    const { error } = await supabase.auth.signUp({ email, password })
+    const { error, data } = await supabase.auth.signUp({ email, password })
     if (error) {
       console.log({ error })
     } else {
@@ -56,11 +45,19 @@ const LoginGate = (data: Props) => {
   }
 
   const changeSelectLogin = (select: string) => {
-    if (select == 'register') {
-      setIsLogin(false)
-    } else if (select == 'login') {
-      setIsLogin(true)
+    if (select == 'mail') {
+      setIsSns(false)
+    } else if (select == 'sns') {
+      setIsSns(true)
     }
+  }
+
+  const clickLinkSignUp = () => {
+    setOpenModalContentFlag(false)
+    setTimeout(function () {
+      setShowLogin(false)
+      setOpenModalContentFlag(true)
+    }, 500)
   }
 
   return (
@@ -79,186 +76,87 @@ const LoginGate = (data: Props) => {
       <Navbar />
       <main className={styles.main}>
         <div className={styles.content_title}>
-          <span>ログイン / 新規登録{user ? user.user_name : ''}</span>
+          <span>ログイン</span>
         </div>
-        <div className={styles.card}>
-          <div className={styles.select_login_container}>
-            <button
-              className={isLogin ? styles.select_login_active : styles.select_login}
-              onClick={() => changeSelectLogin('login')}
-            >
-              ログイン
+        <div className={styles.login_signup_form_container}>
+          <button className={styles.btn_link_signup} onClick={() => clickLinkSignUp()}>
+            新規登録はこちら
+          </button>
+          <div className={styles.form_login_sns}>
+            <div className={styles.form_header}>SNSでログイン</div>
+            <button className={styles.btn_login_twitter}>
+              Twitterでログイン
+              <span>
+                <Twitter />
+              </span>
             </button>
-            <button
-              className={isLogin ? styles.select_register : styles.select_register_active}
-              onClick={() => changeSelectLogin('register')}
-            >
-              {/* <Link href={'/signup'}>
-                <a>新規登録</a>
-              </Link> */}
-              新規登録
+            <button className={styles.btn_login_line}>
+              LINEでログイン
+              <span>
+                <Line />
+              </span>
             </button>
+            {/* <button className={styles.btn_login_yahoo}>
+              Yahoo! JAPAN
+              <span>
+                <img src='../../images/yahoo.png' width='35px' height='35px' />
+              </span>
+            </button>
+            <button className={styles.btn_login_google}>
+              Google
+              <span>
+                <img src='../../images/google.svg' width='26px' height='26px' />
+              </span>
+            </button> */}
           </div>
-          <div className={styles.select_underbar_container}>
-            <div
-              className={isLogin ? styles.select_underbar_login : styles.select_underbar_register}
-            ></div>
-          </div>
-          <div className={isLogin ? styles.login_container_active : styles.login_container}>
-            <div className={styles.form}>
-              <button className={styles.btn_login_twitter}>
-                Twitterでログイン
-                <span>
-                  <IconTwitter />
-                </span>
-              </button>
-              <button className={styles.btn_login_line}>
-                LINEでログイン
-                <span>
-                  <IconLine />
-                </span>
-              </button>
-              <button className={styles.btn_login_yahoo}>
-                Yahoo! JAPANでログイン
-                <span>
-                  <img src='../../images/yahoo.png' width='35px' height='35px' />
-                </span>
-              </button>
-              <button className={styles.btn_login_google}>
-                Googleでログイン
-                <span>
-                  <img src='../../images/google.svg' width='26px' height='26px' />
-                </span>
-              </button>
+          <div className={styles.form_login_mail}>
+            <div className={styles.form_header}>メールでログイン</div>
+            <span className={styles.input_mail_container}>
+              <input
+                className={styles.input_mail}
+                type='text'
+                name='email'
+                placeholder='メールアドレス'
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <span>
+                <Mail />
+              </span>
+            </span>
+            <div className={styles.input_error}></div>
+            <span className={styles.input_password_container}>
+              <input
+                className={styles.input_password}
+                type='password'
+                name='password'
+                placeholder='パスワード'
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <span>
+                <Password />
+              </span>
+            </span>
+            <div className={styles.input_error}>
+              アルファベットと数字の組み合わせで8文字以上が必要です。
             </div>
-            <hr className={styles.bar_login} />
-
-            <div className={styles.form}>
-              <span className={styles.input_mail_container}>
-                <input
-                  className={styles.input_mail}
-                  type='text'
-                  name='email'
-                  placeholder='メールアドレス'
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <span>
-                  <Mail />
-                </span>
-              </span>
-              <div className={styles.input_error}></div>
-              <span className={styles.input_password_container}>
-                <input
-                  className={styles.input_password}
-                  type='password'
-                  name='password'
-                  placeholder='パスワード'
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <span>
-                  <Password />
-                </span>
-              </span>
-              <div className={styles.input_error}>
-                アルファベットと数字の組み合わせで8文字以上が必要です。
-              </div>
-              <div className={styles.forgot_password} onClick={() => signOut()}>
-                パスワードを忘れた場合
-              </div>
-              <button className={styles.btn_login_mail} onClick={() => login()}>
-                メールアドレスでログイン
-                <span>
-                  <Mail />
-                </span>
-              </button>
-              <button className={styles.btn_login_mail} onClick={() => signup()}>
-                メールアドレスで登録
-                <span>
-                  <Mail />
-                </span>
-              </button>
+            <div className={styles.forgot_password} onClick={() => signOut()}>
+              パスワードを忘れた場合
             </div>
-          </div>
-
-          <div className={isLogin ? styles.signup_container : styles.signup_container_active}>
-            <div className={styles.form}>
-              <span className={styles.input_mail_container}>
-                <input
-                  className={styles.input_mail}
-                  type='text'
-                  name='email'
-                  placeholder='メールアドレス'
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <span>
-                  <Mail />
-                </span>
+            <button className={styles.btn_login_mail} onClick={() => login()}>
+              メールアドレスでログイン
+              <span>
+                <Mail />
               </span>
-              <div className={styles.input_error}></div>
-              <span className={styles.input_password_container}>
-                <input
-                  className={styles.input_password}
-                  type='password'
-                  name='password'
-                  placeholder='パスワード'
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <span>
-                  <Password />
-                </span>
-              </span>
-              <div className={styles.input_error}>
-                アルファベットと数字の組み合わせで8文字以上が必要です。
-              </div>
-              <div className={styles.forgot_password} onClick={() => signOut()}>
-                パスワードを忘れた場合
-              </div>
-              <button className={styles.btn_login_mail} onClick={() => signup()}>
-                メールアドレスで登録
-                <span>
-                  <Mail />
-                </span>
-              </button>
-            </div>
-          </div>
-
-          <div className={styles.terms}>
-            <u>利用規約</u>、<u>プライバシーポリシー</u>に同意の上ご利用ください。
+            </button>
+            {/* <button className={styles.btn_login_mail} onClick={() => signup()}>
+            メールアドレスで登録
+            <span>
+              <Mail />
+            </span>
+          </button> */}
           </div>
         </div>
       </main>
     </>
   )
 }
-
-export default LoginGate
-
-// 本来は、ここで外部 API などを呼び出してデータを取得する
-
-// const { data, error } = await supabase
-//   .from('goods')
-//   .select(
-//     'goods_id, goods_name, goods_group, goods_type, color, size, price, events(event_id, event_name, first_date, url, contents(content_id, content_name))',
-//   )
-//   .eq('event_id', event_id)
-
-// const goodsList: Goods[] = []
-// data?.map((doc) => {
-//   const goods: Goods = {
-//     content_id: doc.events.contents.content_id,
-//     content_name: doc.events.contents.content_name,
-//     event_id: doc.events.event_id,
-//     event_name: doc.events.event_name,
-//     first_date: doc.events.first_date,
-//     url: doc.events.url,
-//     goods_id: doc.goods_id,
-//     goods_name: doc.goods_name,
-//     goods_group: doc.goods_group,
-//     goods_type: doc.goods_type,
-//     color: doc.color,
-//     size: doc.size,
-//     price: doc.price,
-//     goods_count: 0,
-//   }
-//   goodsList.push(goods)
-// })
