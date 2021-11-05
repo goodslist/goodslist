@@ -79,9 +79,6 @@ export default function Login() {
           <span>ログイン</span>
         </div>
         <div className={styles.login_signup_form_container}>
-          <button className={styles.btn_link_signup} onClick={() => clickLinkSignUp()}>
-            新規登録はこちら
-          </button>
           <div className={styles.form_login_sns}>
             <div className={styles.form_header}>SNSでログイン</div>
             <button className={styles.btn_login_twitter}>
@@ -147,6 +144,9 @@ export default function Login() {
               <span>
                 <Mail />
               </span>
+            </button>
+            <button className={styles.btn_link_signup} onClick={() => clickLinkSignUp()}>
+              新規登録はこちら
             </button>
             {/* <button className={styles.btn_login_mail} onClick={() => signup()}>
             メールアドレスで登録
