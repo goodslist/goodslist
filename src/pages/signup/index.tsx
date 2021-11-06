@@ -23,20 +23,21 @@ export default function SignUp() {
     setShowLogin,
   }: any = useContext(ModalContext)
 
-  //ログインか新規登録かのフラグ
-  const [isSns, setIsSns] = useState(true)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const login = async () => {
-    const { error, data } = await supabase.auth.signIn({ email, password })
-    if (error) {
-      console.log({ error })
-    } else {
-      console.log({ data })
-    }
-  }
+  const [password2, setPassword2] = useState('')
+  const [errorEmail, setErrorEmail] = useState('　')
+  const [errorPassword, setErrorPassword] = useState('　')
+  const [errorPassword2, setErrorPassword2] = useState('　')
+  const [checkEmail, setCheckEmail] = useState(false)
+  const [checkPassword, setCheckPassword] = useState(false)
+  const [checkPassword2, setCheckPassword2] = useState(false)
 
-  const signup = async () => {
+  let createErrorEmail = '　'
+  let createErrorPassword = '　'
+  let createErrorPassword2 = '　'
+
+  const signUp = async () => {
     const { error, data } = await supabase.auth.signUp({ email, password })
     if (error) {
       console.log({ error })
@@ -45,21 +46,65 @@ export default function SignUp() {
     }
   }
 
-  const changeSelectLogin = (select: string) => {
-    if (select == 'mail') {
-      setIsSns(false)
-    } else if (select == 'sns') {
-      setIsSns(true)
+  //メールアドレス入力のエラーチェック
+  useEffect(() => {
+    createErrorEmail = '　'
+    if (email.length > 0) {
+      if (!email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
+        createErrorEmail = createErrorEmail + 'メールアドレスの形式で入力してください。'
+      }
+      if (email.length > 257) {
+        createErrorEmail = createErrorEmail + '256文字以下で入力してください。'
+      }
+      setErrorEmail(createErrorEmail)
+      if (createErrorEmail == '　') setCheckEmail(true)
+      else setCheckEmail(false)
+    } else {
+      createErrorEmail = '　'
+      setErrorEmail(createErrorEmail)
     }
-  }
+  }, [email])
 
-  const clickLinkSignUp = () => {
-    setOpenModalContentFlag(false)
-    setTimeout(function () {
-      setShowLogin(false)
-      setOpenModalContentFlag(true)
-    }, 500)
-  }
+  //パスワード入力のエラーチェック
+  useEffect(() => {
+    createErrorPassword = '　'
+    if (password.length > 0) {
+      if (!password.match(/^[A-Za-z0-9]*$/)) {
+        createErrorPassword = createErrorPassword + '半角英数字で入力してください。'
+      }
+      if (password.length < 8 || password.length > 32) {
+        createErrorPassword = createErrorPassword + '8文字以上32文字以下で入力してください。'
+      }
+      setErrorPassword(createErrorPassword)
+      if (createErrorPassword == '　') setCheckPassword(true)
+      else setCheckPassword(false)
+    } else {
+      createErrorPassword = '　'
+      setErrorPassword(createErrorPassword)
+    }
+  }, [password])
+
+  //確認用パスワード入力のエラーチェック
+  useEffect(() => {
+    createErrorPassword2 = '　'
+    if (password2.length > 0) {
+      if (!password2.match(/^[A-Za-z0-9]*$/)) {
+        createErrorPassword2 = createErrorPassword2 + '半角英数字で入力してください。'
+      }
+      if (password2.length < 8 || password2.length > 32) {
+        createErrorPassword2 = createErrorPassword2 + '8文字以上32文字以下で入力してください。'
+      }
+      if (password != password2) {
+        createErrorPassword2 = createErrorPassword2 + 'パスワードが一致しません。'
+      }
+      setErrorPassword2(createErrorPassword2)
+      if (createErrorPassword2 == '　') setCheckPassword2(true)
+      else setCheckPassword2(false)
+    } else {
+      createErrorPassword2 = '　'
+      setErrorPassword2(createErrorPassword2)
+    }
+  }, [password, password2])
 
   return (
     <>
@@ -88,7 +133,7 @@ export default function SignUp() {
             <Link href='/privacy'>
               <a target='_blank'>プライバシーポリシー</a>
             </Link>
-            をお読みいただき、同意の上登録ください。
+            をお読みいただき、同意の上登録してください。
           </div>
           <div className={styles.form_login_sns}>
             <div className={styles.form_header_sns}>SNSで会員登録</div>
@@ -131,7 +176,7 @@ export default function SignUp() {
                 <Mail />
               </span>
             </span>
-            <div className={styles.input_error}></div>
+            <div className={styles.input_error}>{errorEmail}</div>
             <span className={styles.input_password_container}>
               <input
                 className={styles.input_password}
@@ -144,33 +189,36 @@ export default function SignUp() {
                 <Password />
               </span>
             </span>
-            <div className={styles.input_error}>
-              アルファベットと数字の組み合わせで8文字以上が必要です。
-            </div>
+            <div className={styles.input_error}>{errorPassword}</div>
             <span className={styles.input_password_container}>
               <input
                 className={styles.input_password}
                 type='password'
-                name='password'
+                name='password2'
                 placeholder='同じパスワードを再入力'
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setPassword2(e.target.value)}
               />
               <span>
                 <Password />
               </span>
             </span>
-            <div className={styles.input_error}></div>
-            <button className={styles.btn_login_mail} onClick={() => login()}>
-              メールアドレスで会員登録
+            <div className={styles.input_error}>{errorPassword2}</div>
+            <button
+              className={
+                checkEmail && checkPassword && checkPassword2
+                  ? styles.btn_login_mail_active
+                  : styles.btn_login_mail
+              }
+              onClick={() => signUp()}
+            >
+              確認メールを送信
               <span>
                 <Mail />
               </span>
             </button>
             <Link href='/login'>
               <a>
-                <button className={styles.btn_link_signup} onClick={() => clickLinkSignUp()}>
-                  ログインはこちら
-                </button>
+                <button className={styles.btn_link_signup}>ログインはこちら</button>
               </a>
             </Link>
             {/* <button className={styles.btn_login_mail} onClick={() => signup()}>

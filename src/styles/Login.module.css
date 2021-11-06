@@ -98,8 +98,7 @@
 .btn_login_twitter,
 .btn_login_line,
 .btn_login_google,
-.btn_login_yahoo,
-.btn_login_mail {
+.btn_login_yahoo {
   box-sizing: border-box;
   margin: 0 0 20px 0;
   width: 90%;
@@ -195,11 +194,32 @@
   color: #fff;
 }
 
-.btn_login_mail {
-  background-color: #68a9cf;
+.btn_login_mail,
+.btn_login_mail_active {
+  box-sizing: border-box;
+  margin: 0 0 20px 0;
+  width: 90%;
+  height: 40px;
+  line-height: 40px;
+  position: relative;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.4rem;
+  color: #fff;
+  transition: all 0.3s;
 }
 
-.btn_login_mail span {
+.btn_login_mail {
+  background-color: #ccc;
+}
+
+.btn_login_mail_active {
+  background-color: #68a9cf;
+  cursor: pointer;
+}
+
+.btn_login_mail span,
+.btn_login_mail_active span {
   display: block;
   content: '';
   position: absolute;
@@ -209,7 +229,8 @@
   height: 20px;
   color: #fff;
 }
-.btn_login_mail svg {
+.btn_login_mail svg,
+.btn_login_mail_active svg {
   width: 20px;
   height: 20px;
   fill: #fff;
@@ -264,7 +285,7 @@
   display: inline-block;
   margin: 5px 0 30px 0;
   padding: 0 20px 0 0;
-  width: 100%;
+  width: 90%;
   font-size: 12px;
   text-align: right;
   color: #999;
@@ -377,7 +398,8 @@
 }
 
 .input_error {
-  padding: 5px 10px 20px 10px;
+  margin: 5px 0 20px 0;
+  padding: 0 10px;
   width: 90%;
   text-align: left;
   font-size: 1.2rem;

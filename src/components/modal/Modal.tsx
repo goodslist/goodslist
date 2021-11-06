@@ -3,12 +3,9 @@ import ClientOnlyPortal from './ClientOnlyPortal'
 import styles from '../../styles/Modal.module.css'
 import { ModalContext } from './ModalContext'
 import AddModalContent from './AddModalContent'
-import Login from '../Login'
-import SignUp from '../SignUp'
 
 export default function Modal(props: any) {
   const [open, setOpen] = useState(true)
-  const [css, setCss] = useState(false)
   const {
     openModalFlag,
     setOpenModalFlag,
@@ -47,18 +44,8 @@ export default function Modal(props: any) {
               <div className={styles.close_button_container}>
                 <span className={styles.close_button} onClick={() => onClickClose()}></span>
               </div>
-
               <div className={styles.modal_content}>
-                {/* <AddModalContent action={modalType} reset={props.reset} /> */}
-
-                {/* {showLogin ? <Login /> : <SignUp />} */}
-                {(() => {
-                  if (modalType == 'login') {
-                    return <>{showLogin ? <Login /> : <SignUp />}</>
-                  } else {
-                    return <AddModalContent action={modalType} reset={props.reset} />
-                  }
-                })()}
+                <AddModalContent action={modalType} reset={props.reset} />
               </div>
             </div>
           </div>

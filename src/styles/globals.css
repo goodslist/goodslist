@@ -36,7 +36,7 @@ input,
 select {
   -webkit-appearance: none;
   appearance: none;
-  border: 3px solid #fff;
+  border: 3px solid #edf2f7;
   background-color: #edf2f7;
   transition: all 0.5s;
 }
