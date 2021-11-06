@@ -1,125 +1,64 @@
-import Link from 'next/link'
-import React from 'react'
-import type { NextPage } from 'next'
-import Head from 'next/head'
+import styles from '../../styles/Login.module.css'
+import Twitter from '../../../public/images/twitter.svg'
+import Line from '../../../public/images/line.svg'
+import Mail from '../../../public/images/mail.svg'
+import Password from '../../../public/images/password.svg'
+import { AuthContext } from '../../components/auth/AuthContext'
 import { useState, useEffect, useRef, useCallback, useContext } from 'react'
 import { supabase } from '../../components/supabase'
-import styles from '../../styles/Login.module.css'
-import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
-import Mail from '../img/mail.svg'
-import Password from '../img/password.svg'
+import { ModalContext } from '../../components/modal/ModalContext'
+import Head from 'next/head'
 import Navbar from '../../components/Navber'
-import Image from 'next/image'
-import { AuthContext } from '../../components/auth/AuthContext'
-import Check from '../../../public/images/check.svg'
+import Link from 'next/dist/client/link'
 
-type Props = InferGetStaticPropsType<typeof getStaticProps>
+export default function SignUp() {
+  const { user, session, signOut }: any = useContext(AuthContext)
 
-type SignupProps = {
-  name: string
-  birth_year: number
-  birth_month: number
-  gender: number
-  sign_up: boolean
-}
+  const {
+    openModalFlag,
+    setOpenModalFlag,
+    modalType,
+    openModalContentFlag,
+    setOpenModalContentFlag,
+    setShowLogin,
+  }: any = useContext(ModalContext)
 
-export const getStaticProps = async (context: GetStaticPropsContext) => {
-  const data = 'テスト'
-
-  return {
-    props: { data },
-  }
-}
-
-const Signup = (data: SignupProps) => {
-  const { user, setUser, session, setSession, signOut }: any = useContext(AuthContext)
-  const [name, setName] = useState('')
-  const [year, setYear] = useState(1990)
-  const [month, setMonth] = useState(0)
-  const [gender, setGender] = useState(0)
-  const [completeInput, setCompleteInput] = useState(false)
-
-  const inputGender = (gender: number) => {
-    setGender(gender)
-  }
-  const inputYear = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // console.log(e.target.value)
-    // alert(e.target.value)
-    setYear(Number(e.target.value))
-  }
-
-  const inputMonth = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMonth(Number(e.target.value))
-  }
-
-  useEffect(() => {
-    if (year > 0 && month > 0 && gender > 0) setCompleteInput(true)
-    else setCompleteInput(false)
-  }, [year, month, gender])
-
-  const submit = async () => {
-    const { data, error } = await supabase
-      .from('users')
-      .update({
-        user_name: name,
-        birth_year: year,
-        birth_month: month,
-        gender: gender,
-        sign_up: true,
-      })
-      .match({ id: session.user.id })
+  //ログインか新規登録かのフラグ
+  const [isSns, setIsSns] = useState(true)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const login = async () => {
+    const { error, data } = await supabase.auth.signIn({ email, password })
     if (error) {
       console.log({ error })
     } else {
-      const { data: user, error } = await supabase
-        .from('users')
-        .select('id, user_name, avatar_url, sign_up')
-        .eq('id', session.user.id)
-        .single()
-      setUser(user)
+      console.log({ data })
     }
-    console.log({ user })
   }
-  // const login = async () => {
-  //   const { error, data } = await supabase.auth.signIn({ email, password })
-  //   if (error) {
-  //     console.log({ error })
-  //   } else {
-  //     console.log({ data })
-  //   }
-  // }
 
-  // const signup = async () => {
-  //   const { error } = await supabase.auth.signUp({ email, password })
-  //   if (error) {
-  //     console.log({ error })
-  //   } else {
-  //     console.log({ data })
-  //   }
-  // }
-
-  const [selectLogin, setSelectLogin] = useState([
-    styles.select_login_active,
-    styles.select_register,
-    styles.select_underbar_login,
-  ])
+  const signup = async () => {
+    const { error, data } = await supabase.auth.signUp({ email, password })
+    if (error) {
+      console.log({ error })
+    } else {
+      console.log({ data })
+    }
+  }
 
   const changeSelectLogin = (select: string) => {
-    if (select == 'register') {
-      const newSelectLogin = [
-        styles.select_login,
-        styles.select_register_active,
-        styles.select_underbar_register,
-      ]
-      setSelectLogin(newSelectLogin)
-    } else if (select == 'login') {
-      const newSelectLogin = [
-        styles.select_login_active,
-        styles.select_register,
-        styles.select_underbar_login,
-      ]
-      setSelectLogin(newSelectLogin)
+    if (select == 'mail') {
+      setIsSns(false)
+    } else if (select == 'sns') {
+      setIsSns(true)
     }
+  }
+
+  const clickLinkSignUp = () => {
+    setOpenModalContentFlag(false)
+    setTimeout(function () {
+      setShowLogin(false)
+      setOpenModalContentFlag(true)
+    }, 500)
   }
 
   return (
@@ -138,102 +77,101 @@ const Signup = (data: SignupProps) => {
       <Navbar />
       <main className={styles.main}>
         <div className={styles.content_title}>
-          <span>新規登録{user ? user.user_name : ''}</span>
+          <span>会員登録</span>
         </div>
-        <div className={styles.card}>
-          <div className={styles.explanation}>全ての項目を入力すると登録完了です。</div>
-
-          <div className={styles.form_container}>
-            <div className={styles.input_name_container}>
-              <div className={styles.input_label}>お名前</div>
+        <div className={styles.login_signup_form_container}>
+          <div className={styles.form_login_sns}>
+            <div className={styles.form_header_sns}>SNSで会員登録</div>
+            <button className={styles.btn_login_twitter}>
+              Twitterで会員登録
+              <span>
+                <Twitter />
+              </span>
+            </button>
+            <button className={styles.btn_login_line}>
+              LINEで会員登録
+              <span>
+                <Line />
+              </span>
+            </button>
+            {/* <button className={styles.btn_login_yahoo}>
+              Yahoo! JAPAN
+              <span>
+                <img src='../../images/yahoo.png' width='35px' height='35px' />
+              </span>
+            </button>
+            <button className={styles.btn_login_google}>
+              Google
+              <span>
+                <img src='../../images/google.svg' width='26px' height='26px' />
+              </span>
+            </button> */}
+          </div>
+          <div className={styles.form_login_mail}>
+            <div className={styles.form_header_mail}>メールで会員登録</div>
+            <span className={styles.input_mail_container}>
               <input
                 className={styles.input_mail}
                 type='text'
-                name='name'
-                placeholder='ニックネーム'
-                onChange={(e) => setName(e.target.value)}
+                name='email'
+                placeholder='メールアドレス'
+                onChange={(e) => setEmail(e.target.value)}
               />
-            </div>
-            <div className={styles.input_error}></div>
-            <div className={styles.notes}>10文字以内。</div>
-            <hr className={styles.space_bar} />
-            <div className={styles.birth_gender_container}>
-              <div className={styles.input_label}>誕生年月</div>
-              <div className={styles.birth_gender}>
-                <span className={styles.select_arrow}>
-                  <select
-                    className={styles.input_select_active}
-                    onChange={(event: any) => inputYear(event)}
-                  >
-                    <option value='1990'>1990年</option>
-                    <option value='1991'>1991年</option>
-                  </select>
-                </span>
-
-                <select
-                  className={month > 0 ? styles.input_select_active : styles.input_select}
-                  onChange={(event: any) => inputMonth(event)}
-                >
-                  <option value='0'>---</option>
-                  <option value='1'>01月</option>
-                  <option value='2'>02月</option>
-                  <option value='3'>03月</option>
-                  <option value='4'>04月</option>
-                  <option value='5'>05月</option>
-                  <option value='6'>06月</option>
-                  <option value='7'>07月</option>
-                  <option value='8'>08月</option>
-                  <option value='9'>09月</option>
-                  <option value='10'>10月</option>
-                  <option value='11'>11月</option>
-                  <option value='12'>12月</option>
-                </select>
-              </div>
-            </div>
-            <div className={styles.input_error}></div>
-            <div className={styles.notes}>パスワードを忘れた時や退会時に必要です。</div>
-            <hr className={styles.space_bar} />
-            <div className={styles.birth_gender_container}>
-              <div className={styles.input_label}>性別</div>
-              <div className={styles.birth_gender}>
-                <label
-                  className={gender == 1 ? styles.input_radio_active : styles.input_radio}
-                  onClick={() => inputGender(1)}
-                >
-                  女
-                </label>
-                <label
-                  className={gender == 2 ? styles.input_radio_active : styles.input_radio}
-                  onClick={() => inputGender(2)}
-                >
-                  男
-                </label>
-                <label
-                  className={gender == 3 ? styles.input_radio_active : styles.input_radio}
-                  onClick={() => inputGender(3)}
-                >
-                  その他
-                </label>
-              </div>
-            </div>
-            <div className={styles.input_error}></div>
-            <div className={styles.notes}></div>
-            <hr className={styles.space_bar} />
-            <button
-              className={completeInput == true ? styles.btn_singup_active : styles.btn_singup}
-              onClick={() => submit()}
-            >
-              登録を完了する
               <span>
-                <Check />
+                <Mail />
+              </span>
+            </span>
+            <div className={styles.input_error}></div>
+            <span className={styles.input_password_container}>
+              <input
+                className={styles.input_password}
+                type='password'
+                name='password'
+                placeholder='パスワード'
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <span>
+                <Password />
+              </span>
+            </span>
+            <div className={styles.input_error}>
+              アルファベットと数字の組み合わせで8文字以上が必要です。
+            </div>
+            <span className={styles.input_password_container}>
+              <input
+                className={styles.input_password}
+                type='password'
+                name='password'
+                placeholder='同じパスワードを再入力'
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <span>
+                <Password />
+              </span>
+            </span>
+            <div className={styles.input_error}></div>
+            <button className={styles.btn_login_mail} onClick={() => login()}>
+              メールアドレスで会員登録
+              <span>
+                <Mail />
               </span>
             </button>
-            <div className={styles.refuse}>登録をやめる</div>
+            <Link href='/login'>
+              <a>
+                <button className={styles.btn_link_signup} onClick={() => clickLinkSignUp()}>
+                  ログインはこちら
+                </button>
+              </a>
+            </Link>
+            {/* <button className={styles.btn_login_mail} onClick={() => signup()}>
+            メールアドレスで登録
+            <span>
+              <Mail />
+            </span>
+          </button> */}
           </div>
         </div>
       </main>
     </>
   )
 }
-
-export default Signup

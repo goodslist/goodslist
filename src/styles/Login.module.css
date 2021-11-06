@@ -1,13 +1,13 @@
 .main {
   max-width: 800px;
   min-width: 320px;
-  margin: 0 auto;
+  margin: 30px auto;
   background-color: #fff;
   text-align: center;
 }
 
 .content_title {
-  margin: 30px 0 55px 0;
+  margin: 0 0 55px 0;
   font-size: 24px;
   position: relative;
   text-align: center;
@@ -26,7 +26,7 @@
 
 .login_signup_form_container {
   margin: 0 10px;
-  padding: 0 0 20px 0;
+  padding: 20px 0;
   text-align: center;
   border: 1px solid #e6e6e6;
   border-radius: 10px;
@@ -46,27 +46,39 @@
   display: inline-block;
 }
 
-.form_header {
+.form_header_sns,
+.form_header_mail {
   display: flex;
   align-items: center;
   font-size: 1.4rem;
-  margin: 20px 0;
   color: #666;
 }
 
-.form_header:before,
-.form_header:after {
+.form_header_sns {
+  margin: 0 0 20px 0;
+}
+
+.form_header_mail {
+  margin: 0 0 17px 0;
+}
+
+.form_header_sns:before,
+.form_header_sns:after,
+.form_header_mail:before,
+.form_header_mail:after {
   content: '';
   height: 1px;
   flex-grow: 1;
   background-color: #e6e6e6;
 }
 
-.form_header:before {
+.form_header_sns:before,
+.form_header_mail:before {
   margin-right: 1rem;
 }
 
-.form_header:after {
+.form_header_sns:after,
+.form_header_mail:after {
   margin-left: 1rem;
 }
 
@@ -352,12 +364,12 @@
 }
 
 .input_error {
-  padding: 5px 20px;
-  width: 100%;
-  height: 30px;
+  padding: 5px 10px 20px 10px;
+  width: 90%;
   text-align: left;
   font-size: 1.2rem;
   color: #cf6775;
+  display: inline-block;
 }
 
 .notes {
@@ -434,7 +446,7 @@
 }
 
 .btn_link_signup {
-  margin: 30px 0 20px 0;
+  margin: 20px 0 20px 0;
   width: 60%;
   height: 40px;
   font-size: 1.4rem;

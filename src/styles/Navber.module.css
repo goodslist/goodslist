@@ -36,15 +36,23 @@
   color: #68a9cf;
 }
 
-.login_button {
+.btn_login,
+.btn_login_link {
   margin: 0 20px 0 0;
   padding: 0 20px;
   height: 30px;
   line-height: 30px;
-  background-color: #68a9cf;
   color: #fff;
   border-radius: 30px;
   cursor: pointer;
+}
+
+.btn_login {
+  background-color: #68a9cf;
+}
+
+.btn_login_link {
+  background-color: #f2c746;
 }
 
 .portal {

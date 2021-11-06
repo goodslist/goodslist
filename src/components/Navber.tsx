@@ -21,7 +21,7 @@ export default function Navbar(props: any) {
   const router = useRouter()
   if (router.pathname != '/signup') {
     if (user?.sign_up == false) {
-      router.replace('/signup')
+      router.replace('/signup/profile')
     }
   }
 
@@ -45,13 +45,29 @@ export default function Navbar(props: any) {
           </Link>
         </div>
         <Modal reset={props.reset} />
-        <Link href='/login'>
-          <a>
-            <div className={styles.login_button}>
-              {user ? user.user_name : 'ログイン / 新規登録'}
-            </div>
-          </a>
-        </Link>
+        {(() => {
+          if (user) {
+            return <div className={styles.btn_login}>マイページ</div>
+          } else if (router.pathname == '/login' || router.pathname == '/signup') {
+            return (
+              <Link href={router.pathname == '/login' ? '/signup' : '/login'}>
+                <a>
+                  <div className={styles.btn_login_link}>
+                    {router.pathname == '/login' ? '会員登録はこちら' : 'ログインはこちら'}
+                  </div>
+                </a>
+              </Link>
+            )
+          } else {
+            return (
+              <Link href={router.pathname == '/login' ? '/signup' : '/login'}>
+                <a>
+                  <div className={styles.btn_login}>ログイン / 会員登録</div>
+                </a>
+              </Link>
+            )
+          }
+        })()}
       </div>
     </div>
   )

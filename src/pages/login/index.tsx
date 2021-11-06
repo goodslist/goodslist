@@ -9,8 +9,9 @@ import { supabase } from '../../components/supabase'
 import { ModalContext } from '../../components/modal/ModalContext'
 import Head from 'next/head'
 import Navbar from '../../components/Navber'
+import Link from 'next/dist/client/link'
 
-export default function Login() {
+export default function LogIn() {
   const { user, session, signOut }: any = useContext(AuthContext)
 
   const {
@@ -80,7 +81,7 @@ export default function Login() {
         </div>
         <div className={styles.login_signup_form_container}>
           <div className={styles.form_login_sns}>
-            <div className={styles.form_header}>SNSでログイン</div>
+            <div className={styles.form_header_sns}>SNSでログイン</div>
             <button className={styles.btn_login_twitter}>
               Twitterでログイン
               <span>
@@ -107,7 +108,7 @@ export default function Login() {
             </button> */}
           </div>
           <div className={styles.form_login_mail}>
-            <div className={styles.form_header}>メールでログイン</div>
+            <div className={styles.form_header_mail}>メールでログイン</div>
             <span className={styles.input_mail_container}>
               <input
                 className={styles.input_mail}
@@ -145,9 +146,11 @@ export default function Login() {
                 <Mail />
               </span>
             </button>
-            <button className={styles.btn_link_signup} onClick={() => clickLinkSignUp()}>
-              新規登録はこちら
-            </button>
+            <Link href='/signup'>
+              <a>
+                <button className={styles.btn_link_signup}>会員登録はこちら</button>
+              </a>
+            </Link>
             {/* <button className={styles.btn_login_mail} onClick={() => signup()}>
             メールアドレスで登録
             <span>
