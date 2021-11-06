@@ -5,7 +5,6 @@ import Mail from '../../../public/images/mail.svg'
 import Password from '../../../public/images/password.svg'
 import { useState, useEffect, useRef, useCallback, useContext } from 'react'
 import Head from 'next/head'
-import Navbar from '../../components/Navber'
 import { useRouter } from 'next/router'
 import { SignUpContext } from '../../components/signup/SignUpContext'
 import { ModalContext } from '../../components/modal/ModalContext'
@@ -126,7 +125,6 @@ export default function SignUp() {
         />
       </Head>
 
-      <Navbar />
       <main className={styles.main}>
         <div className={styles.content_title}>
           <span>会員登録</span>

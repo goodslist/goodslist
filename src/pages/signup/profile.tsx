@@ -8,7 +8,6 @@ import styles from '../../styles/Login.module.css'
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import Mail from '../img/mail.svg'
 import Password from '../img/password.svg'
-import Navbar from '../../components/Navber'
 import Image from 'next/image'
 import { AuthContext } from '../../components/auth/AuthContext'
 import Check from '../../../public/images/check.svg'
@@ -43,8 +42,6 @@ const Signup = (data: SignupProps) => {
     setGender(gender)
   }
   const inputYear = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // console.log(e.target.value)
-    // alert(e.target.value)
     setYear(Number(e.target.value))
   }
 
@@ -135,7 +132,6 @@ const Signup = (data: SignupProps) => {
         />
       </Head>
 
-      <Navbar />
       <main className={styles.main}>
         <div className={styles.content_title}>
           <span>新規登録{user ? user.user_name : ''}</span>

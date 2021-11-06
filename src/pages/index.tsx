@@ -8,7 +8,6 @@ import { supabase } from '../components/supabase'
 import styles from '../styles/Home.module.css'
 import Search from './img/search.svg'
 import { useRouter } from 'next/router'
-import Navbar from '../components/Navber'
 
 type EventInfo = {
   content_id: number
@@ -95,7 +94,6 @@ const Home = ({ eventList }: Props) => {
           rel='stylesheet'
         ></link>
       </Head>
-      <Navbar />
       <main className={styles.main}>
         <h1 className={styles.title}>
           <span>G</span>oodsist

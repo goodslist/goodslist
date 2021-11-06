@@ -8,7 +8,6 @@ import { useState, useEffect, useRef, useCallback, useContext } from 'react'
 import { supabase } from '../../components/supabase'
 import { ModalContext } from '../../components/modal/ModalContext'
 import Head from 'next/head'
-import Navbar from '../../components/Navber'
 import Link from 'next/dist/client/link'
 
 const LogIn = () => {
@@ -93,7 +92,6 @@ const LogIn = () => {
         />
       </Head>
 
-      <Navbar />
       <main className={styles.main}>
         <div className={styles.content_title}>
           <span>ログイン</span>

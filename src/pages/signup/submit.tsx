@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Navbar from '../../components/Navber'
 import { useEffect, useContext } from 'react'
 import Link from 'next/dist/client/link'
 import { SignUpContext } from '../../components/signup/SignUpContext'
@@ -27,7 +26,6 @@ export default function SignUpSubmit() {
         />
       </Head>
 
-      <Navbar />
       <main className={styles.main}>
         <div className={styles.content_title}>
           <span>会員登録</span>

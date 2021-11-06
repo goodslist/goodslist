@@ -6,7 +6,6 @@ import { useState, useEffect, useRef, useCallback, useContext } from 'react'
 import { supabase } from '../components/supabase'
 import styles from '../styles/Privacy.module.css'
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
-import Navbar from '../components/Navber'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -32,7 +31,6 @@ const LoginGate = (data: Props) => {
         />
       </Head>
 
-      <Navbar />
       <main className={styles.main}>
         <div className={styles.content_title}>
           <span>プライバシー・ポリシー</span>

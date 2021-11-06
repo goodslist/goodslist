@@ -20,6 +20,7 @@ import Navbar from '../../components/Navber'
 import { numberFormat, dateFormat } from '../../components/Utils'
 import { ModalContext } from '../../components/modal/ModalContext'
 import { forwardRef, useImperativeHandle } from 'react'
+import Modal from '../../components/modal/Modal'
 
 class EventInfo {
   content_id: number = 0
@@ -373,8 +374,6 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
         />
       </Head>
 
-      <Navbar reset={reset} />
-
       <div className={changeNavbarCss} id='concept'>
         <div className={styles.total_bar}>
           <div className={reset_flag} onClick={() => openModal('reset')}>
@@ -500,6 +499,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
           ))}
         </ul>
       </main>
+      <Modal reset={reset} />
     </>
   )
 }

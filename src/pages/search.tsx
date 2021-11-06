@@ -3,7 +3,6 @@ import { supabase } from '../components/supabase'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import styles from '../styles/Search.module.css'
-import Navbar from '../components/Navber'
 
 export default function Output() {
   const router = useRouter()
@@ -69,7 +68,6 @@ export default function Output() {
 
   return (
     <>
-      <Navbar />
       <main className={styles.main}>
         <div className={styles.content_title}>
           <span>検索結果</span>

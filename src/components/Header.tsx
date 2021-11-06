@@ -1,14 +1,12 @@
 import Link from 'next/dist/client/link'
-import styles from '../styles/Navber.module.css'
+import styles from '../styles/Header.module.css'
 import React from 'react'
 import { useEffect, useRef, useState, useContext } from 'react'
 import { ModalContext } from './modal/ModalContext'
-import { AuthContext } from '../components/auth/AuthContext'
+import { AuthContext } from './auth/AuthContext'
 import { useRouter } from 'next/router'
-// import Modal from './modal/Modal'
-import Modal from '../components/modal/Modal'
 
-export default function Navbar(props: any) {
+export default function Header(props: any) {
   const { user, session, signOut }: any = useContext(AuthContext)
   const {
     openModalFlag,
@@ -44,7 +42,6 @@ export default function Navbar(props: any) {
             </a>
           </Link>
         </div>
-        <Modal reset={props.reset} />
         {(() => {
           if (user) {
             return <div className={styles.btn_login}>マイページ</div>
