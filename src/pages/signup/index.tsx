@@ -80,6 +80,16 @@ export default function SignUp() {
           <span>会員登録</span>
         </div>
         <div className={styles.login_signup_form_container}>
+          <div className={styles.notes}>
+            <Link href='/privacy'>
+              <a target='_blank'>利用規約</a>
+            </Link>
+            、
+            <Link href='/privacy'>
+              <a target='_blank'>プライバシーポリシー</a>
+            </Link>
+            をお読みいただき、同意の上登録ください。
+          </div>
           <div className={styles.form_login_sns}>
             <div className={styles.form_header_sns}>SNSで会員登録</div>
             <button className={styles.btn_login_twitter}>

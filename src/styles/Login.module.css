@@ -24,6 +24,19 @@
   background: #68a9cf;
 }
 
+.notes {
+  margin: 0 0 20px 0;
+  width: 90%;
+  font-size: 1.2rem;
+  color: #999;
+  display: inline-block;
+  text-align: left;
+}
+
+.notes a {
+  text-decoration: underline;
+}
+
 .login_signup_form_container {
   margin: 0 10px;
   padding: 20px 0;
@@ -370,14 +383,6 @@
   font-size: 1.2rem;
   color: #cf6775;
   display: inline-block;
-}
-
-.notes {
-  padding: 5px 0;
-  width: 100%;
-  font-size: 1.2rem;
-  color: #999;
-  text-align: right;
 }
 
 .refuse {
