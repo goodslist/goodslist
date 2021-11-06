@@ -11,7 +11,7 @@ import Head from 'next/head'
 import Navbar from '../../components/Navber'
 import Link from 'next/dist/client/link'
 
-export default function LogIn() {
+const LogIn = () => {
   const { user, session, signOut }: any = useContext(AuthContext)
 
   const {
@@ -185,3 +185,5 @@ export default function LogIn() {
     </>
   )
 }
+
+export default LogIn
