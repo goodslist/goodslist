@@ -1,17 +1,18 @@
-import styles from '../../styles/Login.module.css'
-import Twitter from '../../../public/images/twitter.svg'
+import Link from 'next/dist/client/link'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { useState, useEffect, useRef, useCallback, useContext } from 'react'
 import Line from '../../../public/images/line.svg'
 import Mail from '../../../public/images/mail.svg'
 import Password from '../../../public/images/password.svg'
-import { useState, useEffect, useRef, useCallback, useContext } from 'react'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { SignUpContext } from '../../components/signup/SignUpContext'
+import Twitter from '../../../public/images/twitter.svg'
 import { ModalContext } from '../../components/modal/ModalContext'
+import { SignUpContext } from '../../components/signup/SignUpContext'
+import styles from '../../styles/Login.module.css'
 import { supabase } from '../../components/supabase'
-import Link from 'next/dist/client/link'
+import Modal from '../../components/modal/Modal'
 
-export default function SignUp() {
+export default function SignUp(): JSX.Element {
   const router = useRouter()
 
   const {
@@ -40,6 +41,7 @@ export default function SignUp() {
   let createErrorPassword2 = '　'
 
   const signUp = async () => {
+    setOpenModalFlag(true)
     const { error, data } = await supabase.auth.signUp({ email, password })
     if (error) {
       console.log({ error })
@@ -138,7 +140,7 @@ export default function SignUp() {
             <Link href='/privacy'>
               <a target='_blank'>プライバシーポリシー</a>
             </Link>
-            をお読みいただき、同意の上登録してください。{sendEmail}
+            をお読みいただき、同意の上登録してください。
           </div>
           <div className={styles.form_login_sns}>
             <div className={styles.form_header_sns}>SNSで会員登録</div>
@@ -220,6 +222,7 @@ export default function SignUp() {
               <span>
                 <Mail />
               </span>
+              <label className={styles.dotpulse}></label>
             </button>
             <Link href='/login'>
               <a>
@@ -229,6 +232,7 @@ export default function SignUp() {
           </div>
         </div>
       </main>
+      <Modal />
     </>
   )
 }

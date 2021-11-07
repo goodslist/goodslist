@@ -1,12 +1,8 @@
 import Link from 'next/link'
 import React from 'react'
-import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useState, useEffect, useRef, useCallback, useContext } from 'react'
-import { supabase } from '../../components/supabase'
 import styles from '../../styles/Contact.module.css'
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
-import Navbar from '../../components/Navber'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -32,7 +28,6 @@ const Contact = (data: Props) => {
         />
       </Head>
 
-      <Navbar />
       <main className={styles.main}>
         <div className={styles.content_title}>
           <span>お問い合わせ</span>

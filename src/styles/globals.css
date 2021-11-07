@@ -22,6 +22,7 @@ a {
 }
 
 ::placeholder {
+  font-size: 1.4rem;
   color: #999;
 }
 
@@ -34,6 +35,7 @@ input:focus {
 
 input,
 select {
+  font-size: 1.4rem;
   -webkit-appearance: none;
   appearance: none;
   border: 3px solid #edf2f7;

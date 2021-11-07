@@ -10,9 +10,9 @@ export default function SignUpSubmit() {
 
   const router = useRouter()
 
-  useEffect(() => {
-    if (sendEmail == undefined) router.replace('/')
-  }, [])
+  // useEffect(() => {
+  //   if (sendEmail == undefined) router.replace('/')
+  // }, [])
   return (
     <>
       <Head>
@@ -31,22 +31,31 @@ export default function SignUpSubmit() {
           <span>会員登録</span>
         </div>
         <div className={styles.login_signup_form_container}>
-          <div className={styles.notes}>
-            <Link href='/privacy'>
-              <a target='_blank'>利用規約</a>
-            </Link>
-            、
-            <Link href='/privacy'>
-              <a target='_blank'>プライバシーポリシー</a>
-            </Link>
-            をお読みいただき、同意の上登録してください。{sendEmail}
+          <div className={styles.signup_step_container}>
+            <div className={styles.step_on}>
+              01<span>メール確認</span>
+            </div>
+            <div className={styles.step_off}>
+              02<span>必要事項入力</span>
+            </div>
+
+            <div className={styles.step_off}>
+              03<span>登録完了</span>
+            </div>
           </div>
-          <div className={styles.form_login_sns}>
-            {sendEmail}宛てに確認メールを送信しました。
+          <div className={styles.send_email_address}>{sendEmail}</div>
+          <div className={styles.send_email_text}>
+            上記のメールアドレス宛てに確認メールを送信しました。
             <br />
             24時間以内に確認メール内のリンクにアクセスし、登録を完了させてください。
             <br />
             24時間経過するとメールは無効となり、もう一度最初から登録になります。
+          </div>
+
+          <div className={styles.send_email_return}>
+            <Link href='/'>
+              <a target='_blank'>トップページ</a>
+            </Link>
           </div>
         </div>
       </main>
