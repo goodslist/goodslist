@@ -2,6 +2,7 @@
   max-width: 800px;
   min-width: 320px;
   margin: 30px auto;
+  padding: 0 10px;
   background-color: #fff;
   text-align: center;
 }
@@ -25,11 +26,10 @@
 }
 
 .notes {
-  margin: 0 0 20px 0;
+  margin: 0 auto 20px auto;
   width: 90%;
   font-size: 1.2rem;
   color: #999;
-  display: inline-block;
   text-align: left;
 }
 
@@ -38,7 +38,7 @@
 }
 
 .login_signup_form_container {
-  margin: 0 10px;
+  margin: 0 auto;
   padding: 20px 0;
   text-align: center;
   border: 1px solid #e6e6e6;
@@ -46,7 +46,6 @@
   min-width: 300px;
   max-width: 500px;
   background-color: #fff;
-  display: inline-block;
 }
 
 .form_login_sns,
@@ -56,7 +55,6 @@
   max-width: 500px;
   margin: 0;
   text-align: center;
-  display: inline-block;
 }
 
 .form_header_sns,
@@ -197,7 +195,7 @@
 .btn_login_mail,
 .btn_login_mail_active {
   box-sizing: border-box;
-  margin: 0 0 20px 0;
+  margin: 0;
   width: 90%;
   height: 40px;
   line-height: 40px;
@@ -234,14 +232,6 @@
   width: 20px;
   height: 20px;
   fill: #fff;
-}
-
-.space_bar {
-  display: inline-block;
-  margin: 0 0 40px 0;
-  width: 100%;
-  border-top: 1px solid #ccc;
-  border-bottom: 0;
 }
 
 .input_mail_container,
@@ -282,9 +272,8 @@
 }
 
 .forgot_password {
-  display: inline-block;
-  margin: 5px 0 30px 0;
-  padding: 0 20px 0 0;
+  margin: 5px auto 30px auto;
+  padding: 0;
   width: 90%;
   font-size: 12px;
   text-align: right;
@@ -398,13 +387,14 @@
 }
 
 .input_error {
-  margin: 5px 0 20px 0;
+  margin: 5px auto 20px auto;
   padding: 0 10px;
   width: 90%;
+  min-height: 1.2rem;
   text-align: left;
   font-size: 1.2rem;
+  line-height: 1.2rem;
   color: #cf6775;
-  display: inline-block;
 }
 
 .refuse {
@@ -458,22 +448,8 @@
   fill: #fff;
 }
 
-.bar_login {
-  display: inline-block;
-  width: 90%;
-  margin: 30px 0 0 0;
-  border-top: 1px solid #ccc;
-  border-bottom: 0;
-}
-
-.explanation {
-  margin: 40px 0 0 0;
-  font-size: 1.4rem;
-  color: #666;
-}
-
 .btn_link_signup {
-  margin: 20px 0;
+  margin: 0 0 20px 0;
   width: 60%;
   height: 40px;
   font-size: 1.4rem;

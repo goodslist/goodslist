@@ -24,17 +24,18 @@ const LogIn = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [errorEmail, setErrorEmail] = useState('　')
-  const [errorPassword, setErrorPassword] = useState('　')
+  const [errorEmail, setErrorEmail] = useState('')
+  const [errorPassword, setErrorPassword] = useState('')
   const [checkEmail, setCheckEmail] = useState(false)
   const [checkPassword, setCheckPassword] = useState(false)
+  const [errorLogIn, setErrorLogIn] = useState('')
 
-  let createErrorEmail = '　'
-  let createErrorPassword = '　'
+  let createErrorEmail = ''
+  let createErrorPassword = ''
 
   //メールアドレス入力のエラーチェック
   useEffect(() => {
-    createErrorEmail = '　'
+    createErrorEmail = ''
     if (email.length > 0) {
       if (!email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
         createErrorEmail = createErrorEmail + 'メールアドレスの形式で入力してください。'
@@ -43,17 +44,17 @@ const LogIn = () => {
         createErrorEmail = createErrorEmail + '256文字以下で入力してください。'
       }
       setErrorEmail(createErrorEmail)
-      if (createErrorEmail == '　') setCheckEmail(true)
+      if (createErrorEmail == '') setCheckEmail(true)
       else setCheckEmail(false)
     } else {
-      createErrorEmail = '　'
+      createErrorEmail = ''
       setErrorEmail(createErrorEmail)
     }
   }, [email])
 
   //パスワード入力のエラーチェック
   useEffect(() => {
-    createErrorPassword = '　'
+    createErrorPassword = ''
     if (password.length > 0) {
       if (!password.match(/^[A-Za-z0-9]*$/)) {
         createErrorPassword = createErrorPassword + '半角英数字で入力してください。'
@@ -62,10 +63,10 @@ const LogIn = () => {
         createErrorPassword = createErrorPassword + '8文字以上32文字以下で入力してください。'
       }
       setErrorPassword(createErrorPassword)
-      if (createErrorPassword == '　') setCheckPassword(true)
+      if (createErrorPassword == '') setCheckPassword(true)
       else setCheckPassword(false)
     } else {
-      createErrorPassword = '　'
+      createErrorPassword = ''
       setErrorPassword(createErrorPassword)
     }
   }, [password])
@@ -98,7 +99,7 @@ const LogIn = () => {
         </div>
         <div className={styles.login_signup_form_container}>
           <div className={styles.form_login_sns}>
-            <div className={styles.form_header_sns}>SNSでログイン</div>
+            <div className={styles.form_header_sns}>SNSアカウントでログイン</div>
             <button className={styles.btn_login_twitter}>
               Twitterでログイン
               <span>
@@ -125,7 +126,7 @@ const LogIn = () => {
             </button> */}
           </div>
           <div className={styles.form_login_mail}>
-            <div className={styles.form_header_mail}>メールでログイン</div>
+            <div className={styles.form_header_mail}>メールアドレスでログイン</div>
             <span className={styles.input_mail_container}>
               <input
                 className={styles.input_mail}
@@ -166,6 +167,7 @@ const LogIn = () => {
                 <Mail />
               </span>
             </button>
+            <div className={styles.input_error}>{errorPassword}</div>
             <Link href='/signup'>
               <a>
                 <button className={styles.btn_link_signup}>会員登録はこちら</button>

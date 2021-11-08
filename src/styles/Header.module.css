@@ -9,7 +9,7 @@
   max-width: 800px;
   min-width: 320px;
   height: 60px;
-  padding: 0;
+  padding: 0 10px;
   margin: auto;
   display: flex;
   justify-content: space-between;
@@ -19,7 +19,7 @@
 }
 
 .logo_container {
-  margin: 0 0 0 20px;
+  margin: 0;
   white-space: nowrap;
   height: 60px;
   text-align: left;
@@ -38,8 +38,8 @@
 
 .btn_login,
 .btn_login_link {
-  margin: 0 20px 0 0;
-  padding: 0 20px;
+  margin: 0;
+  padding: 0 15px;
   height: 30px;
   line-height: 30px;
   color: #fff;

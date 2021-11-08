@@ -11,6 +11,7 @@ import { SignUpContext } from '../../components/signup/SignUpContext'
 import styles from '../../styles/Login.module.css'
 import { supabase } from '../../components/supabase'
 import Modal from '../../components/modal/Modal'
+import { abc } from '../../components/signup/SignUpModel'
 
 export default function SignUp(): JSX.Element {
   const router = useRouter()
@@ -24,12 +25,13 @@ export default function SignUp(): JSX.Element {
     setShowLogin,
   }: any = useContext(ModalContext)
 
-  const { sendEmail, setSendEmail }: any = useContext(SignUpContext)
+  const { setSendEmail }: any = useContext(SignUpContext)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
   const [errorEmail, setErrorEmail] = useState('　')
+  const [isNewEmail, setIsNewEmail] = useState()
   const [errorPassword, setErrorPassword] = useState('　')
   const [errorPassword2, setErrorPassword2] = useState('　')
   const [checkEmail, setCheckEmail] = useState(false)
@@ -41,16 +43,19 @@ export default function SignUp(): JSX.Element {
   let createErrorPassword2 = '　'
 
   const signUp = async () => {
-    setOpenModalFlag(true)
-    const { error, data } = await supabase.auth.signUp({ email, password })
-    if (error) {
-      console.log({ error })
-    } else {
-      console.log({ data })
-      setSendEmail(email)
-      router.push({
-        pathname: '/signup/submit', //URL
-      })
+    if (checkEmail && checkPassword && checkPassword2) {
+      setOpenModalFlag(true)
+
+      const { error, data } = await supabase.auth.signUp({ email, password })
+      if (error) {
+        console.log({ error })
+      } else {
+        console.log({ data })
+        setSendEmail(email)
+        router.push({
+          pathname: '/signup/submit',
+        })
+      }
     }
   }
 
@@ -70,8 +75,25 @@ export default function SignUp(): JSX.Element {
     } else {
       createErrorEmail = '　'
       setErrorEmail(createErrorEmail)
+      setCheckEmail(false)
     }
   }, [email])
+
+  //メールアドレスの重複チェック
+  // useEffect(() => {
+  //   const checkSignedUp = async () => {
+  //     const { data: signed_up_email, error } = await supabase
+  //       .from('signed_up')
+  //       .select('email')
+  //       .eq('email', email)
+  //       .single()
+  //     if (signed_up_email) {
+  //       setErrorEmail('このメールアドレスは既に登録があります。')
+  //       setCheckEmail(false)
+  //     }
+  //   }
+  //   checkSignedUp()
+  // }, [email])
 
   //パスワード入力のエラーチェック
   useEffect(() => {
@@ -143,7 +165,7 @@ export default function SignUp(): JSX.Element {
             をお読みいただき、同意の上登録してください。
           </div>
           <div className={styles.form_login_sns}>
-            <div className={styles.form_header_sns}>SNSで会員登録</div>
+            <div className={styles.form_header_sns}>SNSアカウントで会員登録</div>
             <button className={styles.btn_login_twitter}>
               Twitterで会員登録
               <span>
@@ -170,7 +192,7 @@ export default function SignUp(): JSX.Element {
             </button> */}
           </div>
           <div className={styles.form_login_mail}>
-            <div className={styles.form_header_mail}>メールで会員登録</div>
+            <div className={styles.form_header_mail}>メールアドレスで会員登録</div>
             <span className={styles.input_mail_container}>
               <input
                 className={styles.input_mail}
