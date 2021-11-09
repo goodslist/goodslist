@@ -157,19 +157,19 @@
   width: 100%;
   height: 50px;
   padding: 0 0 0 20px;
-  border: 3px solid #fff;
+  border: 2px solid #fff;
   border-radius: 3rem;
   background-color: #edf2f7;
   transition: all 0.5s;
   margin: 0 0 40px 0;
   -webkit-appearance: none;
 }
-.search:focus {
+/* .search:focus {
   outline: none;
   background-color: #fff;
   border: 3px solid #bfdcff;
   transition: all 0.5s;
-}
+} */
 
 .search_container {
   min-width: 300px;

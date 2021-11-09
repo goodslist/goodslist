@@ -30,17 +30,18 @@ export default function SignUp(): JSX.Element {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
-  const [errorEmail, setErrorEmail] = useState('　')
+  const [errorEmail, setErrorEmail] = useState('')
   const [isNewEmail, setIsNewEmail] = useState()
-  const [errorPassword, setErrorPassword] = useState('　')
-  const [errorPassword2, setErrorPassword2] = useState('　')
+  const [errorPassword, setErrorPassword] = useState('')
+  const [errorPassword2, setErrorPassword2] = useState('')
   const [checkEmail, setCheckEmail] = useState(false)
   const [checkPassword, setCheckPassword] = useState(false)
   const [checkPassword2, setCheckPassword2] = useState(false)
+  const [errorSignUp, setErrorSignUp] = useState('')
 
-  let createErrorEmail = '　'
-  let createErrorPassword = '　'
-  let createErrorPassword2 = '　'
+  let createErrorEmail = ''
+  let createErrorPassword = ''
+  let createErrorPassword2 = ''
 
   const signUp = async () => {
     if (checkEmail && checkPassword && checkPassword2) {
@@ -48,6 +49,7 @@ export default function SignUp(): JSX.Element {
 
       const { error, data } = await supabase.auth.signUp({ email, password })
       if (error) {
+        setErrorSignUp('エラーが発生しました。しばらく経ってからもう一度お試しください。')
         console.log({ error })
       } else {
         console.log({ data })
@@ -61,7 +63,7 @@ export default function SignUp(): JSX.Element {
 
   //メールアドレス入力のエラーチェック
   useEffect(() => {
-    createErrorEmail = '　'
+    createErrorEmail = ''
     if (email.length > 0) {
       if (!email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
         createErrorEmail = createErrorEmail + 'メールアドレスの形式で入力してください。'
@@ -70,10 +72,10 @@ export default function SignUp(): JSX.Element {
         createErrorEmail = createErrorEmail + '256文字以下で入力してください。'
       }
       setErrorEmail(createErrorEmail)
-      if (createErrorEmail == '　') setCheckEmail(true)
+      if (createErrorEmail == '') setCheckEmail(true)
       else setCheckEmail(false)
     } else {
-      createErrorEmail = '　'
+      createErrorEmail = ''
       setErrorEmail(createErrorEmail)
       setCheckEmail(false)
     }
@@ -97,7 +99,7 @@ export default function SignUp(): JSX.Element {
 
   //パスワード入力のエラーチェック
   useEffect(() => {
-    createErrorPassword = '　'
+    createErrorPassword = ''
     if (password.length > 0) {
       if (!password.match(/^[A-Za-z0-9]*$/)) {
         createErrorPassword = createErrorPassword + '半角英数字で入力してください。'
@@ -106,17 +108,17 @@ export default function SignUp(): JSX.Element {
         createErrorPassword = createErrorPassword + '8文字以上32文字以下で入力してください。'
       }
       setErrorPassword(createErrorPassword)
-      if (createErrorPassword == '　') setCheckPassword(true)
+      if (createErrorPassword == '') setCheckPassword(true)
       else setCheckPassword(false)
     } else {
-      createErrorPassword = '　'
+      createErrorPassword = ''
       setErrorPassword(createErrorPassword)
     }
   }, [password])
 
   //確認用パスワード入力のエラーチェック
   useEffect(() => {
-    createErrorPassword2 = '　'
+    createErrorPassword2 = ''
     if (password2.length > 0) {
       if (!password2.match(/^[A-Za-z0-9]*$/)) {
         createErrorPassword2 = createErrorPassword2 + '半角英数字で入力してください。'
@@ -128,10 +130,10 @@ export default function SignUp(): JSX.Element {
         createErrorPassword2 = createErrorPassword2 + 'パスワードが一致しません。'
       }
       setErrorPassword2(createErrorPassword2)
-      if (createErrorPassword2 == '　') setCheckPassword2(true)
+      if (createErrorPassword2 == '') setCheckPassword2(true)
       else setCheckPassword2(false)
     } else {
-      createErrorPassword2 = '　'
+      createErrorPassword2 = ''
       setErrorPassword2(createErrorPassword2)
     }
   }, [password, password2])
@@ -155,6 +157,8 @@ export default function SignUp(): JSX.Element {
         </div>
         <div className={styles.login_signup_form_container}>
           <div className={styles.notes}>
+            当サイトのコンテンツは全て無料でご利用いただけます。
+            <br />
             <Link href='/privacy'>
               <a target='_blank'>利用規約</a>
             </Link>
@@ -162,7 +166,7 @@ export default function SignUp(): JSX.Element {
             <Link href='/privacy'>
               <a target='_blank'>プライバシーポリシー</a>
             </Link>
-            をお読みいただき、同意の上登録してください。
+            をお読みいただき、同意の上ご登録ください。
           </div>
           <div className={styles.form_login_sns}>
             <div className={styles.form_header_sns}>SNSアカウントで会員登録</div>
@@ -195,7 +199,7 @@ export default function SignUp(): JSX.Element {
             <div className={styles.form_header_mail}>メールアドレスで会員登録</div>
             <span className={styles.input_mail_container}>
               <input
-                className={styles.input_mail}
+                className={checkEmail ? styles.input_mail_checked : styles.input_mail}
                 type='text'
                 name='email'
                 placeholder='メールアドレス'
@@ -208,7 +212,7 @@ export default function SignUp(): JSX.Element {
             <div className={styles.input_error}>{errorEmail}</div>
             <span className={styles.input_password_container}>
               <input
-                className={styles.input_password}
+                className={checkPassword ? styles.input_password_checked : styles.input_password}
                 type='password'
                 name='password'
                 placeholder='パスワード'
@@ -219,9 +223,10 @@ export default function SignUp(): JSX.Element {
               </span>
             </span>
             <div className={styles.input_error}>{errorPassword}</div>
+            <div className={styles.input_notes}>半角英数字、8文字以上32文字以下。</div>
             <span className={styles.input_password_container}>
               <input
-                className={styles.input_password}
+                className={checkPassword2 ? styles.input_password_checked : styles.input_password}
                 type='password'
                 name='password2'
                 placeholder='同じパスワードを再入力'
@@ -246,6 +251,7 @@ export default function SignUp(): JSX.Element {
               </span>
               <label className={styles.dotpulse}></label>
             </button>
+            <div className={styles.input_error}>{errorSignUp}</div>
             <Link href='/login'>
               <a>
                 <button className={styles.btn_link_signup}>ログインはこちら</button>

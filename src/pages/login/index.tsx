@@ -71,12 +71,18 @@ const LogIn = () => {
     }
   }, [password])
 
+  //ログイン処理
   const login = async () => {
-    const { error, data } = await supabase.auth.signIn({ email, password })
-    if (error) {
-      console.log({ error })
-    } else {
-      console.log({ data })
+    setErrorLogIn('')
+    if (checkEmail && checkPassword) {
+      const { error, data } = await supabase.auth.signIn({ email, password })
+      if (error) {
+        if (error.message == 'Invalid login credentials')
+          setErrorLogIn('メールアドレスまたはパスワードが間違っています。')
+        else setErrorLogIn('エラーが発生しました。しばらく経ってからもう一度お試しください。')
+      } else {
+        console.log({ data })
+      }
     }
   }
 
@@ -153,7 +159,7 @@ const LogIn = () => {
               </span>
             </span>
             <div className={styles.input_error}>{errorPassword}</div>
-            <div className={styles.forgot_password} onClick={() => signOut()}>
+            <div className={styles.input_notes} onClick={() => signOut()}>
               パスワードを忘れた場合
             </div>
             <button
@@ -167,7 +173,7 @@ const LogIn = () => {
                 <Mail />
               </span>
             </button>
-            <div className={styles.input_error}>{errorPassword}</div>
+            <div className={styles.input_error}>{errorLogIn}</div>
             <Link href='/signup'>
               <a>
                 <button className={styles.btn_link_signup}>会員登録はこちら</button>

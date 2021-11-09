@@ -52,7 +52,7 @@ export default function SignUpSubmit() {
             24時間経過するとメールは無効となり、もう一度最初から登録になります。
           </div>
 
-          <div className={styles.send_email_return}>
+          <div className={styles.link_return}>
             <Link href='/'>
               <a target='_blank'>トップページ</a>
             </Link>
