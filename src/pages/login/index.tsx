@@ -9,6 +9,7 @@ import { supabase } from '../../components/supabase'
 import { ModalContext } from '../../components/modal/ModalContext'
 import Head from 'next/head'
 import Link from 'next/dist/client/link'
+import BtnSpinner from '../../components/Spinner'
 
 const LogIn = () => {
   const { user, session, signOut }: any = useContext(AuthContext)
@@ -29,6 +30,7 @@ const LogIn = () => {
   const [checkEmail, setCheckEmail] = useState(false)
   const [checkPassword, setCheckPassword] = useState(false)
   const [errorLogIn, setErrorLogIn] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   let createErrorEmail = ''
   let createErrorPassword = ''
@@ -49,6 +51,7 @@ const LogIn = () => {
     } else {
       createErrorEmail = ''
       setErrorEmail(createErrorEmail)
+      setCheckEmail(false)
     }
   }, [email])
 
@@ -73,6 +76,7 @@ const LogIn = () => {
 
   //ログイン処理
   const login = async () => {
+    setIsLoading(true)
     setErrorLogIn('')
     if (checkEmail && checkPassword) {
       const { error, data } = await supabase.auth.signIn({ email, password })
@@ -118,24 +122,16 @@ const LogIn = () => {
                 <Line />
               </span>
             </button>
-            {/* <button className={styles.btn_login_yahoo}>
-              Yahoo! JAPAN
-              <span>
-                <img src='../../images/yahoo.png' width='35px' height='35px' />
-              </span>
-            </button>
-            <button className={styles.btn_login_google}>
-              Google
-              <span>
-                <img src='../../images/google.svg' width='26px' height='26px' />
-              </span>
-            </button> */}
           </div>
           <div className={styles.form_login_mail}>
             <div className={styles.form_header_mail}>メールアドレスでログイン</div>
-            <span className={styles.input_mail_container}>
+            <span
+              className={
+                checkEmail ? styles.input_mail_container_checked : styles.input_mail_container
+              }
+            >
               <input
-                className={styles.input_mail}
+                className={checkEmail ? styles.input_mail_checked : styles.input_mail}
                 type='text'
                 name='email'
                 placeholder='メールアドレス'
@@ -146,9 +142,15 @@ const LogIn = () => {
               </span>
             </span>
             <div className={styles.input_error}>{errorEmail}</div>
-            <span className={styles.input_password_container}>
+            <span
+              className={
+                checkPassword
+                  ? styles.input_password_container_checked
+                  : styles.input_password_container
+              }
+            >
               <input
-                className={styles.input_password}
+                className={checkPassword ? styles.input_password_checked : styles.input_password}
                 type='password'
                 name='password'
                 placeholder='パスワード'
@@ -172,8 +174,12 @@ const LogIn = () => {
               <span>
                 <Mail />
               </span>
+              <div className={isLoading ? styles.btn_spinner_active : styles.btn_spinner}>
+                <BtnSpinner />
+              </div>
             </button>
             <div className={styles.input_error}>{errorLogIn}</div>
+
             <Link href='/signup'>
               <a>
                 <button className={styles.btn_link_signup}>会員登録はこちら</button>

@@ -42,3 +42,8 @@ select {
   background-color: #edf2f7;
   transition: all 0.5s;
 }
+
+input:-webkit-autofill {
+  box-shadow: 0 0 0 1000px #fff inset;
+  -webkit-box-shadow: 0 0 0px 1000px inset inset;
+}

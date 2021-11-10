@@ -11,7 +11,7 @@ import { SignUpContext } from '../../components/signup/SignUpContext'
 import styles from '../../styles/Login.module.css'
 import { supabase } from '../../components/supabase'
 import Modal from '../../components/modal/Modal'
-import { abc } from '../../components/signup/SignUpModel'
+import BtnSpinner from '../../components/Spinner'
 
 export default function SignUp(): JSX.Element {
   const router = useRouter()
@@ -38,6 +38,7 @@ export default function SignUp(): JSX.Element {
   const [checkPassword, setCheckPassword] = useState(false)
   const [checkPassword2, setCheckPassword2] = useState(false)
   const [errorSignUp, setErrorSignUp] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
 
   let createErrorEmail = ''
   let createErrorPassword = ''
@@ -45,10 +46,11 @@ export default function SignUp(): JSX.Element {
 
   const signUp = async () => {
     if (checkEmail && checkPassword && checkPassword2) {
-      setOpenModalFlag(true)
+      setIsLoading(true)
 
       const { error, data } = await supabase.auth.signUp({ email, password })
       if (error) {
+        setIsLoading(false)
         setErrorSignUp('エラーが発生しました。しばらく経ってからもう一度お試しください。')
         console.log({ error })
       } else {
@@ -197,7 +199,11 @@ export default function SignUp(): JSX.Element {
           </div>
           <div className={styles.form_login_mail}>
             <div className={styles.form_header_mail}>メールアドレスで会員登録</div>
-            <span className={styles.input_mail_container}>
+            <span
+              className={
+                checkEmail ? styles.input_mail_container_checked : styles.input_mail_container
+              }
+            >
               <input
                 className={checkEmail ? styles.input_mail_checked : styles.input_mail}
                 type='text'
@@ -210,7 +216,13 @@ export default function SignUp(): JSX.Element {
               </span>
             </span>
             <div className={styles.input_error}>{errorEmail}</div>
-            <span className={styles.input_password_container}>
+            <span
+              className={
+                checkPassword
+                  ? styles.input_password_container_checked
+                  : styles.input_password_container
+              }
+            >
               <input
                 className={checkPassword ? styles.input_password_checked : styles.input_password}
                 type='password'
@@ -224,7 +236,13 @@ export default function SignUp(): JSX.Element {
             </span>
             <div className={styles.input_error}>{errorPassword}</div>
             <div className={styles.input_notes}>半角英数字、8文字以上32文字以下。</div>
-            <span className={styles.input_password_container}>
+            <span
+              className={
+                checkPassword2
+                  ? styles.input_password_container_checked
+                  : styles.input_password_container
+              }
+            >
               <input
                 className={checkPassword2 ? styles.input_password_checked : styles.input_password}
                 type='password'
@@ -249,7 +267,9 @@ export default function SignUp(): JSX.Element {
               <span>
                 <Mail />
               </span>
-              <label className={styles.dotpulse}></label>
+              <div className={isLoading ? styles.btn_spinner_active : styles.btn_spinner}>
+                <BtnSpinner />
+              </div>
             </button>
             <div className={styles.input_error}>{errorSignUp}</div>
             <Link href='/login'>

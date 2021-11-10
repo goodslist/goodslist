@@ -199,7 +199,6 @@
   margin: 0;
   width: 90%;
   height: 40px;
-  line-height: 40px;
   position: relative;
   border: none;
   border-radius: 10px;
@@ -222,7 +221,7 @@
   display: block;
   content: '';
   position: absolute;
-  top: 5px;
+  top: 10px;
   left: 15px;
   width: 20px;
   height: 20px;
@@ -235,8 +234,34 @@
   fill: #fff;
 }
 
+.btn_spinner {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 28px;
+  width: 20px;
+  height: 20px;
+  color: #fff;
+  opacity: 0;
+}
+
+.btn_spinner_active {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 28px;
+  width: 20px;
+  height: 20px;
+  color: #fff;
+  opacity: 1;
+}
+
 .input_mail_container,
-.input_password_container {
+.input_password_container,
+.input_mail_container_checked,
+.input_password_container_checked {
   display: inline-block;
   margin: 0;
   position: relative;
@@ -246,7 +271,9 @@
 }
 
 .input_mail_container span,
-.input_password_container span {
+.input_password_container span,
+.input_mail_container_checked span,
+.input_password_container_checked span {
   display: block;
   content: '';
   position: absolute;
@@ -261,6 +288,15 @@
   width: 20px;
   height: 20px;
   fill: #999;
+  transition: all 0.3s;
+}
+
+.input_mail_container_checked svg,
+.input_password_container_checked svg {
+  width: 20px;
+  height: 20px;
+  fill: #68a9cf;
+  transition: all 0.3s;
 }
 
 .input_mail,
