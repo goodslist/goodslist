@@ -10,7 +10,7 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
     // const email = 'tnvzk679@yahoo.co.jp'
     const { data, error } = await supabase.from('events').select('event_name').eq('event_id', 2)
 
-    res.json({ message: 'something wronga !', data: data })
+    res.json(data)
   }
   validSignedUp()
 }
