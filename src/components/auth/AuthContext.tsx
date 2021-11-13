@@ -37,6 +37,10 @@ export const AuthProvider: FC = ({ children }) => {
   }, [])
 
   useEffect(() => {
+    console.log(user)
+  }, [])
+
+  useEffect(() => {
     const setupUser = async () => {
       if (session?.user?.id) {
         const { data: user, error } = await supabase
@@ -45,12 +49,13 @@ export const AuthProvider: FC = ({ children }) => {
           .eq('id', session.user.id)
           .single()
         console.log(user)
+        console.log(session)
         console.log(error)
         setUser(user)
 
-        if (user.sign_up == false) {
-          router.replace('/signup')
-        }
+        // if (user.sign_up == false) {
+        //   router.replace('/signup')
+        // }
       }
     }
     setupUser()

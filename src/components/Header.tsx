@@ -8,27 +8,8 @@ import { useRouter } from 'next/router'
 
 export default function Header(props: any) {
   const { user, session, signOut }: any = useContext(AuthContext)
-  const {
-    openModalFlag,
-    setOpenModalFlag,
-    openModalContentFlag,
-    setOpenModalContentFlag,
-    setShowLogin,
-    setModalType,
-  }: any = useContext(ModalContext)
   const router = useRouter()
-  if (router.pathname != '/signup') {
-    if (user?.sign_up == false) {
-      router.replace('/signup/profile')
-    }
-  }
 
-  const onClickLogin = () => {
-    setModalType('login')
-    setOpenModalFlag(true)
-    setShowLogin(true)
-    setOpenModalContentFlag(true)
-  }
   return (
     <div className={styles.header_container}>
       <div className={styles.header}>
