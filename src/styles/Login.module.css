@@ -38,7 +38,7 @@
   text-decoration: underline;
 }
 
-.login_signup_form_container {
+.form_container {
   margin: 0 auto;
   padding: 20px 0;
   text-align: center;
@@ -49,48 +49,27 @@
   background-color: #fff;
 }
 
-.form_login_sns,
-.form_login_mail {
-  width: 100%;
-  min-width: 280px;
-  max-width: 500px;
-  margin: 0;
-  text-align: center;
-}
-
-.form_header_sns,
-.form_header_mail {
+.input_header {
   display: flex;
   align-items: center;
   font-size: 1.4rem;
   color: #666;
-}
-
-.form_header_sns {
   margin: 0 0 20px 0;
 }
 
-.form_header_mail {
-  margin: 0 0 17px 0;
-}
-
-.form_header_sns:before,
-.form_header_sns:after,
-.form_header_mail:before,
-.form_header_mail:after {
+.input_header:before,
+.input_header:after {
   content: '';
   height: 1px;
   flex-grow: 1;
   background-color: #e6e6e6;
 }
 
-.form_header_sns:before,
-.form_header_mail:before {
+.input_header:before {
   margin-right: 1rem;
 }
 
-.form_header_sns:after,
-.form_header_mail:after {
+.input_header:after {
   margin-left: 1rem;
 }
 
@@ -216,7 +195,7 @@
   cursor: pointer;
 }
 
-.btn_login_mail span,
+.btn_mail,
 .btn_login_mail_active span {
   display: block;
   content: '';
@@ -261,7 +240,9 @@
 .input_mail_container,
 .input_password_container,
 .input_mail_container_checked,
-.input_password_container_checked {
+.input_password_container_checked,
+.input_name_container,
+.input_name_container_checked {
   display: inline-block;
   margin: 0;
   position: relative;
@@ -270,10 +251,12 @@
   text-align: center;
 }
 
-.input_mail_container span,
+/* .input_mail_container span, */
 .input_password_container span,
 .input_mail_container_checked span,
-.input_password_container_checked span {
+.input_password_container_checked span,
+.input_name_container span,
+.input_name_container_checked span {
   display: block;
   content: '';
   position: absolute;
@@ -283,8 +266,9 @@
   height: 20px;
   color: #fff;
 }
-.input_mail_container svg,
-.input_password_container svg {
+/* .input_mail_container svg, */
+.input_password_container svg,
+.input_name_container svg {
   width: 20px;
   height: 20px;
   fill: #999;
@@ -292,7 +276,8 @@
 }
 
 .input_mail_container_checked svg,
-.input_password_container_checked svg {
+.input_password_container_checked svg,
+.input_name_container_checked svg {
   width: 20px;
   height: 20px;
   fill: #68a9cf;
@@ -302,7 +287,7 @@
 .input_mail,
 .input_password {
   margin: 0;
-  padding: 0 15px 0 45px;
+  padding: 0 20px;
   width: 100%;
   height: 40px;
   border-radius: 10px;
@@ -327,17 +312,6 @@
   text-align: right;
   color: #999;
   text-decoration: underline;
-}
-
-.input_name_container {
-  display: flex;
-  justify-self: start;
-  align-items: center;
-  margin: 0;
-  position: relative;
-  min-width: 200px;
-  width: 100%;
-  height: 40px;
 }
 
 .input_label {
@@ -563,7 +537,7 @@
 }
 
 .btn_link_signup {
-  margin: 0 0 20px 0;
+  margin: 0 0 10px 0;
   width: 60%;
   height: 40px;
   font-size: 1.4rem;

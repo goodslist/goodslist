@@ -35,17 +35,17 @@ export default function SignUpSubmit() {
             <div className={styles.step_on}>
               01<span>メール確認</span>
             </div>
-            <div className={styles.step_off}>
+            <div className={styles.step_on}>
               02<span>必要事項入力</span>
             </div>
 
-            <div className={styles.step_off}>
+            <div className={styles.step_on}>
               03<span>登録完了</span>
             </div>
           </div>
           <div className={styles.send_email_address}>{sendEmail}</div>
           <div className={styles.send_email_text}>
-            上記のメールアドレス宛てに確認メールを送信しました。
+            以下の情報で会員登録が完了しました。
             <br />
             24時間以内に確認メール内のリンクにアクセスし、登録を完了させてください。
             <br />

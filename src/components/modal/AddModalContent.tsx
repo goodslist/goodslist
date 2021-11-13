@@ -13,7 +13,7 @@ export default function AddModalContent(props: any) {
     title = 'リストをリセットしますか？'
     text = 'リセットされる項目：購入数、並び替え順、入力欄の開閉'
     button_text = 'リセットする'
-  } else {
+  } else if (props.action == 'login') {
     title = 'この機能はログインが必要です。'
     text =
       'ログインすると全ての機能を利用できます。Twitter、LINE、Google、Yahoo! JAPANの各ソーシャルアカウントでもログインできます。現在入力中のデータはログイン、新規登録後まで保持されます。'

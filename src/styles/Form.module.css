@@ -1,0 +1,97 @@
+.btn_submit,
+.btn_submit_active {
+  box-sizing: border-box;
+  margin: 0;
+  width: 90%;
+  height: 40px;
+  position: relative;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.4rem;
+  color: #fff;
+  transition: all 0.3s;
+}
+
+.btn_submit {
+  background-color: #ccc;
+}
+
+.btn_submit_active {
+  background-color: #68a9cf;
+  cursor: pointer;
+}
+
+.btn_svg_container {
+  display: block;
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 10px;
+  left: 15px;
+  color: #fff;
+}
+.btn_svg_container svg {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+}
+
+/* ボタンのスピナー */
+
+.btn_spinner {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 28px;
+  width: 20px;
+  height: 20px;
+  color: #fff;
+  opacity: 0;
+}
+
+.btn_spinner_active {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 28px;
+  width: 20px;
+  height: 20px;
+  color: #fff;
+  opacity: 1;
+}
+
+/* テキスト入力 */
+
+.input_text,
+.input_password {
+  margin: 0;
+  padding: 0 20px;
+  width: 90%;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.input_text_validated,
+.input_password_checked {
+  margin: 0;
+  padding: 0 20px;
+  width: 90%;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #fff;
+  border: 1px solid #68a9cf;
+}
+
+.input_error {
+  margin: 10px auto 20px auto;
+  padding: 0 10px;
+  width: 90%;
+  min-height: 1.2rem;
+  text-align: left;
+  font-size: 1.2rem;
+  line-height: 2rem;
+  color: #cf6775;
+}

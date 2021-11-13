@@ -1,91 +1,70 @@
 import styles from '../../styles/Login.module.css'
 import Twitter from '../../../public/images/twitter.svg'
 import Line from '../../../public/images/line.svg'
-import Mail from '../../../public/images/mail.svg'
-import Password from '../../../public/images/password.svg'
 import { AuthContext } from '../../components/auth/AuthContext'
-import { useState, useEffect, useRef, useCallback, useContext } from 'react'
+import { useState, useEffect, useRef, useCallback, useContext, ChangeEvent } from 'react'
 import { supabase } from '../../components/supabase'
 import { ModalContext } from '../../components/modal/ModalContext'
 import Head from 'next/head'
 import Link from 'next/dist/client/link'
-import BtnSpinner from '../../components/Spinner'
+import SubmitButton from '../../components/form/SubmitButton'
+import InputText from '../../components/form/InputText'
+import { validateEmail, validatePassword } from '../../components/Validation'
 
 const LogIn = () => {
   const { user, session, signOut }: any = useContext(AuthContext)
 
-  const {
-    openModalFlag,
-    setOpenModalFlag,
-    modalType,
-    openModalContentFlag,
-    setOpenModalContentFlag,
-    setShowLogin,
-  }: any = useContext(ModalContext)
+  const { setOpenClearOverlay }: any = useContext(ModalContext)
 
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [errorEmail, setErrorEmail] = useState('')
+  const [validEmail, setValidEmail] = useState(false)
+  const [password, setPassword] = useState('')
   const [errorPassword, setErrorPassword] = useState('')
-  const [checkEmail, setCheckEmail] = useState(false)
-  const [checkPassword, setCheckPassword] = useState(false)
-  const [errorLogIn, setErrorLogIn] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-
-  let createErrorEmail = ''
-  let createErrorPassword = ''
+  const [validPassword, setValidPassword] = useState(false)
+  const [isSubmit, setIsSubmit] = useState(false)
+  const [errorSubmit, setErrorSubmit] = useState('')
+  const [isButtonLoading, setIsButtonLoading] = useState(false)
 
   //メールアドレス入力のエラーチェック
   useEffect(() => {
-    createErrorEmail = ''
-    if (email.length > 0) {
-      if (!email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
-        createErrorEmail = createErrorEmail + 'メールアドレスの形式で入力してください。'
-      }
-      if (email.length > 257) {
-        createErrorEmail = createErrorEmail + '256文字以下で入力してください。'
-      }
-      setErrorEmail(createErrorEmail)
-      if (createErrorEmail == '') setCheckEmail(true)
-      else setCheckEmail(false)
-    } else {
-      createErrorEmail = ''
-      setErrorEmail(createErrorEmail)
-      setCheckEmail(false)
-    }
+    const newErrorEmail = validateEmail(email)
+    setErrorEmail(newErrorEmail)
+    if (email.length > 0 && errorEmail == '') setValidEmail(true)
+    else setValidEmail(false)
   }, [email])
 
   //パスワード入力のエラーチェック
   useEffect(() => {
-    createErrorPassword = ''
-    if (password.length > 0) {
-      if (!password.match(/^[A-Za-z0-9]*$/)) {
-        createErrorPassword = createErrorPassword + '半角英数字で入力してください。'
-      }
-      if (password.length < 8 || password.length > 32) {
-        createErrorPassword = createErrorPassword + '8文字以上32文字以下で入力してください。'
-      }
-      setErrorPassword(createErrorPassword)
-      if (createErrorPassword == '') setCheckPassword(true)
-      else setCheckPassword(false)
-    } else {
-      createErrorPassword = ''
-      setErrorPassword(createErrorPassword)
-    }
+    const newErrorPassword = validatePassword(password)
+    setErrorPassword(newErrorPassword)
+    if (password.length > 0 && newErrorPassword == '') setValidPassword(true)
+    else setValidPassword(false)
   }, [password])
 
-  //ログイン処理
-  const login = async () => {
-    setIsLoading(true)
-    setErrorLogIn('')
-    if (checkEmail && checkPassword) {
+  //全ての入力のバリデーションがtrueならボタンをアクティブにする
+  useEffect(() => {
+    if (validEmail && validPassword) setIsSubmit(true)
+    else setIsSubmit(false)
+  }, [validEmail, validPassword])
+
+  //「メールアドレスでログイン」ボタンを押下
+  const logIn = async () => {
+    setIsButtonLoading(true)
+    setOpenClearOverlay(true)
+    setErrorSubmit('')
+    if (validEmail && validPassword) {
       const { error, data } = await supabase.auth.signIn({ email, password })
       if (error) {
-        if (error.message == 'Invalid login credentials')
-          setErrorLogIn('メールアドレスまたはパスワードが間違っています。')
-        else setErrorLogIn('エラーが発生しました。しばらく経ってからもう一度お試しください。')
-      } else {
-        console.log({ data })
+        if (error.message == 'Invalid login credentials') {
+          setErrorSubmit('メールアドレスまたはパスワードが間違っています。')
+          setIsButtonLoading(false)
+          setOpenClearOverlay(false)
+        } else {
+          setErrorSubmit('エラーが発生しました。しばらく経ってからもう一度お試しください。')
+          setIsButtonLoading(false)
+          setOpenClearOverlay(false)
+        }
       }
     }
   }
@@ -107,91 +86,56 @@ const LogIn = () => {
         <div className={styles.content_title}>
           <span>ログイン</span>
         </div>
-        <div className={styles.login_signup_form_container}>
-          <div className={styles.form_login_sns}>
-            <div className={styles.form_header_sns}>SNSアカウントでログイン</div>
-            <button className={styles.btn_login_twitter}>
-              Twitterでログイン
-              <span>
-                <Twitter />
-              </span>
-            </button>
-            <button className={styles.btn_login_line}>
-              LINEでログイン
-              <span>
-                <Line />
-              </span>
-            </button>
-          </div>
-          <div className={styles.form_login_mail}>
-            <div className={styles.form_header_mail}>メールアドレスでログイン</div>
-            <span
-              className={
-                checkEmail ? styles.input_mail_container_checked : styles.input_mail_container
-              }
-            >
-              <input
-                className={checkEmail ? styles.input_mail_checked : styles.input_mail}
-                type='text'
-                name='email'
-                placeholder='メールアドレス'
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <span>
-                <Mail />
-              </span>
-            </span>
-            <div className={styles.input_error}>{errorEmail}</div>
-            <span
-              className={
-                checkPassword
-                  ? styles.input_password_container_checked
-                  : styles.input_password_container
-              }
-            >
-              <input
-                className={checkPassword ? styles.input_password_checked : styles.input_password}
-                type='password'
-                name='password'
-                placeholder='パスワード'
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <span>
-                <Password />
-              </span>
-            </span>
-            <div className={styles.input_error}>{errorPassword}</div>
-            <div className={styles.input_notes} onClick={() => signOut()}>
-              パスワードを忘れた場合
-            </div>
-            <button
-              className={
-                checkEmail && checkPassword ? styles.btn_login_mail_active : styles.btn_login_mail
-              }
-              onClick={() => login()}
-            >
-              メールアドレスでログイン
-              <span>
-                <Mail />
-              </span>
-              <div className={isLoading ? styles.btn_spinner_active : styles.btn_spinner}>
-                <BtnSpinner />
-              </div>
-            </button>
-            <div className={styles.input_error}>{errorLogIn}</div>
-
-            <Link href='/signup'>
-              <a>
-                <button className={styles.btn_link_signup}>会員登録はこちら</button>
-              </a>
-            </Link>
-            {/* <button className={styles.btn_login_mail} onClick={() => signup()}>
-            メールアドレスで登録
+        <div className={styles.form_container}>
+          <div className={styles.input_header}>SNSアカウントでログイン</div>
+          <button className={styles.btn_login_twitter}>
+            Twitterでログイン
             <span>
-              <Mail />
+              <Twitter />
             </span>
-          </button> */}
+          </button>
+          <button className={styles.btn_login_line}>
+            LINEでログイン
+            <span>
+              <Line />
+            </span>
+          </button>
+          <div className={styles.input_header}>メールアドレスでログイン</div>
+          <InputText
+            valid={validEmail}
+            name='email'
+            type='text'
+            placeholder='メールアドレス'
+            onChange={setEmail}
+            error={errorEmail}
+          />
+          <InputText
+            valid={validPassword}
+            name='password'
+            type='password'
+            placeholder='パスワード'
+            onChange={setPassword}
+            error={errorPassword}
+          />
+          <div className={styles.input_notes}>
+            <Link href='/signup/password'>
+              <a>パスワードを忘れた場合</a>
+            </Link>
           </div>
+          <SubmitButton
+            isSubmit={isSubmit}
+            isButtonLoading={isButtonLoading}
+            type='email'
+            title='メールアドレスでログイン'
+            onClick={() => logIn()}
+            error={errorSubmit}
+          />
+          <Link href='/signup'>
+            <a>
+              <button className={styles.btn_link_signup}>会員登録はこちら</button>
+            </a>
+          </Link>
+          <p onClick={() => signOut()}>ログアウト</p>
         </div>
       </main>
     </>

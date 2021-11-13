@@ -50,7 +50,7 @@ export default function Header(props: any) {
               <Link href={router.pathname == '/login' ? '/signup' : '/login'}>
                 <a>
                   <div className={styles.btn_login_link}>
-                    {router.pathname == '/login' ? '会員登録はこちら' : 'ログインはこちら'}
+                    {router.pathname == '/login' ? '会員登録' : 'ログイン'}
                   </div>
                 </a>
               </Link>
@@ -59,7 +59,7 @@ export default function Header(props: any) {
             return (
               <Link href={router.pathname == '/login' ? '/signup' : '/login'}>
                 <a>
-                  <div className={styles.btn_login}>ログイン / 会員登録</div>
+                  <div className={styles.btn_login}>ログイン</div>
                 </a>
               </Link>
             )

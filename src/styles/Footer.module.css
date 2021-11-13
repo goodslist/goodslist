@@ -1,21 +1,14 @@
 .footer_container {
   width: 100%;
-  height: 200px;
   margin: 0;
-  padding: 0;
   border-top: 1px solid #eaeaea;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   /* background-color: #c8e5f6; */
 }
 
 .footer {
   width: 100%;
   max-width: 850px;
-  height: 150px;
-  margin: 0;
-  padding: 40px 0 0 0;
+  margin: 30px auto;
   position: relative;
   font-size: 1.2rem;
 }

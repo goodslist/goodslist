@@ -11,6 +11,11 @@ import Password from '../img/password.svg'
 import Image from 'next/image'
 import { AuthContext } from '../../components/auth/AuthContext'
 import Check from '../../../public/images/check.svg'
+import { ModalContext } from '../../components/modal/ModalContext'
+import { useRouter } from 'next/router'
+import InputText from '../../components/form/InputText'
+import SubmitButton from '../../components/form/SubmitButton'
+import { validateName } from '../../components/Validation'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -32,29 +37,27 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
 const Signup = (data: SignupProps) => {
   const { user, setUser, session, setSession, signOut }: any = useContext(AuthContext)
+  const { setOpenClearOverlay }: any = useContext(ModalContext)
+
   const [name, setName] = useState('')
   const [errorName, setErrorName] = useState('')
+  const [validName, setValidName] = useState(false)
   const [year, setYear] = useState(1990)
   const [month, setMonth] = useState(0)
   const [gender, setGender] = useState(0)
   const [genderCss, setGenderCss] = useState(styles.gender_selected)
-  const [checkName, setCheckName] = useState(false)
+  const [isSubmit, setIsSubmit] = useState(false)
+  const [errorSubmit, setErrorSubmit] = useState('')
+  const [isButtonLoading, setIsButtonLoading] = useState(false)
 
-  let createErrorName
+  const router = useRouter()
 
   //ニックネーム入力のエラーチェック
   useEffect(() => {
-    createErrorName = ''
-    if (name.length > 0) {
-      if (name.length > 30) createErrorName = createErrorName + '30文字以内で入力してください。'
-      if (!name.match(/^[0-9a-zA-Zぁ-んーァ-ヶー一-龠]+$/)) {
-        createErrorName = createErrorName + '全角半角英数字のみ使用できます。'
-      }
-      if (createErrorName == '') {
-        setCheckName(true)
-      } else setCheckName(false)
-    } else setCheckName(false)
-    setErrorName(createErrorName)
+    const newErrorName = validateName(name)
+    setErrorName(newErrorName)
+    if (name.length > 0 && newErrorName == '') setValidName(true)
+    else setValidName(false)
   }, [name])
 
   const inputYear = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,70 +75,51 @@ const Signup = (data: SignupProps) => {
     else if (gender == 3) setGenderCss(styles.gender_selected_3)
   }
 
+  //「登録を完了する」ボタンを押下
   const submit = async () => {
-    const { data, error } = await supabase
-      .from('users')
-      .update({
-        user_name: name,
-        birth_year: year,
-        birth_month: month,
-        gender: gender,
-        sign_up: true,
-      })
-      .match({ id: session.user.id })
-    if (error) {
-      console.log({ error })
-    } else {
-      const { data: user, error } = await supabase
+    if (validName && year > 0 && month > 0 && gender > 0) {
+      setIsButtonLoading(true)
+      setOpenClearOverlay(true)
+
+      const { data, error } = await supabase
         .from('users')
-        .select('id, user_name, avatar_url, sign_up')
-        .eq('id', session.user.id)
-        .single()
-      setUser(user)
+        .update({
+          user_name: name,
+          birth_year: year,
+          birth_month: month,
+          gender: gender,
+          sign_up: true,
+        })
+        .match({ id: session.user.id })
+      if (error) {
+        setIsButtonLoading(false)
+        setOpenClearOverlay(false)
+        console.log({ error })
+      } else {
+        const { data: user, error } = await supabase
+          .from('users')
+          .select('id, user_name, avatar_url, sign_up')
+          .eq('id', session.user.id)
+          .single()
+        setUser(user)
+        setIsButtonLoading(false)
+        setOpenClearOverlay(false)
+        router.push({
+          pathname: '/signup/complate',
+        })
+      }
     }
     console.log({ user })
   }
-  // const login = async () => {
-  //   const { error, data } = await supabase.auth.signIn({ email, password })
-  //   if (error) {
-  //     console.log({ error })
-  //   } else {
-  //     console.log({ data })
-  //   }
-  // }
 
-  // const signup = async () => {
-  //   const { error } = await supabase.auth.signUp({ email, password })
-  //   if (error) {
-  //     console.log({ error })
-  //   } else {
-  //     console.log({ data })
-  //   }
-  // }
-
-  const [selectLogin, setSelectLogin] = useState([
-    styles.select_login_active,
-    styles.select_register,
-    styles.select_underbar_login,
-  ])
-
-  const changeSelectLogin = (select: string) => {
-    if (select == 'register') {
-      const newSelectLogin = [
-        styles.select_login,
-        styles.select_register_active,
-        styles.select_underbar_register,
-      ]
-      setSelectLogin(newSelectLogin)
-    } else if (select == 'login') {
-      const newSelectLogin = [
-        styles.select_login_active,
-        styles.select_register,
-        styles.select_underbar_login,
-      ]
-      setSelectLogin(newSelectLogin)
+  //全ての入力のバリデーションがtrueならボタンをアクティブにする
+  useEffect(() => {
+    if (validName && year > 0 && month > 0 && gender > 0) {
+      setIsSubmit(true)
+    } else {
+      setIsSubmit(false)
     }
-  }
+  }, [validName, year, month, gender])
 
   return (
     <>
@@ -154,7 +138,7 @@ const Signup = (data: SignupProps) => {
         <div className={styles.content_title}>
           <span>会員登録</span>
         </div>
-        <div className={styles.login_signup_form_container}>
+        <div className={styles.form_container}>
           <div className={styles.signup_step_container}>
             <div className={styles.step_on}>
               01<span>メール確認</span>
@@ -169,91 +153,79 @@ const Signup = (data: SignupProps) => {
           </div>
           <div className={styles.notes}>全ての項目を入力し、登録を完了させてください。</div>
 
-          <div className={styles.form_login_sns}>
-            <div className={styles.form_header_sns}>ニックネーム</div>
-            <span className={styles.input_mail_container}>
-              <input
-                className={checkName ? styles.input_mail_checked : styles.input_mail}
-                type='text'
-                name='name'
-                placeholder='ニックネーム'
-                onChange={(e) => setName(e.target.value)}
-              />
-              <span>
-                <Name />
-              </span>
-            </span>
-            <div className={styles.input_error}>{errorName}</div>
-            <div className={styles.input_notes}>全角半角英数字、30文字以内。</div>
-            <div className={styles.form_header_sns}>誕生年月</div>
-            <div className={styles.birth_container}>
-              <span className={styles.select_arrow}>
-                <select
-                  className={styles.input_select_active}
-                  onChange={(event: any) => inputYear(event)}
-                >
-                  <option value='1990'>1990年</option>
-                  <option value='1991'>1991年</option>
-                </select>
-              </span>
-
+          <div className={styles.input_header}>ニックネーム</div>
+          <InputText
+            valid={validName}
+            name='text'
+            type='name'
+            placeholder='ニックネーム'
+            onChange={setName}
+            error={errorName}
+          />
+          <div className={styles.input_notes}>全角半角英数字、30文字以内。</div>
+          <div className={styles.input_header}>誕生年月</div>
+          <div className={styles.birth_container}>
+            <span className={styles.select_arrow}>
               <select
-                className={month > 0 ? styles.input_select_active : styles.input_select}
-                onChange={(event: any) => inputMonth(event)}
+                className={styles.input_select_active}
+                onChange={(event: any) => inputYear(event)}
               >
-                <option value='0'>---</option>
-                <option value='1'>01月</option>
-                <option value='2'>02月</option>
-                <option value='3'>03月</option>
-                <option value='4'>04月</option>
-                <option value='5'>05月</option>
-                <option value='6'>06月</option>
-                <option value='7'>07月</option>
-                <option value='8'>08月</option>
-                <option value='9'>09月</option>
-                <option value='10'>10月</option>
-                <option value='11'>11月</option>
-                <option value='12'>12月</option>
+                <option value='1990'>1990年</option>
+                <option value='1991'>1991年</option>
               </select>
-            </div>
-            <div className={styles.input_notes}>パスワードを忘れた時や退会時に必要です。</div>
-            <div className={styles.form_header_sns}>性別</div>
-            <div className={styles.gender_container}>
-              <span className={genderCss}></span>
-              <label
-                className={gender == 1 ? styles.input_radio_active : styles.input_radio}
-                onClick={() => inputGender(1)}
-              >
-                女性
-              </label>
-              <label
-                className={gender == 2 ? styles.input_radio_active : styles.input_radio}
-                onClick={() => inputGender(2)}
-              >
-                男性
-              </label>
-              <label
-                className={gender == 3 ? styles.input_radio_active : styles.input_radio}
-                onClick={() => inputGender(3)}
-              >
-                その他
-              </label>
-            </div>
-            <button
-              className={
-                checkName && year > 0 && month > 0 && gender > 0
-                  ? styles.btn_login_mail_active
-                  : styles.btn_login_mail
-              }
-              onClick={() => submit()}
+            </span>
+
+            <select
+              className={month > 0 ? styles.input_select_active : styles.input_select}
+              onChange={(event: any) => inputMonth(event)}
             >
-              登録を完了する
-              <span>
-                <Check />
-              </span>
-            </button>
-            <div className={styles.link_cancel}>登録をやめる</div>
+              <option value='0'>---</option>
+              <option value='1'>01月</option>
+              <option value='2'>02月</option>
+              <option value='3'>03月</option>
+              <option value='4'>04月</option>
+              <option value='5'>05月</option>
+              <option value='6'>06月</option>
+              <option value='7'>07月</option>
+              <option value='8'>08月</option>
+              <option value='9'>09月</option>
+              <option value='10'>10月</option>
+              <option value='11'>11月</option>
+              <option value='12'>12月</option>
+            </select>
           </div>
+          <div className={styles.input_notes}>変更不可。パスワードを忘れた時や退会時に使用。</div>
+          <div className={styles.input_header}>性別</div>
+          <div className={styles.gender_container}>
+            <span className={genderCss}></span>
+            <label
+              className={gender == 1 ? styles.input_radio_active : styles.input_radio}
+              onClick={() => inputGender(1)}
+            >
+              女性
+            </label>
+            <label
+              className={gender == 2 ? styles.input_radio_active : styles.input_radio}
+              onClick={() => inputGender(2)}
+            >
+              男性
+            </label>
+            <label
+              className={gender == 3 ? styles.input_radio_active : styles.input_radio}
+              onClick={() => inputGender(3)}
+            >
+              その他
+            </label>
+          </div>
+          <SubmitButton
+            isSubmit={isSubmit}
+            isButtonLoading={isButtonLoading}
+            type='default'
+            title='登録する'
+            onClick={() => submit()}
+            error={errorSubmit}
+          />
+          <div className={styles.link_cancel}>登録をやめる</div>
         </div>
       </main>
     </>
