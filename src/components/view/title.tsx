@@ -1,4 +1,4 @@
-import styles from '../../styles/View.module.css'
+import styles from '../../styles/components/view.module.css'
 
 const Title = (props: any) => {
   return (

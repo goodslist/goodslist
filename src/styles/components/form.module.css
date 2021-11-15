@@ -1,0 +1,197 @@
+/* フォームの枠 */
+
+.form {
+  margin: 0 auto;
+  padding: 20px 0;
+  text-align: center;
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  min-width: 300px;
+  max-width: 500px;
+  background-color: #fff;
+}
+
+/* Sbumitボタン */
+
+.btn_submit,
+.btn_submit_active {
+  box-sizing: border-box;
+  margin: 0;
+  width: 90%;
+  height: 40px;
+  position: relative;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.4rem;
+  color: #fff;
+  transition: all 0.3s;
+}
+
+.btn_submit {
+  background-color: #ccc;
+}
+
+.btn_submit_active {
+  background-color: #68a9cf;
+  cursor: pointer;
+}
+
+.btn_svg_container {
+  display: block;
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 10px;
+  left: 15px;
+  color: #fff;
+}
+.btn_svg_container svg {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+}
+
+/* ボタンのスピナー */
+
+.btn_spinner {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 28px;
+  width: 20px;
+  height: 20px;
+  color: #fff;
+  opacity: 0;
+}
+
+.btn_spinner_active {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 28px;
+  width: 20px;
+  height: 20px;
+  color: #fff;
+  opacity: 1;
+}
+
+/* テキスト入力 */
+
+.input_text,
+.input_password {
+  margin: 0;
+  padding: 0 20px;
+  width: 90%;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.input_text_validated,
+.input_password_checked {
+  margin: 0;
+  padding: 0 20px;
+  width: 90%;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #fff;
+  border: 1px solid #68a9cf;
+}
+
+.input_error {
+  margin: 10px auto 20px auto;
+  padding: 0 10px;
+  width: 90%;
+  min-height: 1.2rem;
+  text-align: left;
+  font-size: 1.2rem;
+  line-height: 2rem;
+  color: #cf6775;
+}
+
+/* インプット注意事項 */
+
+.input_notes {
+  margin: 0 auto 20px auto;
+  width: 90%;
+  font-size: 1.2rem;
+  color: #999;
+  text-align: right;
+}
+
+.input_notes a {
+  text-decoration: underline;
+}
+
+/* インプットラベル */
+
+.input_label {
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+  color: #666;
+  margin: 0 0 20px 0;
+}
+
+.input_label:before,
+.input_label:after {
+  content: '';
+  height: 1px;
+  flex-grow: 1;
+  background-color: #e6e6e6;
+}
+
+.input_label:before {
+  margin-right: 1rem;
+}
+
+.input_label:after {
+  margin-left: 1rem;
+}
+
+/* ソーシャルログインボタン */
+
+.btn_login_twitter,
+.btn_login_line,
+.btn_login_google,
+.btn_login_yahoo {
+  box-sizing: border-box;
+  margin: 0 0 20px 0;
+  width: 90%;
+  height: 40px;
+  line-height: 40px;
+  position: relative;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.4rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn_login_twitter {
+  background-color: #1da1f2;
+}
+
+.btn_login_line {
+  background-color: #06c755;
+}
+
+.btn_login_twitter span,
+.btn_login_line span {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 15px;
+  width: 20px;
+  height: 20px;
+  color: #fff;
+}
+.btn_login_twitter svg,
+.btn_login_line svg {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+}

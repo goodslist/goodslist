@@ -1,21 +1,50 @@
 import styles from '../../styles/Login.module.css'
-import Twitter from '../../../public/images/twitter.svg'
-import Line from '../../../public/images/line.svg'
 import { AuthContext } from '../../components/auth/AuthContext'
-import { useState, useEffect, useRef, useCallback, useContext, ChangeEvent } from 'react'
-import { supabase } from '../../components/supabase'
 import { ModalContext } from '../../components/modal/ModalContext'
+import { useState, useEffect, useContext } from 'react'
 import Head from 'next/head'
 import Link from 'next/dist/client/link'
-import SubmitButton from '../../components/form/SubmitButton'
+import Title from '../../components/view/title'
+import Form from '../../components/form/Form'
+import InputLabel from '../../components/form/InputLabel'
 import InputText from '../../components/form/InputText'
+import SubmitButton from '../../components/form/SubmitButton'
+import Twitter from '../../components/form/SocialButton'
+import Line from '../../components/form/SocialButton'
 import { validateEmail, validatePassword } from '../../components/Validation'
 import { login } from '../../components/firebase'
 import { useRouter } from 'next/router'
-import Title from '../../components/view/title'
+import type { GetServerSideProps, NextPage } from 'next'
+import nookies from 'nookies'
+import { firebaseAdmin } from '../../components/firebaseAdmin'
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const cookies = nookies.get(ctx)
+  const session = cookies.session || ''
+
+  //セッションIDを検証して、認証情報を取得する
+  const user = await firebaseAdmin
+    .auth()
+    .verifySessionCookie(session, true)
+    .catch(() => null)
+
+  //ログイン済みの場合はマイページへ飛ばす
+  if (user) {
+    return {
+      redirect: {
+        destination: '/mypage',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {},
+  }
+}
 
 const LogIn = () => {
-  const { user, setUser, session, signOut }: any = useContext(AuthContext)
+  const { setUser }: any = useContext(AuthContext)
 
   const { setOpenClearOverlay }: any = useContext(ModalContext)
 
@@ -28,7 +57,6 @@ const LogIn = () => {
   const [isSubmit, setIsSubmit] = useState(false)
   const [errorSubmit, setErrorSubmit] = useState('')
   const [isButtonLoading, setIsButtonLoading] = useState(false)
-  const [testJson, setTestJson] = useState('')
 
   //メールアドレス入力のエラーチェック
   useEffect(() => {
@@ -62,8 +90,6 @@ const LogIn = () => {
       if (error == 'FirebaseError: Firebase: Error (auth/wrong-password).')
         setErrorSubmit('メールアドレスまたはパスワードが間違っています。')
       else setErrorSubmit('エラーが発生しました。しばらく経ってからもう一度お試しください。')
-      setIsButtonLoading(false)
-      setOpenClearOverlay(false)
       return
     })
     if (uid) {
@@ -72,24 +98,6 @@ const LogIn = () => {
     }
     setIsButtonLoading(false)
     setOpenClearOverlay(false)
-
-    // setIsButtonLoading(true)
-    // setOpenClearOverlay(true)
-    // setErrorSubmit('')
-    // if (validEmail && validPassword) {
-    //   const { error, data } = await supabase.auth.signIn({ email, password })
-    //   if (error) {
-    //     if (error.message == 'Invalid login credentials') {
-    //       setErrorSubmit('メールアドレスまたはパスワードが間違っています。')
-    //       setIsButtonLoading(false)
-    //       setOpenClearOverlay(false)
-    //     } else {
-    //       setErrorSubmit('エラーが発生しました。しばらく経ってからもう一度お試しください。')
-    //       setIsButtonLoading(false)
-    //       setOpenClearOverlay(false)
-    //     }
-    //   }
-    // }
   }
 
   return (
@@ -107,21 +115,11 @@ const LogIn = () => {
 
       <main className={styles.main}>
         <Title title='ログイン' />
-        <div className={styles.form_container}>
-          <div className={styles.input_header}>SNSアカウントでログイン</div>
-          <button className={styles.btn_login_twitter}>
-            Twitterでログイン
-            <span>
-              <Twitter />
-            </span>
-          </button>
-          <button className={styles.btn_login_line}>
-            LINEでログイン
-            <span>
-              <Line />
-            </span>
-          </button>
-          <div className={styles.input_header}>メールアドレスでログイン</div>
+        <Form>
+          <InputLabel label='SNSアカウントでログイン' />
+          <Twitter provider='Twitter' type='signin' />
+          <Line provider='LINE' type='signin' />
+          <InputLabel label='メールアドレスでログイン' />
           <InputText
             valid={validEmail}
             name='email'
@@ -156,7 +154,7 @@ const LogIn = () => {
               <button className={styles.btn_link_signup}>会員登録はこちら</button>
             </a>
           </Link>
-        </div>
+        </Form>
       </main>
     </>
   )

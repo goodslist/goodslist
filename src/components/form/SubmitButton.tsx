@@ -1,7 +1,7 @@
+import styles from '../../styles/components/form.module.css'
 import Email from '../../../public/images/email.svg'
 import Check from '../../../public/images/check.svg'
 import BtnSpinner from '../Spinner'
-import styles from '../../styles/Form.module.css'
 
 const SubmitButton = (props: any) => {
   let svg

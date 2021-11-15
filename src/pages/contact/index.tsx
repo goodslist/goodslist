@@ -3,6 +3,8 @@ import React from 'react'
 import Head from 'next/head'
 import styles from '../../styles/Contact.module.css'
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
+import Title from '../../components/view/title'
+import Form from '../../components/form/Form'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -29,10 +31,8 @@ const Contact = (data: Props) => {
       </Head>
 
       <main className={styles.main}>
-        <div className={styles.content_title}>
-          <span>お問い合わせ</span>
-        </div>
-        <div className={styles.card}>
+        <Title title='お問い合わせ' />
+        <Form>
           <br />
           <br />
           <br />
@@ -51,7 +51,7 @@ const Contact = (data: Props) => {
           <br />
           <br />
           <br />
-        </div>
+        </Form>
       </main>
     </>
   )

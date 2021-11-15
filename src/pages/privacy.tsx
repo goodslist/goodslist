@@ -7,6 +7,7 @@ import { supabase } from '../components/supabase'
 import styles from '../styles/Privacy.module.css'
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import Title from '../components/view/title'
+import Form from '../components/form/Form'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -34,7 +35,7 @@ const LoginGate = (data: Props) => {
 
       <main className={styles.main}>
         <Title title='プライバシー・ポリシー' />
-        <div className={styles.card}>
+        <Form>
           <br />
           <br />
           <br />
@@ -53,7 +54,7 @@ const LoginGate = (data: Props) => {
           <br />
           <br />
           <br />
-        </div>
+        </Form>
       </main>
     </>
   )

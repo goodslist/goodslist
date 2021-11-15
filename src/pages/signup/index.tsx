@@ -2,15 +2,18 @@ import Link from 'next/dist/client/link'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useState, useEffect, useRef, useCallback, useContext } from 'react'
-import Line from '../../../public/images/line.svg'
-import Twitter from '../../../public/images/twitter.svg'
 import { ModalContext } from '../../components/modal/ModalContext'
 import { SignUpContext } from '../../components/signup/SignUpContext'
 import styles from '../../styles/Login.module.css'
 import { supabase } from '../../components/supabase'
 import Modal from '../../components/modal/Modal'
+import Form from '../../components/form/Form'
+import InputLabel from '../../components/form/InputLabel'
 import InputText from '../../components/form/InputText'
+import InputNotes from '../../components/form/InputNotes'
 import SubmitButton from '../../components/form/SubmitButton'
+import Twitter from '../../components/form/SocialButton'
+import Line from '../../components/form/SocialButton'
 import { validateEmail, validatePassword, validatePassword2 } from '../../components/Validation'
 import Title from '../../components/view/title'
 
@@ -128,7 +131,7 @@ export default function SignUp(): JSX.Element {
 
       <main className={styles.main}>
         <Title title='会員登録' />
-        <div className={styles.form_container}>
+        <Form>
           <div className={styles.notes}>
             当サイトは全て無料でご利用いただけます。
             <br />
@@ -141,20 +144,10 @@ export default function SignUp(): JSX.Element {
             </Link>
             をお読みいただき、同意の上ご登録ください。
           </div>
-          <div className={styles.input_header}>SNSアカウントで会員登録</div>
-          <button className={styles.btn_login_twitter}>
-            Twitterで会員登録
-            <span>
-              <Twitter />
-            </span>
-          </button>
-          <button className={styles.btn_login_line}>
-            LINEで会員登録
-            <span>
-              <Line />
-            </span>
-          </button>
-          <div className={styles.input_header}>メールアドレスで会員登録</div>
+          <InputLabel label='SNSアカウントで会員登録' />
+          <Twitter provider='Twitter' type='signup' />
+          <Line provider='LINE' type='signup' />
+          <InputLabel label='メールアドレスで会員登録' />
           <InputText
             valid={validEmail}
             name='email'
@@ -171,7 +164,7 @@ export default function SignUp(): JSX.Element {
             onChange={setPassword}
             error={errorPassword}
           />
-          <div className={styles.input_notes}>半角英数字、8文字以上32文字以下。</div>
+          <InputNotes notes='半角英数字、8文字以上32文字以下。' />
           <InputText
             valid={validPassword2}
             name='password2'
@@ -193,7 +186,7 @@ export default function SignUp(): JSX.Element {
               <button className={styles.btn_link_signup}>ログインはこちら</button>
             </a>
           </Link>
-        </div>
+        </Form>
       </main>
       <Modal />
     </>

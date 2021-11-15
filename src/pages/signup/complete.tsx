@@ -5,6 +5,7 @@ import { SignUpContext } from '../../components/signup/SignUpContext'
 import { useRouter } from 'next/router'
 import styles from '../../styles/Login.module.css'
 import Title from '../../components/view/title'
+import Form from '../../components/form/Form'
 
 export default function SignUpSubmit() {
   const { sendEmail }: any = useContext(SignUpContext)
@@ -29,7 +30,7 @@ export default function SignUpSubmit() {
 
       <main className={styles.main}>
         <Title title='登録完了' />
-        <div className={styles.form_container}>
+        <Form>
           <div className={styles.signup_step_container}>
             <div className={styles.step_on}>
               01<span>確認メール送信</span>
@@ -56,7 +57,7 @@ export default function SignUpSubmit() {
               <a target='_blank'>トップページ</a>
             </Link>
           </div>
-        </div>
+        </Form>
       </main>
     </>
   )

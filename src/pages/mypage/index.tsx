@@ -1,8 +1,8 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import nookies from 'nookies'
 import { useRouter } from 'next/router'
-import { logout } from '../../components/firebase' // 上記で実装したファイル
-import { firebaseAdmin } from '../../components/firebaseAdmin' // この後に実装するファイル
+import { logout } from '../../components/firebase'
+import { firebaseAdmin } from '../../components/firebaseAdmin'
 import { AuthContext } from '../../components/auth/AuthContext'
 import { useContext } from 'react'
 import Title from '../../components/view/title'

@@ -14,6 +14,7 @@ import Check from '../../../public/images/check.svg'
 import { ModalContext } from '../../components/modal/ModalContext'
 import { useRouter } from 'next/router'
 import InputText from '../../components/form/InputText'
+import Form from '../../components/form/Form'
 import SubmitButton from '../../components/form/SubmitButton'
 import { validateName } from '../../components/Validation'
 import Title from '../../components/view/title'
@@ -137,7 +138,7 @@ const Signup = (data: SignupProps) => {
 
       <main className={styles.main}>
         <Title title='必要事項入力' />
-        <div className={styles.form_container}>
+        <Form>
           <div className={styles.signup_step_container}>
             <div className={styles.step_on}>
               01<span>確認メール送信</span>
@@ -225,7 +226,7 @@ const Signup = (data: SignupProps) => {
             error={errorSubmit}
           />
           <div className={styles.link_cancel}>登録をやめる</div>
-        </div>
+        </Form>
       </main>
     </>
   )

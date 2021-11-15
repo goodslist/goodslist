@@ -1,4 +1,4 @@
-import styles from '../../styles/Form.module.css'
+import styles from '../../styles/components/form.module.css'
 
 const InputText = (props: any) => {
   return (
