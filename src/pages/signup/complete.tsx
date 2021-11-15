@@ -28,7 +28,7 @@ export default function SignUpSubmit() {
 
       <main className={styles.main}>
         <div className={styles.content_title}>
-          <span>会員登録</span>
+          <span>登録完了</span>
         </div>
         <div className={styles.form_container}>
           <div className={styles.signup_step_container}>
@@ -43,7 +43,7 @@ export default function SignUpSubmit() {
               03<span>登録完了</span>
             </div>
           </div>
-          <div className={styles.send_email_address}>{sendEmail}</div>
+          <div className={styles.send_email_address}>登録が完了しました。</div>
           <div className={styles.send_email_text}>
             以下の情報で会員登録が完了しました。
             <br />

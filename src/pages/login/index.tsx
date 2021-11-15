@@ -10,9 +10,11 @@ import Link from 'next/dist/client/link'
 import SubmitButton from '../../components/form/SubmitButton'
 import InputText from '../../components/form/InputText'
 import { validateEmail, validatePassword } from '../../components/Validation'
+import { login } from '../../components/firebase'
+import { useRouter } from 'next/router'
 
 const LogIn = () => {
-  const { user, session, signOut }: any = useContext(AuthContext)
+  const { user, setUser, session, signOut }: any = useContext(AuthContext)
 
   const { setOpenClearOverlay }: any = useContext(ModalContext)
 
@@ -25,6 +27,7 @@ const LogIn = () => {
   const [isSubmit, setIsSubmit] = useState(false)
   const [errorSubmit, setErrorSubmit] = useState('')
   const [isButtonLoading, setIsButtonLoading] = useState(false)
+  const [testJson, setTestJson] = useState('')
 
   //メールアドレス入力のエラーチェック
   useEffect(() => {
@@ -47,26 +50,51 @@ const LogIn = () => {
     if (validEmail && validPassword) setIsSubmit(true)
     else setIsSubmit(false)
   }, [validEmail, validPassword])
+  const router = useRouter()
 
   //「メールアドレスでログイン」ボタンを押下
   const logIn = async () => {
-    setIsButtonLoading(true)
-    setOpenClearOverlay(true)
-    setErrorSubmit('')
-    if (validEmail && validPassword) {
-      const { error, data } = await supabase.auth.signIn({ email, password })
-      if (error) {
-        if (error.message == 'Invalid login credentials') {
-          setErrorSubmit('メールアドレスまたはパスワードが間違っています。')
-          setIsButtonLoading(false)
-          setOpenClearOverlay(false)
-        } else {
-          setErrorSubmit('エラーが発生しました。しばらく経ってからもう一度お試しください。')
-          setIsButtonLoading(false)
-          setOpenClearOverlay(false)
-        }
-      }
-    }
+    await login(email, password)
+    router.push('/mypage')
+    // setIsButtonLoading(true)
+    // setOpenClearOverlay(true)
+    // setErrorSubmit('')
+    // if (validEmail && validPassword) {
+    //   const { error, data } = await supabase.auth.signIn({ email, password })
+    //   if (error) {
+    //     if (error.message == 'Invalid login credentials') {
+    //       setErrorSubmit('メールアドレスまたはパスワードが間違っています。')
+    //       setIsButtonLoading(false)
+    //       setOpenClearOverlay(false)
+    //     } else {
+    //       setErrorSubmit('エラーが発生しました。しばらく経ってからもう一度お試しください。')
+    //       setIsButtonLoading(false)
+    //       setOpenClearOverlay(false)
+    //     }
+    //   }
+    // }
+  }
+
+  const testLogin = async () => {
+    //fetch関数でpostする
+    const res = await fetch('http://localhost:3000/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
+    const json = await res.json()
+
+    if (json.data) {
+      console.log('成功')
+      setUser(json.data.user)
+      console.log(json.data.user)
+      console.log(user.id)
+    } else if (json.error) console.log(user)
   }
 
   return (
@@ -84,7 +112,7 @@ const LogIn = () => {
 
       <main className={styles.main}>
         <div className={styles.content_title}>
-          <span>ログイン</span>
+          <span>ログイン{errorEmail}</span>
         </div>
         <div className={styles.form_container}>
           <div className={styles.input_header}>SNSアカウントでログイン</div>
@@ -136,6 +164,7 @@ const LogIn = () => {
             </a>
           </Link>
           <p onClick={() => signOut()}>ログアウト</p>
+          <p onClick={() => testLogin()}>テストログイン{testJson}</p>
         </div>
       </main>
     </>

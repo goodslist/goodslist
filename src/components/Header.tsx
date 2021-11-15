@@ -18,7 +18,7 @@ export default function Header(props: any) {
             <a>
               <p className={styles.logo}>
                 <span>G</span>
-                oodsist
+                oods List
               </p>
             </a>
           </Link>
