@@ -1,13 +1,12 @@
 import Link from 'next/dist/client/link'
 import styles from '../styles/Header.module.css'
 import React from 'react'
-import { useEffect, useRef, useState, useContext } from 'react'
-import { ModalContext } from './modal/ModalContext'
+import { useContext } from 'react'
 import { AuthContext } from './auth/AuthContext'
 import { useRouter } from 'next/router'
 
-export default function Header(props: any) {
-  const { user, session, signOut }: any = useContext(AuthContext)
+export default function Header() {
+  const { user }: any = useContext(AuthContext)
   const router = useRouter()
 
   return (
@@ -23,9 +22,16 @@ export default function Header(props: any) {
             </a>
           </Link>
         </div>
+        {user}
         {(() => {
           if (user) {
-            return <div className={styles.btn_login}>マイページ</div>
+            return (
+              <Link href='/mypage'>
+                <a>
+                  <div className={styles.btn_login}>マイページ</div>
+                </a>
+              </Link>
+            )
           } else if (router.pathname == '/login' || router.pathname == '/signup') {
             return (
               <Link href={router.pathname == '/login' ? '/signup' : '/login'}>

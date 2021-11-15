@@ -12,6 +12,7 @@ import Modal from '../../components/modal/Modal'
 import InputText from '../../components/form/InputText'
 import SubmitButton from '../../components/form/SubmitButton'
 import { validateEmail, validatePassword, validatePassword2 } from '../../components/Validation'
+import Title from '../../components/view/title'
 
 export default function SignUp(): JSX.Element {
   const router = useRouter()
@@ -126,9 +127,7 @@ export default function SignUp(): JSX.Element {
       </Head>
 
       <main className={styles.main}>
-        <div className={styles.content_title}>
-          <span>会員登録</span>
-        </div>
+        <Title title='会員登録' />
         <div className={styles.form_container}>
           <div className={styles.notes}>
             当サイトは全て無料でご利用いただけます。

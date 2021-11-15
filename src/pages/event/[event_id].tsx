@@ -17,6 +17,7 @@ import Save from '../img/save.svg'
 import Button_top from '../../components/Button_top'
 import { animateScroll as scroll } from 'react-scroll'
 import { numberFormat, dateFormat } from '../../components/Utils'
+import { AuthContext } from '../../components/auth/AuthContext'
 import { ModalContext } from '../../components/modal/ModalContext'
 import { forwardRef, useImperativeHandle } from 'react'
 import Modal from '../../components/modal/Modal'
@@ -153,6 +154,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 }
 
 const Home = ({ goodsLists, goodsGroupCount }: Props) => {
+  //ログインユーザー
+  const { user }: any = useContext(AuthContext)
+
   // //グッズの情報の配列
   const [goodsList, setGoodsList] = useState(goodsLists.map((List) => Object.assign({}, List)))
 
@@ -430,11 +434,17 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
         </div>
         <div className={styles.sort_container}>
           <span onClick={() => openModal('sort')}>並び替え：　</span>
-          <span className={styles.sort_nomal} onClick={() => sortBuy(0)}>
+          <span
+            className={styles.sort_nomal}
+            onClick={user ? () => sortBuy(0) : () => openModal('sort')}
+          >
             通常順
           </span>
           <span>　/　</span>
-          <span className={styles.sort_buy} onClick={() => sortBuy(1)}>
+          <span
+            className={styles.sort_buy}
+            onClick={user ? () => sortBuy(1) : () => openModal('sort')}
+          >
             購入優先順
           </span>
         </div>

@@ -1,5 +1,6 @@
 import type { FirebaseApp } from 'firebase/app'
 import type { Auth as FirebaseAuth } from 'firebase/auth'
+import { onAuthStateChanged } from 'firebase/auth'
 
 import { getApps, initializeApp } from 'firebase/app'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
@@ -44,20 +45,27 @@ export const login = async (email: string, password: string) => {
   // console.log(email + ' ' + password)
 
   // メールアドレスとパスワードでログインする
-  const result = await signInWithEmailAndPassword(auth, email, password).catch((error) => {
-    if (error) {
-      alert(error)
-      return
-    }
-  })
+  const result = await signInWithEmailAndPassword(auth, email, password)
+
+  // onAuthStateChanged(auth, (user) => {
+  //   if (user) {
+  //     const uid = user.uid
+  //     setUser(user)
+  //     console.log(user)
+  //   } else {
+  //     console.log('userなし')
+  //   }
+  // })
 
   // セッションIDを作成するためのIDを作成する
   if (result) {
     const id = await result.user.getIdToken()
+    console.log(result.user.uid)
 
     // Cookieにセッションを付与するようにAPIを投げる
     await fetch('/api/session', { method: 'POST', body: JSON.stringify({ id }) })
-  }
+    return result.user.uid
+  } else return result
 }
 
 /**

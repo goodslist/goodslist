@@ -3,6 +3,7 @@ import { supabase } from '../components/supabase'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import styles from '../styles/Search.module.css'
+import Title from '../components/view/title'
 
 export default function Output() {
   const router = useRouter()
@@ -69,9 +70,7 @@ export default function Output() {
   return (
     <>
       <main className={styles.main}>
-        <div className={styles.content_title}>
-          <span>検索結果</span>
-        </div>
+        <Title title='検索結果' />
         {/* パラメータの表示 */}
         {isLoading ? lodingNow : lodingComplete}
       </main>

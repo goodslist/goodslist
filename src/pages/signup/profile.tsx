@@ -16,6 +16,7 @@ import { useRouter } from 'next/router'
 import InputText from '../../components/form/InputText'
 import SubmitButton from '../../components/form/SubmitButton'
 import { validateName } from '../../components/Validation'
+import Title from '../../components/view/title'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -135,13 +136,11 @@ const Signup = (data: SignupProps) => {
       </Head>
 
       <main className={styles.main}>
-        <div className={styles.content_title}>
-          <span>会員登録</span>
-        </div>
+        <Title title='必要事項入力' />
         <div className={styles.form_container}>
           <div className={styles.signup_step_container}>
             <div className={styles.step_on}>
-              01<span>メール確認</span>
+              01<span>確認メール送信</span>
             </div>
             <div className={styles.step_on}>
               02<span>必要事項入力</span>

@@ -12,6 +12,7 @@ import InputText from '../../components/form/InputText'
 import { validateEmail, validatePassword } from '../../components/Validation'
 import { login } from '../../components/firebase'
 import { useRouter } from 'next/router'
+import Title from '../../components/view/title'
 
 const LogIn = () => {
   const { user, setUser, session, signOut }: any = useContext(AuthContext)
@@ -54,8 +55,22 @@ const LogIn = () => {
 
   //「メールアドレスでログイン」ボタンを押下
   const logIn = async () => {
-    await login(email, password)
+    setIsButtonLoading(true)
+    setOpenClearOverlay(true)
+    setErrorSubmit('')
+    const uid = await login(email, password).catch((error) => {
+      if (error == 'FirebaseError: Firebase: Error (auth/wrong-password).')
+        setErrorSubmit('メールアドレスまたはパスワードが間違っています。')
+      else setErrorSubmit('エラーが発生しました。しばらく経ってからもう一度お試しください。')
+      setIsButtonLoading(false)
+      setOpenClearOverlay(false)
+      return
+    })
+    setUser(uid)
     router.push('/mypage')
+    setIsButtonLoading(false)
+    setOpenClearOverlay(false)
+
     // setIsButtonLoading(true)
     // setOpenClearOverlay(true)
     // setErrorSubmit('')
@@ -111,9 +126,7 @@ const LogIn = () => {
       </Head>
 
       <main className={styles.main}>
-        <div className={styles.content_title}>
-          <span>ログイン{errorEmail}</span>
-        </div>
+        <Title title='ログイン' />
         <div className={styles.form_container}>
           <div className={styles.input_header}>SNSアカウントでログイン</div>
           <button className={styles.btn_login_twitter}>
@@ -163,8 +176,6 @@ const LogIn = () => {
               <button className={styles.btn_link_signup}>会員登録はこちら</button>
             </a>
           </Link>
-          <p onClick={() => signOut()}>ログアウト</p>
-          <p onClick={() => testLogin()}>テストログイン{testJson}</p>
         </div>
       </main>
     </>
