@@ -28,7 +28,6 @@ export const AuthProvider: FC = ({ children }) => {
   const value = {
     user,
   }
-  const auth = getAuth()
 
   // //認証イベントを監視し、発生したらセッションをコンテキストに格納する。
   // useEffect(() => {
