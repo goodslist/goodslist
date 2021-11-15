@@ -66,8 +66,10 @@ const LogIn = () => {
       setOpenClearOverlay(false)
       return
     })
-    setUser(uid)
-    router.push('/mypage')
+    if (uid) {
+      setUser(uid)
+      router.push('/mypage')
+    }
     setIsButtonLoading(false)
     setOpenClearOverlay(false)
 
@@ -88,28 +90,6 @@ const LogIn = () => {
     //     }
     //   }
     // }
-  }
-
-  const testLogin = async () => {
-    //fetch関数でpostする
-    const res = await fetch('http://localhost:3000/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    })
-    const json = await res.json()
-
-    if (json.data) {
-      console.log('成功')
-      setUser(json.data.user)
-      console.log(json.data.user)
-      console.log(user.id)
-    } else if (json.error) console.log(user)
   }
 
   return (
