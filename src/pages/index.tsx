@@ -94,62 +94,68 @@ const Home = ({ eventList }: Props) => {
           rel='stylesheet'
         ></link>
       </Head>
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          <span>G</span>oods List
-        </h1>
-        <h2 className={styles.sub_title}>グッズ代が計算できるWEBアプリ</h2>
-        <form className={styles.search_container} onSubmit={enterForm}>
-          <input
-            type='text'
-            className={styles.search}
-            placeholder='アーティスト・イベント名で検索'
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          />
-          <span className={styles.search_button} onClick={clickButton}>
-            <Search />
-          </span>
-        </form>
-        <div className={styles.grid}>
-          <p className={styles.label_hot_new}>
-            <span>人気イベント</span>
-          </p>
-          <ul className={styles.ul_event}>
-            {eventList.map((event) => (
-              <Link href={'event/' + event.event_id}>
-                <a>
-                  <li key={event.event_id} className={styles.card2}>
-                    <p className={styles.contents_title}>
-                      <b>{event.content_name}</b>
-                    </p>
-                    <hr className={styles.li_event_line} />
-                    <p className={styles.event_title}>{event.event_name}</p>
-                  </li>
-                </a>
-              </Link>
-            ))}
-          </ul>
-          <p className={styles.label_hot_new}>
-            <span>新しいイベント</span>
-          </p>
-          <ul className={styles.ul_event}>
-            {eventList.map((event) => (
-              <Link href={'event/' + event.event_id}>
-                <a>
-                  <li key={event.event_id} className={styles.card2}>
-                    <p className={styles.contents_title}>
-                      <b>{event.content_name}</b>
-                    </p>
-                    <hr className={styles.li_event_line} />
-                    <p className={styles.event_title}>{event.event_name}</p>
-                  </li>
-                </a>
-              </Link>
-            ))}
-          </ul>
-        </div>
-      </main>
+      <div className={styles.wrapper_white}>
+        <main className={styles.main}>
+          <h1 className={styles.title}>
+            <span>G</span>oods List
+          </h1>
+          <h2 className={styles.sub_title}>グッズ代が計算できるWEBアプリ</h2>
+          <form className={styles.search_container} onSubmit={enterForm}>
+            <input
+              type='text'
+              className={styles.search}
+              placeholder='アーティスト・イベント名で検索'
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            />
+            <span className={styles.search_button} onClick={clickButton}>
+              <Search />
+            </span>
+          </form>
+        </main>
+      </div>
+      <div className={styles.wrapper_glay}>
+        <main className={styles.main}>
+          <div className={styles.grid}>
+            <p className={styles.label_hot_new}>
+              <span>人気イベント</span>
+            </p>
+            <ul className={styles.ul_event}>
+              {eventList.map((event) => (
+                <Link href={'event/' + event.event_id}>
+                  <a>
+                    <li key={event.event_id} className={styles.card2}>
+                      <p className={styles.contents_title}>
+                        <b>{event.content_name}</b>
+                      </p>
+                      <hr className={styles.li_event_line} />
+                      <p className={styles.event_title}>{event.event_name}</p>
+                    </li>
+                  </a>
+                </Link>
+              ))}
+            </ul>
+            <p className={styles.label_hot_new}>
+              <span>新しいイベント</span>
+            </p>
+            <ul className={styles.ul_event}>
+              {eventList.map((event) => (
+                <Link href={'event/' + event.event_id}>
+                  <a>
+                    <li key={event.event_id} className={styles.card2}>
+                      <p className={styles.contents_title}>
+                        <b>{event.content_name}</b>
+                      </p>
+                      <hr className={styles.li_event_line} />
+                      <p className={styles.event_title}>{event.event_name}</p>
+                    </li>
+                  </a>
+                </Link>
+              ))}
+            </ul>
+          </div>
+        </main>
+      </div>
     </>
   )
 }

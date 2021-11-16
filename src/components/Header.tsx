@@ -22,7 +22,6 @@ export default function Header() {
             </a>
           </Link>
         </div>
-        {currentUser}
         {(() => {
           if (currentUser) {
             return (
