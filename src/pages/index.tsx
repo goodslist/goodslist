@@ -117,16 +117,16 @@ const Home = ({ eventList }: Props) => {
           </p>
           <ul className={styles.ul_event}>
             {eventList.map((event) => (
-              <li key={event.event_id} className={styles.card2}>
-                <Link href={'event/' + event.event_id}>
-                  <a>
+              <Link href={'event/' + event.event_id}>
+                <a>
+                  <li key={event.event_id} className={styles.card2}>
                     <b>{event.content_name}</b>
                     <hr className={styles.li_event_line} />
                     {event.event_name}
                     <span />
-                  </a>
-                </Link>
-              </li>
+                  </li>
+                </a>
+              </Link>
             ))}
           </ul>
           <p className={styles.label_hot_new}>
