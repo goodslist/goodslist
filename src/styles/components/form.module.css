@@ -195,3 +195,134 @@
   height: 20px;
   fill: #fff;
 }
+
+/* ステップ */
+
+.step_container {
+  width: 100%;
+  margin: 10px 0 70px 0;
+  padding: 0 10%;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.step_container::before,
+.step_container::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border: 0;
+  border-top: solid 3px #68a9cf;
+  border-right: solid 3px #68a9cf;
+  position: absolute;
+  top: 25px;
+  left: 32%;
+  margin-top: -4px;
+  transform: rotate(45deg);
+}
+
+.step_container::before {
+  left: 32%;
+}
+
+.step_container::after {
+  right: 32%;
+}
+
+.step_off,
+.step_on {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  line-height: 50px;
+  font-size: 1.6rem;
+  color: #fff;
+  position: relative;
+}
+
+.step_off {
+  background-color: #ccc;
+}
+
+.step_on {
+  background-color: #f2c746;
+}
+
+.step_off span,
+.step_on span {
+  width: 90px;
+  font-size: 1.2rem;
+  color: #fff;
+  position: absolute;
+  top: 50px;
+  left: -20px;
+  color: #666;
+}
+
+/* セレクトボックス */
+
+.birth_container {
+  position: relative;
+  margin: 0 auto 20px auto;
+  display: flex;
+  justify-content: space-between;
+  min-width: 260px;
+  width: 70%;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.birth_container :before,
+.birth_container :after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border: 0;
+  border-top: solid 1px #000;
+  border-right: solid 1px #000;
+  position: absolute;
+  top: 18px;
+  margin-top: -4px;
+  transform: rotate(135deg);
+  transition: all 0.7s;
+  z-index: 2;
+}
+
+.birth_container :before {
+  left: 86px;
+}
+
+.birth_container :after {
+  right: 16px;
+}
+
+.input_select,
+.input_select_active {
+  margin: 0;
+  width: 110px;
+  padding: 0 20px 0 10px;
+  height: 40px;
+  font-size: 14px;
+  position: relative;
+  background-color: #edf2f7;
+  border-radius: 10px;
+  letter-spacing: 4px;
+  transition: all 0.5s;
+}
+.input_select:focus,
+.input_select_active {
+  outline: none;
+  background-color: #edf2f7;
+  border: 1px solid #edf2f7;
+}
+.input_select {
+  color: #666;
+  border: 1px solid #fff;
+  background-color: #edf2f7;
+}
+.input_select_active {
+  color: #666;
+  border: 1px solid #68a9cf;
+  background-color: #fff;
+}

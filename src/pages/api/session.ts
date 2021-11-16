@@ -2,7 +2,6 @@ import type { NextApiRequest as Req, NextApiResponse as Res } from 'next'
 
 import { setCookie } from 'nookies'
 import { firebaseAdmin } from '../../components/firebaseAdmin'
-import type { Auth as FirebaseAuth } from 'firebase/auth'
 
 export default async function sessionApi(req: Req, res: Res) {
   // "POST"以外は、"404 Not Found"を返す

@@ -13,11 +13,15 @@ import { AuthContext } from '../../components/auth/AuthContext'
 import Check from '../../../public/images/check.svg'
 import { ModalContext } from '../../components/modal/ModalContext'
 import { useRouter } from 'next/router'
+import InputLabel from '../../components/form/InputLabel'
 import InputText from '../../components/form/InputText'
+import InputNotes from '../../components/form/InputNotes'
 import Form from '../../components/form/Form'
 import SubmitButton from '../../components/form/SubmitButton'
 import { validateName } from '../../components/Validation'
 import Title from '../../components/view/title'
+import Step from '../../components/form/Step'
+import SelectBirth from '../../components/form/SelectBirth'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -139,21 +143,9 @@ const Signup = (data: SignupProps) => {
       <main className={styles.main}>
         <Title title='必要事項入力' />
         <Form>
-          <div className={styles.signup_step_container}>
-            <div className={styles.step_on}>
-              01<span>確認メール送信</span>
-            </div>
-            <div className={styles.step_on}>
-              02<span>必要事項入力</span>
-            </div>
-
-            <div className={styles.step_off}>
-              03<span>登録完了</span>
-            </div>
-          </div>
+          <Step step='2' />
           <div className={styles.notes}>全ての項目を入力し、登録を完了させてください。</div>
-
-          <div className={styles.input_header}>ニックネーム</div>
+          <InputLabel label='ニックネーム' />
           <InputText
             valid={validName}
             name='text'
@@ -162,40 +154,11 @@ const Signup = (data: SignupProps) => {
             onChange={setName}
             error={errorName}
           />
-          <div className={styles.input_notes}>全角半角英数字、30文字以内。</div>
-          <div className={styles.input_header}>誕生年月</div>
-          <div className={styles.birth_container}>
-            <span className={styles.select_arrow}>
-              <select
-                className={styles.input_select_active}
-                onChange={(event: any) => inputYear(event)}
-              >
-                <option value='1990'>1990年</option>
-                <option value='1991'>1991年</option>
-              </select>
-            </span>
-
-            <select
-              className={month > 0 ? styles.input_select_active : styles.input_select}
-              onChange={(event: any) => inputMonth(event)}
-            >
-              <option value='0'>---</option>
-              <option value='1'>01月</option>
-              <option value='2'>02月</option>
-              <option value='3'>03月</option>
-              <option value='4'>04月</option>
-              <option value='5'>05月</option>
-              <option value='6'>06月</option>
-              <option value='7'>07月</option>
-              <option value='8'>08月</option>
-              <option value='9'>09月</option>
-              <option value='10'>10月</option>
-              <option value='11'>11月</option>
-              <option value='12'>12月</option>
-            </select>
-          </div>
-          <div className={styles.input_notes}>変更不可。パスワードを忘れた時や退会時に使用。</div>
-          <div className={styles.input_header}>性別</div>
+          <InputNotes notes='全角半角英数字、30文字以内。' />
+          <InputLabel label='誕生年月' />
+          <SelectBirth inputYear={inputYear} inputMonth={inputMonth} month={month} />
+          <InputNotes notes='変更不可。パスワードを忘れた時や退会時に使用。' />
+          <InputLabel label='性別' />
           <div className={styles.gender_container}>
             <span className={genderCss}></span>
             <label

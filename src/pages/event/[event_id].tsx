@@ -155,7 +155,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
 const Home = ({ goodsLists, goodsGroupCount }: Props) => {
   //ログインユーザー
-  const { user }: any = useContext(AuthContext)
+  const { currentUser }: any = useContext(AuthContext)
 
   // //グッズの情報の配列
   const [goodsList, setGoodsList] = useState(goodsLists.map((List) => Object.assign({}, List)))
@@ -436,14 +436,14 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
           <span onClick={() => openModal('sort')}>並び替え：　</span>
           <span
             className={styles.sort_nomal}
-            onClick={user ? () => sortBuy(0) : () => openModal('sort')}
+            onClick={currentUser ? () => sortBuy(0) : () => openModal('sort')}
           >
             通常順
           </span>
           <span>　/　</span>
           <span
             className={styles.sort_buy}
-            onClick={user ? () => sortBuy(1) : () => openModal('sort')}
+            onClick={currentUser ? () => sortBuy(1) : () => openModal('sort')}
           >
             購入優先順
           </span>

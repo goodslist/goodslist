@@ -6,7 +6,7 @@ import { AuthContext } from './auth/AuthContext'
 import { useRouter } from 'next/router'
 
 export default function Header() {
-  const { user }: any = useContext(AuthContext)
+  const { currentUser }: any = useContext(AuthContext)
   const router = useRouter()
 
   return (
@@ -22,9 +22,9 @@ export default function Header() {
             </a>
           </Link>
         </div>
-        {user}
+        {currentUser}
         {(() => {
-          if (user) {
+          if (currentUser) {
             return (
               <Link href='/mypage'>
                 <a>

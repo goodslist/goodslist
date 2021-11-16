@@ -44,7 +44,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 }
 
 const LogIn = () => {
-  const { setUser }: any = useContext(AuthContext)
+  const { setCurrentUser }: any = useContext(AuthContext)
 
   const { setOpenClearOverlay }: any = useContext(ModalContext)
 
@@ -82,7 +82,7 @@ const LogIn = () => {
   const router = useRouter()
 
   //「メールアドレスでログイン」ボタンを押下
-  const logIn = async () => {
+  const submitLogin = async () => {
     setIsButtonLoading(true)
     setOpenClearOverlay(true)
     setErrorSubmit('')
@@ -93,7 +93,7 @@ const LogIn = () => {
       return
     })
     if (uid) {
-      setUser(uid)
+      setCurrentUser(uid)
       router.push('/mypage')
     }
     setIsButtonLoading(false)
@@ -136,7 +136,7 @@ const LogIn = () => {
             onChange={setPassword}
             error={errorPassword}
           />
-          <div className={styles.input_notes}>
+          <div className={styles.forgot_password}>
             <Link href='/signup/password'>
               <a>パスワードを忘れた場合</a>
             </Link>
@@ -146,7 +146,7 @@ const LogIn = () => {
             isButtonLoading={isButtonLoading}
             type='email'
             title='メールアドレスでログイン'
-            onClick={() => logIn()}
+            onClick={() => submitLogin()}
             error={errorSubmit}
           />
           <Link href='/signup'>

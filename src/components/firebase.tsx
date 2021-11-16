@@ -1,9 +1,7 @@
 import type { FirebaseApp } from 'firebase/app'
 import type { Auth as FirebaseAuth } from 'firebase/auth'
-import { onAuthStateChanged } from 'firebase/auth'
-
 import { getApps, initializeApp } from 'firebase/app'
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
 
 /**
  * @description Firebaseの管理画面から取得したAPIオブジェクト
@@ -36,26 +34,40 @@ export const getFirebaseAuth = (): FirebaseAuth => {
 }
 
 /**
+ * @description メールアドレスとパスワードで新規会員登録
+ */
+export const signup = async (email: string, password: string) => {
+  // FirebaseAuthを取得する
+  const auth = getFirebaseAuth()
+  alert('signup')
+
+  let result
+  await createUserWithEmailAndPassword(auth, email, password)
+    // .then(() => {
+    //   auth.onAuthStateChanged((user) => {
+    //     if (user) {
+    //       // 認証メールを送る場合はこの関数を使う。
+    //       // user.sendEmailVerification()
+    //     }
+    //   })
+    // })
+    .then(() => {})
+    .catch((error) => {
+      result = error
+      return
+    })
+  return result
+}
+
+/**
  * @description メールアドレスとパスワードでログイン
  */
 export const login = async (email: string, password: string) => {
   // FirebaseAuthを取得する
   const auth = getFirebaseAuth()
 
-  // console.log(email + ' ' + password)
-
   // メールアドレスとパスワードでログインする
   const result = await signInWithEmailAndPassword(auth, email, password)
-
-  // onAuthStateChanged(auth, (user) => {
-  //   if (user) {
-  //     const uid = user.uid
-  //     setUser(user)
-  //     console.log(user)
-  //   } else {
-  //     console.log('userなし')
-  //   }
-  // })
 
   // セッションIDを作成するためのIDを作成する
   if (result) {

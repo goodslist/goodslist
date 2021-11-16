@@ -9,9 +9,7 @@ interface SignUpContextProps {
 export const SignUpContext = createContext({} as SignUpContextProps)
 
 export const SignUpProvider: FC = ({ children }) => {
-  const [sendEmail, setSendEmail] = useState<string | null | undefined>(
-    'sfshfkss@getDomainLocale.com',
-  )
+  const [sendEmail, setSendEmail] = useState<string | null | undefined>('')
 
   return (
     <SignUpContext.Provider

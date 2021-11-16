@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import styles from '../../styles/Login.module.css'
 import Title from '../../components/view/title'
 import Form from '../../components/form/Form'
+import Step from '../../components/form/Step'
 
 export default function SignUpSubmit() {
   const { sendEmail }: any = useContext(SignUpContext)
@@ -31,27 +32,15 @@ export default function SignUpSubmit() {
       <main className={styles.main}>
         <Title title='確認メール送信' />
         <Form>
-          <div className={styles.signup_step_container}>
-            <div className={styles.step_on}>
-              01<span>確認メール送信</span>
-            </div>
-            <div className={styles.step_off}>
-              02<span>必要事項入力</span>
-            </div>
-
-            <div className={styles.step_off}>
-              03<span>登録完了</span>
-            </div>
-          </div>
+          <Step step='1' />
           <div className={styles.send_email_address}>{sendEmail}</div>
           <div className={styles.send_email_text}>
             上記のメールアドレス宛てに確認メールを送信しました。
             <br />
             24時間以内に確認メール内のリンクにアクセスし、登録を完了させてください。
             <br />
-            24時間経過すると確認メールは無効となりますので、もう一度最初からお手続きください。
+            24時間経過すると確認メールは無効となりますので、再度登録する場合は最初からになります。
           </div>
-
           <div className={styles.link_return}>
             <Link href='/'>
               <a target='_blank'>トップページ</a>

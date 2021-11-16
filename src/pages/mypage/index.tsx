@@ -8,13 +8,13 @@ import { useContext } from 'react'
 import Title from '../../components/view/title'
 
 const DashboardPage: NextPage<{ email: string }> = ({ email }) => {
-  const { setUser }: any = useContext(AuthContext)
+  const { setCurrentUser }: any = useContext(AuthContext)
   const router = useRouter()
 
   const onLogout = async () => {
     await logout() // ログアウトさせる
     router.push('/login') // ログインページへ遷移させる
-    setUser(undefined)
+    setCurrentUser(undefined)
   }
 
   return (

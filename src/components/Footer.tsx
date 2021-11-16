@@ -2,17 +2,13 @@ import styles from '../styles/Footer.module.css'
 import Link from 'next/link'
 
 export default function Footer() {
+  const currentTime = new Date()
+  const thisYear = currentTime.getFullYear()
   return (
     <>
       <div className={styles.footer_container}>
         <div className={styles.footer}>
           <p>
-            |　
-            <Link href={'/privacy'}>
-              <a>
-                <u>利用規約</u>　
-              </a>
-            </Link>
             |　
             <Link href={'/privacy'}>
               <a>
@@ -28,7 +24,7 @@ export default function Footer() {
             　|
           </p>
           <br />
-          <p>© 2021 Goodsist</p>
+          <p>© {thisYear} Goods List</p>
         </div>
       </div>
     </>

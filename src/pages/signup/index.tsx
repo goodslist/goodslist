@@ -16,6 +16,7 @@ import Twitter from '../../components/form/SocialButton'
 import Line from '../../components/form/SocialButton'
 import { validateEmail, validatePassword, validatePassword2 } from '../../components/Validation'
 import Title from '../../components/view/title'
+import { signup } from '../../components/firebase'
 
 export default function SignUp(): JSX.Element {
   const router = useRouter()
@@ -77,27 +78,23 @@ export default function SignUp(): JSX.Element {
   }, [validEmail, validPassword, validPassword2])
 
   //「確認メールを送信」ボタンを押下
-  const signUp = async () => {
+  const submitSignup = async () => {
     if (validEmail && validPassword && validPassword2) {
       setIsButtonLoading(true)
       setOpenClearOverlay(true)
 
-      const { error, data } = await supabase.auth.signUp({ email, password })
-      if (error) {
-        setIsButtonLoading(false)
-        setErrorSubmit('エラーが発生しました。しばらく経ってからもう一度お試しください。')
-        setOpenClearOverlay(false)
-        console.log({ error })
-      } else {
-        console.log({ data })
+      const result = await signup(email, password).catch((error) => {
+        if (error)
+          setErrorSubmit('エラーが発生しました。しばらく経ってからもう一度お試しください。')
+      })
+      if (result) setErrorSubmit('エラーが発生しました。しばらく経ってからもう一度お試しください。')
+      else {
         setSendEmail(email)
-        setIsButtonLoading(false)
-        setOpenClearOverlay(false)
-        router.push({
-          pathname: '/signup/submit',
-        })
+        router.push('/signup/submit')
       }
     }
+    setIsButtonLoading(false)
+    setOpenClearOverlay(false)
   }
 
   //メールアドレスの重複チェック
@@ -178,7 +175,7 @@ export default function SignUp(): JSX.Element {
             isButtonLoading={isButtonLoading}
             type='email'
             title='確認メールを送信'
-            onClick={() => signUp()}
+            onClick={() => submitSignup()}
             error={errorSubmit}
           />
           <Link href='/login'>
