@@ -120,10 +120,11 @@ const Home = ({ eventList }: Props) => {
               <Link href={'event/' + event.event_id}>
                 <a>
                   <li key={event.event_id} className={styles.card2}>
-                    <b>{event.content_name}</b>
+                    <p className={styles.contents_title}>
+                      <b>{event.content_name}</b>
+                    </p>
                     <hr className={styles.li_event_line} />
-                    {event.event_name}
-                    <span />
+                    <p className={styles.event_title}>{event.event_name}</p>
                   </li>
                 </a>
               </Link>
@@ -137,10 +138,11 @@ const Home = ({ eventList }: Props) => {
               <Link href={'event/' + event.event_id}>
                 <a>
                   <li key={event.event_id} className={styles.card2}>
-                    <b>{event.content_name}</b>
+                    <p className={styles.contents_title}>
+                      <b>{event.content_name}</b>
+                    </p>
                     <hr className={styles.li_event_line} />
-                    {event.event_name}
-                    <span />
+                    <p className={styles.event_title}>{event.event_name}</p>
                   </li>
                 </a>
               </Link>
