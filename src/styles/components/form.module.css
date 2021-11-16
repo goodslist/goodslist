@@ -83,20 +83,18 @@
 .input_text,
 .input_password {
   margin: 0;
-  padding: 0 20px;
+  padding: 0 20px 2px 20px;
   width: 90%;
   height: 40px;
-  line-height: 40px;
   border-radius: 10px;
 }
 
 .input_text_validated,
 .input_password_checked {
   margin: 0;
-  padding: 0 20px;
+  padding: 0 20px 2px 20px;
   width: 90%;
   height: 40px;
-  line-height: 40px;
   border-radius: 10px;
   background-color: #fff;
   border: 1px solid #68a9cf;
