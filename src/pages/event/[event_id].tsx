@@ -477,6 +477,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
                       </div>
                     </div>
                     <div className={goodsGroupCounts[index].open_flag_css}>
+                      <hr className={styles.li_goods_line} />
                       {goodsList.map((goods, index) =>
                         (() => {
                           if (group.goods_group == goods.goods_group) {
