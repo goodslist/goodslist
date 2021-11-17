@@ -395,7 +395,129 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
           <div className={styles.total}>&yen;{numberFormat(TotalPrice)}</div>
         </div>
       </div>
-      <main className={styles.main}>
+      <div className={styles.wrapper_white}>
+        <main className={styles.main}>
+          <div className={styles.contant_name_container}>
+            <p className={styles.content_name}>{goodsList[0].content_name}</p>
+          </div>
+          <div className={styles.event_title_container}>
+            <h1 className={styles.h1}>{goodsList[0].event_name}</h1>
+          </div>
+          <div className={styles.event_menu_container}>
+            <p className={styles.event_date}>{dateFormat(goodsList[0].first_date)}</p>
+            <Calendar />
+          </div>
+          <div className={styles.event_link_container}>
+            <a href={goodsList[0].url} target='_blank'>
+              <p className={styles.tag_official}>
+                公式サイト
+                <span>
+                  <Official_mobile />
+                </span>
+              </p>
+            </a>
+            <a href={goodsList[0].url} target='_blank'>
+              <p className={styles.tag_twitter}>
+                ツイート
+                <span>
+                  <Icon_witter />
+                </span>
+              </p>
+            </a>
+            <a href={goodsList[0].url} target='_blank'>
+              <p className={styles.tag_line}>
+                LINE
+                <span>
+                  <Line />
+                </span>
+              </p>
+            </a>
+          </div>
+          <div className={styles.sort_container}>
+            <span onClick={() => openModal('sort')}>並び替え：　</span>
+            <span
+              className={styles.sort_nomal}
+              onClick={currentUser ? () => sortBuy(0) : () => openModal('sort')}
+            >
+              通常順
+            </span>
+            <span>　/　</span>
+            <span
+              className={styles.sort_buy}
+              onClick={currentUser ? () => sortBuy(1) : () => openModal('sort')}
+            >
+              購入優先順
+            </span>
+          </div>
+        </main>
+      </div>
+      <div className={styles.wrapper_glay}>
+        <main className={styles.main}>
+          {console.log('event_id.tsx jsx')}
+
+          <div className={styles.grid}>
+            <ul className={styles.ul_event}>
+              {goodsGroupCounts.map((group, index) => (
+                <>
+                  <li className={styles.card2} key={group.goods_group}>
+                    <div className={styles.goods_name}>{group.goods_name}</div>
+                    <div className={styles.subtotalcontainer}>
+                      <span
+                        className={goodsGroupCounts[index].open_arrow_css}
+                        onClick={() => chengeOpenCloseCss(index)}
+                      ></span>
+                      <div className={styles.subtotalwrap}>
+                        <div className={styles.subtotalcount}>
+                          {goodsGroupCounts[index].goods_group_count}点
+                        </div>
+                        <div className={styles.subtotal}>
+                          &yen;
+                          {numberFormat(goodsGroupCounts[index].sub_total_price)}
+                        </div>
+                      </div>
+                    </div>
+                    <div className={goodsGroupCounts[index].open_flag_css}>
+                      {goodsList.map((goods, index) =>
+                        (() => {
+                          if (group.goods_group == goods.goods_group) {
+                            return (
+                              <>
+                                <div className={styles.goods_detail_container}>
+                                  <div className={styles.goods_type_container}>
+                                    {goods.goods_type} {goods.color} {goods.size}
+                                  </div>
+                                  <div className={styles.goods_price_container}>
+                                    &yen;{numberFormat(goods.price)} x {goods.goods_count}
+                                  </div>
+                                  <div className={styles.plus_minus_container}>
+                                    <button
+                                      onClick={() => minusGoodsCounts(index)}
+                                      className={minusButtonOnOff(goods.goods_count)}
+                                    >
+                                      <span></span>
+                                    </button>
+                                    <button
+                                      onClick={() => plusGoodsCounts(index)}
+                                      className={plusButtonOnOff(goods.goods_count)}
+                                    >
+                                      <span></span>
+                                    </button>
+                                  </div>
+                                </div>
+                              </>
+                            )
+                          }
+                        })(),
+                      )}
+                    </div>
+                  </li>
+                </>
+              ))}
+            </ul>
+          </div>
+        </main>
+      </div>
+      {/* <main className={styles.main}>
         <div className={styles.contant_name_container}>
           <p className={styles.content_name}>{goodsList[0].content_name}</p>
         </div>
@@ -507,7 +629,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
             </>
           ))}
         </ul>
-      </main>
+      </main> */}
       <Modal reset={reset} />
     </>
   )
