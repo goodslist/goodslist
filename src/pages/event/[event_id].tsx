@@ -433,22 +433,6 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
               </p>
             </a>
           </div>
-          <div className={styles.sort_container}>
-            <span onClick={() => openModal('sort')}>並び替え：　</span>
-            <span
-              className={styles.sort_nomal}
-              onClick={currentUser ? () => sortBuy(0) : () => openModal('sort')}
-            >
-              通常順
-            </span>
-            <span>　/　</span>
-            <span
-              className={styles.sort_buy}
-              onClick={currentUser ? () => sortBuy(1) : () => openModal('sort')}
-            >
-              購入優先順
-            </span>
-          </div>
         </main>
       </div>
       <div className={styles.wrapper_glay}>
@@ -456,6 +440,22 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
           {console.log('event_id.tsx jsx')}
 
           <div className={styles.grid}>
+            <div className={styles.sort_container}>
+              <span onClick={() => openModal('sort')}>並び替え：　</span>
+              <span
+                className={styles.sort_nomal}
+                onClick={currentUser ? () => sortBuy(0) : () => openModal('sort')}
+              >
+                通常順
+              </span>
+              <span>　/　</span>
+              <span
+                className={styles.sort_buy}
+                onClick={currentUser ? () => sortBuy(1) : () => openModal('sort')}
+              >
+                購入優先順
+              </span>
+            </div>
             <ul className={styles.ul_event}>
               {goodsGroupCounts.map((group, index) => (
                 <>
