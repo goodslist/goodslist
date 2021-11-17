@@ -392,6 +392,7 @@
   text-align: right;
   min-width: 20px;
   margin: 0 10px 0 10px;
+  line-height: 20px;
 }
 
 .goods_price_container {
