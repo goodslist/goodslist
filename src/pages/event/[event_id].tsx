@@ -548,7 +548,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
               >
                 通常順
               </span>
-              　　　　　
+              　　　
               <span
                 className={styles.sort_buy}
                 onClick={currentUser ? () => sort(1) : () => openModal('sort')}

@@ -670,7 +670,7 @@
 }
 
 .sort_nomal {
-  padding: 15px 40px;
+  padding: 10px 30px;
   color: #fff;
   background-color: #f2c746;
   /* color: #68a9cf; */
@@ -684,7 +684,7 @@
 
 .sort_buy {
   color: #999;
-  padding: 15px 40px;
+  padding: 10px 30px;
   background-color: #fff;
   /* color: #68a9cf; */
   cursor: pointer;
