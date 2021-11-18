@@ -663,16 +663,19 @@
 }
 
 .sort_container {
-  width: 100%;
-  padding: 60px 20px 20px 20px;
-  text-align: right;
-  font-size: 1.4rem;
+  margin: 40px auto 50px auto;
+  text-align: center;
+  font-size: 1.6rem;
+  border-radius: 30px;
 }
 
 .sort_nomal {
-  color: #68a9cf;
-  text-decoration: underline;
+  padding: 15px 40px;
+  color: #fff;
+  background-color: #f2c746;
+  /* color: #68a9cf; */
   cursor: pointer;
+  border-radius: 30px;
 }
 
 .sort_nomal_active {
@@ -680,9 +683,12 @@
 }
 
 .sort_buy {
-  color: #68a9cf;
-  text-decoration: underline;
+  color: #999;
+  padding: 15px 40px;
+  background-color: #fff;
+  /* color: #68a9cf; */
   cursor: pointer;
+  border-radius: 30px;
 }
 
 .sort_buy_active {

@@ -185,6 +185,9 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
   //合計個数
   const [TotalCount, setTotalCount] = useState(0)
 
+  //ソート順
+  const [isSortDefault, setIsSortDefault] = useState(true)
+
   //購入優先に並び替える
   const sortBuy = (flag: number) => {
     let sortedGroupCounts: GoodsGroupCount[] = []
@@ -539,19 +542,18 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
 
           <div className={styles.grid}>
             <div className={styles.sort_container}>
-              <span onClick={() => openModal('sort')}>並び替え：　</span>
               <span
                 className={styles.sort_nomal}
                 onClick={currentUser ? () => sort(0) : () => openModal('sort')}
               >
                 通常順
               </span>
-              <span>　/　</span>
+              　　　　　
               <span
                 className={styles.sort_buy}
                 onClick={currentUser ? () => sort(1) : () => openModal('sort')}
               >
-                購入優先順
+                購入順
               </span>
             </div>
             <ul className={styles.ul_event}>
