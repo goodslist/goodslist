@@ -420,7 +420,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     // newafterEventList.push(afterEventList[0])
     // setAfterEventList(newafterEventList)
 
-    //フラグを変えてuseLayoutEffectを呼び出す
+    //フラグを変えてuseLayoutEffectを呼び出すa
     if (isDefaultSort) {
       setIsDefaultSort(false)
     } else setIsDefaultSort(true)
