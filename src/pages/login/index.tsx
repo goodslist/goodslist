@@ -44,7 +44,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 }
 
 const LogIn = () => {
-  const { setCurrentUser }: any = useContext(AuthContext)
+  const { CurrentUser, setCurrentUser }: any = useContext(AuthContext)
 
   const { setOpenClearOverlay }: any = useContext(ModalContext)
 
@@ -57,6 +57,11 @@ const LogIn = () => {
   const [isSubmit, setIsSubmit] = useState(false)
   const [errorSubmit, setErrorSubmit] = useState('')
   const [isButtonLoading, setIsButtonLoading] = useState(false)
+
+  useEffect(() => {
+    if (CurrentUser) setCurrentUser('')
+    console.log('ログインエフェクト')
+  }, [])
 
   //メールアドレス入力のエラーチェック
   useEffect(() => {
