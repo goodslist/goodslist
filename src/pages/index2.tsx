@@ -29,7 +29,7 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
   const { data, error } = await supabase
     .from('events')
     .select('event_id, event_name, contents(content_id, content_name)')
-    .limit(3)
+    .limit(10)
 
   const eventList: EventInfo[] = []
   data?.map((doc) => {
@@ -82,38 +82,46 @@ const Home = ({ eventList }: Props) => {
   const [prevEventList, setPrevEventList] = useState(
     eventList.map((List) => Object.assign({}, List)),
   )
-  const [sortedEventList, setSortedEventList] = useState(
+  const [afterEventList, setAfterEventList] = useState(
     eventList.map((List) => Object.assign({}, List)),
   )
   const [prevHeights, setPrevHeights] = useState<any>([])
-  const listHeights = useRef<any>([])
+  const nowListHeights = useRef<any>([])
   const [isDefaultSort, setIsDefaultSort] = useState(true)
-  let newHeights: number[] = new Array(3)
-  let differenceHeights: number[] = new Array(3)
+  let newHeights: number[] = new Array(10)
+  let differenceHeights: number[] = new Array(10)
+
   prevEventList.forEach((_, i) => {
-    listHeights.current[i] = createRef()
+    nowListHeights.current[i] = createRef()
   })
 
   const sort = () => {
     //ソート直前のリストを保持する
-    const newPrevEventList = [...sortedEventList]
+    const newPrevEventList = [...afterEventList]
     setPrevEventList(newPrevEventList)
 
     //ソート直前のリストの高さを取得する
-    let newPrevHights: any = []
-    listHeights.current.map((ref: any, index: number) => {
+    let newPrevHeights: any = []
+    nowListHeights.current.map((ref: any, index: number) => {
       if (ref.current) {
-        newPrevHights[index] = ref.current.getBoundingClientRect().top
+        newPrevHeights[index] = ref.current.getBoundingClientRect().top
       }
     })
-    setPrevHeights(newPrevHights)
+    setPrevHeights(newPrevHeights)
 
     //ソートする（この時点ではまだ画面にレンダリングはされていない）
-    let newsortedEventList = []
-    newsortedEventList.push(sortedEventList[2])
-    newsortedEventList.push(sortedEventList[1])
-    newsortedEventList.push(sortedEventList[0])
-    setSortedEventList(newsortedEventList)
+    let newafterEventList = []
+    newafterEventList.push(afterEventList[9])
+    newafterEventList.push(afterEventList[8])
+    newafterEventList.push(afterEventList[7])
+    newafterEventList.push(afterEventList[6])
+    newafterEventList.push(afterEventList[5])
+    newafterEventList.push(afterEventList[4])
+    newafterEventList.push(afterEventList[3])
+    newafterEventList.push(afterEventList[2])
+    newafterEventList.push(afterEventList[1])
+    newafterEventList.push(afterEventList[0])
+    setAfterEventList(newafterEventList)
 
     //フラグを変えてuseLayoutEffectを呼び出す
     if (isDefaultSort) {
@@ -123,87 +131,46 @@ const Home = ({ eventList }: Props) => {
 
   //ソート処理の続き
   useLayoutEffect(() => {
+    console.log(prevHeights)
     //ソート直後のリストの高さを取得する
-    listHeights.current.forEach((ref: any, index: number) => {
+    nowListHeights.current.forEach((ref: any, index: number) => {
       if (ref.current) {
       }
       newHeights[index] = ref.current.getBoundingClientRect().top
     })
+    console.log(newHeights)
 
     //ソート前後のリストを比較しイベントIDが一致するtopの値の差分を取得する
-    sortedEventList.forEach((ref: any, index: number) => {
-      prevEventList.forEach((ref2: any, index2: number) => {
-        if (ref.event_id == ref2.event_id) {
+    afterEventList.forEach((after: any, index: number) => {
+      prevEventList.forEach((prev: any, index2: number) => {
+        if (after.event_id == prev.event_id) {
           differenceHeights[index] = prevHeights[index2] - newHeights[index]
         }
       })
     })
 
     //ソートしたリストを差分を足して一時的に元の位置にずらす
-    returnListPosition()
+    returnPosition()
 
     //requestAnimationFrameにより1フレーム後（レンダリング後）にアニメーションをスタートさせる
     requestAnimationFrame(() => {
-      listHeights.current.forEach((ref: any, index: number) => {
-        var li = document.getElementById(String(sortedEventList[index].event_id))
+      nowListHeights.current.forEach((ref: any, index: number) => {
+        var li = document.getElementById(String(afterEventList[index].event_id))
         if (li) {
           li.style.transform = ``
-          li.style.transition = `transform 300ms ease`
+          li.style.transition = `transform 600ms ease`
         }
       })
     })
   }, [isDefaultSort])
 
   //移動させたリストを一時的に元の位置にずらす
-  const returnListPosition = () => {
-    listHeights.current.forEach((ref: any, index: number) => {
-      var li = document.getElementById(String(sortedEventList[index].event_id))
+  const returnPosition = () => {
+    nowListHeights.current.forEach((ref: any, index: number) => {
+      var li = document.getElementById(String(afterEventList[index].event_id))
       if (li) {
         li.style.transform = `translateY(${differenceHeights[index]}px)`
         li.style.transition = `transform 0s`
-      }
-    })
-  }
-
-  // useLayoutEffect(() => {
-  //   listHeights.current.forEach((ref: any, index: number) => {
-  //     prevHeights = [569.5, 700.5, 811.5]
-  //     if (ref.current) {
-  //       console.log(ref.current.getBoundingClientRect().top)
-  //     }
-  //     console.log('c')
-  //     newHeights[index] = ref.current.getBoundingClientRect().top
-  //   })
-
-  //   newHeights.forEach((ref: any, index: number) => {
-  //     if (ref) {
-  //       differenceHeights[index] = prevHeights[index] - newHeights[index]
-  //     }
-  //   })
-  //   console.log(differenceHeights[0] + ' ' + differenceHeights[1] + ' ' + differenceHeights[2])
-  //   console.log('d')
-
-  //   console.log('ww' + prevHeights[2])
-  //   console.log('ww' + newHeights[2])
-  // }, [sortedEventList])
-
-  useEffect(() => {}, [])
-
-  const sort2 = () => {
-    listHeights.current.forEach((ref: any) => {
-      if (ref.current) {
-        console.log(ref.current)
-      }
-    })
-    let newsortedEventList = []
-    newsortedEventList.push(eventList[0])
-    newsortedEventList.push(eventList[1])
-    newsortedEventList.push(eventList[2])
-    setSortedEventList(newsortedEventList)
-
-    listHeights.current.forEach((ref: any) => {
-      if (ref.current) {
-        console.log(ref.current)
       }
     })
   }
@@ -250,15 +217,14 @@ const Home = ({ eventList }: Props) => {
             <p className={styles.label_hot_new} onClick={() => sort()}>
               <span>人気イベント</span>
             </p>
-            <p onClick={() => sort2()}>ソート２</p>
             <ul className={styles.ul_event}>
-              {sortedEventList.map((event, index) => (
+              {afterEventList.map((event, index) => (
                 <Link href={'event/' + event.event_id}>
                   <a>
                     <li
                       key={index}
                       id={String(event.event_id)}
-                      ref={listHeights.current[index]}
+                      ref={nowListHeights.current[index]}
                       className={styles.card2}
                     >
                       <p className={styles.contents_title}>
