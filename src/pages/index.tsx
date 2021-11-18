@@ -27,7 +27,8 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
 
   const { data, error } = await supabase
     .from('events')
-    .select('event_id, event_name, contents(content_id, content_name)')
+    .select('event_id, event_name, first_date, contents(content_id, content_name)')
+    .order('first_date', { ascending: false })
     .limit(10)
 
   const eventList: EventInfo[] = []

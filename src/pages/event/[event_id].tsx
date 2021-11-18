@@ -234,7 +234,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
         if (sortedGroupCount.goods_group == newgoods.goods_group) sortedNewgoodsList.push(newgoods)
       })
     })
-    setAfterEventList(sortedGroupCounts)
+    setGoodsGroupCounts(sortedGroupCounts)
     setGoodsList(sortedNewgoodsList)
   }
 
@@ -242,7 +242,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
   const reset = () => {
     console.log('リセット')
     setGoodsList(initialGoodsList.map((List) => Object.assign({}, List)))
-    setAfterEventList(initialGoodsGroupCount.map((List) => Object.assign({}, List)))
+    setGoodsGroupCounts(initialGoodsGroupCount.map((List) => Object.assign({}, List)))
 
     //モーダルを閉じる
     setOpenModalFlag(false)
@@ -375,14 +375,14 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
   const [prevEventList, setPrevEventList] = useState(
     goodsGroupCounts.map((List) => Object.assign({}, List)),
   )
-  const [afterEventList, setAfterEventList] = useState(
-    goodsGroupCounts.map((List) => Object.assign({}, List)),
-  )
+  // const [goodsGroupCounts, setGoodsGroupCounts] = useState(
+  //   goodsGroupCounts.map((List) => Object.assign({}, List)),
+  // )
   const [prevHeights, setPrevHeights] = useState<any>([])
   const nowListHeights = useRef<any>([])
   const [isDefaultSort, setIsDefaultSort] = useState(true)
-  let newHeights: number[] = new Array(afterEventList.length)
-  let differenceHeights: number[] = new Array(afterEventList.length)
+  let newHeights: number[] = new Array(goodsGroupCounts.length)
+  let differenceHeights: number[] = new Array(goodsGroupCounts.length)
 
   prevEventList.forEach((_, i) => {
     nowListHeights.current[i] = createRef()
@@ -390,7 +390,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
 
   const sort = (flag: number) => {
     //ソート直前のリストを保持する
-    const newPrevEventList = [...afterEventList]
+    const newPrevEventList = [...goodsGroupCounts]
     setPrevEventList(newPrevEventList)
 
     //ソート直前のリストの高さを取得する
@@ -408,19 +408,6 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     //ソートする（この時点ではまだ画面にレンダリングはされていない
     if (flag == 1) sortBuy(1)
     else sortBuy(0)
-
-    // let newafterEventList = []
-    // newafterEventList.push(afterEventList[9])
-    // newafterEventList.push(afterEventList[8])
-    // newafterEventList.push(afterEventList[7])
-    // newafterEventList.push(afterEventList[6])
-    // newafterEventList.push(afterEventList[5])
-    // newafterEventList.push(afterEventList[4])
-    // newafterEventList.push(afterEventList[3])
-    // newafterEventList.push(afterEventList[2])
-    // newafterEventList.push(afterEventList[1])
-    // newafterEventList.push(afterEventList[0])
-    // setAfterEventList(newafterEventList)
 
     //フラグを変えてuseLayoutEffectを呼び出すa
     if (isDefaultSort) {
@@ -440,7 +427,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     console.log(newHeights)
 
     //ソート前後のリストを比較しイベントIDが一致するtopの値の差分を取得する
-    afterEventList.forEach((after: any, index: number) => {
+    goodsGroupCounts.forEach((after: any, index: number) => {
       prevEventList.forEach((prev: any, index2: number) => {
         if (after.goods_group == prev.goods_group) {
           differenceHeights[index] = prevHeights[index2] - newHeights[index]
@@ -454,7 +441,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     //requestAnimationFrameにより1フレーム後（レンダリング後）にアニメーションをスタートさせる
     requestAnimationFrame(() => {
       nowListHeights.current.forEach((ref: any, index: number) => {
-        var li = document.getElementById(String(afterEventList[index].goods_group))
+        var li = document.getElementById(String(goodsGroupCounts[index].goods_group))
         if (li) {
           li.style.transform = ``
           li.style.transition = `transform 600ms ease`
@@ -466,7 +453,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
   //移動させたリストを一時的に元の位置にずらす
   const returnPosition = () => {
     nowListHeights.current.forEach((ref: any, index: number) => {
-      var li = document.getElementById(String(afterEventList[index].goods_group))
+      var li = document.getElementById(String(goodsGroupCounts[index].goods_group))
       if (li) {
         li.style.transform = `translateY(${differenceHeights[index]}px)`
         li.style.transition = `transform 0s`
@@ -489,7 +476,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
 
       {/* <div className={changeNavbarCss} id='concept'> */}
       <div>
-        <div className={styles.total_bar}>
+        <div id='total' className={styles.total_bar}>
           <div className={reset_flag} onClick={() => openModal('reset')}>
             <span>
               <Reset />
@@ -568,7 +555,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
               </span>
             </div>
             <ul className={styles.ul_event}>
-              {afterEventList.map((group, index) => (
+              {goodsGroupCounts.map((group, index) => (
                 <>
                   <li
                     className={styles.card2}
@@ -579,20 +566,20 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
                     <div className={styles.goods_name}>{group.goods_name}</div>
                     <div className={styles.subtotalcontainer}>
                       <span
-                        className={afterEventList[index].open_arrow_css}
+                        className={goodsGroupCounts[index].open_arrow_css}
                         onClick={() => chengeOpenCloseCss(index)}
                       ></span>
                       <div className={styles.subtotalwrap}>
                         <div className={styles.subtotalcount}>
-                          {afterEventList[index].goods_group_count}点
+                          {goodsGroupCounts[index].goods_group_count}点
                         </div>
                         <div className={styles.subtotal}>
                           &yen;
-                          {numberFormat(afterEventList[index].sub_total_price)}
+                          {numberFormat(goodsGroupCounts[index].sub_total_price)}
                         </div>
                       </div>
                     </div>
-                    <div className={afterEventList[index].open_flag_css}>
+                    <div className={goodsGroupCounts[index].open_flag_css}>
                       <hr className={styles.li_goods_line} />
                       {goodsList.map((goods, index) =>
                         (() => {
