@@ -346,22 +346,22 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     setGoodsGroupCounts(newGoodsGroupCounts)
   }
 
-  //スクロール量
-  const [scrollY, setScrollY] = useState(0)
-  const [changeNavbarCss, setChangeNavbarCss] = useState(styles.total_bar_container)
+  // //スクロール量
+  // const [scrollY, setScrollY] = useState(0)
+  // const [changeNavbarCss, setChangeNavbarCss] = useState(styles.total_bar_container)
 
-  //スクロール量を取得
-  const handleScroll = () => {
-    setScrollY(window.scrollY)
+  // //スクロール量を取得
+  // const handleScroll = () => {
+  //   setScrollY(window.scrollY)
 
-    if (window.scrollY > 60) {
-      setChangeNavbarCss(styles.total_bar_container_fixed)
-    } else setChangeNavbarCss(styles.total_bar_container)
-  }
+  //   if (window.scrollY > 60) {
+  //     setChangeNavbarCss(styles.total_bar_container_fixed)
+  //   } else setChangeNavbarCss(styles.total_bar_container)
+  // }
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
-  }, [])
+  // useEffect(() => {
+  //   window.addEventListener('scroll', handleScroll)
+  // }, [])
 
   const { openModalFlag, setOpenModalFlag, modalType, setModalType, setOpenModalContentFlag }: any =
     useContext(ModalContext)
@@ -395,9 +395,11 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
 
     //ソート直前のリストの高さを取得する
     let newPrevHeights: any = []
+    console.log(nowListHeights)
     nowListHeights.current.map((ref: any, index: number) => {
       if (ref.current) {
         newPrevHeights[index] = ref.current.getBoundingClientRect().top
+        console.log(ref.current.getBoundingClientRect().top)
       }
     })
     setPrevHeights(newPrevHeights)
@@ -485,7 +487,8 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
         />
       </Head>
 
-      <div className={changeNavbarCss} id='concept'>
+      {/* <div className={changeNavbarCss} id='concept'> */}
+      <div>
         <div className={styles.total_bar}>
           <div className={reset_flag} onClick={() => openModal('reset')}>
             <span>
