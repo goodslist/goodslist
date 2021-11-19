@@ -243,6 +243,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     console.log('リセット')
     setGoodsList(initialGoodsList.map((List) => Object.assign({}, List)))
     setGoodsGroupCounts(initialGoodsGroupCount.map((List) => Object.assign({}, List)))
+    setIsDefaultSort(true)
 
     //モーダルを閉じる
     setOpenModalFlag(false)
@@ -465,28 +466,28 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
       }
     })
   }
-  console.log('777')
-  if (process.browser) {
-    const target = document.querySelector('#total')!
-    console.log(target)
-    console.log('888')
+  // console.log('777')
+  // if (process.browser) {
+  //   const target = document.querySelector('#total')!
+  //   console.log(target)
+  //   console.log('888')
 
-    //オプション設定
-    const options = {
-      root: null,
-      rootMargin: '0px 0px',
-      threshold: 0,
-    }
+  //   //オプション設定
+  //   const options = {
+  //     root: null,
+  //     rootMargin: '0px 0px',
+  //     threshold: 0,
+  //   }
 
-    // Intersection Observerのおっさんを呼ぶ
-    const observer = new IntersectionObserver(callback, options)
-    observer.observe(target)
-  }
+  //   // Intersection Observerのおっさんを呼ぶ
+  //   const observer = new IntersectionObserver(callback, options)
+  //   observer.observe(target)
+  // }
 
-  //要素が交差したとき、おっさんにする命令
-  function callback(entry: any) {
-    console.log(entry[0].target)
-  }
+  // //要素が交差したとき、おっさんにする命令
+  // function callback(entry: any) {
+  //   console.log(entry[0].target)
+  // }
   return (
     <>
       <Head>
