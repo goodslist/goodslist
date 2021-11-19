@@ -329,9 +329,6 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     else setReset_flag(styles.reset_off)
   }
 
-  let group_flag = 1
-  let goods_type_area: JSX.Element
-
   //グループの矢印がクリックされたら、グッズの個数の入力蘭を開閉する。
   const chengeOpenCloseCss = (group_id: number) => {
     const newGoodsGroupCounts = [...goodsGroupCounts]
@@ -346,23 +343,6 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     }
     setGoodsGroupCounts(newGoodsGroupCounts)
   }
-
-  // //スクロール量
-  // const [scrollY, setScrollY] = useState(0)
-  // const [changeNavbarCss, setChangeNavbarCss] = useState(styles.total_bar_container)
-
-  // //スクロール量を取得
-  // const handleScroll = () => {
-  //   setScrollY(window.scrollY)
-
-  //   if (window.scrollY > 60) {
-  //     setChangeNavbarCss(styles.total_bar_container_fixed)
-  //   } else setChangeNavbarCss(styles.total_bar_container)
-  // }
-
-  // useEffect(() => {
-  //   window.addEventListener('scroll', handleScroll)
-  // }, [])
 
   const { openModalFlag, setOpenModalFlag, modalType, setModalType, setOpenModalContentFlag }: any =
     useContext(ModalContext)
@@ -467,65 +447,6 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     })
   }
 
-  // const isHeaderFixed: React.MutableRefObject<boolean> = useRef(false)
-  const firstRendering = useRef(true)
-  const [isHeaderFixed, setIsHeaderFixed] = useState(false)
-
-  // //スクロール量
-  // const [scrollY, setScrollY] = useState(0)
-  // const [isTotalFixed, setIsTotalFixed] = useState(false)
-
-  // //スクロール量を取得
-  // const handleScroll = () => {
-  //   setScrollY(window.scrollY)
-
-  //   if (window.scrollY > 60) {
-  //     setIsTotalFixed(true)
-  //   } else setIsTotalFixed(false)
-  // }
-
-  // useEffect(() => {
-  //   window.addEventListener('scroll', handleScroll)
-  // }, [])
-
-  // useEffect(() => {
-  //   const target = document.querySelector('#total')!
-
-  //   //オプション設定
-  //   const options = {
-  //     root: null,
-  //     rootMargin: '0px 0px',
-  //     threshold: 0,
-  //   }
-
-  //   // Intersection Observerのおっさんを呼ぶ
-  //   const observer = new IntersectionObserver(callback, options)
-  //   observer.observe(target)
-  //   console.log('useEffect')
-  // }, [])
-
-  // //要素が交差したとき、おっさんにする命令
-  // function callback(entry: any) {
-  //   if (firstRendering.current) {
-  //     firstRendering.current = false
-  //     return
-  //   }
-
-  //   if (window.scrollY > 60) {
-  //     // setIsHeaderFixed(true)
-  //     console.log('aaa')
-  //     document.getElementById('total_bar')!.style.position = 'fixed'
-  //     document.getElementById('total_bar')!.style.top = '0'
-  //     // console.log(document.getElementById('total_bar')!.style)
-  //     console.log(window.scrollY)
-  //   } else {
-  //     document.getElementById('total_bar')!.style.position = ''
-  //     document.getElementById('total_bar')!.style.top = ''
-  //     console.log('bbb')
-  //     console.log(window.scrollY)
-  //   }
-  // }
-
   return (
     <>
       <Head>
@@ -538,10 +459,8 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
           rel='stylesheet'
         />
       </Head>
-      {/* <div className={changeNavbarCss} id='concept'> */}
-
       <div className={styles.sticky_container}>
-        <div id='total_bar' className={styles.total_bar_container}>
+        <div className={styles.total_bar_container}>
           <div className={styles.total_bar}>
             <div className={reset_flag} onClick={() => openModal('reset')}>
               <span>
@@ -607,14 +526,14 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
               <div className={styles.sort_container}>
                 <span
                   className={isDefaultSort ? styles.sort_nomal_active : styles.sort_nomal}
-                  onClick={currentUser ? () => sort(0) : () => openModal('sort')}
+                  onClick={currentUser ? () => sort(0) : () => openModal('login')}
                 >
                   通常順
                 </span>
                 　　　
                 <span
                   className={isDefaultSort ? styles.sort_buy : styles.sort_buy_active}
-                  onClick={currentUser ? () => sort(1) : () => openModal('sort')}
+                  onClick={currentUser ? () => sort(1) : () => openModal('login')}
                 >
                   購入順
                 </span>
