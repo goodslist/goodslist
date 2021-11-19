@@ -39,19 +39,20 @@
 .btn_login,
 .btn_login_link {
   margin: 0;
-  padding: 10px 20px;
+  padding: 6px 20px;
   font-size: 1.2rem;
   background-color: #68a9cf;
-  border-radius: 30px;
   cursor: pointer;
+  border-radius: 5px;
+  color: #fff;
 }
 
 .btn_login {
-  background-color: #fff;
+  background-color: #68a9cf;
 }
 
 .btn_login_link {
-  background-color: #f2c746;
+  background-color: #68a9cf;
 }
 
 .portal {
