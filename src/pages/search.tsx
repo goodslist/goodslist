@@ -24,7 +24,7 @@ export default function Output() {
   async function search() {
     let newSearchResults: SearchResult[] = []
     const { data, error } = await supabase
-      .from('searches')
+      .from('search_events')
       .select('event_id, event_name, content_name, search_word')
       .ilike('search_word', '%' + searchWord + '%')
     data?.map((doc) => {
