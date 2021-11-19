@@ -175,6 +175,29 @@ const Home = ({ eventList }: Props) => {
     })
   }
 
+  if (process.browser) {
+    const target = document.querySelector('#rock')!
+    console.log(document.querySelector('#rock'))
+
+    //オプション設定
+    const options = {
+      root: null,
+      rootMargin: '0px 0px',
+      threshold: 0,
+    }
+
+    //Intersection Observerのおっさんを呼ぶ
+    const observer = new IntersectionObserver(callback, options)
+    observer.observe(target)
+  }
+  //要素が交差したとき、おっさんにする命令
+  function callback(entry: any) {
+    const target = entry.target
+    if (entry.isIntersecting) {
+      alert('aaa')
+    }
+  }
+
   return (
     <>
       <Head>
@@ -215,7 +238,7 @@ const Home = ({ eventList }: Props) => {
         <main className={styles.main}>
           <div className={styles.grid}>
             <p className={styles.label_hot_new} onClick={() => sort()}>
-              <span>人気イベント</span>
+              <span id='#rock'>人気イベント</span>
             </p>
             <ul className={styles.ul_event}>
               {afterEventList.map((event, index) => (

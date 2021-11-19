@@ -669,30 +669,40 @@
   border-radius: 30px;
 }
 
-.sort_nomal {
+.sort_nomal,
+.sort_nomal_active {
   padding: 10px 30px;
-  color: #fff;
-  background-color: #f2c746;
-  /* color: #68a9cf; */
-  cursor: pointer;
   border-radius: 30px;
+  transition: all 0.3s;
+}
+
+.sort_nomal {
+  color: #999;
+  background-color: #fff;
+  cursor: pointer;
 }
 
 .sort_nomal_active {
-  font-weight: bold;
+  color: #fff;
+  background-color: #f2c746;
+}
+
+.sort_buy,
+.sort_buy_active {
+  padding: 10px 30px;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: all 0.5s;
 }
 
 .sort_buy {
   color: #999;
-  padding: 10px 30px;
   background-color: #fff;
-  /* color: #68a9cf; */
-  cursor: pointer;
-  border-radius: 30px;
 }
 
 .sort_buy_active {
-  font-weight: bold;
+  color: #fff;
+  background-color: #f2c746;
 }
 
 .ul_event {

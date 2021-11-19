@@ -185,9 +185,6 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
   //合計個数
   const [TotalCount, setTotalCount] = useState(0)
 
-  //ソート順
-  const [isSortDefault, setIsSortDefault] = useState(true)
-
   //購入優先に並び替える
   const sortBuy = (flag: number) => {
     let sortedGroupCounts: GoodsGroupCount[] = []
@@ -384,6 +381,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
   const [prevHeights, setPrevHeights] = useState<any>([])
   const nowListHeights = useRef<any>([])
   const [isDefaultSort, setIsDefaultSort] = useState(true)
+  const [sortFlag, setSortFlag] = useState(false)
   let newHeights: number[] = new Array(goodsGroupCounts.length)
   let differenceHeights: number[] = new Array(goodsGroupCounts.length)
 
@@ -409,13 +407,17 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     console.log(newPrevHeights)
 
     //ソートする（この時点ではまだ画面にレンダリングはされていない
-    if (flag == 1) sortBuy(1)
-    else sortBuy(0)
-
-    //フラグを変えてuseLayoutEffectを呼び出すa
-    if (isDefaultSort) {
+    if (flag == 1) {
       setIsDefaultSort(false)
-    } else setIsDefaultSort(true)
+      sortBuy(1)
+    } else {
+      setIsDefaultSort(true)
+      sortBuy(0)
+    }
+    // フラグを変えてuseLayoutEffectを呼び出すisDefaultSort
+    if (sortFlag) {
+      setSortFlag(false)
+    } else setSortFlag(true)
   }
 
   //ソート処理の続き
@@ -451,7 +453,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
         }
       })
     })
-  }, [isDefaultSort])
+  }, [sortFlag])
 
   //移動させたリストを一時的に元の位置にずらす
   const returnPosition = () => {
@@ -463,7 +465,28 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
       }
     })
   }
+  console.log('777')
+  if (process.browser) {
+    const target = document.querySelector('#total')!
+    console.log(target)
+    console.log('888')
 
+    //オプション設定
+    const options = {
+      root: null,
+      rootMargin: '0px 0px',
+      threshold: 0,
+    }
+
+    // Intersection Observerのおっさんを呼ぶ
+    const observer = new IntersectionObserver(callback, options)
+    observer.observe(target)
+  }
+
+  //要素が交差したとき、おっさんにする命令
+  function callback(entry: any) {
+    console.log(entry[0].target)
+  }
   return (
     <>
       <Head>
@@ -478,8 +501,8 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
       </Head>
 
       {/* <div className={changeNavbarCss} id='concept'> */}
-      <div>
-        <div id='total' className={styles.total_bar}>
+      <div id='total' className={styles.total_bar_container}>
+        <div className={styles.total_bar}>
           <div className={reset_flag} onClick={() => openModal('reset')}>
             <span>
               <Reset />
@@ -543,14 +566,14 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
           <div className={styles.grid}>
             <div className={styles.sort_container}>
               <span
-                className={styles.sort_nomal}
+                className={isDefaultSort ? styles.sort_nomal_active : styles.sort_nomal}
                 onClick={currentUser ? () => sort(0) : () => openModal('sort')}
               >
                 通常順
               </span>
               　　　
               <span
-                className={styles.sort_buy}
+                className={isDefaultSort ? styles.sort_buy : styles.sort_buy_active}
                 onClick={currentUser ? () => sort(1) : () => openModal('sort')}
               >
                 購入順

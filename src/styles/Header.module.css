@@ -39,10 +39,8 @@
 .btn_login,
 .btn_login_link {
   margin: 0;
-  padding: 0 20px;
-  height: 30px;
-  font-size: 1.4rem;
-  line-height: 30px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
   color: #fff;
   border-radius: 30px;
   cursor: pointer;
