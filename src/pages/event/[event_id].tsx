@@ -450,7 +450,7 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
         var li = document.getElementById(String(goodsGroupCounts[index].goods_group))
         if (li) {
           li.style.transform = ``
-          li.style.transition = `transform 600ms ease`
+          li.style.transition = `transform 300ms ease`
         }
       })
     })
@@ -466,11 +466,30 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
       }
     })
   }
-  // console.log('777')
-  // if (process.browser) {
+
+  // const isHeaderFixed: React.MutableRefObject<boolean> = useRef(false)
+  const firstRendering = useRef(true)
+  const [isHeaderFixed, setIsHeaderFixed] = useState(false)
+
+  // //スクロール量
+  // const [scrollY, setScrollY] = useState(0)
+  // const [isTotalFixed, setIsTotalFixed] = useState(false)
+
+  // //スクロール量を取得
+  // const handleScroll = () => {
+  //   setScrollY(window.scrollY)
+
+  //   if (window.scrollY > 60) {
+  //     setIsTotalFixed(true)
+  //   } else setIsTotalFixed(false)
+  // }
+
+  // useEffect(() => {
+  //   window.addEventListener('scroll', handleScroll)
+  // }, [])
+
+  // useEffect(() => {
   //   const target = document.querySelector('#total')!
-  //   console.log(target)
-  //   console.log('888')
 
   //   //オプション設定
   //   const options = {
@@ -482,12 +501,31 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
   //   // Intersection Observerのおっさんを呼ぶ
   //   const observer = new IntersectionObserver(callback, options)
   //   observer.observe(target)
-  // }
+  //   console.log('useEffect')
+  // }, [])
 
   // //要素が交差したとき、おっさんにする命令
   // function callback(entry: any) {
-  //   console.log(entry[0].target)
+  //   if (firstRendering.current) {
+  //     firstRendering.current = false
+  //     return
+  //   }
+
+  //   if (window.scrollY > 60) {
+  //     // setIsHeaderFixed(true)
+  //     console.log('aaa')
+  //     document.getElementById('total_bar')!.style.position = 'fixed'
+  //     document.getElementById('total_bar')!.style.top = '0'
+  //     // console.log(document.getElementById('total_bar')!.style)
+  //     console.log(window.scrollY)
+  //   } else {
+  //     document.getElementById('total_bar')!.style.position = ''
+  //     document.getElementById('total_bar')!.style.top = ''
+  //     console.log('bbb')
+  //     console.log(window.scrollY)
+  //   }
   // }
+
   return (
     <>
       <Head>
@@ -500,152 +538,154 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
           rel='stylesheet'
         />
       </Head>
-
       {/* <div className={changeNavbarCss} id='concept'> */}
-      <div id='total' className={styles.total_bar_container}>
-        <div className={styles.total_bar}>
-          <div className={reset_flag} onClick={() => openModal('reset')}>
-            <span>
-              <Reset />
-            </span>
-            リセット
-          </div>
-          <div className={styles.save_off} onClick={() => openModal('save')}>
-            <span>
-              <Save />
-            </span>
-            保存
-          </div>
-          <div className={styles.total_count}>{TotalCount}点</div>
-          <div className={styles.total}>&yen;{numberFormat(TotalPrice)}</div>
-        </div>
-      </div>
-      <div className={styles.wrapper_white}>
-        <main className={styles.main}>
-          <div className={styles.contant_name_container}>
-            <p className={styles.content_name}>{goodsList[0].content_name}</p>
-          </div>
-          <div className={styles.event_title_container}>
-            <h1 className={styles.h1}>{goodsList[0].event_name}</h1>
-          </div>
-          <div className={styles.event_menu_container}>
-            <p className={styles.event_date}>{dateFormat(goodsList[0].first_date)}</p>
-            <Calendar />
-          </div>
-          <div className={styles.event_link_container}>
-            <a href={goodsList[0].url} target='_blank'>
-              <p className={styles.tag_official}>
-                公式サイト
-                <span>
-                  <Official_mobile />
-                </span>
-              </p>
-            </a>
-            <a href={goodsList[0].url} target='_blank'>
-              <p className={styles.tag_twitter}>
-                ツイート
-                <span>
-                  <Icon_witter />
-                </span>
-              </p>
-            </a>
-            <a href={goodsList[0].url} target='_blank'>
-              <p className={styles.tag_line}>
-                LINE
-                <span>
-                  <Line />
-                </span>
-              </p>
-            </a>
-          </div>
-        </main>
-      </div>
-      <div className={styles.wrapper_glay}>
-        <main className={styles.main}>
-          {console.log('event_id.tsx jsx')}
 
-          <div className={styles.grid}>
-            <div className={styles.sort_container}>
-              <span
-                className={isDefaultSort ? styles.sort_nomal_active : styles.sort_nomal}
-                onClick={currentUser ? () => sort(0) : () => openModal('sort')}
-              >
-                通常順
+      <div className={styles.sticky_container}>
+        <div id='total_bar' className={styles.total_bar_container}>
+          <div className={styles.total_bar}>
+            <div className={reset_flag} onClick={() => openModal('reset')}>
+              <span>
+                <Reset />
               </span>
-              　　　
-              <span
-                className={isDefaultSort ? styles.sort_buy : styles.sort_buy_active}
-                onClick={currentUser ? () => sort(1) : () => openModal('sort')}
-              >
-                購入順
-              </span>
+              リセット
             </div>
-            <ul className={styles.ul_event}>
-              {goodsGroupCounts.map((group, index) => (
-                <>
-                  <li
-                    className={styles.card2}
-                    key={group.goods_group}
-                    id={String(group.goods_group)}
-                    ref={nowListHeights.current[index]}
-                  >
-                    <div className={styles.goods_name}>{group.goods_name}</div>
-                    <div className={styles.subtotalcontainer}>
-                      <span
-                        className={goodsGroupCounts[index].open_arrow_css}
-                        onClick={() => chengeOpenCloseCss(index)}
-                      ></span>
-                      <div className={styles.subtotalwrap}>
-                        <div className={styles.subtotalcount}>
-                          {goodsGroupCounts[index].goods_group_count}点
-                        </div>
-                        <div className={styles.subtotal}>
-                          &yen;
-                          {numberFormat(goodsGroupCounts[index].sub_total_price)}
+            <div className={styles.save_off} onClick={() => openModal('save')}>
+              <span>
+                <Save />
+              </span>
+              保存
+            </div>
+            <div className={styles.total_count}>{TotalCount}点</div>
+            <div className={styles.total}>&yen;{numberFormat(TotalPrice)}</div>
+          </div>
+        </div>
+        <div className={styles.wrapper_white}>
+          <main className={styles.main}>
+            <div className={styles.contant_name_container}>
+              <p className={styles.content_name}>{goodsList[0].content_name}</p>
+            </div>
+            <div className={styles.event_title_container}>
+              <h1 className={styles.h1}>{goodsList[0].event_name}</h1>
+            </div>
+            <div className={styles.event_menu_container}>
+              <p className={styles.event_date}>{dateFormat(goodsList[0].first_date)}</p>
+              <Calendar />
+            </div>
+            <div className={styles.event_link_container}>
+              <a href={goodsList[0].url} target='_blank'>
+                <p className={styles.tag_official}>
+                  公式サイト
+                  <span>
+                    <Official_mobile />
+                  </span>
+                </p>
+              </a>
+              <a href={goodsList[0].url} target='_blank'>
+                <p className={styles.tag_twitter}>
+                  ツイート
+                  <span>
+                    <Icon_witter />
+                  </span>
+                </p>
+              </a>
+              <a href={goodsList[0].url} target='_blank'>
+                <p className={styles.tag_line}>
+                  LINE
+                  <span>
+                    <Line />
+                  </span>
+                </p>
+              </a>
+            </div>
+          </main>
+        </div>
+        <div className={styles.wrapper_glay}>
+          <main className={styles.main}>
+            {console.log('event_id.tsx jsx')}
+
+            <div className={styles.grid}>
+              <div className={styles.sort_container}>
+                <span
+                  className={isDefaultSort ? styles.sort_nomal_active : styles.sort_nomal}
+                  onClick={currentUser ? () => sort(0) : () => openModal('sort')}
+                >
+                  通常順
+                </span>
+                　　　
+                <span
+                  className={isDefaultSort ? styles.sort_buy : styles.sort_buy_active}
+                  onClick={currentUser ? () => sort(1) : () => openModal('sort')}
+                >
+                  購入順
+                </span>
+              </div>
+              <ul className={styles.ul_event}>
+                {goodsGroupCounts.map((group, index) => (
+                  <>
+                    <li
+                      className={styles.card2}
+                      key={group.goods_group}
+                      id={String(group.goods_group)}
+                      ref={nowListHeights.current[index]}
+                    >
+                      <div className={styles.goods_name}>{group.goods_name}</div>
+                      <div className={styles.subtotalcontainer}>
+                        <span
+                          className={goodsGroupCounts[index].open_arrow_css}
+                          onClick={() => chengeOpenCloseCss(index)}
+                        ></span>
+                        <div className={styles.subtotalwrap}>
+                          <div className={styles.subtotalcount}>
+                            {goodsGroupCounts[index].goods_group_count}点
+                          </div>
+                          <div className={styles.subtotal}>
+                            &yen;
+                            {numberFormat(goodsGroupCounts[index].sub_total_price)}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className={goodsGroupCounts[index].open_flag_css}>
-                      <hr className={styles.li_goods_line} />
-                      {goodsList.map((goods, index) =>
-                        (() => {
-                          if (group.goods_group == goods.goods_group) {
-                            return (
-                              <>
-                                <div className={styles.goods_detail_container}>
-                                  <div className={styles.goods_type_container}>
-                                    {goods.goods_type} {goods.color} {goods.size}
+                      <div className={goodsGroupCounts[index].open_flag_css}>
+                        <hr className={styles.li_goods_line} />
+                        {goodsList.map((goods, index) =>
+                          (() => {
+                            if (group.goods_group == goods.goods_group) {
+                              return (
+                                <>
+                                  <div className={styles.goods_detail_container}>
+                                    <div className={styles.goods_type_container}>
+                                      {goods.goods_type} {goods.color} {goods.size}
+                                    </div>
+                                    <div className={styles.goods_price_container}>
+                                      &yen;{numberFormat(goods.price)} x {goods.goods_count}
+                                    </div>
+                                    <div className={styles.plus_minus_container}>
+                                      <button
+                                        onClick={() => minusGoodsCounts(index)}
+                                        className={minusButtonOnOff(goods.goods_count)}
+                                      >
+                                        <span></span>
+                                      </button>
+                                      <button
+                                        onClick={() => plusGoodsCounts(index)}
+                                        className={plusButtonOnOff(goods.goods_count)}
+                                      >
+                                        <span></span>
+                                      </button>
+                                    </div>
                                   </div>
-                                  <div className={styles.goods_price_container}>
-                                    &yen;{numberFormat(goods.price)} x {goods.goods_count}
-                                  </div>
-                                  <div className={styles.plus_minus_container}>
-                                    <button
-                                      onClick={() => minusGoodsCounts(index)}
-                                      className={minusButtonOnOff(goods.goods_count)}
-                                    >
-                                      <span></span>
-                                    </button>
-                                    <button
-                                      onClick={() => plusGoodsCounts(index)}
-                                      className={plusButtonOnOff(goods.goods_count)}
-                                    >
-                                      <span></span>
-                                    </button>
-                                  </div>
-                                </div>
-                              </>
-                            )
-                          }
-                        })(),
-                      )}
-                    </div>
-                  </li>
-                </>
-              ))}
-            </ul>
-          </div>
-        </main>
+                                </>
+                              )
+                            }
+                          })(),
+                        )}
+                      </div>
+                    </li>
+                  </>
+                ))}
+              </ul>
+            </div>
+          </main>
+        </div>
       </div>
       <Modal reset={reset} />
     </>
