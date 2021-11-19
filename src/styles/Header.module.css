@@ -41,13 +41,13 @@
   margin: 0;
   padding: 10px 20px;
   font-size: 1.2rem;
-  color: #fff;
+  background-color: #68a9cf;
   border-radius: 30px;
   cursor: pointer;
 }
 
 .btn_login {
-  background-color: #68a9cf;
+  background-color: #fff;
 }
 
 .btn_login_link {
