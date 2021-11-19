@@ -351,6 +351,13 @@ const Home = ({ goodsLists, goodsGroupCount }: Props) => {
     setOpenModalFlag(true)
     setModalType(action)
     setOpenModalContentFlag(true)
+
+    if (action == 'save') {
+      setTimeout(function () {
+        setOpenModalFlag(false)
+        setOpenModalContentFlag(false)
+      }, 1000)
+    }
   }
 
   const [prevEventList, setPrevEventList] = useState(
