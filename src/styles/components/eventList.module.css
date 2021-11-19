@@ -1,0 +1,124 @@
+@media screen and (max-width: 669px) {
+  .ul_event {
+    display: grid;
+    grid-template-columns: 100%;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+    -webkit-column-count: 1;
+    -webkit-column-gap: 20px;
+    -moz-column-count: 1;
+    -moz-column-gap: 20px;
+    column-count: 1;
+    column-gap: 20px;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+}
+@media screen and (min-width: 670px) {
+  .ul_event {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: auto auto;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+    -webkit-column-count: 2;
+    -webkit-column-gap: 20px;
+    -moz-column-count: 2;
+    -moz-column-gap: 20px;
+    column-count: 2;
+    column-gap: 20px;
+    line-height: 0;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+}
+
+.grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  min-width: 320px;
+  max-width: 100%;
+  margin-top: 10rem;
+  padding: 0 10px;
+}
+.li_event {
+  margin: 0 0 20px 0;
+  padding: 15px 40px 15px 15px;
+  text-align: left;
+  color: inherit;
+  text-decoration: none;
+  /* border: 1px solid #eaeaea; */
+  /* border-radius: 5px; */
+  width: 100% !important;
+  height: auto !important;
+  background-color: #fff;
+  transition: all 0.5s;
+  font-size: 1.4rem;
+  position: relative;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 10%);
+  /* opacity: 0;
+  visibility: hidden; */
+}
+.li_event.is_show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.li_event::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border: 0;
+  border-top: solid 2px #68a9cf;
+  border-right: solid 2px #68a9cf;
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  margin-top: -4px;
+  transform: rotate(45deg);
+  transition: all 0.7s;
+  cursor: pointer;
+}
+
+.li_event a {
+  display: block;
+  width: 100%;
+  padding: 0 30px 0 10px;
+}
+
+.li_event::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border: 0;
+  border-top: solid 2px #68a9cf;
+  border-right: solid 2px #68a9cf;
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  margin-top: -4px;
+  transform: rotate(45deg);
+  transition: all 0.7s;
+  cursor: pointer;
+}
+
+.li_event a {
+  display: block;
+  width: 100%;
+  padding: 0 30px 0 10px;
+}
+
+.li_event_line {
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+  border-bottom: 1px solid #eaeaea;
+  width: 100%;
+  margin: 20px 0 10px 0;
+}

@@ -175,27 +175,37 @@ const Home = ({ eventList }: Props) => {
     })
   }
 
-  if (process.browser) {
-    const target = document.querySelector('#rock')!
-    console.log(document.querySelector('#rock'))
+  useEffect(() => {
+    const target = document.querySelectorAll('li')
+    const targetArray = Array.prototype.slice.call(target)
 
     //オプション設定
     const options = {
       root: null,
-      rootMargin: '0px 0px',
+      rootMargin: '-100px 0px',
       threshold: 0,
     }
 
     //Intersection Observerのおっさんを呼ぶ
     const observer = new IntersectionObserver(callback, options)
-    observer.observe(target)
-  }
+    targetArray.forEach((tgt) => {
+      observer.observe(tgt)
+    })
+  }, [])
+
   //要素が交差したとき、おっさんにする命令
-  function callback(entry: any) {
-    const target = entry.target
-    if (entry.isIntersecting) {
-      alert('aaa')
-    }
+  function callback(entries: any) {
+    entries.forEach(function (entry: any, i: number) {
+      const target = entry.target
+      if (entry.isIntersecting) {
+        console.log(target.style)
+        // target.style.transform = `translateY(-50px)`box.classList.toggle('is-show')
+        target.classList.add(styles.is_show)
+        // target.style.transition = `opacity 300ms ease`
+        // target.style.transition = `visible 300ms ease`
+        console.log(target.style)
+      }
+    })
   }
 
   return (

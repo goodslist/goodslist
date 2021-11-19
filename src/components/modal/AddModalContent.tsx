@@ -16,7 +16,7 @@ export default function AddModalContent(props: any) {
     text = ''
     button_text = ''
   } else if (props.action == 'reset') {
-    title = 'リセットしますか？'
+    title = 'リストをリセットしますか？'
     text = 'リセットされる項目：購入数、並び替え順、入力欄の開閉'
     button_text = 'リセットする'
   } else if (props.action == 'login') {

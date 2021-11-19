@@ -123,17 +123,19 @@ const Home = ({ eventList }: Props) => {
             </p>
             <ul className={styles.ul_event}>
               {eventList.map((event) => (
-                <Link href={'event/' + event.event_id}>
-                  <a>
-                    <li key={event.event_id} className={styles.card2}>
-                      <p className={styles.contents_title}>
-                        <b>{event.content_name}</b>
-                      </p>
-                      <hr className={styles.li_event_line} />
-                      <p className={styles.event_title}>{event.event_name}</p>
-                    </li>
-                  </a>
-                </Link>
+                <li key={event.event_id} className={styles.li_event}>
+                  <Link href={'event/' + event.event_id}>
+                    <a>
+                      <div className={styles.li_event_padding}>
+                        <p className={styles.contents_title}>
+                          <b>{event.content_name}</b>
+                        </p>
+                        <hr className={styles.li_event_line} />
+                        <p className={styles.event_title}>{event.event_name}</p>
+                      </div>
+                    </a>
+                  </Link>
+                </li>
               ))}
             </ul>
             <p className={styles.label_hot_new}>
@@ -141,17 +143,19 @@ const Home = ({ eventList }: Props) => {
             </p>
             <ul className={styles.ul_event}>
               {eventList.map((event) => (
-                <Link href={'event/' + event.event_id}>
-                  <a>
-                    <li key={event.event_id} className={styles.card2}>
-                      <p className={styles.contents_title}>
-                        <b>{event.content_name}</b>
-                      </p>
-                      <hr className={styles.li_event_line} />
-                      <p className={styles.event_title}>{event.event_name}</p>
-                    </li>
-                  </a>
-                </Link>
+                <li key={event.event_id} className={styles.li_event}>
+                  <Link href={'event/' + event.event_id}>
+                    <a>
+                      <div className={styles.li_event_padding}>
+                        <p className={styles.contents_title}>
+                          <b>{event.content_name}</b>
+                        </p>
+                        <hr className={styles.li_event_line} />
+                        <p className={styles.event_title}>{event.event_name}</p>
+                      </div>
+                    </a>
+                  </Link>
+                </li>
               ))}
             </ul>
           </div>
