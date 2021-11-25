@@ -155,7 +155,6 @@ const List = ({ propsEvent, propsItems, propsGroups }: Props) => {
 
   //リセットボタンが押された場合、グッズとグループのカウントを0にする
   const reset = () => {
-    console.log('リセット')
     sort('default')
     setItems(initialItems.map((item) => Object.assign({}, item)))
     setGroups(initialGroups.map((initialGroup) => Object.assign({}, initialGroup)))
@@ -414,8 +413,6 @@ const List = ({ propsEvent, propsItems, propsGroups }: Props) => {
         </div>
         <div className={styles.wrapper_glay}>
           <main className={styles.main}>
-            {console.log('event_id.tsx jsx')}
-
             <div className={styles.grid}>
               <div className={styles.sort_container}>
                 <span
