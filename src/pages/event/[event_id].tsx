@@ -129,7 +129,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return { props }
 }
 
-const List = ({ propsEvent, propsItems, propsGroups }: Props) => {
+const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   //ログインユーザー
   const { currentUser }: any = useContext(AuthContext)
 
@@ -524,4 +524,4 @@ const List = ({ propsEvent, propsItems, propsGroups }: Props) => {
   )
 }
 
-export default List
+export default Home
