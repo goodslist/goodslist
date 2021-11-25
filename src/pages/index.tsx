@@ -122,7 +122,7 @@ const Home = ({ eventList }: Props) => {
         <main className={styles.main}>
           <div className={styles.grid}>
             <p className={styles.label_hot_new}>
-              <span>人気イベント</span>
+              <span>人気イベント1</span>
             </p>
             <ul className={styles.ul_event}>
               {eventList.map((event) => (
