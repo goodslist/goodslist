@@ -225,7 +225,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     setGroups(newGroups)
   }
 
-  const { openModalFlag, setOpenModalFlag, modalType, setModalType, setOpenModalContentFlag }: any =
+  const { setOpenModalFlag, modalType, setModalType, setOpenModalContentFlag }: any =
     useContext(ModalContext)
 
   const save = async () => {
