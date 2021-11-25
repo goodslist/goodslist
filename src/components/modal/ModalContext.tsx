@@ -9,12 +9,10 @@ import React, {
   useEffect,
   useRef,
 } from 'react'
-import addModalContent from './AddModalContent'
-import { Child, ChildHandles } from '../../pages/event/[event_id]'
 
 export interface ModalContextProps {
-  openModalFlag: boolean
   setOpenModalFlag: Dispatch<SetStateAction<boolean>>
+  openModalFlag: boolean
   modalContent: JSX.Element
   setModalContent: Dispatch<SetStateAction<JSX.Element>>
   openModal: (action: string) => void
