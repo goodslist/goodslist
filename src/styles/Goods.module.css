@@ -207,14 +207,14 @@
   font-size: 1.5rem;
 }
 
-.event_menu_container {
+.event_date_container {
   display: flex;
   justify-content: left;
   align-items: center;
   height: 20px;
-  margin: 0 20px;
+  margin: 0 20px 20px 20px;
 }
-.event_menu_container svg {
+.event_date_container svg {
   width: 20px;
   height: 20px;
   fill: #68a9cf;
@@ -551,13 +551,13 @@
 }
 
 .tag_official {
-  margin: 0 10px 0 0;
-  height: 24px;
-  line-height: 24px;
+  margin: 0 20px 0 0;
+  height: 30px;
+  line-height: 30px;
   padding: 0 10px 0 30px;
   color: #fff;
   background-color: red;
-  font-size: 1rem;
+  font-size: 1.2rem;
   text-align: right;
   position: relative;
   border-radius: 5px;
@@ -567,7 +567,7 @@
   display: block;
   content: '';
   position: absolute;
-  top: 4px;
+  top: 3px;
   left: 4px;
   width: 20px;
   height: 20px;
@@ -580,12 +580,12 @@
 }
 
 .tag_twitter {
-  margin: 0 10px 0 0;
-  height: 24px;
-  line-height: 24px;
+  margin: 0 20px 0 0;
+  height: 30px;
+  line-height: 30px;
   padding: 0 10px 0 30px;
   color: #fff;
-  font-size: 1rem;
+  font-size: 1.2rem;
   text-align: right;
   position: relative;
   border-radius: 5px;
@@ -596,7 +596,7 @@
   display: block;
   content: '';
   position: absolute;
-  top: 4px;
+  top: 3px;
   left: 4px;
   width: 20px;
   height: 20px;
@@ -610,11 +610,11 @@
 
 .tag_line {
   margin: 0;
-  height: 24px;
-  line-height: 24px;
+  height: 30px;
+  line-height: 30px;
   padding: 0 10px 0 30px;
   color: #fff;
-  font-size: 1rem;
+  font-size: 1.2rem;
   text-align: right;
   position: relative;
   border-radius: 5px;
@@ -756,4 +756,8 @@
   border-bottom: 1px solid #eaeaea;
   width: 100%;
   margin: 10px 0;
+}
+
+.MuiInput-underline:after {
+  border-bottom: 0px;
 }

@@ -66,18 +66,18 @@ const Home = ({ eventList }: Props) => {
 
     router.push({
       pathname: '/search', //URL
-      query: { word: input }, //検索クエリ
+      query: { keyword: input }, //検索クエリ
     })
   }
 
-  useEffect(() => {
-    // alert(input)
-    async function abc() {
-      const { data, error } = await supabase
-        .from('events')
-        .select('event_id, event_name, contents(content_id, content_name)')
-    }
-  }, [input])
+  // useEffect(() => {
+  //   // alert(input)
+  //   async function abc() {
+  //     const { data, error } = await supabase
+  //       .from('events')
+  //       .select('event_id, event_name, contents(content_id, content_name)')
+  //   }
+  // }, [input])
 
   return (
     <>
@@ -104,12 +104,15 @@ const Home = ({ eventList }: Props) => {
           <form className={styles.search_container} onSubmit={enterForm}>
             <input
               type='text'
-              className={styles.search}
+              className={input ? styles.search_active : styles.search}
               placeholder='アーティスト・イベント名で検索'
               value={input}
               onChange={(e) => setInput(e.target.value)}
             />
-            <span className={styles.search_button} onClick={clickButton}>
+            <span
+              className={input ? styles.search_button_active : styles.search_button}
+              onClick={clickButton}
+            >
               <Search />
             </span>
           </form>

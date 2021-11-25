@@ -41,6 +41,14 @@ export default function Header() {
                 </a>
               </Link>
             )
+          } else {
+            return (
+              <Link href={'/login'}>
+                <a>
+                  <div className={styles.btn_login}>ログイン</div>
+                </a>
+              </Link>
+            )
           }
         })()}
       </div>

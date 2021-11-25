@@ -82,16 +82,26 @@ export default function SignUp(): JSX.Element {
     if (validEmail && validPassword && validPassword2) {
       setIsButtonLoading(true)
       setOpenClearOverlay(true)
+      // const res = await fetch(
+      //   `https://asia-northeast1-goodslist-2169c.cloudfunctions.net/helloWorld`,
+      // )
+      // const data = await res.json()
+
+      // if (data) {
+      //   alert(data)
+      // }
+      // false
+      // alert('失敗')
 
       const result = await signup(email, password).catch((error) => {
         if (error)
           setErrorSubmit('エラーが発生しました。しばらく経ってからもう一度お試しください。')
       })
-      if (result) setErrorSubmit('エラーが発生しました。しばらく経ってからもう一度お試しください。')
-      else {
-        setSendEmail(email)
-        router.push('/signup/submit')
-      }
+      // if (result) setErrorSubmit('エラーが発生しました。しばらく経ってからもう一度お試しください。')
+      // else {
+      //   setSendEmail(email)
+      //   router.push('/signup/submit')
+      // }
     }
     setIsButtonLoading(false)
     setOpenClearOverlay(false)

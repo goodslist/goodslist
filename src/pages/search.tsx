@@ -1,76 +1,47 @@
 import { useRouter } from 'next/router'
 import { supabase } from '../components/supabase'
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import styles from '../styles/Search.module.css'
 import Title from '../components/view/title'
 import Head from 'next/head'
+import { GetServerSideProps } from 'next'
 
-export default function Output() {
+class SearchResult {
+  event_id: number = 0
+  content_name: string = ''
+  event_name: string = ''
+}
+
+type Props = {
+  searchResults: SearchResult[]
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const searchWord = ctx.query.keyword
+
+  let newSearchResults: SearchResult[] = []
+  const { data, error } = await supabase
+    .from('search_events')
+    .select('event_id, event_name, content_name, search_word')
+    .ilike('search_word', '%' + searchWord + '%')
+  data?.map((doc) => {
+    const searchResult: SearchResult = {
+      event_id: doc.event_id,
+      event_name: doc.event_name,
+      content_name: doc.content_name,
+    }
+    newSearchResults.push(searchResult)
+  })
+
+  return {
+    props: {
+      searchResults: newSearchResults,
+    },
+  }
+}
+export default function Output(props: Props) {
   const router = useRouter()
-
-  const searchWord = router.query.word
-
-  class SearchResult {
-    event_id: number = 0
-    content_name: string = ''
-    event_name: string = ''
-  }
-
-  const [searchResults, setSearchResults] = useState<SearchResult[]>([])
-
-  const [isLoading, setIsLoading] = useState(true)
-
-  async function search() {
-    let newSearchResults: SearchResult[] = []
-    const { data, error } = await supabase
-      .from('search_events')
-      .select('event_id, event_name, content_name, search_word')
-      .ilike('search_word', '%' + searchWord + '%')
-    data?.map((doc) => {
-      const searchResult: SearchResult = {
-        event_id: doc.event_id,
-        event_name: doc.event_name,
-        content_name: doc.content_name,
-      }
-      newSearchResults.push(searchResult)
-    })
-    setSearchResults(newSearchResults)
-    setIsLoading(false)
-  }
-  useEffect(() => {
-    search()
-  }, [])
-
-  const lodingNow = <div className={styles.loader}>Loading...</div>
-  const lodingComplete = (
-    <div className={styles.wrapper_glay}>
-      <main className={styles.main2}>
-        <div className={styles.grid}>
-          <div className={styles.search_result_title}>
-            {searchWord}　を含む検索結果({searchResults.length}件)
-          </div>
-          <ul className={styles.ul_event}>
-            {searchResults?.map((searchResult) => (
-              <li key={searchResult.event_id} className={styles.li_event}>
-                <Link href={'event/' + searchResult.event_id}>
-                  <a>
-                    <div className={styles.li_event_padding}>
-                      <p className={styles.contents_title}>
-                        <b>{searchResult.content_name}</b>
-                      </p>
-                      <hr className={styles.li_event_line} />
-                      <p className={styles.event_title}>{searchResult.event_name}</p>
-                    </div>
-                  </a>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </main>
-    </div>
-  )
+  const keyword = router.query.keyword
 
   return (
     <>
@@ -93,8 +64,34 @@ export default function Output() {
           <Title title='検索結果' />
         </main>
       </div>
+      <div className={styles.wrapper_glay}>
+        <main className={styles.main2}>
+          <div className={styles.grid}>
+            <div className={styles.search_result_title}>
+              {keyword}　を含む検索結果({props.searchResults.length}件)
+            </div>
+            <ul className={styles.ul_event}>
+              {props.searchResults?.map((searchResult: SearchResult) => (
+                <li key={searchResult.event_id} className={styles.li_event}>
+                  <Link href={'event/' + searchResult.event_id}>
+                    <a>
+                      <div className={styles.li_event_padding}>
+                        <p className={styles.contents_title}>
+                          <b>{searchResult.content_name}</b>
+                        </p>
+                        <hr className={styles.li_event_line} />
+                        <p className={styles.event_title}>{searchResult.event_name}</p>
+                      </div>
+                    </a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </main>
+      </div>
       {/* パラメータの表示 */}
-      {isLoading ? lodingNow : lodingComplete}
+      {/* {isLoading ? lodingNow : lodingComplete} */}
     </>
   )
 }

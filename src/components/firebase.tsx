@@ -2,6 +2,7 @@ import type { FirebaseApp } from 'firebase/app'
 import type { Auth as FirebaseAuth } from 'firebase/auth'
 import { getApps, initializeApp } from 'firebase/app'
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
+import firebase from 'firebase/compat/app'
 
 /**
  * @description Firebaseの管理画面から取得したAPIオブジェクト
@@ -38,25 +39,40 @@ export const getFirebaseAuth = (): FirebaseAuth => {
  */
 export const signup = async (email: string, password: string) => {
   // FirebaseAuthを取得する
-  const auth = getFirebaseAuth()
-  alert('signup')
+  // const auth = getFirebaseAuth()
 
-  let result
-  await createUserWithEmailAndPassword(auth, email, password)
-    // .then(() => {
-    //   auth.onAuthStateChanged((user) => {
-    //     if (user) {
-    //       // 認証メールを送る場合はこの関数を使う。
-    //       // user.sendEmailVerification()
-    //     }
-    //   })
-    // })
-    .then(() => {})
-    .catch((error) => {
-      result = error
-      return
-    })
-  return result
+  // const link = await admin.auth().generateEmailVerificationLink(email)
+
+  // console.log(link)
+
+  await fetch('/api/email', {
+    method: 'POST',
+    body: JSON.stringify({
+      email: email,
+      subject: 'Goods List 登録確認メール',
+      html: "<p>Goods Listに登録いただきありがとうございます。<br>下記のURLにアクセスし、登録を完了させてください。<br><a href='http://localhost:3000/signup/profile'>http://localhost:3000</a><br><br>このメールにお心当たりがない場合はお手数ですが破棄ください。<br>このメールアドレスは送信専用のため、返信はできません。</p>",
+    }),
+  })
+
+  // FirebaseAuthを取得する
+  // const auth = getFirebaseAuth()
+  // console.log('signup')
+
+  // let result
+  // await createUserWithEmailAndPassword(auth, email, password)
+  //   .then((userCredential) => {
+  //     auth.onAuthStateChanged((user) => {
+  //       if (user) {
+  //         // 認証メールを送る場合はこの関数を使う。
+  //       }
+  //     })
+  //   })
+  //   .then(() => {})
+  //   .catch((error) => {
+  //     result = error
+  //     return
+  //   })
+  // return result
 }
 
 /**
