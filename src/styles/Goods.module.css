@@ -682,8 +682,11 @@
   color: #fff;
   width: 16px;
   height: 16px;
-  top: 2px;
+  top: 50%;
   left: 8px;
+  transform: translate(0, -50%);
+  -webkit-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
   fill: #68a9cf;
 }
 
