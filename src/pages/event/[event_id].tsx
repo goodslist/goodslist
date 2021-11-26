@@ -414,36 +414,13 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
           <main className={styles.main}>
             <div className={styles.list_header_container}>
               <div className={styles.list_header_status}>
-                <p className={styles.tag_new}>
-                  新規作成
-                  <span>
-                    <Official_mobile />
-                  </span>
-                </p>
-              </div>
-              <div className={styles.list_header_sns}>
-                <a href={propsEvent.url} target='_blank'>
-                  <p className={styles.tag_twitter}>
-                    ツイート
-                    <span>
-                      <Icon_witter />
-                    </span>
-                  </p>
-                </a>
-                <a href={propsEvent.url} target='_blank'>
-                  <p className={styles.tag_line}>
-                    LINE
-                    <span>
-                      <Line />
-                    </span>
-                  </p>
-                </a>
+                <p className={styles.tag_status}>マイリスト</p>
+                <p className={styles.tag_create}>+ 新規作成</p>
               </div>
             </div>
             <div className={styles.contant_name_container}>
               <p className={styles.content_name} onClick={() => test()}>
                 {propsEvent.content_name}
-                {currentListId}
               </p>
             </div>
             <div className={styles.event_title_container}>
