@@ -556,6 +556,11 @@
   justify-content: left;
   align-items: center;
 }
+.list_header_sns {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
 
 .tag_status {
   margin: 0 20px 0 0;
@@ -605,22 +610,19 @@
   padding: 15px 20px 20px 20px;
   display: flex;
   justify-content: left;
-  align-items: center;
-  font-family: sans-serif;
-  white-space: nowrap;
 }
 
 .tag_official {
   margin: 0 20px 0 0;
   height: 30px;
-  line-height: 30px;
+  line-height: 28px;
   padding: 0 10px 0 30px;
-  color: #fff;
-  background-color: red;
+  color: #68a9cf;
   font-size: 1.2rem;
   text-align: right;
   position: relative;
   border-radius: 5px;
+  border: 1px solid #68a9cf;
 }
 
 .tag_official span {
@@ -636,7 +638,7 @@
 .tag_official svg {
   width: 16px;
   height: 16px;
-  fill: #fff;
+  fill: #68a9cf;
 }
 
 .tag_twitter {
