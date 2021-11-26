@@ -21,6 +21,7 @@ import Official_mobile from '../img/official_mobile.svg'
 import IconTwitter from '../img/icon_twitter.svg'
 import IconMemo from '../../../public/images/memo.svg'
 import IconScreenshot from '../../../public/images/screenshot.svg'
+import Newlist from '../../../public/images/newlist.svg'
 import Line from '../img/line.svg'
 import Reset from '../img/reset.svg'
 import Save from '../img/save.svg'
@@ -483,10 +484,15 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                 <Reset />
               </a>
               <a href={propsEvent.url} target='_blank' className={styles.tag_screenshot}>
+                新規作成
+                <Newlist />
+              </a>
+            </div>
+            <div className={styles.event_link_container}>
+              <a href={propsEvent.url} target='_blank' className={styles.tag_screenshot}>
                 ツイート
                 <IconTwitter />
               </a>
-
               <a href={propsEvent.url} target='_blank' className={styles.tag_screenshot}>
                 LINE
                 <Line />

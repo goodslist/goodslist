@@ -609,45 +609,13 @@
 
 .tag_status {
   margin: 0 20px 0 0;
-  height: 30px;
-  line-height: 28px;
-  padding: 0 10px 0 10px;
+  padding: 5px 10px 5px 10px;
   color: #666;
   font-size: 1.2rem;
   text-align: right;
   position: relative;
   border-radius: 5px;
   border: 1px solid #999;
-}
-
-.tag_create {
-  margin: 0 20px 0 0;
-  height: 30px;
-  line-height: 30px;
-  padding: 0;
-  color: #666;
-  font-size: 1.2rem;
-  text-align: right;
-  position: relative;
-  border-radius: 5px;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.tag_new span {
-  display: block;
-  content: '';
-  position: absolute;
-  top: 3px;
-  left: 4px;
-  width: 20px;
-  height: 20px;
-  color: #fff;
-}
-.tag_new svg {
-  width: 16px;
-  height: 16px;
-  fill: #666;
 }
 
 .event_link_container {
