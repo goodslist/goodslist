@@ -472,14 +472,6 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                   </span>
                 </p>
               </a>
-              <a href={propsEvent.url} target='_blank'>
-                <p className={styles.tag_official}>
-                  リセット
-                  <span>
-                    <Official_mobile />
-                  </span>
-                </p>
-              </a>
             </div>
           </main>
         </div>
