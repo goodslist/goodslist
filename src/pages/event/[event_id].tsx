@@ -502,22 +502,23 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
         </div>
         <div className={styles.wrapper_glay}>
           <main className={styles.main}>
-            <div className={styles.grid}>
+            <div className={styles.sort_arrow_container}>
               <div className={styles.sort_container}>
-                <span
+                <button
                   className={isDefaultSort ? styles.sort_nomal_active : styles.sort_nomal}
                   onClick={currentUser ? () => sort('default') : () => openModal('login')}
                 >
                   通常順
-                </span>
-                　　　
-                <span
+                </button>
+                <button
                   className={isDefaultSort ? styles.sort_buy : styles.sort_buy_active}
                   onClick={currentUser ? () => sort('buy') : () => openModal('login')}
                 >
                   購入順
-                </span>
+                </button>
               </div>
+            </div>
+            <div className={styles.grid}>
               {/* <MuiPickersUtilsProvider utils={ExtendedUtils} locale={jaLocale}>
                 <DatePicker
                   value={date}
