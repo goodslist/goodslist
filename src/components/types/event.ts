@@ -15,7 +15,7 @@ export type Item = {
   color: string
   size: string
   price: number
-  goods_count: number
+  item_count: number
 }
 
 export type Group = {
@@ -25,4 +25,9 @@ export type Group = {
   price: number
   sub_total: number
   open: boolean
+}
+
+export type SaveItem = {
+  item_id: number
+  item_count: number
 }

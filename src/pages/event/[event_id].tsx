@@ -26,6 +26,7 @@ import Button_top from '../../components/Button_top'
 import { animateScroll as scroll } from 'react-scroll'
 import { numberFormat, dateFormat } from '../../components/Utils'
 import { AuthContext } from '../../components/auth/AuthContext'
+import { ListContext } from '../../components/list/ListContext'
 import { ModalContext } from '../../components/modal/ModalContext'
 import Modal from '../../components/modal/Modal'
 import DateFnsUtils from '@date-io/date-fns'
@@ -35,12 +36,12 @@ import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import {
   getPrevGroupHeights,
   sortGroups,
-  sortItems,
   getAfterGroupHeights,
   getDifferenceGroupHeights,
   returnPosition,
+  startSortAnimation,
 } from '../../components/list/Sort'
-import { EventInfo, Group, Item } from '../../components/types/event'
+import { EventInfo, Group, Item, SaveItem } from '../../components/types/event'
 
 type PathParams = {
   event_id: string
@@ -94,14 +95,14 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       color: doc.color,
       size: doc.size,
       price: doc.price,
-      goods_count: 0,
+      item_count: 0,
     }
     items.push(item)
   })
 
   const groups: Group[] = []
   let now_group = 1
-  items.map((item, index) => {
+  items.map((item) => {
     if (item.group_id == now_group) {
       groups[now_group - 1] = {
         group_id: item.group_id,
@@ -132,17 +133,49 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   //ログインユーザー
   const { currentUser }: any = useContext(AuthContext)
+  const {
+    currentListId,
+    setCurrentListId,
+    currentItems,
+    setCurrentItems,
+    currentGroups,
+    setCurrentGroups,
+  } = useContext(ListContext)
+  setCurrentListId('藤原')
+
+  // setAGroups(propsGroups)
+  // console.log(agroups)
+  // const { currentListId, setCurrentListId, items, setItems, groups, setGroups } =
+  //   useContext(ListContext)
+  // useEffect(() => {
+  //   setGroups(propsGroups.map((group) => Object.assign({}, group)))
+  //   setItems(propsItems.map((item) => Object.assign({}, item)))
+  //   console.log(propsGroups.map((group) => Object.assign({}, group)))
+  // }, [])
 
   // //グッズの情報の配列
   const [items, setItems] = useState<Item[]>(propsItems.map((item) => Object.assign({}, item)))
+  setCurrentItems(items)
 
   // //グッズの情報の初期値の配列(更新しない)
   const initialItems: Item[] = [...propsItems.map((item) => Object.assign({}, item))]
 
   //グッズグループ情報の配列
-  const [groups, setGroups] = useState<Group[]>(
-    propsGroups.map((group) => Object.assign({}, group)),
-  )
+
+  const [groups, setGroups] = useState(propsGroups.map((group) => Object.assign({}, group)))
+  setCurrentGroups(groups)
+  useEffect(() => {
+    setCurrentGroups(groups)
+  }, [groups])
+
+  useEffect(() => {
+    setCurrentItems(items)
+  }, [items])
+
+  const test = () => {
+    setGroups(currentGroups!)
+    alert('aaa')
+  }
 
   //グッズグループ情報の初期値の配列(更新しない)
   const initialGroups: Group[] = [...propsGroups]
@@ -169,8 +202,8 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   const plusCount = (id: number) => {
     const newItems = [...items]
     const newGroups = [...groups]
-    if (newItems[id].goods_count < 99) {
-      newItems[id].goods_count = newItems[id].goods_count + 1
+    if (newItems[id].item_count < 99) {
+      newItems[id].item_count = newItems[id].item_count + 1
       setItems(newItems)
       //小計のカウントを+1する。
       newGroups.map((newGroup) => {
@@ -184,8 +217,8 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   const minusCount = (id: number) => {
     const newItems = [...items]
     const newGroups = [...groups]
-    if (newItems[id].goods_count > 0) {
-      newItems[id].goods_count = newItems[id].goods_count - 1
+    if (newItems[id].item_count > 0) {
+      newItems[id].item_count = newItems[id].item_count - 1
       setItems(newItems)
       //小計のカウントを+1する。
       newGroups.map((newGroup) => {
@@ -202,8 +235,8 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     let newTotalPrice = 0
     let newTotalCount = 0
     newItems.map((newItem) => {
-      newTotalPrice = newTotalPrice + newItem.price * newItem.goods_count
-      newTotalCount = newTotalCount + newItem.goods_count
+      newTotalPrice = newTotalPrice + newItem.price * newItem.item_count
+      newTotalCount = newTotalCount + newItem.item_count
     })
     newGroups.map((newGroup) => {
       newGroup.sub_total = newGroup.price * newGroup.group_count
@@ -229,15 +262,27 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     useContext(ModalContext)
 
   const save = async () => {
-    const { data, error } = await supabase.from('lists').insert([
-      {
-        user_id: 'hsakHAGFSjggh',
-        event_id: propsEvent.event_id,
-        date: propsEvent.date,
-        goods: items,
-        updated_at: new Date(),
-      },
-    ])
+    if (currentUser) {
+      let itemCounts: SaveItem[] = []
+      currentItems?.map((item) => {
+        if (item.item_count > 0) {
+          const itemCount = { item_id: item.item_id, item_count: item.item_count }
+          itemCounts.push(itemCount)
+        }
+      })
+      console.log(itemCounts)
+
+      const { data, error } = await supabase.from('lists').insert([
+        {
+          user_id: currentUser,
+          event_id: propsEvent.event_id,
+          date: new Date(),
+          groups: 'グループ1',
+          goods: itemCounts,
+          updated_at: new Date(),
+        },
+      ])
+    }
   }
 
   const openModal = (action: string) => {
@@ -253,14 +298,16 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     }
   }
 
-  const [prevGroups, setPrevGroups] = useState(groups.map((group) => Object.assign({}, group)))
+  const [prevGroups, setPrevGroups] = useState(
+    groups.map((group: Group) => Object.assign({}, group)),
+  )
   const [prevGroupHeights, setPrevGroupHeights] = useState<any>([])
   const nowGroupHeights = useRef<any>([])
   const [isDefaultSort, setIsDefaultSort] = useState(true)
   const [sortFlag, setSortFlag] = useState(false)
 
   //グループの高さを取得する
-  prevGroups.forEach((_, i) => {
+  prevGroups.forEach((_: any, i: number) => {
     nowGroupHeights.current[i] = createRef()
   })
 
@@ -280,8 +327,8 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     setGroups(sortedGroups)
 
     //ソートしたグループと同じ順にアイテムをソートする
-    const sortedItems = sortItems(sortedGroups, items)
-    setItems(sortedItems)
+    // const sortedItems = sortItems(sortedGroups, items)
+    // setItems(sortedItems)
 
     // フラグを変えてuseLayoutEffectを呼び出す
     sortFlag ? setSortFlag(false) : setSortFlag(true)
@@ -304,15 +351,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     returnPosition(groups, nowGroupHeights, differenceGroupHeights)
 
     //requestAnimationFrameにより1フレーム後（ここからレンダリング後）にアニメーションをスタートさせる
-    requestAnimationFrame(() => {
-      nowGroupHeights.current.forEach((ref: any, index: number) => {
-        var li = document.getElementById(String(groups[index].group_id))
-        if (li) {
-          li.style.transform = ``
-          li.style.transition = `transform 300ms ease`
-        }
-      })
-    })
+    startSortAnimation(groups, nowGroupHeights)
   }, [sortFlag])
 
   const [date, setDate] = useState<Date | null>(new Date())
@@ -373,8 +412,39 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
         </div>
         <div className={styles.wrapper_white}>
           <main className={styles.main}>
+            <div className={styles.list_header_container}>
+              <div className={styles.list_header_status}>
+                <p className={styles.tag_new}>
+                  新規作成
+                  <span>
+                    <Official_mobile />
+                  </span>
+                </p>
+              </div>
+              <div className={styles.list_header_sns}>
+                <a href={propsEvent.url} target='_blank'>
+                  <p className={styles.tag_twitter}>
+                    ツイート
+                    <span>
+                      <Icon_witter />
+                    </span>
+                  </p>
+                </a>
+                <a href={propsEvent.url} target='_blank'>
+                  <p className={styles.tag_line}>
+                    LINE
+                    <span>
+                      <Line />
+                    </span>
+                  </p>
+                </a>
+              </div>
+            </div>
             <div className={styles.contant_name_container}>
-              <p className={styles.content_name}>{propsEvent.content_name}</p>
+              <p className={styles.content_name} onClick={() => test()}>
+                {propsEvent.content_name}
+                {currentListId}
+              </p>
             </div>
             <div className={styles.event_title_container}>
               <h1 className={styles.h1}>{propsEvent.event_name}</h1>
@@ -438,7 +508,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                 />
               </MuiPickersUtilsProvider> */}
               <ul className={styles.ul_event}>
-                {groups.map((group, index) => (
+                {groups.map((group: Group, index: number) => (
                   <>
                     <li
                       className={styles.card2}
@@ -470,7 +540,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                         }
                       >
                         <hr className={styles.li_goods_line} />
-                        {items.map((item, index) =>
+                        {items.map((item: Item, index: number) =>
                           (() => {
                             if (group.group_id == item.group_id) {
                               return (
@@ -480,13 +550,13 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                                       {item.item_type} {item.color} {item.size}
                                     </div>
                                     <div className={styles.goods_price_container}>
-                                      &yen;{numberFormat(item.price)} x {item.goods_count}
+                                      &yen;{numberFormat(item.price)} x {item.item_count}
                                     </div>
                                     <div className={styles.plus_minus_container}>
                                       <button
                                         onClick={() => minusCount(index)}
                                         className={
-                                          item.goods_count > 0
+                                          item.item_count > 0
                                             ? styles.minusButtonOn
                                             : styles.minusButtonOff
                                         }
@@ -496,7 +566,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                                       <button
                                         onClick={() => plusCount(index)}
                                         className={
-                                          item.goods_count < 99
+                                          item.item_count < 99
                                             ? styles.plusButtonOn
                                             : styles.plusButtonOff
                                         }

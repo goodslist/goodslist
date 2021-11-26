@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Layout from '../components/Layout'
 import { AuthProvider } from '../components/auth/AuthContext'
+import { ListProvider } from '../components/list/ListContext'
 import { ModalProvider } from '../components/modal/ModalContext'
 import { SignUpProvider } from '../components/signup/SignUpContext'
 function MyApp({ Component, pageProps }: AppProps) {
@@ -10,9 +11,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       <div id='modal' />
       <ModalProvider>
         <SignUpProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <ListProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ListProvider>
         </SignUpProvider>
       </ModalProvider>
     </AuthProvider>

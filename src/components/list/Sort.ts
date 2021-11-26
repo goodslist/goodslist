@@ -58,16 +58,16 @@ export const sortGroups = (sortType: string, groups: Group[]) => {
 }
 
 //ソートしたグループと同じ順にアイテムをソートする
-export const sortItems = (sortedGroups: Group[], items: Item[]) => {
-  const sortedItems: Item[] = []
-  sortedGroups.map((sortedGroup) => {
-    items.map((newItem) => {
-      if (sortedGroup.group_id == newItem.group_id) sortedItems.push(newItem)
-    })
-  })
+// export const sortItems = (sortedGroups: Group[], items: Item[]) => {
+//   const sortedItems: Item[] = []
+//   sortedGroups.map((sortedGroup) => {
+//     items.map((newItem) => {
+//       if (sortedGroup.group_id == newItem.group_id) sortedItems.push(newItem)
+//     })
+//   })
 
-  return sortedItems
-}
+//   return sortedItems
+// }
 
 //ソート後のリストの高さを取得する
 export const getAfterGroupHeights = (nowGroupHeights: any) => {
@@ -110,5 +110,18 @@ export const returnPosition = (
       li.style.transform = `translateY(${differenceGroupHeights[index]}px)`
       li.style.transition = `transform 0s`
     }
+  })
+}
+
+//requestAnimationFrameにより1フレーム後（ここからレンダリング後）にアニメーションをスタートさせる
+export const startSortAnimation = (groups: Group[], nowGroupHeights: any) => {
+  requestAnimationFrame(() => {
+    nowGroupHeights.current.forEach((ref: any, index: number) => {
+      var li = document.getElementById(String(groups[index].group_id))
+      if (li) {
+        li.style.transform = ``
+        li.style.transition = `transform 300ms ease`
+      }
+    })
   })
 }
