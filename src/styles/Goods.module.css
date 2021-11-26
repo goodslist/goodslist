@@ -670,30 +670,7 @@
   border-radius: 5px;
   border: 1px solid #68a9cf;
   cursor: pointer;
-}
-
-.tag_official span,
-.tag_memo span,
-.tag_screenshot span {
-  display: block;
-  content: '';
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  color: #fff;
-}
-
-.tag_official span {
-  top: 2px;
-  left: 4px;
-}
-.tag_memo span {
-  top: 2px;
-  left: 4px;
-}
-.tag_screenshot span {
-  top: 2px;
-  left: 4px;
+  box-sizing: border-box;
 }
 
 .tag_official svg,
@@ -705,7 +682,7 @@
   color: #fff;
   width: 16px;
   height: 16px;
-  top: 4px;
+  top: 0px;
   left: 8px;
   fill: #68a9cf;
 }
