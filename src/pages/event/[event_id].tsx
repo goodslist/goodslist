@@ -19,6 +19,8 @@ import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import Calendar from '../img/calendar.svg'
 import Official_mobile from '../img/official_mobile.svg'
 import Icon_witter from '../img/icon_twitter.svg'
+import IconMemo from '../../../public/images/memo.svg'
+import IconScreenshot from '../../../public/images/screenshot.svg'
 import Line from '../img/line.svg'
 import Reset from '../img/reset.svg'
 import Save from '../img/save.svg'
@@ -185,6 +187,12 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
 
   //合計個数
   const [TotalCount, setTotalCount] = useState(0)
+
+  //メモ
+  const [memo, setMemo] = useState('にこにー用。')
+
+  //メモ
+  const [isMemo, setIsMemo] = useState(false)
 
   //リセットボタンが押された場合、グッズとグループのカウントを0にする
   const reset = () => {
@@ -374,6 +382,10 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     }
   }
 
+  const clickMemo = () => {
+    isMemo ? setIsMemo(false) : setIsMemo(true)
+  }
+
   return (
     <>
       <Head>
@@ -447,6 +459,16 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               <p className={styles.event_date}>{dateFormat(propsEvent.date)}</p>
               <Calendar />
             </div>
+            <div
+              className={isMemo ? styles.event_memo_container_active : styles.event_memo_container}
+            >
+              <p className={styles.event_memo}>
+                真姫用。
+                <span>
+                  <IconMemo />
+                </span>
+              </p>
+            </div>
             <div className={styles.event_link_container}>
               <a href={propsEvent.url} target='_blank'>
                 <p className={styles.tag_official}>
@@ -456,19 +478,17 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                   </span>
                 </p>
               </a>
+              <p className={styles.tag_memo} onClick={() => clickMemo()}>
+                メモ
+                <span>
+                  <IconMemo />
+                </span>
+              </p>
               <a href={propsEvent.url} target='_blank'>
-                <p className={styles.tag_official}>
-                  メモ
-                  <span>
-                    <Official_mobile />
-                  </span>
-                </p>
-              </a>
-              <a href={propsEvent.url} target='_blank'>
-                <p className={styles.tag_official}>
+                <p className={styles.tag_screenshot}>
                   スクショ
                   <span>
-                    <Official_mobile />
+                    <IconScreenshot />
                   </span>
                 </p>
               </a>
