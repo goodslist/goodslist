@@ -486,6 +486,12 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                   <IconScreenshot />
                 </p>
               </a>
+              <a href={propsEvent.url} target='_blank'>
+                <p className={styles.tag_official}>
+                  リセット
+                  <Reset />
+                </p>
+              </a>
             </div>
           </main>
         </div>

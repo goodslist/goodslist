@@ -652,16 +652,18 @@
 
 .event_link_container {
   width: 100%;
-  padding: 20px 20px 20px 20px;
+  padding: 20px 20px 0 20px;
   display: flex;
   justify-content: left;
+  flex-wrap: wrap;
+  gap: 20px 20px;
 }
 
 .tag_official,
 .tag_memo,
 .tag_screenshot {
   width: auto;
-  margin: 0 20px 0 0;
+  margin: 0;
   padding: 5px 10px 5px 30px;
   color: #68a9cf;
   font-size: 1.2rem;
