@@ -229,25 +229,22 @@
   line-height: 20px;
 }
 
-.event_memo_container {
-  margin: 10px 20px 0 20px;
-  padding: 0 0 0 26px;
-  width: 100%;
-  height: 20px;
-  position: relative;
-  transition: all 0.5s;
-  max-height: 0px;
-  overflow: hidden;
-}
-
+.event_memo_container,
 .event_memo_container_active {
   margin: 10px 20px 0 20px;
   padding: 0 0 0 26px;
   width: 100%;
   position: relative;
   transition: all 0.5s;
-  max-height: 20px;
   overflow: hidden;
+}
+
+.event_memo_container {
+  max-height: 0px;
+}
+
+.event_memo_container_active {
+  max-height: 20px;
 }
 .event_memo {
   margin: 0;
