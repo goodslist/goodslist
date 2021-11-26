@@ -698,8 +698,14 @@
 .tag_official svg,
 .tag_memo svg,
 .tag_screenshot svg {
+  display: block;
+  content: '';
+  position: absolute;
+  color: #fff;
   width: 16px;
   height: 16px;
+  top: 6px;
+  left: 8px;
   fill: #68a9cf;
 }
 
