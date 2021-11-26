@@ -470,27 +470,21 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               </p>
             </div>
             <div className={styles.event_link_container}>
-              <a href={propsEvent.url} target='_blank'>
-                <p className={styles.tag_official}>
-                  公式サイト
-                  <Official_mobile />
-                </p>
+              <a className={styles.tag_official} href={propsEvent.url} target='_blank'>
+                公式
+                <Official_mobile />
               </a>
               <p className={styles.tag_memo} onClick={() => clickMemo()}>
                 メモ
                 <IconMemo />
               </p>
-              <a href={propsEvent.url} target='_blank'>
-                <p className={styles.tag_screenshot}>
-                  スクショ
-                  <IconScreenshot />
-                </p>
+              <a href={propsEvent.url} target='_blank' className={styles.tag_screenshot}>
+                スクショ
+                <IconScreenshot />
               </a>
-              <a href={propsEvent.url} target='_blank'>
-                <p className={styles.tag_official}>
-                  リセット
-                  <Reset />
-                </p>
+              <a href={propsEvent.url} target='_blank' className={styles.tag_official}>
+                リセット
+                <Reset />
               </a>
             </div>
           </main>
