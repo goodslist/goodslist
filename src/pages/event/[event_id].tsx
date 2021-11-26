@@ -18,7 +18,7 @@ import { GetStaticPaths } from 'next'
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import Calendar from '../img/calendar.svg'
 import Official_mobile from '../img/official_mobile.svg'
-import Icon_witter from '../img/icon_twitter.svg'
+import IconTwitter from '../img/icon_twitter.svg'
 import IconMemo from '../../../public/images/memo.svg'
 import IconScreenshot from '../../../public/images/screenshot.svg'
 import Line from '../img/line.svg'
@@ -431,18 +431,14 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               <div className={styles.list_header_sns}>
                 <a href={propsEvent.url} target='_blank'>
                   <p className={styles.tag_twitter}>
-                    ツイート
-                    <span>
-                      <Icon_witter />
-                    </span>
+                    共有
+                    <IconTwitter />
                   </p>
                 </a>
                 <a href={propsEvent.url} target='_blank'>
                   <p className={styles.tag_line}>
-                    LINE
-                    <span>
-                      <Line />
-                    </span>
+                    共有
+                    <Line />
                   </p>
                 </a>
               </div>
@@ -471,7 +467,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
             </div>
             <div className={styles.event_link_container}>
               <a className={styles.tag_official} href={propsEvent.url} target='_blank'>
-                公式
+                公式サイト
                 <Official_mobile />
               </a>
               <p className={styles.tag_memo} onClick={() => clickMemo()}>
@@ -485,6 +481,15 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               <a href={propsEvent.url} target='_blank' className={styles.tag_official}>
                 リセット
                 <Reset />
+              </a>
+              <a href={propsEvent.url} target='_blank' className={styles.tag_screenshot}>
+                ツイート
+                <IconTwitter />
+              </a>
+
+              <a href={propsEvent.url} target='_blank' className={styles.tag_screenshot}>
+                LINE
+                <Line />
               </a>
             </div>
           </main>

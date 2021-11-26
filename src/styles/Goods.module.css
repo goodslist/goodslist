@@ -694,9 +694,7 @@
 
 .tag_twitter {
   margin: 0 20px 0 0;
-  height: 30px;
-  line-height: 30px;
-  padding: 0 10px 0 30px;
+  padding: 5px 10px 5px 30px;
   color: #fff;
   font-size: 1.2rem;
   text-align: right;
@@ -705,27 +703,24 @@
   background-color: #55acee;
 }
 
-.tag_twitter span {
+.tag_twitter svg {
   display: block;
   content: '';
   position: absolute;
-  top: 3px;
-  left: 4px;
-  width: 20px;
-  height: 20px;
   color: #fff;
-}
-.tag_twitter svg {
   width: 16px;
   height: 16px;
+  top: 50%;
+  left: 8px;
+  transform: translate(0, -50%);
+  -webkit-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
   fill: #fff;
 }
 
 .tag_line {
   margin: 0;
-  height: 30px;
-  line-height: 30px;
-  padding: 0 10px 0 30px;
+  padding: 5px 10px 5px 30px;
   color: #fff;
   font-size: 1.2rem;
   text-align: right;
@@ -745,8 +740,17 @@
   color: #fff;
 }
 .tag_line svg {
+  display: block;
+  content: '';
+  position: absolute;
+  color: #fff;
   width: 16px;
   height: 16px;
+  top: 50%;
+  left: 8px;
+  transform: translate(0, -50%);
+  -webkit-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
   fill: #fff;
 }
 
