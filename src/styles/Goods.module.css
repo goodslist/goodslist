@@ -660,6 +660,7 @@
 .tag_official,
 .tag_memo,
 .tag_screenshot {
+  width: auto;
   margin: 0 20px 0 0;
   padding: 5px 10px 5px 30px;
   color: #68a9cf;
@@ -683,15 +684,15 @@
 }
 
 .tag_official span {
-  top: 4px;
+  top: 2px;
   left: 4px;
 }
 .tag_memo span {
-  top: 4px;
+  top: 2px;
   left: 4px;
 }
 .tag_screenshot span {
-  top: 4px;
+  top: 2px;
   left: 4px;
 }
 
@@ -704,7 +705,7 @@
   color: #fff;
   width: 16px;
   height: 16px;
-  top: 6px;
+  top: 4px;
   left: 8px;
   fill: #68a9cf;
 }
