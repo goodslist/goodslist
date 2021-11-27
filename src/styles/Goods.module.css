@@ -754,17 +754,14 @@
   padding: 0 10px;
   width: 100%;
   height: auto;
-  display: flex;
-  justify-content: right;
+  text-align: right;
 }
 
 .sort_container {
   margin: 0;
-  padding: 0;
   width: 160px;
   height: auto;
   font-size: 1.4rem;
-  background-color: red;
   box-shadow: 0 1px 4px rgb(0 0 0 / 10%);
 }
 
