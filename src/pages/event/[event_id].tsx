@@ -139,6 +139,8 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   const {
     currentListId,
     setCurrentListId,
+    currentEventId,
+    setCurrentEventId,
     currentItems,
     setCurrentItems,
     currentGroups,
@@ -154,6 +156,8 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   //   setItems(propsItems.map((item) => Object.assign({}, item)))
   //   console.log(propsGroups.map((group) => Object.assign({}, group)))
   // }, [])
+
+  setCurrentEventId(propsEvent.event_id)
 
   // //グッズの情報の配列
   const [items, setItems] = useState<Item[]>(propsItems.map((item) => Object.assign({}, item)))
@@ -175,8 +179,9 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   }, [items])
 
   const test = () => {
-    setGroups(currentGroups!)
-    alert('aaa')
+    currentItems!.map((newItem) => {
+      if (newItem.item_id == 438) console.log(newItem.item_name)
+    })
   }
 
   //グッズグループ情報の初期値の配列(更新しない)
@@ -473,10 +478,12 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                 メモ
                 <IconMemo />
               </p>
-              <a href={propsEvent.url} target='_blank' className={styles.tag_screenshot}>
-                スクショ
-                <IconScreenshot />
-              </a>
+              <Link href={'screenshot/' + propsEvent.event_id}>
+                <a className={styles.tag_screenshot}>
+                  スクショ
+                  <IconScreenshot />
+                </a>
+              </Link>
               <p className={styles.tag_official} onClick={() => openModal('reset')}>
                 リセット
                 <Reset />

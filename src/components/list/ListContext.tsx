@@ -5,15 +5,18 @@ import { useRouter } from 'next/router'
 interface ListContextProps {
   currentListId: string | null | undefined
   setCurrentListId: Dispatch<SetStateAction<string | null | undefined>>
-  currentItems: Item[] | null | undefined
+  currentEventId: Number
+  setCurrentEventId: Dispatch<SetStateAction<Number>>
+  currentItems: Item[]
   setCurrentItems: Dispatch<SetStateAction<Item[]>>
-  currentGroups: Group[] | null | undefined
+  currentGroups: Group[]
   setCurrentGroups: Dispatch<SetStateAction<Group[]>>
 }
 
 export const ListContext = createContext({} as ListContextProps)
 export const ListProvider: FC = ({ children }) => {
   const [currentListId, setCurrentListId] = useState<string | null | undefined>(undefined)
+  const [currentEventId, setCurrentEventId] = useState<Number>(0)
   const [currentItems, setCurrentItems] = useState<Item[]>([])
   const [currentGroups, setCurrentGroups] = useState<Group[]>([])
 
@@ -22,6 +25,8 @@ export const ListProvider: FC = ({ children }) => {
       value={{
         currentListId,
         setCurrentListId,
+        currentEventId,
+        setCurrentEventId,
         currentItems,
         setCurrentItems,
         currentGroups,
