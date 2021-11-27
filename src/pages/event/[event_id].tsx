@@ -144,7 +144,6 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     currentGroups,
     setCurrentGroups,
   } = useContext(ListContext)
-  setCurrentListId('藤原')
 
   // setAGroups(propsGroups)
   // console.log(agroups)
@@ -189,11 +188,14 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   //合計個数
   const [TotalCount, setTotalCount] = useState(0)
 
-  //メモ
+  //メモの内容
   const [memo, setMemo] = useState('にこにー用。')
 
   //メモ
   const [isMemo, setIsMemo] = useState(false)
+
+  //今セーブできるかどうかのフラグ
+  const [isSave, setIsSave] = useState(false)
 
   //リセットボタンが押された場合、グッズとグループのカウントを0にする
   const reset = () => {
@@ -219,6 +221,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
         if (newGroup.group_id == newItems[id].group_id) newGroup.group_count++
       })
       setGroups(newGroups)
+      setIsSave(true)
     }
   }
 
@@ -234,6 +237,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
         if (newGroup.group_id == newItems[id].group_id) newGroup.group_count--
       })
       setGroups(newGroups)
+      setIsSave(true)
     }
   }
 
@@ -291,7 +295,9 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
           updated_at: new Date(),
         },
       ])
+      if (data) setCurrentListId(data[0].list_id)
     }
+    setIsSave(false)
   }
 
   const openModal = (action: string) => {
@@ -403,20 +409,10 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
         <div className={styles.total_bar_container}>
           <div className={styles.total_bar}>
             <div
-              className={TotalPrice > 0 ? styles.reset : styles.reset_off}
-              onClick={() => openModal('reset')}
+              className={isSave && TotalPrice > 0 ? styles.save : styles.save_off}
+              onClick={() => save()}
             >
-              <span>
-                <Reset />
-              </span>
-              リセット
-            </div>
-            {/* <div className={styles.save_off} onClick={() => openModal('save')}>
-             */}
-            <div className={styles.save_off} onClick={() => save()}>
-              <span>
-                <Save />
-              </span>
+              <Save />
               保存
             </div>
             <div className={styles.total_count}>{TotalCount}点</div>
@@ -427,7 +423,9 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
           <main className={styles.main}>
             <div className={styles.list_header_container}>
               <div className={styles.list_header_status}>
-                <p className={styles.tag_status}>マイリスト</p>
+                <p className={styles.tag_status}>
+                  {currentListId ? 'マイリスト' + currentListId : '新規作成'}
+                </p>
               </div>
               <div className={styles.list_header_sns}>
                 <a href={propsEvent.url} target='_blank'>
@@ -479,10 +477,10 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                 スクショ
                 <IconScreenshot />
               </a>
-              <a href={propsEvent.url} target='_blank' className={styles.tag_official}>
+              <p className={styles.tag_official} onClick={() => openModal('reset')}>
                 リセット
                 <Reset />
-              </a>
+              </p>
               <a href={propsEvent.url} target='_blank' className={styles.tag_screenshot}>
                 新規作成
                 <Newlist />
