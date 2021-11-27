@@ -771,7 +771,10 @@
   padding: 0 10px;
   width: 100%;
   height: auto;
-  text-align: right;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 .sort_container {
@@ -780,6 +783,8 @@
   height: auto;
   font-size: 1.4rem;
   box-shadow: 0 1px 4px rgb(0 0 0 / 10%);
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .sort_nomal,
@@ -796,11 +801,12 @@
 .sort_nomal {
   color: #999;
   cursor: pointer;
+  background-color: #fff;
 }
 
 .sort_nomal_active {
-  color: #68a9cf;
-  background-color: #fff;
+  color: #fff;
+  background-color: #68a9cf;
 }
 
 /* background-color: #f2c746; */
@@ -818,11 +824,12 @@
 
 .sort_buy {
   color: #999;
+  background-color: #fff;
 }
 
 .sort_buy_active {
-  color: #68a9cf;
-  background-color: #fff;
+  color: #fff;
+  background-color: #68a9cf;
 }
 
 .ul_event {
