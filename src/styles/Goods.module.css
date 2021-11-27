@@ -760,6 +760,7 @@
 
 .sort_container {
   margin: 0;
+  padding: 0;
   width: 160px;
   height: auto;
   font-size: 1.4rem;
@@ -769,6 +770,7 @@
 
 .sort_nomal,
 .sort_nomal_active {
+  margin: 0;
   width: 50%;
   height: auto;
   padding: 10px 0;
@@ -791,6 +793,7 @@
 
 .sort_buy,
 .sort_buy_active {
+  margin: 0;
   width: 50%;
   padding: 10px 0;
   /* border-radius: 5px; */
