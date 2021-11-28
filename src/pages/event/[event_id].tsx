@@ -200,7 +200,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   const [place, setPlace] = useState('千葉県 幕張メッセ 国際展示場9〜11ホール')
 
   //会場
-  const [isPlace, setIsPlace] = useState(false)
+  const [isPlace, setIsPlace] = useState(true)
 
   const [errorPlace, setErrorPlace] = useState('')
 
