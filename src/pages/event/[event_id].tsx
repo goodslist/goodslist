@@ -202,6 +202,8 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   //会場
   const [isPlace, setIsPlace] = useState(false)
 
+  const [errorPlace, setErrorPlace] = useState('')
+
   //メモの内容
   const [memo, setMemo] = useState('〇〇の分')
 
@@ -505,7 +507,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                 公式サイト
                 <Official_mobile />
               </a>
-              <p className={styles.tag_memo} onClick={() => clickPlace()}>
+              <p className={styles.tag_memo} onClick={() => openModal('place')}>
                 会場名
                 <IconPlace />
               </p>
@@ -654,6 +656,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
         </div>
       </div>
       <Modal reset={reset} />
+      {/* <Modal reset={reset} place={place} onChangePlace={setPlace} errorPlace={errorPlace} /> */}
     </>
   )
 }

@@ -2,6 +2,7 @@ import styles from '../../styles/Modal.module.css'
 import { useContext } from 'react'
 import { useRouter } from 'next/router'
 import { ModalContext } from './ModalContext'
+import InputText from '../form/InputText'
 
 export default function AddModalContent(props: any) {
   const { setOpenModalFlag, setOpenModalContentFlag }: any = useContext(ModalContext)
@@ -23,6 +24,10 @@ export default function AddModalContent(props: any) {
     title = 'この機能はログインが必要です。'
     text = 'ログインすると全ての機能を利用できます。各ソーシャルアカウントでもログインできます。'
     button_text = 'ログイン / 新規登録'
+  } else if (props.action == 'place') {
+    title = '会場名を入力'
+    text = ''
+    button_text = '入力完了'
   }
 
   //ログインが必要な機能の場合、ログインページへ飛ばす
@@ -31,6 +36,11 @@ export default function AddModalContent(props: any) {
     setOpenModalFlag(false)
     setOpenModalContentFlag(false)
     console.log('modalclose')
+  }
+
+  const close = () => {
+    setOpenModalFlag(false)
+    setOpenModalContentFlag(false)
   }
   return (
     <>
@@ -48,6 +58,23 @@ export default function AddModalContent(props: any) {
             <button className={styles.link} onClick={() => login()}>
               {button_text}
             </button>
+          )
+        } else if (props.action == 'place') {
+          return (
+            <>
+              <InputText
+                // valid={validName}
+                name='text'
+                type='place'
+                placeholder='会場名'
+                value={props.place}
+                onChange={props.onChangePlace}
+                error={props.errorPlace}
+              />
+              <button className={styles.button} onClick={() => close()}>
+                {button_text}
+              </button>
+            </>
           )
         }
       })()}

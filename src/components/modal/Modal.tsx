@@ -45,7 +45,12 @@ export default function Modal(props: any) {
               <span className={styles.close_button} onClick={() => onClickClose()}></span>
               {/* </div> */}
               <div className={styles.modal_content}>
-                <AddModalContent action={modalType} reset={props.reset} />
+                <AddModalContent
+                  action={modalType}
+                  reset={props.reset}
+                  // place={props.place}
+                  // errorPlace={props.errorPlace}
+                />
               </div>
             </div>
           </div>
