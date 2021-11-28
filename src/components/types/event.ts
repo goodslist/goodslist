@@ -4,7 +4,9 @@ export type EventInfo = {
   event_id: number
   event_name: string
   date: string
+  place: string
   url: string
+  memo: string
 }
 
 export type Item = {

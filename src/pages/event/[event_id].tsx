@@ -20,6 +20,7 @@ import Calendar from '../img/calendar.svg'
 import Official_mobile from '../img/official_mobile.svg'
 import IconTwitter from '../img/icon_twitter.svg'
 import IconMemo from '../../../public/images/memo.svg'
+import IconPlace from '../../../public/images/place.svg'
 import IconScreenshot from '../../../public/images/screenshot.svg'
 import Newlist from '../../../public/images/newlist.svg'
 import Line from '../img/line.svg'
@@ -85,7 +86,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     event_id: data![0].events.event_id,
     event_name: data![0].events.event_name,
     date: data![0].events.first_date,
+    place: '',
     url: data![0].events.url,
+    memo: '',
   }
 
   const items: Item[] = []
@@ -193,8 +196,14 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   //合計個数
   const [TotalCount, setTotalCount] = useState(0)
 
+  //会場
+  const [place, setPlace] = useState('千葉県 幕張メッセ 国際展示場9〜11ホール')
+
+  //会場
+  const [isPlace, setIsPlace] = useState(false)
+
   //メモの内容
-  const [memo, setMemo] = useState('にこにー用。')
+  const [memo, setMemo] = useState('〇〇の分')
 
   //メモ
   const [isMemo, setIsMemo] = useState(false)
@@ -398,6 +407,26 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     isMemo ? setIsMemo(false) : setIsMemo(true)
   }
 
+  const clickPlace = () => {
+    isPlace ? setIsPlace(false) : setIsPlace(true)
+  }
+
+  const allClose = () => {
+    const newGroups = [...groups]
+    newGroups.map((newGroup) => {
+      newGroup.open = false
+    })
+    setGroups(newGroups)
+  }
+
+  const allOpen = () => {
+    const newGroups = [...groups]
+    newGroups.map((newGroup) => {
+      newGroup.open = true
+    })
+    setGroups(newGroups)
+  }
+
   return (
     <>
       <Head>
@@ -435,13 +464,13 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               <div className={styles.list_header_sns}>
                 <a href={propsEvent.url} target='_blank'>
                   <p className={styles.tag_twitter}>
-                    共有
+                    Twitter
                     <IconTwitter />
                   </p>
                 </a>
                 <a href={propsEvent.url} target='_blank'>
                   <p className={styles.tag_line}>
-                    共有
+                    LINE
                     <Line />
                   </p>
                 </a>
@@ -460,20 +489,26 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               <Calendar />
             </div>
             <div
+              className={
+                isPlace ? styles.event_place_container_active : styles.event_place_container
+              }
+            >
+              <p className={styles.event_place}>{place}</p>
+            </div>
+            <div
               className={isMemo ? styles.event_memo_container_active : styles.event_memo_container}
             >
-              <p className={styles.event_memo}>
-                真姫用。
-                <span>
-                  <IconMemo />
-                </span>
-              </p>
+              <p className={styles.event_memo}>{memo}</p>
             </div>
             <div className={styles.event_link_container}>
               <a className={styles.tag_official} href={propsEvent.url} target='_blank'>
                 公式サイト
                 <Official_mobile />
               </a>
+              <p className={styles.tag_memo} onClick={() => clickPlace()}>
+                会場名
+                <IconPlace />
+              </p>
               <p className={styles.tag_memo} onClick={() => clickMemo()}>
                 メモ
                 <IconMemo />
@@ -488,12 +523,12 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                 リセット
                 <Reset />
               </p>
-              <a href={propsEvent.url} target='_blank' className={styles.tag_screenshot}>
+              {/* <a href={propsEvent.url} target='_blank' className={styles.tag_screenshot}>
                 新規作成
                 <Newlist />
-              </a>
+              </a> */}
             </div>
-            <div className={styles.event_link_container}>
+            {/* <div className={styles.event_link_container}>
               <a href={propsEvent.url} target='_blank' className={styles.tag_screenshot}>
                 ツイート
                 <IconTwitter />
@@ -502,12 +537,16 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                 LINE
                 <Line />
               </a>
-            </div>
+            </div> */}
           </main>
         </div>
         <div className={styles.wrapper_glay}>
           <main className={styles.main}>
             <div className={styles.sort_arrow_container}>
+              <div className={styles.arrow_container}>
+                <span className={styles.arrow_all_close} onClick={() => allClose()} />
+                <span className={styles.arrow_all_open} onClick={() => allOpen()} />
+              </div>
               <div className={styles.sort_container}>
                 <button
                   className={isDefaultSort ? styles.sort_nomal_active : styles.sort_nomal}

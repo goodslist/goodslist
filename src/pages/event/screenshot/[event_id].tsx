@@ -86,7 +86,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     event_id: data![0].events.event_id,
     event_name: data![0].events.event_name,
     date: data![0].events.first_date,
+    place: '',
     url: data![0].events.url,
+    memo: '',
   }
 
   const items: Item[] = []
@@ -181,13 +183,13 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               <div className={styles.list_header_sns}>
                 <a href={propsEvent.url} target='_blank'>
                   <p className={styles.tag_twitter}>
-                    共有
+                    Twitter
                     <IconTwitter />
                   </p>
                 </a>
                 <a href={propsEvent.url} target='_blank'>
                   <p className={styles.tag_line}>
-                    共有
+                    LINE
                     <Line />
                   </p>
                 </a>
@@ -211,6 +213,8 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               <p className={styles.s_content_name}>{propsEvent.content_name}</p>
               <p className={styles.s_event_name}>{propsEvent.event_name}</p>
               <p className={styles.s_event_date}>{dateFormat(propsEvent.date)}</p>
+              <p className={styles.s_event_date}>千葉県 幕張メッセ 国際展示場9〜11ホール</p>
+              <p className={styles.s_event_date}>〇〇用</p>
               <div className={styles.s_total_container}>
                 <div className={styles.s_total_count}>{totalCount}点</div>
                 <div className={styles.s_total_price}>&yen;{numberFormat(totalPrice)}</div>
