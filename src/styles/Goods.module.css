@@ -764,7 +764,7 @@
 
 .arrow_container {
   margin: 0;
-  width: 80px;
+  width: 100px;
   display: -webkit-flex;
   display: flex;
   -webkit-justify-content: space-between;
