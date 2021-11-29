@@ -522,7 +522,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                 <IconPlace />
               </p>
               <p className={styles.tag_memo} onClick={() => clickMemo()}>
-                メモ
+                メモa
                 <IconMemo />
               </p>
               <Link href={'screenshot/' + propsEvent.event_id}>
