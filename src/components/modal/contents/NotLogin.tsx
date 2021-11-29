@@ -1,4 +1,4 @@
-import styles from '../../../styles/modal.module.css'
+import styles from '../../../styles/Modal.module.css'
 import { useRouter } from 'next/router'
 import { ModalContext } from '../ModalContext'
 import { useContext } from 'react'
