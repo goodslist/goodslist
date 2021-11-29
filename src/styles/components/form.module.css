@@ -17,7 +17,7 @@
 .btn_submit_active {
   box-sizing: border-box;
   margin: 0;
-  width: 90%;
+  width: 100%;
   height: 40px;
   position: relative;
   border: none;
@@ -84,7 +84,7 @@
 .input_password {
   margin: 0;
   padding: 0 20px 3px 20px;
-  width: 90%;
+  width: 100%;
   height: 40px;
   border-radius: 10px;
 }
@@ -93,7 +93,7 @@
 .input_password_checked {
   margin: 0;
   padding: 0 20px 3px 20px;
-  width: 90%;
+  width: 100%;
   height: 40px;
   border-radius: 10px;
   background-color: #fff;
@@ -103,7 +103,7 @@
 .input_error {
   margin: 10px auto 20px auto;
   padding: 0 10px;
-  width: 90%;
+  width: 100%;
   min-height: 1.2rem;
   text-align: left;
   font-size: 1.2rem;
@@ -115,7 +115,7 @@
 
 .input_notes {
   margin: 0 auto 20px auto;
-  width: 90%;
+  width: 100%;
   font-size: 1.2rem;
   color: #999;
   text-align: right;
@@ -159,7 +159,7 @@
 .btn_login_yahoo {
   box-sizing: border-box;
   margin: 0 0 20px 0;
-  width: 90%;
+  width: 100%;
   height: 40px;
   line-height: 40px;
   position: relative;

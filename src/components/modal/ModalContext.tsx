@@ -25,6 +25,8 @@ export interface ModalContextProps {
   setShowLogin: Dispatch<SetStateAction<boolean>>
   openClearOverlay: boolean
   setOpenClearOverlay: Dispatch<SetStateAction<boolean>>
+  isLoading: boolean
+  setIsLoading: Dispatch<SetStateAction<boolean>>
 }
 
 export const ModalContext = createContext({} as ModalContextProps)
@@ -43,6 +45,9 @@ export const useProvideModal = () => {
   const [modalContent, setModalContent] = useState<JSX.Element>(<></>)
 
   const [openClearOverlay, setOpenClearOverlay] = useState(false)
+
+  //ローディング中のスピナーを表示
+  const [isLoading, setIsLoading] = useState(false)
 
   //モーダルを開く処理
   const openModal = useCallback((action: string) => {
@@ -76,6 +81,8 @@ export const useProvideModal = () => {
     setShowLogin,
     openClearOverlay,
     setOpenClearOverlay,
+    isLoading,
+    setIsLoading,
   }
 }
 
@@ -95,6 +102,8 @@ export const ModalProvider: FC = ({ children }) => {
     setShowLogin,
     openClearOverlay,
     setOpenClearOverlay,
+    isLoading,
+    setIsLoading,
   } = useProvideModal()
 
   return (
@@ -114,6 +123,8 @@ export const ModalProvider: FC = ({ children }) => {
         setShowLogin,
         openClearOverlay,
         setOpenClearOverlay,
+        isLoading,
+        setIsLoading,
       }}
     >
       {/* {openModalFlag && <Modal modalContent={modalContent} onClose={closeModal} />} */}

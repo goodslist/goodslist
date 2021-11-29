@@ -3,9 +3,13 @@ import ClientOnlyPortal from './ClientOnlyPortal'
 import styles from '../../styles/Modal.module.css'
 import { ModalContext } from './ModalContext'
 import AddModalContent from './AddModalContent'
+import Place from './contents/Place'
+import Reset from './contents/Reset'
+import NotLogin from './contents/NotLogin'
 
 export default function Modal(props: any) {
   const [open, setOpen] = useState(true)
+  const [content, setContent] = useState<JSX.Element>(<></>)
   const {
     openModalFlag,
     setOpenModalFlag,
@@ -26,6 +30,37 @@ export default function Modal(props: any) {
   const clickModalContent = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation()
   }
+  const renderWithCondition = () => {
+    switch (modalType) {
+      case 'place':
+        return <Place place={props.place} onChange={props.onChange} close={onClickClose} />
+      case 'reset':
+        return <Reset reset={props.reset} />
+      case 'notLogin':
+        return <NotLogin />
+    }
+  }
+
+  // switch (modalType) {
+  //   case 'place':
+  //     setContent(
+  //       <Place
+  //         title='会場名を入力'
+  //         place={props.place}
+  //         onChange={props.onChange}
+  //         close={onClickClose}
+  //       />,
+  //     )
+  //     break
+  //   // case 'place':
+  //   //   setContent(<Place
+  //   //     title='会場名を入力'
+  //   //     place={props.place}
+  //   //     onChange={props.onChange}
+  //   //     close={onClickClose}
+  //   //   />)
+  //   //   break;
+  // }
 
   return (
     <>
@@ -45,12 +80,14 @@ export default function Modal(props: any) {
               <span className={styles.close_button} onClick={() => onClickClose()}></span>
               {/* </div> */}
               <div className={styles.modal_content}>
-                <AddModalContent
+                {renderWithCondition()}
+                {/* <AddModalContent
                   action={modalType}
                   reset={props.reset}
-                  // place={props.place}
-                  // errorPlace={props.errorPlace}
-                />
+                  place={props.place}
+                  onChange={props.onChange}
+                  errorPlace={props.errorPlace}
+                /> */}
               </div>
             </div>
           </div>

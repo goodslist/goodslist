@@ -49,9 +49,12 @@ export default function AddModalContent(props: any) {
       {(() => {
         if (props.action == 'reset') {
           return (
-            <button className={styles.button} onClick={() => props.reset()}>
-              {button_text}
-            </button>
+            <>
+              <div className={styles.modal_space}></div>
+              <button className={styles.button} onClick={() => props.reset()}>
+                {button_text}
+              </button>
+            </>
           )
         } else if (props.action == 'login') {
           return (
@@ -62,13 +65,14 @@ export default function AddModalContent(props: any) {
         } else if (props.action == 'place') {
           return (
             <>
+              <div className={styles.modal_space}></div>
               <InputText
                 // valid={validName}
                 name='text'
                 type='place'
                 placeholder='会場名'
                 value={props.place}
-                onChange={props.onChangePlace}
+                onChange={props.onChange}
                 error={props.errorPlace}
               />
               <button className={styles.button} onClick={() => close()}>

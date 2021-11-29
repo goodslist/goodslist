@@ -204,7 +204,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
             <div className={styles.event_date_container}>
               <p className={styles.event_date}>{dateFormat(propsEvent.date)}</p>
             </div>
-            <div className={styles.event_screenshot_title}>↓　スクショ用表示　↓</div>
+            <div className={styles.event_screenshot_title}>一覧表示</div>
           </main>
         </div>
         <div className={styles.wrapper_glay}>

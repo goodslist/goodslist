@@ -8,6 +8,7 @@ import { supabase } from '../components/supabase'
 import styles from '../styles/Home.module.css'
 import Search from './img/search.svg'
 import { useRouter } from 'next/router'
+import Loading from '../components/modal/Loading'
 
 type EventInfo = {
   content_id: number
@@ -116,6 +117,7 @@ const Home = ({ eventList }: Props) => {
               <Search />
             </span>
           </form>
+          <Loading />
         </main>
       </div>
       <div className={styles.wrapper_glay}>

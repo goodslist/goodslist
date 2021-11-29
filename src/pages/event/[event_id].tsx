@@ -33,6 +33,7 @@ import { AuthContext } from '../../components/auth/AuthContext'
 import { ListContext } from '../../components/list/ListContext'
 import { ModalContext } from '../../components/modal/ModalContext'
 import Modal from '../../components/modal/Modal'
+import Loading from '../../components/modal/Loading'
 import DateFnsUtils from '@date-io/date-fns'
 import jaLocale from 'date-fns/locale/ja'
 import { format } from 'date-fns'
@@ -197,10 +198,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   const [TotalCount, setTotalCount] = useState(0)
 
   //会場
-  const [place, setPlace] = useState('千葉県 幕張メッセ 国際展示場9〜11ホール')
-
-  //会場
-  const [isPlace, setIsPlace] = useState(true)
+  const [place, setPlace] = useState('')
 
   const [errorPlace, setErrorPlace] = useState('')
 
@@ -287,33 +285,49 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     setGroups(newGroups)
   }
 
-  const { setOpenModalFlag, modalType, setModalType, setOpenModalContentFlag }: any =
-    useContext(ModalContext)
+  const {
+    setOpenModalFlag,
+    modalType,
+    setModalType,
+    setOpenModalContentFlag,
+    isLoading,
+    setIsLoading,
+  }: any = useContext(ModalContext)
 
   const save = async () => {
-    if (currentUser) {
-      let itemCounts: SaveItem[] = []
-      currentItems?.map((item) => {
-        if (item.item_count > 0) {
-          const itemCount = { item_id: item.item_id, item_count: item.item_count }
-          itemCounts.push(itemCount)
-        }
-      })
-      console.log(itemCounts)
+    setIsLoading(true)
+    console.log(isLoading)
+    // if (currentUser) {
+    //   let itemCounts: SaveItem[] = []
+    //   currentItems?.map((item) => {
+    //     if (item.item_count > 0) {
+    //       const itemCount = { item_id: item.item_id, item_count: item.item_count }
+    //       itemCounts.push(itemCount)
+    //     }
+    //   })
 
-      const { data, error } = await supabase.from('lists').insert([
-        {
-          user_id: currentUser,
-          event_id: propsEvent.event_id,
-          date: new Date(),
-          groups: 'グループ1',
-          goods: itemCounts,
-          updated_at: new Date(),
-        },
-      ])
-      if (data) setCurrentListId(data[0].list_id)
-    }
-    setIsSave(false)
+    //   const { data, error } = await supabase.from('lists').insert([
+    //     {
+    //       user_id: currentUser,
+    //       event_id: currentEventId,
+    //       date: new Date(),
+    //       groups: 'グループ1',
+    //       goods: itemCounts,
+    //       updated_at: new Date(),
+    //     },
+    //   ])
+    //   if (data) setCurrentListId(data[0].list_id)
+    //   setOpenModalFlag(true)
+    //   setOpenModalContentFlag(true)
+    //   setModalType('save')
+    //   setTimeout(function () {
+    //     setOpenModalFlag(false)
+    //     setOpenModalContentFlag(false)
+    //   }, 1000)
+    //   setIsSave(false)
+    // } else {
+    //   openModal('notLogin')
+    // }
   }
 
   const openModal = (action: string) => {
@@ -409,10 +423,6 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     isMemo ? setIsMemo(false) : setIsMemo(true)
   }
 
-  const clickPlace = () => {
-    isPlace ? setIsPlace(false) : setIsPlace(true)
-  }
-
   const allClose = () => {
     const newGroups = [...groups]
     newGroups.map((newGroup) => {
@@ -492,7 +502,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
             </div>
             <div
               className={
-                isPlace ? styles.event_place_container_active : styles.event_place_container
+                place == '' ? styles.event_place_container : styles.event_place_container_active
               }
             >
               <p className={styles.event_place}>{place}</p>
@@ -517,7 +527,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               </p>
               <Link href={'screenshot/' + propsEvent.event_id}>
                 <a className={styles.tag_screenshot}>
-                  スクショ
+                  一覧表示
                   <IconScreenshot />
                 </a>
               </Link>
@@ -552,13 +562,13 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               <div className={styles.sort_container}>
                 <button
                   className={isDefaultSort ? styles.sort_nomal_active : styles.sort_nomal}
-                  onClick={currentUser ? () => sort('default') : () => openModal('login')}
+                  onClick={currentUser ? () => sort('default') : () => openModal('notLogin')}
                 >
                   通常順
                 </button>
                 <button
                   className={isDefaultSort ? styles.sort_buy : styles.sort_buy_active}
-                  onClick={currentUser ? () => sort('buy') : () => openModal('login')}
+                  onClick={currentUser ? () => sort('buy') : () => openModal('notLogin')}
                 >
                   購入順
                 </button>
@@ -655,8 +665,9 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
           </main>
         </div>
       </div>
-      <Modal reset={reset} />
-      {/* <Modal reset={reset} place={place} onChangePlace={setPlace} errorPlace={errorPlace} /> */}
+      {/* <Modal reset={reset} /> */}
+      <Modal reset={reset} place={place} onChange={setPlace} errorPlace={errorPlace} />
+      <Loading />
     </>
   )
 }
