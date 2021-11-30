@@ -239,7 +239,7 @@
   content: '';
   position: absolute;
   top: 50%;
-  left: 130px;
+  left: 140px;
   transform: translate(0, -50%);
   -webkit-transform: translate(0, -50%);
   -ms-transform: translate(0, -50%);

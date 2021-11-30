@@ -520,6 +520,12 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
           fontSize: '1.4rem',
           color: '#666666',
           cursor: 'pointer',
+          '&&::focus': {
+            border: 'none',
+          },
+          '&&:hover': {
+            border: 'none',
+          },
         },
       },
       MuiInput: {
