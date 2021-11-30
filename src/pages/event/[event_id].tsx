@@ -170,7 +170,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   //合計個数
   const [totalCount, setTotalCount] = useState(0)
 
-  //会場名
+  //日程(YYYY-MM-DD)
   const [date, setDate] = useState(propsEvent.date)
 
   //会場名
@@ -197,9 +197,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
       if (localStorageEventId == String(propsEvent.event_id)) {
         //一致している場合、ローカルストレージから情報を読み込む
 
-        const localStorageListId = localStorage.getItem('listId')
-        if (localStorageListId) setListId(Number(localStorageListId))
-
+        //ローカルストレージのアイテムカウントを読み込み、アイテムを更新する。
         const localStorageItemCounts = JSON.parse(localStorage.getItem('itemCounts')!)
         const newItems = [...items]
         localStorageItemCounts.map((ItemCount: ItemCount) => {
@@ -210,9 +208,19 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
         setItems(newItems)
         setItemCounts(localStorageItemCounts)
 
+        //リストIDがあるなら、ステートに読み込む。
+        const localStorageListId = localStorage.getItem('listId')
+        if (localStorageListId) setListId(Number(localStorageListId))
+
+        //会場名があるなら、ステートに読み込む。
+        const localStorageDate = localStorage.getItem('date')
+        if (localStorageDate) setDate(localStorageDate)
+
+        //会場名があるなら、ステートに読み込む。
         const localStoragePlace = localStorage.getItem('place')
         if (localStoragePlace) setPlace(localStoragePlace)
 
+        //メモがあるなら、ステートに読み込む。
         const localStorageMemo = localStorage.getItem('memo')
         if (localStorageMemo) setMemo(localStorageMemo)
 
@@ -220,6 +228,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
       } else {
         localStorage.removeItem('listId')
         localStorage.removeItem('items')
+        localStorage.removeItem('date')
         localStorage.removeItem('place')
         localStorage.removeItem('memo')
         localStorage.setItem('eventId', String(propsEvent.event_id))
@@ -234,6 +243,11 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     countTotal()
     localStorage.setItem('itemCounts', JSON.stringify(itemCounts))
   }, [itemCounts])
+
+  //日時が更新されたら、ローカルストレージの日時をを更新する。
+  useEffect(() => {
+    localStorage.setItem('date', date)
+  }, [date])
 
   //会場名が更新されたら、ローカルストレージの会場名をを更新する。
   useEffect(() => {
@@ -465,7 +479,9 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
 
   const changeDateHandler = (newDate: any): void => {
     // setDate(newDate)
-    console.log(newDate)
+    setDate(
+      newDate.getFullYear() + '-' + (Number(newDate.getMonth()) + 1) + '-' + newDate.getDate(),
+    )
   }
 
   class ExtendedUtils extends DateFnsUtils {
@@ -496,13 +512,14 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
       //overrideで既存スタイルを上書き
       MuiInputBase: {
         root: {
-          width: '220px',
+          width: '170px',
         },
         input: {
           background: '#ffffff',
-          padding: '10px',
+          padding: '10px 0px',
           fontSize: '1.4rem',
           color: '#666666',
+          cursor: 'pointer',
         },
       },
       MuiInput: {
@@ -592,14 +609,19 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               <h1 className={styles.h1}>{propsEvent.event_name}</h1>
             </div>
             <div className={styles.event_date_container}>
-              <p className={styles.event_date}>{dateFormat(date)}</p>
+              {/* <p className={styles.event_date}>{dateFormat(date)}</p> */}
+              <MuiPickersUtilsProvider utils={ExtendedUtils} locale={jaLocale}>
+                <ThemeProvider theme={materialTheme}>
+                  <DatePicker value={date} onChange={changeDateHandler} format='yyyy年MMMd日(E)' />
+                </ThemeProvider>
+              </MuiPickersUtilsProvider>
               <Calendar />
             </div>
-            <MuiPickersUtilsProvider utils={ExtendedUtils} locale={jaLocale}>
+            {/* <MuiPickersUtilsProvider utils={ExtendedUtils} locale={jaLocale}>
               <ThemeProvider theme={materialTheme}>
                 <DatePicker value={date} onChange={changeDateHandler} format='yyyy年MMMd日(E)' />
               </ThemeProvider>
-            </MuiPickersUtilsProvider>
+            </MuiPickersUtilsProvider> */}
             <div
               className={
                 place == '' ? styles.event_place_container : styles.event_place_container_active

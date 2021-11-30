@@ -148,6 +148,9 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   //アイテムカウントの配列(DBとローカルストレージに保存する配列)
   const [itemCounts, setItemCounts] = useState<ItemCount[]>([])
 
+  //日程(YYYY-MM-DD)
+  const [date, setDate] = useState(propsEvent.date)
+
   //会場名
   const [place, setPlace] = useState('')
 
@@ -185,6 +188,10 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
         if (localStorageListId) setListId(Number(localStorageListId))
 
         //会場名があるなら、ステートに読み込む。
+        const localStorageDate = localStorage.getItem('date')
+        if (localStorageDate) setDate(localStorageDate)
+
+        //会場名があるなら、ステートに読み込む。
         const localStoragePlace = localStorage.getItem('place')
         if (localStoragePlace) setPlace(localStoragePlace)
 
@@ -196,6 +203,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
       } else {
         localStorage.removeItem('listId')
         localStorage.removeItem('items')
+        localStorage.removeItem('date')
         localStorage.removeItem('place')
         localStorage.setItem('eventId', String(propsEvent.event_id))
       }
@@ -256,7 +264,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               <h1 className={styles.h1}>{propsEvent.event_name}</h1>
             </div>
             <div className={styles.event_date_container}>
-              <p className={styles.event_date}>{dateFormat(propsEvent.date)}</p>
+              <p className={styles.event_date}>{dateFormat(date)}</p>
             </div>
             <div className={styles.event_screenshot_title}>一覧表示</div>
           </main>
@@ -266,7 +274,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
             <div className={styles.screenshot_container}>
               <p className={styles.s_content_name}>{propsEvent.content_name}</p>
               <p className={styles.s_event_name}>{propsEvent.event_name}</p>
-              <p className={styles.s_event_date}>{dateFormat(propsEvent.date)}</p>
+              <p className={styles.s_event_date}>{dateFormat(date)}</p>
               {place ? <p className={styles.s_event_date}>{place}</p> : <></>}
               {memo ? <p className={styles.s_event_date}>{memo}</p> : <></>}
               <div className={styles.s_total_container}>
