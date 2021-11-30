@@ -30,7 +30,7 @@ input:focus,
 textarea:focus {
   outline: none;
   background-color: #fff;
-  border: 1px solid #68a9cf;
+  /* border: 1px solid #68a9cf; */
   transition: all 0.5s;
 }
 

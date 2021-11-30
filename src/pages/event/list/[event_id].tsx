@@ -285,7 +285,9 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                           <div className={styles.s_detail_container}>
                             <p className={styles.s_item_type}>
                               {item.item_type}
+                              {item.item_type && item.color ? ' ' : ''}
                               {item.color}
+                              {item.color && item.size ? ' ' : ''}
                               {item.size}
                             </p>
                             <p className={styles.s_price}>
@@ -300,7 +302,9 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                           <div className={styles.s_detail_container}>
                             <p className={styles.s_item_type}>
                               {item.item_type}
+                              {item.item_type && item.color ? ' ' : ''}
                               {item.color}
+                              {item.color && item.size ? ' ' : ''}
                               {item.size}
                             </p>
                             <p className={styles.s_price}>

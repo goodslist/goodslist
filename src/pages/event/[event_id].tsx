@@ -46,6 +46,8 @@ import {
   startSortAnimation,
 } from '../../components/list/Sort'
 import { EventInfo, Group, Item, ItemCount } from '../../components/types/event'
+import { createTheme } from '@material-ui/core/styles'
+import { ThemeProvider } from '@material-ui/styles'
 
 type PathParams = {
   event_id: string
@@ -178,7 +180,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   const [errorPlace, setErrorPlace] = useState('')
 
   //メモの内容
-  const [memo, setMemo] = useState('〇〇の分')
+  const [memo, setMemo] = useState('')
 
   //メモ入力のエラー
   const [errorMemo, setErrorMemo] = useState('')
@@ -461,9 +463,10 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     startSortAnimation(groups, nowGroupHeights)
   }, [sortFlag])
 
-  // const changeDateHandler = (newDate: Date | null): void => {
-  //   setDate(newDate)
-  // }
+  const changeDateHandler = (newDate: any): void => {
+    // setDate(newDate)
+    console.log(newDate)
+  }
 
   class ExtendedUtils extends DateFnsUtils {
     getCalendarHeaderText(date: Date) {
@@ -478,6 +481,60 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
       return seireki
     }
   }
+
+  //会場名の入力文字数制限をする。
+  const validatePlace = (place: string) => {
+    if (place.length < 31) setPlace(place)
+  }
+  //メモの入力文字数制限をする。
+  const validateMemo = (memo: string) => {
+    if (memo.length < 101) setMemo(memo)
+  }
+
+  const materialTheme = createTheme({
+    overrides: {
+      //overrideで既存スタイルを上書き
+      MuiInputBase: {
+        root: {
+          width: '220px',
+        },
+        input: {
+          background: '#ffffff',
+          padding: '10px',
+          fontSize: '1.4rem',
+          color: '#666666',
+        },
+      },
+      MuiInput: {
+        underline: {
+          border: 'none',
+          '&&::before': {
+            border: 'none',
+          },
+          '&&:hover::before': {
+            border: 'none',
+          },
+          '&&:hover::after': {
+            border: 'none',
+          },
+          '&&::after': {
+            border: 'none',
+          },
+          '&&::focus': {
+            border: 'none',
+          },
+        },
+      },
+      MuiOutlinedInput: {
+        input: {
+          padding: '5px',
+        },
+        notchedOutline: {
+          border: 'none',
+        },
+      },
+    },
+  })
 
   return (
     <>
@@ -538,6 +595,11 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               <p className={styles.event_date}>{dateFormat(date)}</p>
               <Calendar />
             </div>
+            <MuiPickersUtilsProvider utils={ExtendedUtils} locale={jaLocale}>
+              <ThemeProvider theme={materialTheme}>
+                <DatePicker value={date} onChange={changeDateHandler} format='yyyy年MMMd日(E)' />
+              </ThemeProvider>
+            </MuiPickersUtilsProvider>
             <div
               className={
                 place == '' ? styles.event_place_container : styles.event_place_container_active
@@ -615,14 +677,6 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               </div>
             </div>
             <div className={styles.grid}>
-              {/* <MuiPickersUtilsProvider utils={ExtendedUtils} locale={jaLocale}>
-                <DatePicker
-                  value={date}
-                  onChange={changeDateHandler}
-                  format='yyyy年MMMd日(E)'
-                  label='DateTimePicker'
-                />
-              </MuiPickersUtilsProvider> */}
               <ul className={styles.ul_event}>
                 {groups.map((group: Group, index: number) => (
                   <>
@@ -709,10 +763,11 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
       <Modal
         reset={reset}
         place={place}
-        onChangePlace={setPlace}
+        onChangePlace={validatePlace}
+        // onChangePlace={setPlace}
         errorPlace={errorPlace}
         memo={memo}
-        onChangeMemo={setMemo}
+        onChangeMemo={validateMemo}
         errorMemo={errorMemo}
       />
       <Loading />

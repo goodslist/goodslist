@@ -2,7 +2,6 @@ import { useEffect, useState, useContext } from 'react'
 import ClientOnlyPortal from './ClientOnlyPortal'
 import styles from '../../styles/Modal.module.css'
 import { ModalContext } from './ModalContext'
-import AddModalContent from './AddModalContent'
 import Place from './contents/Place'
 import Memo from './contents/Memo'
 import Reset from './contents/Reset'
@@ -32,12 +31,12 @@ export default function Modal(props: any) {
   const clickModalContent = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation()
   }
-  const renderWithCondition = () => {
+  const renderModalContent = () => {
     switch (modalType) {
       case 'place':
         return <Place place={props.place} onChange={props.onChangePlace} close={onClickClose} />
       case 'memo':
-        return <Memo memo={props.memo} onChange={props.onChangeMemo} />
+        return <Memo memo={props.memo} onChange={props.onChangeMemo} close={onClickClose} />
       case 'reset':
         return <Reset reset={props.reset} />
       case 'notLogin':
@@ -46,28 +45,6 @@ export default function Modal(props: any) {
         return <Message message='セーブしました' />
     }
   }
-
-  // switch (modalType) {
-  //   case 'place':
-  //     setContent(
-  //       <Place
-  //         title='会場名を入力'
-  //         place={props.place}
-  //         onChange={props.onChange}
-  //         close={onClickClose}
-  //       />,
-  //     )
-  //     break
-  //   // case 'place':
-  //   //   setContent(<Place
-  //   //     title='会場名を入力'
-  //   //     place={props.place}
-  //   //     onChange={props.onChange}
-  //   //     close={onClickClose}
-  //   //   />)
-  //   //   break;
-  // }
-
   return (
     <>
       {open && (
@@ -85,16 +62,7 @@ export default function Modal(props: any) {
               {/* <div className={styles.close_button_container}> */}
               <span className={styles.close_button} onClick={() => onClickClose()}></span>
               {/* </div> */}
-              <div className={styles.modal_content}>
-                {renderWithCondition()}
-                {/* <AddModalContent
-                  action={modalType}
-                  reset={props.reset}
-                  place={props.place}
-                  onChange={props.onChange}
-                  errorPlace={props.errorPlace}
-                /> */}
-              </div>
+              <div className={styles.modal_content}>{renderModalContent()}</div>
             </div>
           </div>
         </ClientOnlyPortal>

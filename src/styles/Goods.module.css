@@ -248,12 +248,6 @@
 .event_memo_container_active,
 .event_place_container,
 .event_place_container_active {
-}
-
-.event_memo_container,
-.event_memo_container_active,
-.event_place_container,
-.event_place_container_active {
   margin: 10px 0 0 0;
   width: 100%;
   padding: 0 20px;
