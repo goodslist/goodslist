@@ -29,7 +29,6 @@ import Button_top from '../../../components/Button_top'
 import { animateScroll as scroll } from 'react-scroll'
 import { numberFormat, dateFormat } from '../../../components/Utils'
 import { AuthContext } from '../../../components/auth/AuthContext'
-import { ListContext } from '../../../components/list/ListContext'
 import { ModalContext } from '../../../components/modal/ModalContext'
 import Modal from '../../../components/modal/Modal'
 import DateFnsUtils from '@date-io/date-fns'
@@ -44,7 +43,7 @@ import {
   returnPosition,
   startSortAnimation,
 } from '../../../components/list/Sort'
-import { EventInfo, Group, Item, SaveItem } from '../../../components/types/event'
+import { EventInfo, Group, Item, ItemCount } from '../../../components/types/event'
 import { useRouter } from 'next/router'
 
 type PathParams = {
@@ -139,24 +138,81 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   //ログインユーザー
   const { currentUser }: any = useContext(AuthContext)
-  const { currentListId, currentEventId, currentItems } = useContext(ListContext)
+
+  //保存した場合のリストのID
+  const [listId, setListId] = useState(0)
+
+  // アイテムの配列
+  const [items, setItems] = useState<Item[]>(propsItems.map((item) => Object.assign({}, item)))
+
+  //アイテムカウントの配列(DBとローカルストレージに保存する配列)
+  const [itemCounts, setItemCounts] = useState<ItemCount[]>([])
+
+  //会場名
+  const [place, setPlace] = useState('')
+
+  //メモ
+  const [memo, setMemo] = useState('')
+
+  //合計金額
+  const [totalPrice, setTotalPrice] = useState(0)
+
+  //合計個数
+  const [totalCount, setTotalCount] = useState(0)
 
   const router = useRouter()
 
   useEffect(() => {
-    if (!currentEventId || !currentItems) {
-      router.push('/event/' + propsEvent.event_id)
-    }
+    const localStorageEventId = localStorage.getItem('eventId')
+    //ローカルストレージに引き継がれたイベントIDがあるかどうか
+    if (localStorageEventId) {
+      //引き継がれたイベントIDと今表示しているイベントが一致するかどうか
+      if (localStorageEventId == String(propsEvent.event_id)) {
+        //一致しているなら、ローカルストレージから情報を読み込む
+
+        //ローカルストレージのアイテムカウントを読み込み、アイテムを更新する。
+        const localStorageItemCounts = JSON.parse(localStorage.getItem('itemCounts')!)
+        const newItems = [...items]
+        localStorageItemCounts.map((ItemCount: ItemCount) => {
+          newItems.map((item: Item) => {
+            if (ItemCount.item_id == item.item_id) item.item_count = ItemCount.item_count
+          })
+        })
+        setItems(newItems)
+
+        //リストIDがあるなら、ステートに読み込む。
+        const localStorageListId = localStorage.getItem('listId')
+        if (localStorageListId) setListId(Number(localStorageListId))
+
+        //会場名があるなら、ステートに読み込む。
+        const localStoragePlace = localStorage.getItem('place')
+        if (localStoragePlace) setPlace(localStoragePlace)
+
+        //メモがあるなら、ステートに読み込む。
+        const localStorageMemo = localStorage.getItem('memo')
+        if (localStorageMemo) setMemo(localStorageMemo)
+
+        //一致しない場合、ローカルストレージの情報を削除して新規にイベントIDを追加
+      } else {
+        localStorage.removeItem('listId')
+        localStorage.removeItem('items')
+        localStorage.removeItem('place')
+        localStorage.setItem('eventId', String(propsEvent.event_id))
+      }
+      //引き継がれたイベントIDがない場合、新規にイベントIDを追加
+    } else localStorage.setItem('eventId', String(propsEvent.event_id))
+
+    let totalPrice: number = 0
+    let totalCount: number = 0
+    items.map((item) => {
+      if (item.item_count > 0) {
+        totalPrice = totalPrice + item.price * item.item_count
+        totalCount = totalCount + item.item_count
+      }
+    })
+    setTotalPrice(totalPrice)
+    setTotalCount(totalCount)
   }, [])
-
-  let totalPrice: number = 0
-  let totalCount: number = 0
-
-  currentItems.map((item) => {
-    totalPrice = totalPrice + item.price * item.item_count
-    totalCount = totalCount + item.item_count
-  })
-
   let prevGroupId = 0
 
   return (
@@ -176,9 +232,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
           <main className={styles.main}>
             <div className={styles.list_header_container}>
               <div className={styles.list_header_status}>
-                <p className={styles.tag_status}>
-                  {currentListId ? 'マイリスト' + currentListId : '新規作成'}
-                </p>
+                <p className={styles.tag_status}>{listId ? 'マイリスト' + listId : '新規作成'}</p>
               </div>
               <div className={styles.list_header_sns}>
                 <a href={propsEvent.url} target='_blank'>
@@ -213,13 +267,13 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               <p className={styles.s_content_name}>{propsEvent.content_name}</p>
               <p className={styles.s_event_name}>{propsEvent.event_name}</p>
               <p className={styles.s_event_date}>{dateFormat(propsEvent.date)}</p>
-              <p className={styles.s_event_date}>千葉県 幕張メッセ 国際展示場9〜11ホール</p>
-              <p className={styles.s_event_date}>〇〇用</p>
+              {place ? <p className={styles.s_event_date}>{place}</p> : <></>}
+              {memo ? <p className={styles.s_event_date}>{memo}</p> : <></>}
               <div className={styles.s_total_container}>
                 <div className={styles.s_total_count}>{totalCount}点</div>
                 <div className={styles.s_total_price}>&yen;{numberFormat(totalPrice)}</div>
               </div>
-              {currentItems.map((item: Item) =>
+              {items.map((item: Item) =>
                 (() => {
                   if (item.item_count > 0) {
                     if (prevGroupId != item.group_id) {

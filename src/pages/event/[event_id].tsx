@@ -30,7 +30,6 @@ import Button_top from '../../components/Button_top'
 import { animateScroll as scroll } from 'react-scroll'
 import { numberFormat, dateFormat } from '../../components/Utils'
 import { AuthContext } from '../../components/auth/AuthContext'
-import { ListContext } from '../../components/list/ListContext'
 import { ModalContext } from '../../components/modal/ModalContext'
 import Modal from '../../components/modal/Modal'
 import Loading from '../../components/modal/Loading'
@@ -46,7 +45,7 @@ import {
   returnPosition,
   startSortAnimation,
 } from '../../components/list/Sort'
-import { EventInfo, Group, Item, SaveItem } from '../../components/types/event'
+import { EventInfo, Group, Item, ItemCount } from '../../components/types/event'
 
 type PathParams = {
   event_id: string
@@ -140,66 +139,35 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   //ログインユーザー
   const { currentUser }: any = useContext(AuthContext)
-  const {
-    currentListId,
-    setCurrentListId,
-    currentEventId,
-    setCurrentEventId,
-    currentItems,
-    setCurrentItems,
-    currentGroups,
-    setCurrentGroups,
-  } = useContext(ListContext)
 
-  // setAGroups(propsGroups)
-  // console.log(agroups)
-  // const { currentListId, setCurrentListId, items, setItems, groups, setGroups } =
-  //   useContext(ListContext)
-  // useEffect(() => {
-  //   setGroups(propsGroups.map((group) => Object.assign({}, group)))
-  //   setItems(propsItems.map((item) => Object.assign({}, item)))
-  //   console.log(propsGroups.map((group) => Object.assign({}, group)))
-  // }, [])
+  //保存した場合のリストのID
+  const [listId, setListId] = useState(0)
 
-  setCurrentEventId(propsEvent.event_id)
-
-  // //グッズの情報の配列
+  // アイテムの配列
   const [items, setItems] = useState<Item[]>(propsItems.map((item) => Object.assign({}, item)))
-  setCurrentItems(items)
 
-  // //グッズの情報の初期値の配列(更新しない)
+  // アイテムの初期値の配列(更新しない)
   const initialItems: Item[] = [...propsItems.map((item) => Object.assign({}, item))]
 
-  //グッズグループ情報の配列
-
+  //グループの配列
   const [groups, setGroups] = useState(propsGroups.map((group) => Object.assign({}, group)))
-  setCurrentGroups(groups)
-  useEffect(() => {
-    setCurrentGroups(groups)
-  }, [groups])
 
-  useEffect(() => {
-    setCurrentItems(items)
-  }, [items])
-
-  const test = () => {
-    currentItems!.map((newItem) => {
-      if (newItem.item_id == 438) console.log(newItem.item_name)
-    })
-  }
-
-  //グッズグループ情報の初期値の配列(更新しない)
+  //グループの初期値の配列(更新しない)
   const initialGroups: Group[] = [...propsGroups]
 
+  //アイテムカウントの配列(DBとローカルストレージに保存する配列)
+  const [itemCounts, setItemCounts] = useState<ItemCount[]>([])
+
   //合計金額
-  const [TotalPrice, setTotalPrice] = useState(0)
+  const [totalPrice, setTotalPrice] = useState(0)
 
   //合計個数
-  const [TotalCount, setTotalCount] = useState(0)
+  const [totalCount, setTotalCount] = useState(0)
 
-  //会場
+  //会場名
   const [place, setPlace] = useState('')
 
+  //会場名入力のエラー
   const [errorPlace, setErrorPlace] = useState('')
 
   //メモの内容
@@ -211,11 +179,58 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   //今セーブできるかどうかのフラグ
   const [isSave, setIsSave] = useState(false)
 
-  //リセットボタンが押された場合、グッズとグループのカウントを0にする
+  useEffect(() => {
+    const localStorageEventId = localStorage.getItem('eventId')
+    //ローカルストレージに引き継がれたイベントIDがあるかどうか
+    if (localStorageEventId) {
+      //引き継がれたイベントIDと今表示しているイベントが一致するかどうか
+      if (localStorageEventId == String(propsEvent.event_id)) {
+        //一致している場合、ローカルストレージから情報を読み込む
+
+        const localStorageListId = localStorage.getItem('listId')
+        if (localStorageListId) setListId(Number(localStorageListId))
+
+        const localStorageItemCounts = JSON.parse(localStorage.getItem('itemCounts')!)
+        const newItems = [...items]
+        localStorageItemCounts.map((ItemCount: ItemCount) => {
+          newItems.map((item: Item) => {
+            if (ItemCount.item_id == item.item_id) item.item_count = ItemCount.item_count
+          })
+        })
+        setItems(newItems)
+        setItemCounts(localStorageItemCounts)
+
+        const localStoragePlace = localStorage.getItem('place')
+        if (localStoragePlace) setPlace(localStoragePlace)
+        //一致しない場合、ローカルストレージの情報を削除して新規にイベントIDを追加
+      } else {
+        localStorage.removeItem('listId')
+        localStorage.removeItem('items')
+        localStorage.removeItem('place')
+        localStorage.setItem('eventId', String(propsEvent.event_id))
+      }
+      //引き継がれたイベントIDがない場合、新規にイベントIDを追加
+    } else localStorage.setItem('eventId', String(propsEvent.event_id))
+  }, [])
+
+  //アイテムカウントが更新されたら小計と合計金額を計算し、ローカルストレージのアイテムカウントをを更新する。
+  useEffect(() => {
+    countSubTotal()
+    countTotal()
+    localStorage.setItem('itemCounts', JSON.stringify(itemCounts))
+  }, [itemCounts])
+
+  //会場名が更新されたら、ローカルストレージの会場名をを更新する。
+  useEffect(() => {
+    localStorage.setItem('place', place)
+  }, [place])
+
+  //リセットボタンが押されたら、グッズとグループとアイテムカウントのカウントを0にし、ソートを通常順にする。
   const reset = () => {
     sort('default')
     setItems(initialItems.map((item) => Object.assign({}, item)))
     setGroups(initialGroups.map((initialGroup) => Object.assign({}, initialGroup)))
+    setItemCounts([])
     setIsDefaultSort(true)
 
     //モーダルを閉じる
@@ -223,65 +238,102 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     setOpenModalContentFlag(false)
   }
 
-  //プラスボタンが押されるとグッズのカウントを+1する。
-  const plusCount = (id: number) => {
+  //プラスボタンが押されたら、グッズのカウントを+1し、アイテムカウントを更新する。
+  const countPlus = (itemId: number) => {
     const newItems = [...items]
-    const newGroups = [...groups]
-    if (newItems[id].item_count < 99) {
-      newItems[id].item_count = newItems[id].item_count + 1
-      setItems(newItems)
-      //小計のカウントを+1する。
-      newGroups.map((newGroup) => {
-        if (newGroup.group_id == newItems[id].group_id) newGroup.group_count++
-      })
-      setGroups(newGroups)
-      setIsSave(true)
-    }
-  }
-
-  //マイナスボタンが押されるとグッズのカウントを-1する。
-  const minusCount = (id: number) => {
-    const newItems = [...items]
-    const newGroups = [...groups]
-    if (newItems[id].item_count > 0) {
-      newItems[id].item_count = newItems[id].item_count - 1
-      setItems(newItems)
-      //小計のカウントを+1する。
-      newGroups.map((newGroup) => {
-        if (newGroup.group_id == newItems[id].group_id) newGroup.group_count--
-      })
-      setGroups(newGroups)
-      setIsSave(true)
-    }
-  }
-
-  //グッズのカウントが更新されたら、合計金額を更新する。
-  useEffect(() => {
-    const newItems = [...items]
-    const newGroups = [...groups]
-    let newTotalPrice = 0
-    let newTotalCount = 0
-    newItems.map((newItem) => {
-      newTotalPrice = newTotalPrice + newItem.price * newItem.item_count
-      newTotalCount = newTotalCount + newItem.item_count
+    const newItemCounts: ItemCount[] = []
+    newItems.map((item) => {
+      if (item.item_id == itemId) {
+        if (99 > item.item_count) item.item_count = item.item_count + 1
+      }
+      if (item.item_count > 0)
+        newItemCounts.push({
+          item_id: item.item_id,
+          item_count: item.item_count,
+        })
     })
+    setItems(newItems)
+    setItemCounts(newItemCounts)
+    setIsSave(true)
+  }
+
+  //マイナスボタンが押されたら、グッズのカウントを-1し、アイテムカウントを更新する。
+  const countMinus = (itemId: number) => {
+    const newItems = [...items]
+    const newItemCounts: ItemCount[] = []
+    newItems.map((item) => {
+      if (item.item_id == itemId) {
+        if (item.item_count > 0) item.item_count = item.item_count - 1
+      }
+      if (item.item_count > 0)
+        newItemCounts.push({
+          item_id: item.item_id,
+          item_count: item.item_count,
+        })
+    })
+    setItems(newItems)
+    setItemCounts(newItemCounts)
+    setIsSave(true)
+  }
+
+  //小計を計算する。
+  const countSubTotal = () => {
+    const newItems = [...items]
+    const newGroups = [...groups]
     newGroups.map((newGroup) => {
+      newGroup.group_count = 0
+      newItems.map((item) => {
+        if (newGroup.group_id == item.group_id) {
+          if (99 > newGroup.group_count)
+            newGroup.group_count = newGroup.group_count + item.item_count
+        }
+      })
       newGroup.sub_total = newGroup.price * newGroup.group_count
+      if (newGroup.sub_total > 9999999) newGroup.sub_total = 9999999
     })
-    if (newTotalPrice > 999999) newTotalPrice = 999999
-    setTotalPrice(newTotalPrice)
-    setTotalCount(newTotalCount)
     setGroups(newGroups)
-  }, [items])
+  }
 
-  //グループの矢印がクリックされたら、グッズの個数の入力蘭を開閉する。
-  const chengeOpenCloseCss = (group_id: number) => {
+  //合計金額を計算する。
+  const countTotal = () => {
+    const newItems = [...items]
+    let newtotalPrice = 0
+    let newtotalCount = 0
+    newItems.map((newItem) => {
+      newtotalPrice = newtotalPrice + newItem.price * newItem.item_count
+      newtotalCount = newtotalCount + newItem.item_count
+    })
+    if (newtotalPrice > 9999999) newtotalPrice = 9999999
+    setTotalPrice(newtotalPrice)
+    setTotalCount(newtotalCount)
+  }
+
+  //グループの矢印がクリックされたら、アイテムの入力蘭を開閉する。
+  const openOrCloseItemInput = (group_id: number) => {
     const newGroups = [...groups]
     if (groups[group_id].open == true) {
       newGroups[group_id].open = false
     } else {
       newGroups[group_id].open = true
     }
+    setGroups(newGroups)
+  }
+
+  //トップの上向きの矢印がクリックされたら、全てのアイテムの入力蘭を閉じる。
+  const closeAllItemInputs = () => {
+    const newGroups = [...groups]
+    newGroups.map((newGroup) => {
+      newGroup.open = false
+    })
+    setGroups(newGroups)
+  }
+
+  //トップの下向きの矢印がクリックされたら、全てのアイテムの入力蘭を開く。
+  const openAllItemInputs = () => {
+    const newGroups = [...groups]
+    newGroups.map((newGroup) => {
+      newGroup.open = true
+    })
     setGroups(newGroups)
   }
 
@@ -295,39 +347,44 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   }: any = useContext(ModalContext)
 
   const save = async () => {
-    setIsLoading(true)
-    console.log(isLoading)
-    // if (currentUser) {
-    //   let itemCounts: SaveItem[] = []
-    //   currentItems?.map((item) => {
-    //     if (item.item_count > 0) {
-    //       const itemCount = { item_id: item.item_id, item_count: item.item_count }
-    //       itemCounts.push(itemCount)
-    //     }
-    //   })
+    //ユーザーがログインしているなら保存に進む。
+    if (currentUser) {
+      setIsLoading(true)
 
-    //   const { data, error } = await supabase.from('lists').insert([
-    //     {
-    //       user_id: currentUser,
-    //       event_id: currentEventId,
-    //       date: new Date(),
-    //       groups: 'グループ1',
-    //       goods: itemCounts,
-    //       updated_at: new Date(),
-    //     },
-    //   ])
-    //   if (data) setCurrentListId(data[0].list_id)
-    //   setOpenModalFlag(true)
-    //   setOpenModalContentFlag(true)
-    //   setModalType('save')
-    //   setTimeout(function () {
-    //     setOpenModalFlag(false)
-    //     setOpenModalContentFlag(false)
-    //   }, 1000)
-    //   setIsSave(false)
-    // } else {
-    //   openModal('notLogin')
-    // }
+      //リストIDが存在するなら、上書き保存する。
+      if (listId) {
+        console.log('リストあり')
+        //リストIDが存在しないなら、新規保存し、ローカルストレージにリストIDを追加する。
+      } else {
+        const { data, error } = await supabase.from('lists').insert([
+          {
+            user_id: currentUser,
+            event_id: propsEvent.event_id,
+            date: new Date(),
+            groups: 'グループ1',
+            goods: itemCounts,
+            updated_at: new Date(),
+          },
+        ])
+        if (data) {
+          setListId(data[0].list_id)
+          localStorage.setItem('listId', String(data[0].list_id))
+        }
+      }
+
+      setIsLoading(false)
+      setOpenModalFlag(true)
+      setOpenModalContentFlag(true)
+      setModalType('save')
+      setTimeout(function () {
+        setOpenModalFlag(false)
+        setOpenModalContentFlag(false)
+      }, 1000)
+      setIsSave(false)
+      //ユーザーがログインしていないなら、ログイン案内のモーダルを表示する。
+    } else {
+      openModal('notLogin')
+    }
   }
 
   const openModal = (action: string) => {
@@ -370,10 +427,6 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     //グループをソートする（この時点ではまだ画面にレンダリングはされていない）
     const sortedGroups = sortGroups(sortType, groups)
     setGroups(sortedGroups)
-
-    //ソートしたグループと同じ順にアイテムをソートする
-    // const sortedItems = sortItems(sortedGroups, items)
-    // setItems(sortedItems)
 
     // フラグを変えてuseLayoutEffectを呼び出す
     sortFlag ? setSortFlag(false) : setSortFlag(true)
@@ -423,22 +476,6 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     isMemo ? setIsMemo(false) : setIsMemo(true)
   }
 
-  const allClose = () => {
-    const newGroups = [...groups]
-    newGroups.map((newGroup) => {
-      newGroup.open = false
-    })
-    setGroups(newGroups)
-  }
-
-  const allOpen = () => {
-    const newGroups = [...groups]
-    newGroups.map((newGroup) => {
-      newGroup.open = true
-    })
-    setGroups(newGroups)
-  }
-
   return (
     <>
       <Head>
@@ -455,14 +492,14 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
         <div className={styles.total_bar_container}>
           <div className={styles.total_bar}>
             <div
-              className={isSave && TotalPrice > 0 ? styles.save : styles.save_off}
+              className={isSave && totalPrice > 0 ? styles.save : styles.save_off}
               onClick={() => save()}
             >
               <Save />
               保存
             </div>
-            <div className={styles.total_count}>{TotalCount}点</div>
-            <div className={styles.total}>&yen;{numberFormat(TotalPrice)}</div>
+            <div className={styles.total_count}>{totalCount}点</div>
+            <div className={styles.total}>&yen;{numberFormat(totalPrice)}</div>
           </div>
         </div>
         <div className={styles.wrapper_white}>
@@ -470,7 +507,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
             <div className={styles.list_header_container}>
               <div className={styles.list_header_status}>
                 <p className={styles.tag_status}>
-                  {currentListId ? 'マイリスト' + currentListId : '新規作成'}
+                  {listId > 0 ? 'マイリスト' + listId : '新規作成'}
                 </p>
               </div>
               <div className={styles.list_header_sns}>
@@ -489,9 +526,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               </div>
             </div>
             <div className={styles.contant_name_container}>
-              <p className={styles.content_name} onClick={() => test()}>
-                {propsEvent.content_name}
-              </p>
+              <p className={styles.content_name}>{propsEvent.content_name}</p>
             </div>
             <div className={styles.event_title_container}>
               <h1 className={styles.h1}>{propsEvent.event_name}</h1>
@@ -522,10 +557,10 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                 <IconPlace />
               </p>
               <p className={styles.tag_memo} onClick={() => clickMemo()}>
-                メモa
+                メモ
                 <IconMemo />
               </p>
-              <Link href={'screenshot/' + propsEvent.event_id}>
+              <Link href={'list/' + propsEvent.event_id}>
                 <a className={styles.tag_screenshot}>
                   一覧表示
                   <IconScreenshot />
@@ -535,10 +570,10 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                 リセット
                 <Reset />
               </p>
-              {/* <a href={propsEvent.url} target='_blank' className={styles.tag_screenshot}>
+              <a href={propsEvent.url} target='_blank' className={styles.tag_screenshot}>
                 新規作成
                 <Newlist />
-              </a> */}
+              </a>
             </div>
             {/* <div className={styles.event_link_container}>
               <a href={propsEvent.url} target='_blank' className={styles.tag_screenshot}>
@@ -556,8 +591,8 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
           <main className={styles.main}>
             <div className={styles.sort_arrow_container}>
               <div className={styles.arrow_container}>
-                <span className={styles.arrow_all_close} onClick={() => allClose()} />
-                <span className={styles.arrow_all_open} onClick={() => allOpen()} />
+                <span className={styles.arrow_all_close} onClick={() => closeAllItemInputs()} />
+                <span className={styles.arrow_all_open} onClick={() => openAllItemInputs()} />
               </div>
               <div className={styles.sort_container}>
                 <button
@@ -598,10 +633,10 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                           className={
                             groups[index].open ? styles.group_arrow_open : styles.group_arrow_close
                           }
-                          onClick={() => chengeOpenCloseCss(index)}
+                          onClick={() => openOrCloseItemInput(index)}
                         ></span>
                         <div className={styles.subtotalwrap}>
-                          <div className={styles.subtotalcount}>{groups[index].group_count}点</div>
+                          <div className={styles.subtotalCount}>{groups[index].group_count}点</div>
                           <div className={styles.subtotal}>
                             &yen;
                             {numberFormat(groups[index].sub_total)}
@@ -630,7 +665,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                                     </div>
                                     <div className={styles.plus_minus_container}>
                                       <button
-                                        onClick={() => minusCount(index)}
+                                        onClick={() => countMinus(item.item_id)}
                                         className={
                                           item.item_count > 0
                                             ? styles.minusButtonOn
@@ -640,7 +675,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                                         <span></span>
                                       </button>
                                       <button
-                                        onClick={() => plusCount(index)}
+                                        onClick={() => countPlus(item.item_id)}
                                         className={
                                           item.item_count < 99
                                             ? styles.plusButtonOn

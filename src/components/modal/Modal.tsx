@@ -6,6 +6,7 @@ import AddModalContent from './AddModalContent'
 import Place from './contents/Place'
 import Reset from './contents/Reset'
 import NotLogin from './contents/NotLogin'
+import Message from './contents/Message'
 
 export default function Modal(props: any) {
   const [open, setOpen] = useState(true)
@@ -38,6 +39,8 @@ export default function Modal(props: any) {
         return <Reset reset={props.reset} />
       case 'notLogin':
         return <NotLogin />
+      case 'save':
+        return <Message message='セーブしました' />
     }
   }
 

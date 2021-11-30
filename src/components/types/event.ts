@@ -29,7 +29,7 @@ export type Group = {
   open: boolean
 }
 
-export type SaveItem = {
+export type ItemCount = {
   item_id: number
   item_count: number
 }
