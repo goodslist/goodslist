@@ -140,6 +140,10 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   //ログインユーザー
   const { currentUser }: any = useContext(AuthContext)
 
+  //モーダル関連のコンテキスト
+  const { setOpenModalFlag, setModalType, setOpenModalContentFlag, setIsLoading }: any =
+    useContext(ModalContext)
+
   //保存した場合のリストのID
   const [listId, setListId] = useState(0)
 
@@ -165,6 +169,9 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   const [totalCount, setTotalCount] = useState(0)
 
   //会場名
+  const [date, setDate] = useState(propsEvent.date)
+
+  //会場名
   const [place, setPlace] = useState('')
 
   //会場名入力のエラー
@@ -173,12 +180,13 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   //メモの内容
   const [memo, setMemo] = useState('〇〇の分')
 
-  //メモ
-  const [isMemo, setIsMemo] = useState(false)
+  //メモ入力のエラー
+  const [errorMemo, setErrorMemo] = useState('')
 
   //今セーブできるかどうかのフラグ
   const [isSave, setIsSave] = useState(false)
 
+  //クライアントサイドでの初回レンダリング前の処理
   useEffect(() => {
     const localStorageEventId = localStorage.getItem('eventId')
     //ローカルストレージに引き継がれたイベントIDがあるかどうか
@@ -202,11 +210,16 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
 
         const localStoragePlace = localStorage.getItem('place')
         if (localStoragePlace) setPlace(localStoragePlace)
+
+        const localStorageMemo = localStorage.getItem('memo')
+        if (localStorageMemo) setMemo(localStorageMemo)
+
         //一致しない場合、ローカルストレージの情報を削除して新規にイベントIDを追加
       } else {
         localStorage.removeItem('listId')
         localStorage.removeItem('items')
         localStorage.removeItem('place')
+        localStorage.removeItem('memo')
         localStorage.setItem('eventId', String(propsEvent.event_id))
       }
       //引き継がれたイベントIDがない場合、新規にイベントIDを追加
@@ -224,6 +237,11 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   useEffect(() => {
     localStorage.setItem('place', place)
   }, [place])
+
+  //メモが更新されたら、ローカルストレージのメモをを更新する。
+  useEffect(() => {
+    localStorage.setItem('memo', memo)
+  }, [memo])
 
   //リセットボタンが押されたら、グッズとグループとアイテムカウントのカウントを0にし、ソートを通常順にする。
   const reset = () => {
@@ -337,15 +355,6 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     setGroups(newGroups)
   }
 
-  const {
-    setOpenModalFlag,
-    modalType,
-    setModalType,
-    setOpenModalContentFlag,
-    isLoading,
-    setIsLoading,
-  }: any = useContext(ModalContext)
-
   const save = async () => {
     //ユーザーがログインしているなら保存に進む。
     if (currentUser) {
@@ -452,11 +461,9 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     startSortAnimation(groups, nowGroupHeights)
   }, [sortFlag])
 
-  const [date, setDate] = useState<Date | null>(new Date())
-
-  const changeDateHandler = (newDate: Date | null): void => {
-    setDate(newDate)
-  }
+  // const changeDateHandler = (newDate: Date | null): void => {
+  //   setDate(newDate)
+  // }
 
   class ExtendedUtils extends DateFnsUtils {
     getCalendarHeaderText(date: Date) {
@@ -470,10 +477,6 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
       const seireki = date.getFullYear() + '年'
       return seireki
     }
-  }
-
-  const clickMemo = () => {
-    isMemo ? setIsMemo(false) : setIsMemo(true)
   }
 
   return (
@@ -532,7 +535,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               <h1 className={styles.h1}>{propsEvent.event_name}</h1>
             </div>
             <div className={styles.event_date_container}>
-              <p className={styles.event_date}>{dateFormat(propsEvent.date)}</p>
+              <p className={styles.event_date}>{dateFormat(date)}</p>
               <Calendar />
             </div>
             <div
@@ -543,7 +546,9 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               <p className={styles.event_place}>{place}</p>
             </div>
             <div
-              className={isMemo ? styles.event_memo_container_active : styles.event_memo_container}
+              className={
+                memo == '' ? styles.event_memo_container : styles.event_memo_container_active
+              }
             >
               <p className={styles.event_memo}>{memo}</p>
             </div>
@@ -556,7 +561,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                 会場名
                 <IconPlace />
               </p>
-              <p className={styles.tag_memo} onClick={() => clickMemo()}>
+              <p className={styles.tag_memo} onClick={() => openModal('memo')}>
                 メモ
                 <IconMemo />
               </p>
@@ -701,7 +706,15 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
         </div>
       </div>
       {/* <Modal reset={reset} /> */}
-      <Modal reset={reset} place={place} onChange={setPlace} errorPlace={errorPlace} />
+      <Modal
+        reset={reset}
+        place={place}
+        onChangePlace={setPlace}
+        errorPlace={errorPlace}
+        memo={memo}
+        onChangeMemo={setMemo}
+        errorMemo={errorMemo}
+      />
       <Loading />
     </>
   )

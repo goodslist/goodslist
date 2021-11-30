@@ -4,6 +4,7 @@ import styles from '../../styles/Modal.module.css'
 import { ModalContext } from './ModalContext'
 import AddModalContent from './AddModalContent'
 import Place from './contents/Place'
+import Memo from './contents/Memo'
 import Reset from './contents/Reset'
 import NotLogin from './contents/NotLogin'
 import Message from './contents/Message'
@@ -34,7 +35,9 @@ export default function Modal(props: any) {
   const renderWithCondition = () => {
     switch (modalType) {
       case 'place':
-        return <Place place={props.place} onChange={props.onChange} close={onClickClose} />
+        return <Place place={props.place} onChange={props.onChangePlace} close={onClickClose} />
+      case 'memo':
+        return <Memo memo={props.memo} onChange={props.onChangeMemo} />
       case 'reset':
         return <Reset reset={props.reset} />
       case 'notLogin':
