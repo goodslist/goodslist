@@ -508,6 +508,11 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   }
 
   const materialTheme = createTheme({
+    palette: {
+      primary: {
+        main: '#68a9cf',
+      },
+    },
     overrides: {
       //overrideで既存スタイルを上書き
       MuiInputBase: {
@@ -520,8 +525,6 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
           fontSize: '1.4rem',
           color: '#666666',
           cursor: 'pointer',
-          WebkitTapHighlightColor: 'none',
-          WebkitTouchCallout: 'none',
           '&&::focus': {
             border: 'none',
           },
@@ -548,11 +551,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
           '&&::focus': {
             border: 'none',
           },
-          WebkitTapHighlightColor: 'none',
-          WebkitTouchCallout: 'none',
         },
-        WebkitTapHighlightColor: 'none',
-        WebkitTouchCallout: 'none',
       },
       MuiOutlinedInput: {
         input: {
