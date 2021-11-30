@@ -520,6 +520,8 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
           fontSize: '1.4rem',
           color: '#666666',
           cursor: 'pointer',
+          WebkitTapHighlightColor: 'none',
+          WebkitTouchCallout: 'none',
           '&&::focus': {
             border: 'none',
           },
@@ -546,7 +548,11 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
           '&&::focus': {
             border: 'none',
           },
+          WebkitTapHighlightColor: 'none',
+          WebkitTouchCallout: 'none',
         },
+        WebkitTapHighlightColor: 'none',
+        WebkitTouchCallout: 'none',
       },
       MuiOutlinedInput: {
         input: {
