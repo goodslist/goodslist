@@ -76,9 +76,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const { event_id } = context.params as PathParams
 
   const { data, error } = await supabase
-    .from('goods')
+    .from('items')
     .select(
-      'goods_id, goods_name, group_id, goods_type, color, size, price, events(event_id, event_name, first_date, url, contents(content_id, content_name))',
+      'item_id, item_name, group, order, version, color, size, price, events(event_id, event_name, date, url, contents(content_id, content_name))',
     )
     .eq('event_id', event_id)
 
@@ -87,7 +87,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     content_name: data![0].events.contents.content_name,
     event_id: data![0].events.event_id,
     event_name: data![0].events.event_name,
-    date: data![0].events.first_date,
+    date: data![0].events.date,
     place: '',
     url: data![0].events.url,
     memo: '',
@@ -96,10 +96,10 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const items: Item[] = []
   data?.map((doc) => {
     const item: Item = {
-      item_id: doc.goods_id,
-      item_name: doc.goods_name,
-      group_id: doc.group_id,
-      item_type: doc.goods_type,
+      item_id: doc.item_id,
+      item_name: doc.item_name,
+      group: doc.group,
+      item_type: doc.version,
       color: doc.color,
       size: doc.size,
       price: doc.price,
@@ -111,9 +111,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const groups: Group[] = []
   let now_group = 1
   items.map((item) => {
-    if (item.group_id == now_group) {
+    if (item.group == now_group) {
       groups[now_group - 1] = {
-        group_id: item.group_id,
+        group: item.group,
         item_name: item.item_name,
         group_count: 0,
         price: item.price,
@@ -317,7 +317,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     newGroups.map((newGroup) => {
       newGroup.group_count = 0
       newItems.map((item) => {
-        if (newGroup.group_id == item.group_id) {
+        if (newGroup.group == item.group) {
           if (99 > newGroup.group_count)
             newGroup.group_count = newGroup.group_count + item.item_count
         }
@@ -343,12 +343,12 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   }
 
   //グループの矢印がクリックされたら、アイテムの入力蘭を開閉する。
-  const openOrCloseItemInput = (group_id: number) => {
+  const openOrCloseItemInput = (group: number) => {
     const newGroups = [...groups]
-    if (groups[group_id].open == true) {
-      newGroups[group_id].open = false
+    if (groups[group].open == true) {
+      newGroups[group].open = false
     } else {
-      newGroups[group_id].open = true
+      newGroups[group].open = true
     }
     setGroups(newGroups)
   }
@@ -715,8 +715,8 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                   <>
                     <li
                       className={styles.card2}
-                      key={group.group_id}
-                      id={String(group.group_id)}
+                      key={group.group}
+                      id={String(group.group)}
                       ref={nowGroupHeights.current[index]}
                     >
                       <div className={styles.goods_name}>{group.item_name}</div>
@@ -745,7 +745,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                         <hr className={styles.li_goods_line} />
                         {items.map((item: Item, index: number) =>
                           (() => {
-                            if (group.group_id == item.group_id) {
+                            if (group.group == item.group) {
                               return (
                                 <>
                                   <div className={styles.goods_detail_container}>

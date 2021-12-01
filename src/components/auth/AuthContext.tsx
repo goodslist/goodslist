@@ -21,20 +21,20 @@ const firebaseApp = initializeApp(firebaseConfig)
 const auth = getAuth()
 
 interface AuthContextProps {
-  currentUser: string | null | undefined
-  setCurrentUser: Dispatch<SetStateAction<string | null | undefined>>
+  currentUser: User | null | undefined
+  setCurrentUser: Dispatch<SetStateAction<User | null | undefined>>
   sign_up: boolean
 }
 
 export const AuthContext = createContext({} as AuthContextProps)
 export const AuthProvider: FC = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState<string | null | undefined>(undefined)
+  const [currentUser, setCurrentUser] = useState<User | null | undefined>(undefined)
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setCurrentUser(user.uid)
-        console.log('ユーザーあり')
+        setCurrentUser(user)
+        console.log(user)
       } else console.log('ユーザーなし')
     })
   }, [])

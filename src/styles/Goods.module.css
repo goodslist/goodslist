@@ -1054,3 +1054,23 @@
   font-size: 2rem;
   line-height: 30px;
 }
+
+.label_hot_new {
+  margin: 40px 0 60px 0;
+  font-size: 2rem;
+  position: relative;
+  text-align: center;
+  font-weight: bold;
+  width: 100%;
+}
+
+.label_hot_new span:before {
+  position: absolute;
+  bottom: -20px;
+  left: calc(50% - 30px);
+  width: 60px;
+  height: 5px;
+  content: '';
+  border-radius: 3px;
+  background: #68a9cf;
+}

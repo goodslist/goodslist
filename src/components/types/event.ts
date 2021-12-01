@@ -12,7 +12,7 @@ export type EventInfo = {
 export type Item = {
   item_id: number
   item_name: string
-  group_id: number
+  group: number
   item_type: string
   color: string
   size: string
@@ -21,7 +21,7 @@ export type Item = {
 }
 
 export type Group = {
-  group_id: number
+  group: number
   group_count: number
   item_name: string
   price: number

@@ -22,19 +22,19 @@ export const sortGroups = (sortType: string, groups: Group[]) => {
       else groupCountFalse.push(group)
     })
     groupCountTrue.sort(function (a, b) {
-      if (a.group_id > b.group_id) {
+      if (a.group > b.group) {
         return 1
       }
-      if (a.group_id < b.group_id) {
+      if (a.group < b.group) {
         return -1
       }
       return 0
     })
     groupCountFalse.sort(function (a, b) {
-      if (a.group_id > b.group_id) {
+      if (a.group > b.group) {
         return 1
       }
-      if (a.group_id < b.group_id) {
+      if (a.group < b.group) {
         return -1
       }
       return 0
@@ -44,10 +44,10 @@ export const sortGroups = (sortType: string, groups: Group[]) => {
   } else {
     sortedGroups = [...groups]
     sortedGroups.sort(function (a, b) {
-      if (a.group_id > b.group_id) {
+      if (a.group > b.group) {
         return 1
       }
-      if (a.group_id < b.group_id) {
+      if (a.group < b.group) {
         return -1
       }
       return 0
@@ -62,7 +62,7 @@ export const sortGroups = (sortType: string, groups: Group[]) => {
 //   const sortedItems: Item[] = []
 //   sortedGroups.map((sortedGroup) => {
 //     items.map((newItem) => {
-//       if (sortedGroup.group_id == newItem.group_id) sortedItems.push(newItem)
+//       if (sortedGroup.group == newItem.group) sortedItems.push(newItem)
 //     })
 //   })
 
@@ -90,7 +90,7 @@ export const getDifferenceGroupHeights = (
   let differenceGroupHeights: number[] = new Array()
   groups.forEach((after: any, index: number) => {
     prevGroups.forEach((prev: any, index2: number) => {
-      if (after.group_id == prev.group_id) {
+      if (after.group == prev.group) {
         differenceGroupHeights.push(prevGroupHeights[index2] - newGroupHeights[index])
       }
     })
@@ -105,7 +105,7 @@ export const returnPosition = (
   differenceGroupHeights: number[],
 ) => {
   nowGroupHeights.current.forEach((ref: any, index: number) => {
-    var li = document.getElementById(String(groups[index].group_id))
+    var li = document.getElementById(String(groups[index].group))
     if (li) {
       li.style.transform = `translateY(${differenceGroupHeights[index]}px)`
       li.style.transition = `transform 0s`
@@ -117,7 +117,7 @@ export const returnPosition = (
 export const startSortAnimation = (groups: Group[], nowGroupHeights: any) => {
   requestAnimationFrame(() => {
     nowGroupHeights.current.forEach((ref: any, index: number) => {
-      var li = document.getElementById(String(groups[index].group_id))
+      var li = document.getElementById(String(groups[index].group))
       if (li) {
         li.style.transform = ``
         li.style.transition = `transform 300ms ease`

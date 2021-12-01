@@ -73,9 +73,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const { event_id } = context.params as PathParams
 
   const { data, error } = await supabase
-    .from('goods')
+    .from('items')
     .select(
-      'goods_id, goods_name, group_id, goods_type, color, size, price, events(event_id, event_name, first_date, url, contents(content_id, content_name))',
+      'item_id, item_name, group, version, color, size, price, events(event_id, event_name, date, url, contents(content_id, content_name))',
     )
     .eq('event_id', event_id)
 
@@ -84,7 +84,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     content_name: data![0].events.contents.content_name,
     event_id: data![0].events.event_id,
     event_name: data![0].events.event_name,
-    date: data![0].events.first_date,
+    date: data![0].events.date,
     place: '',
     url: data![0].events.url,
     memo: '',
@@ -93,10 +93,10 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const items: Item[] = []
   data?.map((doc) => {
     const item: Item = {
-      item_id: doc.goods_id,
-      item_name: doc.goods_name,
-      group_id: doc.group_id,
-      item_type: doc.goods_type,
+      item_id: doc.item_id,
+      item_name: doc.item_name,
+      group: doc.group,
+      item_type: doc.version,
       color: doc.color,
       size: doc.size,
       price: doc.price,
@@ -108,9 +108,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const groups: Group[] = []
   let now_group = 1
   items.map((item) => {
-    if (item.group_id == now_group) {
+    if (item.group == now_group) {
       groups[now_group - 1] = {
-        group_id: item.group_id,
+        group: item.group,
         item_name: item.item_name,
         group_count: 0,
         price: item.price,
@@ -265,12 +265,15 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
             </div>
             <div className={styles.event_date_container}>
               <p className={styles.event_date}>{dateFormat(date)}</p>
+              {place ? <p className={styles.s_event_date}>{place}</p> : <></>}
             </div>
-            <div className={styles.event_screenshot_title}>一覧表示</div>
           </main>
         </div>
         <div className={styles.wrapper_glay}>
           <main className={styles.main}>
+            <p className={styles.label_hot_new}>
+              <span>一覧表示</span>
+            </p>
             <div className={styles.screenshot_container}>
               <p className={styles.s_content_name}>{propsEvent.content_name}</p>
               <p className={styles.s_event_name}>{propsEvent.event_name}</p>
@@ -284,8 +287,8 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               {items.map((item: Item) =>
                 (() => {
                   if (item.item_count > 0) {
-                    if (prevGroupId != item.group_id) {
-                      prevGroupId = item.group_id
+                    if (prevGroupId != item.group) {
+                      prevGroupId = item.group
                       return (
                         <>
                           <hr className={styles.li_goods_line} />
