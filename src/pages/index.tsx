@@ -71,15 +71,6 @@ const Home = ({ eventList }: Props) => {
     })
   }
 
-  // useEffect(() => {
-  //   // alert(input)
-  //   async function abc() {
-  //     const { data, error } = await supabase
-  //       .from('events')
-  //       .select('event_id, event_name, contents(content_id, content_name)')
-  //   }
-  // }, [input])
-
   return (
     <>
       <Head>
