@@ -141,20 +141,22 @@ const Signup = (data: SignupProps) => {
       </Head>
 
       <main className={styles.main}>
-        <Title title='必要事項入力' />
+        <Title title='新規登録' />
         <Form>
           <Step step='2' />
           <div className={styles.notes}>全ての項目を入力し、登録を完了させてください。</div>
-          <InputLabel label='ニックネーム' />
-          <InputText
-            valid={validName}
-            name='text'
-            type='name'
-            placeholder='ニックネーム'
-            onChange={setName}
-            error={errorName}
-          />
-          <InputNotes notes='全角半角英数字、30文字以内。' />
+          <div className={styles.inputContainer}>
+            <InputLabel label='ニックネーム' />
+            <InputText
+              valid={validName}
+              name='text'
+              type='name'
+              placeholder='ニックネーム'
+              onChange={setName}
+              error={errorName}
+            />
+            <InputNotes notes='全角半角英数字、30文字以内。' />
+          </div>
           <InputLabel label='誕生年月' />
           <SelectBirth inputYear={inputYear} inputMonth={inputMonth} month={month} />
           <InputNotes notes='変更不可。パスワードを忘れた時や退会時に使用。' />
@@ -180,14 +182,16 @@ const Signup = (data: SignupProps) => {
               その他
             </label>
           </div>
-          <SubmitButton
-            isSubmit={isSubmit}
-            isButtonLoading={isButtonLoading}
-            type='default'
-            title='登録する'
-            onClick={() => submit()}
-            error={errorSubmit}
-          />
+          <div className={styles.inputContainer}>
+            <SubmitButton
+              isSubmit={isSubmit}
+              isButtonLoading={isButtonLoading}
+              type='default'
+              title='登録する'
+              onClick={() => submit()}
+              error={errorSubmit}
+            />
+          </div>
           <div className={styles.link_cancel}>登録をやめる</div>
         </Form>
       </main>

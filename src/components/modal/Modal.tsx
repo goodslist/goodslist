@@ -5,6 +5,7 @@ import { ModalContext } from './ModalContext'
 import Place from './contents/Place'
 import Memo from './contents/Memo'
 import Reset from './contents/Reset'
+import Delete from './contents/Delete'
 import NotLogin from './contents/NotLogin'
 import Message from './contents/Message'
 
@@ -39,6 +40,8 @@ export default function Modal(props: any) {
         return <Memo memo={props.memo} onChange={props.onChangeMemo} close={onClickClose} />
       case 'reset':
         return <Reset reset={props.reset} />
+      case 'deleteMylist':
+        return <Delete deleteMylist={props.deleteMylist} />
       case 'notLogin':
         return <NotLogin />
       case 'save':

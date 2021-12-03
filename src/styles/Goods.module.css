@@ -912,7 +912,6 @@
   grid-template-columns: 100%;
   margin: 0;
   padding: 0;
-  line-height: 0;
   -webkit-column-count: 1;
   -webkit-column-gap: 20px 0;
   -moz-column-count: 1;

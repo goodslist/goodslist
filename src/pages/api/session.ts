@@ -26,8 +26,11 @@ export default async function sessionApi(req: Req, res: Res) {
     path: '/',
   }
 
+  // const photo = (JSON.parse(req.body).photo || '').toString()
+
   // セッションIDをCookieに設定する
   setCookie({ res }, 'session', sessionCookie, options)
+  // setCookie({ res }, 'photo', photo, options)
 
   res.send(JSON.stringify({ status: 'success' }))
 }

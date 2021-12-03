@@ -39,8 +39,8 @@
 .btn_login,
 .btn_login_link {
   margin: 0;
-  padding: 5px 10px;
-  font-size: 1.2rem;
+  padding: 8px 12px;
+  font-size: 1.4rem;
   background-color: #68a9cf;
   cursor: pointer;
   border-radius: 5px;
@@ -57,5 +57,15 @@
 
 .portal {
   position: absolute;
-  background-color: red;
+}
+
+.btn_photo {
+  width: 50px;
+  height: 50px;
+}
+
+.btn_photo img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }

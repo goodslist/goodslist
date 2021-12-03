@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { GetStaticProps } from 'next'
 import type { NextPage } from 'next'
 import Head from 'next/head'
@@ -9,6 +9,9 @@ import styles from '../styles/Home.module.css'
 import Search from './img/search.svg'
 import { useRouter } from 'next/router'
 import Loading from '../components/modal/Loading'
+import { logout } from '../components/firebase'
+import { AuthContext } from '../components/auth/AuthContext'
+import { useContext } from 'react'
 
 type EventInfo = {
   content_id: number
@@ -71,6 +74,13 @@ const Home = ({ eventList }: Props) => {
     })
   }
 
+  const { setCurrentUser }: any = useContext(AuthContext)
+  const onLogout = async () => {
+    await logout() // ログアウトさせる
+    router.push('/login') // ログインページへ遷移させる
+    setCurrentUser(undefined)
+  }
+
   return (
     <>
       <Head>
@@ -92,7 +102,9 @@ const Home = ({ eventList }: Props) => {
           <h1 className={styles.title}>
             <span>G</span>oods List
           </h1>
-          <h2 className={styles.sub_title}>グッズ代が計算できるWEBアプリ</h2>
+          <h2 className={styles.sub_title} onClick={() => onLogout()}>
+            グッズ代が計算できるWEBアプリ
+          </h2>
           <form className={styles.search_container} onSubmit={enterForm}>
             <input
               type='text'

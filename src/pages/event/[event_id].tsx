@@ -227,7 +227,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
         //一致しない場合、ローカルストレージの情報を削除して新規にイベントIDを追加
       } else {
         localStorage.removeItem('listId')
-        localStorage.removeItem('items')
+        localStorage.removeItem('itemCounts')
         localStorage.removeItem('date')
         localStorage.removeItem('place')
         localStorage.removeItem('memo')
@@ -379,16 +379,30 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
       //リストIDが存在するなら、上書き保存する。
       if (listId) {
         console.log('リストあり')
+        const { data, error } = await supabase
+          .from('lists')
+          .update({
+            date: date,
+            place: place,
+            memo: memo,
+            total_price: totalPrice,
+            total_count: totalCount,
+            item_counts: itemCounts,
+          })
+          .eq('list_id', listId)
         //リストIDが存在しないなら、新規保存し、ローカルストレージにリストIDを追加する。
       } else {
+        console.log('リストなし')
         const { data, error } = await supabase.from('lists').insert([
           {
-            user_id: currentUser,
+            user_id: currentUser.uid,
             event_id: propsEvent.event_id,
-            date: new Date(),
-            groups: 'グループ1',
-            goods: itemCounts,
-            updated_at: new Date(),
+            date: date,
+            place: place,
+            memo: memo,
+            total_price: totalPrice,
+            total_count: totalCount,
+            item_counts: itemCounts,
           },
         ])
         if (data) {
@@ -564,6 +578,16 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     },
   })
 
+  const createNewList = () => {
+    localStorage.removeItem('listId')
+    localStorage.removeItem('eventId')
+    localStorage.removeItem('date')
+    localStorage.removeItem('place')
+    localStorage.removeItem('memo')
+    localStorage.removeItem('itemCounts')
+    location.reload()
+  }
+
   return (
     <>
       <Head>
@@ -670,7 +694,12 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                 リセット
                 <Reset />
               </p>
-              <a href={propsEvent.url} target='_blank' className={styles.tag_screenshot}>
+              <a
+                href={propsEvent.url}
+                target='_blank'
+                className={styles.tag_screenshot}
+                onClick={() => createNewList()}
+              >
                 新規作成
                 <Newlist />
               </a>

@@ -104,11 +104,20 @@ const LogIn = () => {
   const getIdToken = async (result: any) => {
     const id = await result.user.getIdToken()
     console.log('e')
-    // Cookieにセッションを付与するようにAPIを投げる
-    await fetch('/api/session', { method: 'POST', body: JSON.stringify({ id }) })
-    console.log('f')
 
     const user_id = result.user.uid
+    const user_name = result.user.displayName
+    const providerId = getAdditionalUserInfo(result)!.username
+    const photo =
+      String(getAdditionalUserInfo(result)!.profile!.profile_image_url_https).slice(0, -10) +
+      'bigger.jpg' +
+      String(getAdditionalUserInfo(result)!.profile!.profile_image_url_https).slice(-4, 4)
+    const email = getAdditionalUserInfo(result)!.profile!.email
+    console.log('d')
+    localStorage.setItem('photo', photo)
+    // Cookieにセッションを付与するようにAPIを投げる
+    await fetch('/api/session', { method: 'POST', body: JSON.stringify({ id, photo }) })
+    console.log('f')
 
     const { data, error } = await supabase.from('users').select('user_id').eq('user_id', user_id)
     if (data!.length > 0) {
@@ -116,11 +125,7 @@ const LogIn = () => {
       router.push('/mypage')
     } else {
       console.log('なかったよ')
-      const user_name = result.user.displayName
-      const providerId = getAdditionalUserInfo(result)!.username
-      const photo = getAdditionalUserInfo(result)!.profile!.profile_image_url_https
-      const email = getAdditionalUserInfo(result)!.profile!.email
-      console.log('d')
+
       const { data, error } = await supabase.from('users').insert([
         {
           user_id: user_id,

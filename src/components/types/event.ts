@@ -33,3 +33,18 @@ export type ItemCount = {
   item_id: number
   item_count: number
 }
+
+export type MyList = {
+  list_id: number
+  content_id: number
+  content_name: string
+  event_id: number
+  event_name: string
+  date: string
+  place: string
+  memo: string
+  item_counts: ItemCount[]
+  total_price: number
+  total_count: number
+  updated_at: Date
+}
