@@ -110,8 +110,8 @@ const LogIn = () => {
     const providerId = getAdditionalUserInfo(result)!.username
     const photo =
       String(getAdditionalUserInfo(result)!.profile!.profile_image_url_https).slice(0, -10) +
-      'bigger.jpg' +
-      String(getAdditionalUserInfo(result)!.profile!.profile_image_url_https).slice(-4, 4)
+      'bigger' +
+      String(getAdditionalUserInfo(result)!.profile!.profile_image_url_https).slice(-4)
     const email = getAdditionalUserInfo(result)!.profile!.email
     console.log('d')
     localStorage.setItem('photo', photo)
