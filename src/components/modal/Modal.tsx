@@ -41,7 +41,8 @@ export default function Modal(props: any) {
       case 'reset':
         return <Reset reset={props.reset} />
       case 'deleteMylist':
-        return <Delete deleteMylist={props.deleteMylist} />
+        return <Delete onDeleteMylist={props.onDeleteMylist} deleteMylist={props.deleteMylist} />
+
       case 'notLogin':
         return <NotLogin />
       case 'save':

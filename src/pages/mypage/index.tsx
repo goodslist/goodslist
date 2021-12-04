@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { logout } from '../../components/firebase'
 import { firebaseAdmin } from '../../components/firebaseAdmin'
 import { AuthContext } from '../../components/auth/AuthContext'
-import { useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import Title from '../../components/view/title'
 import { supabase } from '../../components/supabase'
 import { EventInfo, Group, Item, ItemCount } from '../../components/types/event'
@@ -13,6 +13,8 @@ import { numberFormat, dateFormat } from '../../components/Utils'
 import HaveList from '../../components/mypage/HaveList'
 import NolList from '../../components/mypage/NoList'
 import { MyList } from '../../components/types/event'
+import { ModalContext } from '../../components/modal/ModalContext'
+import { useStaticState } from '@material-ui/pickers'
 
 // ページコンポーネントに渡されるデータ
 type Props = {
@@ -74,7 +76,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 // ページコンポーネントの実装
 const Home = ({ myLists }: Props) => {
   const { setCurrentUser }: any = useContext(AuthContext)
+  const [mylists, setMylists] = useState<MyList[]>(
+    myLists.map((myList: MyList) => Object.assign({}, myList)),
+  )
+  const [onDeleteMylist, setOnDeleteMylist] = useState<any>()
+  const [isFirstLoading, setIsFirstLoading] = useState(true)
   const router = useRouter()
+
+  //モーダル関連のコンテキスト
+  const { setOpenModalFlag, setModalType, setOpenModalContentFlag, setIsLoading }: any =
+    useContext(ModalContext)
+
   console.log('aaa')
 
   const onLogout = async () => {
@@ -83,15 +95,45 @@ const Home = ({ myLists }: Props) => {
     setCurrentUser(undefined)
   }
 
+  useEffect(() => {
+    if (isFirstLoading) setIsFirstLoading(false)
+    else {
+      setIsLoading(false)
+      setOpenModalFlag(true)
+      setOpenModalContentFlag(true)
+      setModalType('save')
+      console.log('deleteMylist3')
+      setTimeout(function () {
+        setOpenModalFlag(false)
+        setOpenModalContentFlag(false)
+      }, 1000)
+      console.log('deleteMylist4')
+    }
+  }, [mylists])
+
   return (
     <>
-      <Title title='マイページ' />
-      <div>
-        <h1>Dashboard Pages</h1>
-
-        <button onClick={onLogout}>Logout</button>
+      <div className={styles.wrapper_white}>
+        <main className={styles.main}>
+          <Title title='マイページ' />
+          <div className={styles.mypageBtnContainer}>
+            <button className={styles.btnMylist}>マイリスト</button>
+            <button className={styles.btnAccount}>アカウント</button>
+          </div>
+          <div></div>
+        </main>
       </div>
-      {myLists[0] ? <HaveList myLists={myLists} /> : <NolList />}
+      {mylists[0] ? (
+        <HaveList
+          mylists={mylists}
+          setMylists={setMylists}
+          onDeleteMylist={onDeleteMylist}
+          setOnDeleteMylist={setOnDeleteMylist}
+        />
+      ) : (
+        <NolList />
+      )}
+      <button onClick={onLogout}>Logout</button>
       {/* <div className={styles.wrapper_glay}>
         <main className={styles.main}>
           <div className={styles.grid}>

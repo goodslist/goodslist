@@ -8,11 +8,12 @@ import { useState, useContext } from 'react'
 import { ModalContext } from '../../components/modal/ModalContext'
 import Modal from '../../components/modal/Modal'
 import Delete from '../../components/modal/contents/Delete'
+import { supabase } from '../../components/supabase'
 
 export default function HaveList(props: any) {
   const router = useRouter()
+
   const [isOpenDelete, setIsOpenDelete] = useState(false)
-  const [onDeleteMylist, setOnDeleteMylist] = useState<MyList>()
 
   //モーダル関連のコンテキスト
   const { setOpenModalFlag, setModalType, setOpenModalContentFlag, setIsLoading }: any =
@@ -24,7 +25,7 @@ export default function HaveList(props: any) {
   }
 
   const setLocalStorage = (list_id: number) => {
-    props.myLists.map((myList: MyList) => {
+    props.mylists.map((myList: MyList) => {
       if (myList.list_id == list_id) {
         localStorage.setItem('eventId', String(myList.event_id))
         localStorage.setItem('date', String(myList.date))
@@ -45,15 +46,38 @@ export default function HaveList(props: any) {
 
   //マイリストの削除ボタンが押されたら、モーダルを表示する。
   const openDeleteModal = (list_id: number) => {
+    // alert(list_id)
+    props.mylists.map((myList: MyList) => {
+      if (list_id == myList.list_id) props.setOnDeleteMylist(myList)
+    })
     setOpenModalFlag(true)
     setModalType('deleteMylist')
     setOpenModalContentFlag(true)
   }
 
   //モーダルの削除ボタンが押されたら、そのマイリストを削除する。
-  const deleteMylist = () => {
-    alert('delete')
+  const deleteMylist = async (list_id: number) => {
+    console.log('deleteMylist')
+    setIsLoading(true)
+    await supabase
+      .from('lists')
+      .delete()
+      .match({ list_id: list_id })
+      .then((result) => {
+        const newMyLists: MyList[] = []
+        props.mylists.map((myList: MyList) => {
+          if (list_id != myList.list_id) {
+            newMyLists.push(myList)
+          }
+          props.setMylists(newMyLists)
+        })
+      })
+    console.log('deleteMylist2')
   }
+
+  // const deleteMylist = (aaa: number) => {
+  //   alert(aaa)
+  // }
 
   return (
     <>
@@ -73,7 +97,7 @@ export default function HaveList(props: any) {
           </div>
           <div className={styles.grid}>
             <ul className={styles.ul_event}>
-              {props.myLists.map((myList: MyList) => (
+              {props.mylists.map((myList: MyList) => (
                 <>
                   <li className={styles.card2} key={myList.list_id} id={String(myList.list_id)}>
                     <div className={styles.mylistUpdate}>
@@ -81,7 +105,7 @@ export default function HaveList(props: any) {
                     </div>
                     <div className={styles.mylistCotentName}>{myList.content_name}</div>
                     <div className={styles.mylistEventName}>{myList.event_name}</div>
-                    <div className={styles.mylistDate}>{dateFormat(myList.date)}</div>
+                    {/* <div className={styles.mylistDate}>{dateFormat(myList.date)}</div> */}
                     <div className={styles.mylistPlace}>{myList.place}</div>
                     <div className={styles.mylistMemo}>{myList.memo}</div>
                     <hr className={styles.mylistLine} />
@@ -121,7 +145,7 @@ export default function HaveList(props: any) {
           </div>
         </main>
       </div>
-      <Modal deleteMylist={deleteMylist} />
+      <Modal onDeleteMylist={props.onDeleteMylist} deleteMylist={deleteMylist} />
     </>
   )
 }

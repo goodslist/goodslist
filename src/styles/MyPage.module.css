@@ -297,3 +297,28 @@
   color: #fff;
   background-color: #68a9cf;
 }
+
+.mypageBtnContainer {
+  margin: 0 0 30px 0;
+  width: 100%;
+  padding: 0 20px;
+  max-width: 400px;
+  display: inline-block;
+}
+.btnMylist,
+.btnAccount {
+  width: 50%;
+  padding: 10px 0;
+  color: #fff;
+  font-size: 1.6rem;
+  border: 0;
+}
+
+.btnMylist {
+  background-color: #68a9cf;
+}
+
+.btnAccount {
+  background-color: #eee;
+  color: #999;
+}
