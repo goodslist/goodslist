@@ -42,8 +42,8 @@ import {
   getDifferenceGroupHeights,
   returnPosition,
   startSortAnimation,
-} from '../../../components/list/Sort'
-import { EventInfo, Group, Item, ItemCount } from '../../../components/types/event'
+} from '../../../components/event/Sort'
+import { Event, Group, Item, ItemCount } from '../../../components/types/event'
 import { useRouter } from 'next/router'
 
 type PathParams = {
@@ -79,7 +79,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     )
     .eq('event_id', event_id)
 
-  const event: EventInfo = {
+  const event: Event = {
     content_id: data![0].events.contents.content_id,
     content_name: data![0].events.contents.content_name,
     event_id: data![0].events.event_id,
@@ -122,7 +122,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   })
 
   type PageProps = {
-    propsEvent: EventInfo
+    propsEvent: Event
     propsItems: Item[]
     propsGroups: Group[]
   }
