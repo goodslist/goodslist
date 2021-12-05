@@ -115,7 +115,7 @@ export default function HaveList(props: any) {
                         className={styles.mylistEdit}
                         onClick={() => moveMyList(myList.list_id, myList.event_id)}
                       >
-                        編集
+                        表示
                         <IconMemo />
                       </p>
                       <div className={styles.totalContainer}>

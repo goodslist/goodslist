@@ -1,15 +1,12 @@
 import Head from 'next/head'
 import { useEffect, useContext } from 'react'
 import Link from 'next/dist/client/link'
-import { SignUpContext } from '../../components/signup/SignUpContext'
 import { useRouter } from 'next/router'
 import styles from '../../styles/Login.module.css'
 import Title from '../../components/view/title'
 import Form from '../../components/form/Form'
 
 export default function SignUpSubmit() {
-  const { sendEmail }: any = useContext(SignUpContext)
-
   const router = useRouter()
 
   // useEffect(() => {

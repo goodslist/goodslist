@@ -131,13 +131,12 @@
 .mylistEdit {
   width: auto;
   margin: 0 0 0 20px;
-  padding: 5px 10px 5px 30px;
+  padding: 8px 10px 8px 30px;
   color: #68a9cf;
   font-size: 1.2rem;
   text-align: right;
   position: relative;
   left: -20px;
-  border-radius: 5px;
   border: 1px solid #68a9cf;
   cursor: pointer;
   box-sizing: border-box;
@@ -181,11 +180,10 @@
 .btnMylistDelete {
   display: inline-block;
   width: 100px;
-  padding: 5px;
+  padding: 8px 20px;
   background-color: #cf6775;
   position: relative;
   color: #fff;
-  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -221,7 +219,6 @@
   height: auto;
   font-size: 1.4rem;
   box-shadow: 0 1px 4px rgb(0 0 0 / 10%);
-  border-radius: 5px;
   overflow: hidden;
 }
 
@@ -230,13 +227,11 @@
   padding: 10px 20px;
   height: auto;
   font-size: 1.4rem;
-  box-shadow: 0 1px 4px rgb(0 0 0 / 10%);
-  border-radius: 5px;
-  border: 1px solid #fff;
   color: #999;
   background-color: #fff;
   cursor: pointer;
   transition: all 0.5s;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 10%);
 }
 
 .btnOpenDeleteActive {
@@ -245,8 +240,6 @@
   height: auto;
   font-size: 1.4rem;
   box-shadow: 0 1px 4px rgb(0 0 0 / 10%);
-  border-radius: 5px;
-  border: 1px solid #fff;
   color: #fff;
   background-color: #cf6775;
   cursor: pointer;
@@ -308,7 +301,7 @@
 .btnMylist,
 .btnAccount {
   width: 50%;
-  padding: 10px 0;
+  padding: 8px 0;
   color: #fff;
   font-size: 1.6rem;
   border: 0;

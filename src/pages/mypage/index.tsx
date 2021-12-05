@@ -7,7 +7,7 @@ import { AuthContext } from '../../components/auth/AuthContext'
 import { useState, useContext, useEffect } from 'react'
 import Title from '../../components/view/title'
 import { supabase } from '../../components/supabase'
-import { EventInfo, Group, Item, ItemCount } from '../../components/types/event'
+import { Event, Group, Item, ItemCount } from '../../components/types/event'
 import styles from '../../styles/MyPage.module.css'
 import { numberFormat, dateFormat } from '../../components/Utils'
 import HaveList from '../../components/mypage/HaveList'
@@ -91,6 +91,7 @@ const Home = ({ myLists }: Props) => {
 
   const onLogout = async () => {
     await logout() // ログアウトさせる
+    localStorage.removeItem('photo')
     router.push('/login') // ログインページへ遷移させる
     setCurrentUser(undefined)
   }

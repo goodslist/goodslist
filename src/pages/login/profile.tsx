@@ -159,7 +159,7 @@ const Signup = (data: SignupProps) => {
           </div>
           <InputLabel label='誕生年月' />
           <SelectBirth inputYear={inputYear} inputMonth={inputMonth} month={month} />
-          <InputNotes notes='変更不可。パスワードを忘れた時や退会時に使用。' />
+          <InputNotes notes='変更不可。退会時等に使用。' />
           <InputLabel label='性別' />
           <div className={styles.gender_container}>
             <span className={genderCss}></span>

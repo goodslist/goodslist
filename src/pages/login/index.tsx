@@ -137,7 +137,7 @@ const LogIn = () => {
         },
       ])
       console.log('supabase登録済')
-      router.push('/signup/profile')
+      router.push('/login/profile')
     }
   }
   // useEffect(() => {

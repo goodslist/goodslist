@@ -1,4 +1,4 @@
-export type EventInfo = {
+export type Event = {
   content_id: number
   content_name: string
   event_id: number
