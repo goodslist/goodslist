@@ -29,6 +29,7 @@ import {
 } from 'firebase/auth'
 import { supabase } from '../../components/supabase'
 import { authTwitter } from '../../components/auth/AuthTwitter'
+import Loading from '../../components/modal/Loading'
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const cookies = nookies.get(ctx)
@@ -65,7 +66,7 @@ const LogIn = () => {
     setAuthProvider,
   }: any = useContext(AuthContext)
 
-  const { setOpenClearOverlay }: any = useContext(ModalContext)
+  const { setOpenClearOverlay, setIsLoading }: any = useContext(ModalContext)
 
   const [email, setEmail] = useState('')
   const [errorEmail, setErrorEmail] = useState('')
@@ -92,6 +93,7 @@ const LogIn = () => {
   }, [])
 
   const abcbc = async () => {
+    setIsLoading(true)
     await getRedirectResult(auth)
       .then(async (result) => {
         if (result) {
@@ -153,6 +155,7 @@ const LogIn = () => {
         const credential = TwitterAuthProvider.credentialFromError(error)
         console.log(error)
       })
+    setIsLoading(false)
   }
 
   {
@@ -268,6 +271,7 @@ const LogIn = () => {
           </Link> */}
         </Form>
       </main>
+      <Loading />
     </>
   )
 }
