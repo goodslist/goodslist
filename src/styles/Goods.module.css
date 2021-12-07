@@ -847,7 +847,7 @@
   width: 160px;
   height: auto;
   font-size: 1.4rem;
-  box-shadow: 0 1px 4px rgb(0 0 0 / 10%);
+  /* box-shadow: 0 1px 4px rgb(0 0 0 / 10%); */
   overflow: hidden;
   border-radius: 10px;
 }
@@ -934,7 +934,7 @@
   transition: all 0.3s;
   font-size: 1.4rem;
   position: relative;
-  box-shadow: 0 1px 4px rgb(0 0 0 / 10%);
+  /* box-shadow: 0 1px 4px rgb(0 0 0 / 10%); */
 }
 
 .li_goods_line {
