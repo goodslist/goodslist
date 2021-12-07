@@ -1,4 +1,12 @@
-import React, { Dispatch, SetStateAction, createContext, FC, useState, useEffect } from 'react'
+import React, {
+  Dispatch,
+  SetStateAction,
+  createContext,
+  FC,
+  useState,
+  useEffect,
+  useLayoutEffect,
+} from 'react'
 import { useRouter } from 'next/router'
 import { initializeApp } from 'firebase/app'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
@@ -23,19 +31,29 @@ const auth = getAuth()
 interface AuthContextProps {
   currentUser: User | null | undefined
   setCurrentUser: Dispatch<SetStateAction<User | null | undefined>>
-  sign_up: boolean
+  userPhoto: string | null | undefined
+  setUserPhoto: Dispatch<SetStateAction<string | null | undefined>>
+  authProvider: string
+  setAuthProvider: Dispatch<SetStateAction<string>>
+  isSinguped: boolean
 }
 
 export const AuthContext = createContext({} as AuthContextProps)
 export const AuthProvider: FC = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<User | null | undefined>(undefined)
+  const [userPhoto, setUserPhoto] = useState<string | null | undefined>(undefined)
+  const [authProvider, setAuthProvider] = useState<string>('')
+  const [isSinguped, setIsSignuped] = useState<boolean>(false)
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setCurrentUser(user)
+        // const userPhotoUrl = localStorage.getItem('photo')
+        // if (userPhotoUrl) setUserPhoto(userPhotoUrl)
+        console.log('onAuthStateChangedユーザーあり')
         console.log(user)
-      } else console.log('ユーザーなし')
+      } else console.log('onAuthStateChangedユーザーなし')
     })
   }, [])
 
@@ -44,7 +62,11 @@ export const AuthProvider: FC = ({ children }) => {
       value={{
         currentUser,
         setCurrentUser,
-        sign_up: false,
+        userPhoto,
+        setUserPhoto,
+        authProvider,
+        setAuthProvider,
+        isSinguped,
       }}
     >
       {children}

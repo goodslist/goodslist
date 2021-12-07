@@ -75,7 +75,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
 // ページコンポーネントの実装
 const Home = ({ myLists }: Props) => {
-  const { setCurrentUser }: any = useContext(AuthContext)
+  const { setCurrentUser, setUserPhoto }: any = useContext(AuthContext)
   const [mylists, setMylists] = useState<MyList[]>(
     myLists.map((myList: MyList) => Object.assign({}, myList)),
   )
@@ -92,6 +92,7 @@ const Home = ({ myLists }: Props) => {
   const onLogout = async () => {
     await logout() // ログアウトさせる
     localStorage.removeItem('photo')
+    setUserPhoto(undefined)
     router.push('/login') // ログインページへ遷移させる
     setCurrentUser(undefined)
   }

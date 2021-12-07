@@ -1,21 +1,21 @@
 import Link from 'next/dist/client/link'
 import styles from '../styles/Header.module.css'
-import React, { useEffect } from 'react'
+import React, { useEffect, useLayoutEffect } from 'react'
 import { useState, useContext } from 'react'
 import { AuthContext } from './auth/AuthContext'
 import { useRouter } from 'next/router'
 
 export default function Header() {
-  const { currentUser }: any = useContext(AuthContext)
+  const { currentUser, userPhoto, setUserPhoto }: any = useContext(AuthContext)
   const router = useRouter()
   // const userPhotoUrl = localStorage.getItem('photo')!
 
   const [photo, setPhoto] = useState('')
-  const userPhotoUrl =
-    'https://pbs.twimg.com/profile_images/1465869455586590724/sOYtktGV_bigger.jpg'
+  // setPhoto(localStorage.getItem('photo')!)
 
-  useEffect(() => {
-    setPhoto(localStorage.getItem('photo')!)
+  useLayoutEffect(() => {
+    const photoUrl = localStorage.getItem('photo')
+    if (photoUrl) setUserPhoto(photoUrl)
   }, [])
 
   return (
@@ -32,12 +32,12 @@ export default function Header() {
           </Link>
         </div>
         {(() => {
-          if (currentUser) {
+          if (userPhoto) {
             return (
               <Link href='/mypage'>
                 <a>
                   <div className={styles.btn_photo}>
-                    <img src={photo} />
+                    <img src={userPhoto} />
                   </div>
                 </a>
               </Link>

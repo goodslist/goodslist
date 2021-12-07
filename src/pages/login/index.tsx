@@ -28,6 +28,7 @@ import {
   User,
 } from 'firebase/auth'
 import { supabase } from '../../components/supabase'
+import { authTwitter } from '../../components/auth/AuthTwitter'
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const cookies = nookies.get(ctx)
@@ -55,7 +56,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 }
 
 const LogIn = () => {
-  const { CurrentUser, setCurrentUser }: any = useContext(AuthContext)
+  const {
+    CurrentUser,
+    setCurrentUser,
+    userPhoto,
+    setUserPhoto,
+    authProvider,
+    setAuthProvider,
+  }: any = useContext(AuthContext)
 
   const { setOpenClearOverlay }: any = useContext(ModalContext)
 
@@ -73,18 +81,69 @@ const LogIn = () => {
 
   const provider = new TwitterAuthProvider()
 
+  const authTwitter = async () => {
+    await setAuthProvider('twitter')
+    console.log('setAuthProvidertwitter')
+    await signInWithRedirect(auth, provider)
+  }
+
   useEffect(() => {
     abcbc()
   }, [])
 
   const abcbc = async () => {
     await getRedirectResult(auth)
-      .then((result) => {
-        const user = result?.user
-        console.log(user!.uid)
-        console.log(getAdditionalUserInfo(result!))
-        console.log('b')
-        getIdToken(result)
+      .then(async (result) => {
+        if (result) {
+          const user = result?.user
+          console.log(user!.uid)
+          console.log(getAdditionalUserInfo(result!))
+          console.log('b')
+          const id = await result.user.getIdToken()
+          console.log('e')
+
+          const user_id = result.user.uid
+          const user_name = result.user.displayName
+          const providerId = getAdditionalUserInfo(result)!.username
+          const photo =
+            String(getAdditionalUserInfo(result)!.profile!.profile_image_url_https).slice(0, -10) +
+            'bigger' +
+            String(getAdditionalUserInfo(result)!.profile!.profile_image_url_https).slice(-4)
+          const email = getAdditionalUserInfo(result)!.profile!.email
+          console.log('d')
+          setUserPhoto(photo)
+          localStorage.setItem('photo', photo)
+          // Cookieにセッションを付与するようにAPIを投げる
+          await fetch('/api/session', { method: 'POST', body: JSON.stringify({ id, photo }) })
+          console.log('f')
+
+          const { data, error } = await supabase
+            .from('users')
+            .select('user_id')
+            .eq('user_id', user_id)
+          if (data!.length > 0) {
+            console.log('あったよ' + data!.length)
+            router.push('/mypage')
+          } else {
+            console.log('なかったよ')
+
+            const { data, error } = await supabase.from('users').insert([
+              {
+                user_id: user_id,
+                user_name: user_name,
+                provider: 0,
+                provider_id: providerId,
+                photo: photo,
+                email: email,
+              },
+            ])
+            console.log('supabase登録済')
+            router.push('/login/profile')
+          }
+        } else {
+          await getRedirectResult(auth)
+          console.log('getRedirectResult →　result no')
+        }
         // if (user) checkSignuped(result)
       })
       .catch((error) => {
@@ -92,7 +151,7 @@ const LogIn = () => {
         const errorMessage = error.message
         const email = error.email
         const credential = TwitterAuthProvider.credentialFromError(error)
-        alert('error')
+        console.log(error)
       })
   }
 
@@ -101,45 +160,7 @@ const LogIn = () => {
   }
   const checkSignuped = async (result: any) => {}
 
-  const getIdToken = async (result: any) => {
-    const id = await result.user.getIdToken()
-    console.log('e')
-
-    const user_id = result.user.uid
-    const user_name = result.user.displayName
-    const providerId = getAdditionalUserInfo(result)!.username
-    const photo =
-      String(getAdditionalUserInfo(result)!.profile!.profile_image_url_https).slice(0, -10) +
-      'bigger' +
-      String(getAdditionalUserInfo(result)!.profile!.profile_image_url_https).slice(-4)
-    const email = getAdditionalUserInfo(result)!.profile!.email
-    console.log('d')
-    localStorage.setItem('photo', photo)
-    // Cookieにセッションを付与するようにAPIを投げる
-    await fetch('/api/session', { method: 'POST', body: JSON.stringify({ id, photo }) })
-    console.log('f')
-
-    const { data, error } = await supabase.from('users').select('user_id').eq('user_id', user_id)
-    if (data!.length > 0) {
-      console.log('あったよ' + data!.length)
-      router.push('/mypage')
-    } else {
-      console.log('なかったよ')
-
-      const { data, error } = await supabase.from('users').insert([
-        {
-          user_id: user_id,
-          user_name: user_name,
-          provider: 0,
-          provider_id: providerId,
-          photo: photo,
-          email: email,
-        },
-      ])
-      console.log('supabase登録済')
-      router.push('/login/profile')
-    }
-  }
+  const getIdToken = async (result: any) => {}
   // useEffect(() => {
   //   if (CurrentUser) setCurrentUser('')
   //   console.log('ログインエフェクト')
@@ -205,7 +226,7 @@ const LogIn = () => {
         <Form>
           <InputLabel label='SNSアカウントでログイン' />
           <div className={styles.inputContainer}>
-            <Twitter provider='Twitter' type='signin' />
+            <Twitter provider='Twitter' type='signin' auth={authTwitter} />
             <Line provider='LINE' type='signin' />
             <Google provider='Google' type='signin' />
             <Yahoo provider='Yahoo' type='signin' />
