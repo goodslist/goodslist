@@ -627,7 +627,7 @@
   font-size: 1.2rem;
   text-align: right;
   position: relative;
-  /* border-radius: 5px; */
+  border-radius: 5px;
   border: 1px solid #999;
 }
 
@@ -650,7 +650,7 @@
   text-align: right;
   position: relative;
   left: -20px;
-  /* border-radius: 5px; */
+  border-radius: 5px;
   border: 1px solid #68a9cf;
   cursor: pointer;
   box-sizing: border-box;
@@ -680,7 +680,7 @@
   font-size: 1.2rem;
   text-align: right;
   position: relative;
-  /* border-radius: 5px; */
+  border-radius: 5px;
   background-color: #55acee;
 }
 
@@ -706,7 +706,7 @@
   font-size: 1.2rem;
   text-align: right;
   position: relative;
-  /* border-radius: 5px; */
+  border-radius: 5px;
   background-color: #06c755;
 }
 
