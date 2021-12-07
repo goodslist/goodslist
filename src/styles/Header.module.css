@@ -39,11 +39,11 @@
 .btn_login,
 .btn_login_link {
   margin: 0;
-  padding: 8px 12px;
+  padding: 8px 10px;
   font-size: 1.2rem;
   /* background-color: #68a9cf; */
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: 5px;
   color: #fff;
   border: 1px solid #68a9cf;
 }
