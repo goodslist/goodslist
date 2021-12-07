@@ -43,25 +43,13 @@ export default function Header() {
               </Link>
             )
           } else {
-            if (router.pathname == '/login' || router.pathname == '/signup') {
-              return (
-                <Link href={router.pathname == '/login' ? '/signup' : '/login'}>
-                  <a>
-                    <div className={styles.btn_login_link}>
-                      {router.pathname == '/login' ? '会員登録' : 'ログイン'}
-                    </div>
-                  </a>
-                </Link>
-              )
-            } else {
-              return (
-                <Link href={'/login'}>
-                  <a>
-                    <div className={styles.btn_login}>ログイン</div>
-                  </a>
-                </Link>
-              )
-            }
+            return (
+              <Link href={'/login'}>
+                <a>
+                  <div className={styles.btn_login}>ログイン</div>
+                </a>
+              </Link>
+            )
           }
         })()}
       </div>

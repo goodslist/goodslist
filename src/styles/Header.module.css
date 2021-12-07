@@ -40,11 +40,12 @@
 .btn_login_link {
   margin: 0;
   padding: 8px 12px;
-  font-size: 1.4rem;
-  background-color: #68a9cf;
+  font-size: 1.2rem;
+  /* background-color: #68a9cf; */
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 10px;
   color: #fff;
+  border: 1px solid #68a9cf;
 }
 
 .btn_login {
