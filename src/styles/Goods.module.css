@@ -209,6 +209,7 @@
   margin: 0;
   font-size: 2rem;
   font-weight: normal;
+  font-weight: bold;
 }
 
 .contant_name_container {
@@ -350,6 +351,7 @@
   font-size: 1.6rem;
   padding: 10px 0;
   line-height: 20px;
+  font-weight: bold;
 }
 .subtotalcontainer {
   text-align: right;
@@ -934,7 +936,7 @@
   transition: all 0.3s;
   font-size: 1.4rem;
   position: relative;
-  /* box-shadow: 0 1px 4px rgb(0 0 0 / 10%); */
+  box-shadow: 0 1px 4px rgb(0 0 0 / 5%);
 }
 
 .li_goods_line {
