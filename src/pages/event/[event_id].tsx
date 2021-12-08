@@ -153,6 +153,10 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     nowGroupHeights,
     isDefaultSort,
     setIsDefaultSort,
+    isAllOpenArrow,
+    setIsAllOpenArrow,
+    isAllCloseArrow,
+    setIsAllCloseArrow,
   ] = useGroups(propsGroups)
 
   //合計金額と合計個数
@@ -552,8 +556,22 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
           <main className={styles.main}>
             <div className={styles.sort_arrow_container}>
               <div className={styles.arrow_container}>
-                <span className={styles.arrow_all_close} onClick={() => closeAllItemInputs()} />
-                <span className={styles.arrow_all_open} onClick={() => openAllItemInputs()} />
+                {isAllCloseArrow ? (
+                  <span
+                    className={styles.arrow_all_close_active}
+                    onClick={() => closeAllItemInputs()}
+                  />
+                ) : (
+                  <span className={styles.arrow_all_close} />
+                )}
+                {isAllOpenArrow ? (
+                  <span
+                    className={styles.arrow_all_open_active}
+                    onClick={() => openAllItemInputs()}
+                  />
+                ) : (
+                  <span className={styles.arrow_all_open} />
+                )}
               </div>
               <div className={styles.sort_container}>
                 <button

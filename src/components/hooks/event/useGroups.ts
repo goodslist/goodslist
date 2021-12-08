@@ -12,6 +12,8 @@ import {
 export const useGroups = (propsGroups: Group[]) => {
   //グループの配列
   const [groups, setGroups] = useState(propsGroups.map((group: Group) => Object.assign({}, group)))
+  const [isAllOpenArrow, setIsAllOpenArrow] = useState(false)
+  const [isAllCloseArrow, setIsAllCloseArrow] = useState(true)
 
   //ソート前のグループの配列
   const [prevGroups, setPrevGroups] = useState(
@@ -52,6 +54,8 @@ export const useGroups = (propsGroups: Group[]) => {
       newGroups[group].open = true
     }
     setGroups(newGroups)
+    setIsAllOpenArrow(true)
+    setIsAllCloseArrow(true)
   }
 
   //トップの上向きの矢印がクリックされたら、全てのアイテムの入力蘭を閉じる。
@@ -61,6 +65,8 @@ export const useGroups = (propsGroups: Group[]) => {
       newGroup.open = false
     })
     setGroups(newGroups)
+    setIsAllOpenArrow(true)
+    setIsAllCloseArrow(false)
   }
 
   //トップの下向きの矢印がクリックされたら、全てのアイテムの入力蘭を開く。
@@ -70,6 +76,8 @@ export const useGroups = (propsGroups: Group[]) => {
       newGroup.open = true
     })
     setGroups(newGroups)
+    setIsAllOpenArrow(false)
+    setIsAllCloseArrow(true)
   }
 
   //グループの高さを取得する
@@ -127,5 +135,9 @@ export const useGroups = (propsGroups: Group[]) => {
     nowGroupHeights,
     isDefaultSort,
     setIsDefaultSort,
+    isAllOpenArrow,
+    setIsAllOpenArrow,
+    isAllCloseArrow,
+    setIsAllCloseArrow,
   ] as const
 }
