@@ -34,7 +34,7 @@ export default function Header() {
         {(() => {
           if (router.pathname == '/login') {
             return <></>
-          } else if (userPhoto) {
+          } else if (currentUser) {
             return (
               <Link href='/mypage'>
                 <a>
