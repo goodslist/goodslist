@@ -1,5 +1,5 @@
 import { useState, useRef, useLayoutEffect, createRef } from 'react'
-import { Item, ItemCount, Group } from '../../types/event'
+import { Item, ItemCount, Group } from '../../types'
 
 export const useItems = (propsItems: Item[]) => {
   //グループの配列
