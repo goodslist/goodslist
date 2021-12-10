@@ -43,7 +43,7 @@ import {
   returnPosition,
   startSortAnimation,
 } from '../../../components/event/Sort'
-import { Event, Group, Item, ItemCount } from '../../../components/types/event'
+import { Event, Group, Item, ItemCount } from '../../../components/types'
 import { useRouter } from 'next/router'
 
 type PathParams = {
