@@ -34,9 +34,6 @@ export default function SignUpSubmit() {
           <div className={styles.send_email_text}>
             以下の情報で会員登録が完了しました。
             <br />
-            {currentUser.user_id}
-            <br />
-            {currentUser.signedup}
             <br />
             24時間経過すると確認メールは無効となりますので、もう一度最初からお手続きください。
           </div>
