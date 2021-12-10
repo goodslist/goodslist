@@ -13,7 +13,9 @@ import { numberFormat, dateFormat } from '../../components/Utils'
 import HaveList from '../../components/mypage/HaveList'
 import NolList from '../../components/mypage/NoList'
 import { ModalContext } from '../../components/modal/ModalContext'
+import Modal from '../../components/modal/Modal'
 import { useStaticState } from '@material-ui/pickers'
+import Link from 'next/link'
 
 // ページコンポーネントに渡されるデータ
 type Props = {
@@ -88,12 +90,6 @@ const Home = ({ myLists }: Props) => {
 
   console.log('aaa')
 
-  const onLogout = async () => {
-    await logout() // ログアウトさせる
-    setCurrentUser(undefined)
-    router.push('/login') // ログインページへ遷移させる
-  }
-
   useEffect(() => {
     if (isFirstLoading) setIsFirstLoading(false)
     else {
@@ -117,7 +113,12 @@ const Home = ({ myLists }: Props) => {
           <Title title='マイページ' />
           <div className={styles.mypageBtnContainer}>
             <button className={styles.btnMylist}>マイリスト</button>
-            <button className={styles.btnAccount}>アカウント</button>
+
+            <Link href={'/user/account'}>
+              <a>
+                <button className={styles.btnAccount}>アカウント</button>
+              </a>
+            </Link>
           </div>
           <div></div>
         </main>
@@ -132,7 +133,6 @@ const Home = ({ myLists }: Props) => {
       ) : (
         <NolList />
       )}
-      <button onClick={onLogout}>Logout</button>
       {/* <div className={styles.wrapper_glay}>
         <main className={styles.main}>
           <div className={styles.grid}>

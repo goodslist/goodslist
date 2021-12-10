@@ -12,17 +12,11 @@ import Loading from '../components/modal/Loading'
 import { logout } from '../components/firebase'
 import { AuthContext } from '../components/auth/AuthContext'
 import { useContext } from 'react'
-
-type EventInfo = {
-  content_id: number
-  content_name: string
-  event_id: number
-  event_name: string
-}
+import { EventList } from '../components/types'
 
 // ページコンポーネントに渡されるデータ
 type Props = {
-  eventList: EventInfo[]
+  eventList: EventList[]
 }
 
 // この関数がビルド時に呼び出され、戻り値の props の値がページコンポーネントに渡される
@@ -31,14 +25,13 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
 
   const { data, error } = await supabase
     .from('events')
-    .select('event_id, event_name, date, contents(content_id, content_name)')
+    .select('event_id, event_name, date, contents(content_name)')
     .order('date', { ascending: false })
     .limit(10)
 
-  const eventList: EventInfo[] = []
+  const eventList: EventList[] = []
   data?.map((doc) => {
-    const data: EventInfo = {
-      content_id: doc.contents.content_id,
+    const data: EventList = {
       content_name: doc.contents.content_name,
       event_id: doc.event_id,
       event_name: doc.event_name,

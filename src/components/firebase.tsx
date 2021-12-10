@@ -101,5 +101,11 @@ export const login = async (email: string, password: string) => {
  */
 export const logout = async () => {
   // セッションCookieを削除するため、Firebase SDKでなくREST APIでログアウトさせる
+  localStorage.removeItem('listId')
+  localStorage.removeItem('eventId')
+  localStorage.removeItem('itemCounts')
+  localStorage.removeItem('date')
+  localStorage.removeItem('place')
+  localStorage.removeItem('memo')
   await fetch('/api/sessionLogout', { method: 'POST' })
 }

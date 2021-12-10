@@ -10,7 +10,10 @@ import React, {
 import { useRouter } from 'next/router'
 import { initializeApp } from 'firebase/app'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import { User } from 'firebase/auth'
+// import { User } from 'firebase/auth'
+import { supabase } from '../supabase'
+
+import { User } from '../types'
 
 //firebaseを初期化
 export const firebaseConfig = {
@@ -22,8 +25,6 @@ export const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 }
-
-//firebaseを初期化
 const firebaseApp = initializeApp(firebaseConfig)
 
 const auth = getAuth()
@@ -31,28 +32,43 @@ const auth = getAuth()
 interface AuthContextProps {
   currentUser: User | null | undefined
   setCurrentUser: Dispatch<SetStateAction<User | null | undefined>>
-  userPhoto: string | null | undefined
-  setUserPhoto: Dispatch<SetStateAction<string | null | undefined>>
-  authProvider: string
-  setAuthProvider: Dispatch<SetStateAction<string>>
-  isSinguped: boolean
 }
 
 export const AuthContext = createContext({} as AuthContextProps)
 export const AuthProvider: FC = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<User | null | undefined>(undefined)
-  const [userPhoto, setUserPhoto] = useState<string | null | undefined>(undefined)
-  const [authProvider, setAuthProvider] = useState<string>('')
-  const [isSinguped, setIsSignuped] = useState<boolean>(false)
+  const router = useRouter()
+
+  const getUser = async (uid: string) => {
+    const { data, error } = await supabase
+      .from('users')
+      .select('user_id, user_name, provider, provider_id, photo, signedup')
+      .eq('user_id', uid)
+    if (data) {
+      if (data.length > 0) {
+        console.log('あったよ' + data.length)
+        const user: User = {
+          user_id: data[0].user_id,
+          user_name: data[0].user_name,
+          provider: data[0].provider,
+          provider_id: data[0].provider_id,
+          photo: data[0].photo,
+          signedup: data[0].signedup,
+        }
+        setCurrentUser(user)
+        // if (user.signedup == false) router.push('/login/profile')
+      } else {
+      }
+    }
+  }
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setCurrentUser(user)
-        // const userPhotoUrl = localStorage.getItem('photo')
-        // if (userPhotoUrl) setUserPhoto(userPhotoUrl)
+    onAuthStateChanged(auth, (firebaseAuthUser) => {
+      if (firebaseAuthUser) {
+        getUser(firebaseAuthUser.uid)
+
         console.log('onAuthStateChangedユーザーあり')
-        console.log(user)
+        console.log(firebaseAuthUser)
       } else console.log('onAuthStateChangedユーザーなし')
     })
   }, [])
@@ -62,11 +78,6 @@ export const AuthProvider: FC = ({ children }) => {
       value={{
         currentUser,
         setCurrentUser,
-        userPhoto,
-        setUserPhoto,
-        authProvider,
-        setAuthProvider,
-        isSinguped,
       }}
     >
       {children}

@@ -22,6 +22,7 @@ export default async function sessionLogoutApi(req: Req, res: Res) {
 
   // Cookieに保存されているセッションIDを削除
   destroyCookie({ res }, 'session', { path: '/' })
+  // destroyCookie({ res }, 'photo', { path: '/' })
 
   res.send(JSON.stringify({ status: 'success' }))
 }

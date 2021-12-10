@@ -1,3 +1,18 @@
+export type User = {
+  user_id: string
+  user_name: string
+  provider: number
+  provider_id: string
+  photo: string
+  signedup: boolean
+}
+
+export type EventList = {
+  content_name: string
+  event_id: number
+  event_name: string
+}
+
 export type Event = {
   content_id: number
   content_name: string

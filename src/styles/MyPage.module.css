@@ -3,6 +3,17 @@
   min-width: 320px;
   margin: 20px auto;
 }
+
+.user_container {
+  margin: 0 auto;
+  padding: 20px 0;
+  text-align: center;
+  border-radius: 10px;
+  min-width: 300px;
+  max-width: 500px;
+  background-color: #fff;
+}
+
 .sticky_container {
   width: 100%;
 }
@@ -17,19 +28,6 @@
 }
 
 .ul_event {
-  display: grid;
-  grid-template-columns: 100%;
-  margin: 0;
-  padding: 0;
-  -webkit-column-count: 1;
-  -webkit-column-gap: 20px 0;
-  -moz-column-count: 1;
-  -moz-column-gap: 20px 0;
-  column-count: 1;
-  column-gap: 20px 0;
-  -webkit-column-break-inside: avoid;
-  page-break-inside: avoid;
-  break-inside: avoid;
 }
 
 .grid {
@@ -40,14 +38,15 @@
   padding: 0 10px;
 }
 .card2 {
-  margin: 0 0 20px 0;
+  margin: 0 auto 20px auto;
   padding: 10px 20px;
   text-align: left;
   color: inherit;
   text-decoration: none;
   /* border: 1px solid #eaeaea; */
-  /* border-radius: 5px; */
-  width: 100% !important;
+  border-radius: 10px;
+  min-width: 300px;
+  max-width: 500px;
   height: auto !important;
   background-color: #fff;
   transition: all 0.3s;
@@ -203,9 +202,10 @@
 }
 
 .sort_arrow_container {
-  margin: 0 0 20px 0;
-  padding: 0 10px;
-  width: 100%;
+  margin: 0 auto 20px auto;
+  padding: 0 20px;
+  min-width: 300px;
+  max-width: 500px;
   height: auto;
   display: -webkit-flex;
   display: flex;

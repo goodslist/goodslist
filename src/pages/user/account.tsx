@@ -7,17 +7,19 @@ import { AuthContext } from '../../components/auth/AuthContext'
 import { useState, useContext, useEffect } from 'react'
 import Title from '../../components/view/title'
 import { supabase } from '../../components/supabase'
-import { Event, Group, Item, ItemCount, MyList } from '../../components/types'
+import { User } from '../../components/types'
 import styles from '../../styles/MyPage.module.css'
 import { numberFormat, dateFormat } from '../../components/Utils'
 import HaveList from '../../components/mypage/HaveList'
 import NolList from '../../components/mypage/NoList'
 import { ModalContext } from '../../components/modal/ModalContext'
+import Modal from '../../components/modal/Modal'
 import { useStaticState } from '@material-ui/pickers'
+import Link from 'next/link'
 
 // ページコンポーネントに渡されるデータ
 type Props = {
-  myLists: MyList[]
+  user: User
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
@@ -25,13 +27,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = cookies.session || ''
 
   // セッションIDを検証して、認証情報を取得する
-  const user = await firebaseAdmin
+  const firebaseAuthUser = await firebaseAdmin
     .auth()
     .verifySessionCookie(session, true)
     .catch(() => null)
 
   // 認証情報が無い場合は、ログイン画面へ遷移させる
-  if (!user) {
+  if (!firebaseAuthUser) {
     return {
       redirect: {
         destination: '/login',
@@ -41,45 +43,29 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 
   const { data, error } = await supabase
-    .from('lists')
-    .select(
-      'list_id, date, place, memo, item_counts, total_price, total_count, updated_at, events(event_id, event_name, contents(content_id, content_name))',
-    )
-    .eq('user_id', user.uid)
-  const myLists: MyList[] = []
-  data?.map((doc) => {
-    const data: MyList = {
-      list_id: doc.list_id,
-      content_id: doc.events.contents.content_id,
-      content_name: doc.events.contents.content_name,
-      event_id: doc.events.event_id,
-      event_name: doc.events.event_name,
-      date: doc.date,
-      place: doc.place,
-      memo: doc.memo,
-      item_counts: doc.item_counts,
-      total_price: doc.total_price,
-      total_count: doc.total_count,
-      updated_at: doc.updated_at,
-    }
-    myLists.push(data)
-  })
-
+    .from('users')
+    .select('user_id, user_name, provider, provider_id, photo, signedup')
+    .eq('user_id', firebaseAuthUser.uid)
+  const user: User = {
+    user_id: data![0].user_id,
+    user_name: data![0].user_name,
+    provider: data![0].provider,
+    provider_id: data![0].provider_id,
+    photo: data![0].photo,
+    signedup: data![0].signedup,
+  }
   // const { data, error } = await supabase.from('lists').select('list_id')
   // const { data, error } = await supabase.from('items').select('item_id, item_name')
 
   // この props プロパティの値がページコンポーネントに渡される
-  return { props: { myLists } }
+  return { props: { user } }
 }
 
 // ページコンポーネントの実装
-const Home = ({ myLists }: Props) => {
-  const { setCurrentUser }: any = useContext(AuthContext)
-  const [mylists, setMylists] = useState<MyList[]>(
-    myLists.map((myList: MyList) => Object.assign({}, myList)),
-  )
-  const [onDeleteMylist, setOnDeleteMylist] = useState<any>()
-  const [isFirstLoading, setIsFirstLoading] = useState(true)
+const Home = ({ user }: Props) => {
+  const { currentUser, setCurrentUser }: any = useContext(AuthContext)
+  const [user_name, setUser_name] = useState(user.user_name)
+
   const router = useRouter()
 
   //モーダル関連のコンテキスト
@@ -94,45 +80,42 @@ const Home = ({ myLists }: Props) => {
     router.push('/login') // ログインページへ遷移させる
   }
 
-  useEffect(() => {
-    if (isFirstLoading) setIsFirstLoading(false)
-    else {
-      setIsLoading(false)
-      setOpenModalFlag(true)
-      setOpenModalContentFlag(true)
-      setModalType('save')
-      console.log('deleteMylist3')
-      setTimeout(function () {
-        setOpenModalFlag(false)
-        setOpenModalContentFlag(false)
-      }, 1000)
-      console.log('deleteMylist4')
-    }
-  }, [mylists])
+  useEffect(() => {}, [])
 
   return (
     <>
       <div className={styles.wrapper_white}>
         <main className={styles.main}>
-          <Title title='マイページ' />
+          <Title title='マイページアカウント' />
           <div className={styles.mypageBtnContainer}>
-            <button className={styles.btnMylist}>マイリスト</button>
+            <Link href={'/user/mylist'}>
+              <a>
+                <button className={styles.btnMylist}>マイリスト</button>
+              </a>
+            </Link>
             <button className={styles.btnAccount}>アカウント</button>
           </div>
           <div></div>
         </main>
       </div>
-      {mylists[0] ? (
-        <HaveList
-          mylists={mylists}
-          setMylists={setMylists}
-          onDeleteMylist={onDeleteMylist}
-          setOnDeleteMylist={setOnDeleteMylist}
-        />
-      ) : (
-        <NolList />
-      )}
-      <button onClick={onLogout}>Logout</button>
+      <>
+        <div className={styles.wrapper_glay}>
+          <main className={styles.main}>
+            <div className={styles.grid}>
+              <div className={styles.card2}>
+                ユーザー名：{user_name}
+                <br />
+                SNSアカウント種別：{user.provider}
+                <br />
+                SNSアカウントID：{user.provider_id}
+                <br />
+                <button onClick={onLogout}>Logout</button>
+              </div>
+            </div>
+          </main>
+        </div>
+        <Modal />
+      </>
       {/* <div className={styles.wrapper_glay}>
         <main className={styles.main}>
           <div className={styles.grid}>

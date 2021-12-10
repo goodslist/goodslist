@@ -20,12 +20,11 @@ import Form from '../../components/form/Form'
 import SubmitButton from '../../components/form/SubmitButton'
 import { validateName } from '../../components/Validation'
 import Title from '../../components/view/title'
-import Step from '../../components/form/Step'
 import SelectBirth from '../../components/form/SelectBirth'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
-type SignupProps = {
+type ProfileProps = {
   name: string
   birth_year: number
   birth_month: number
@@ -41,8 +40,8 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   }
 }
 
-const Signup = (data: SignupProps) => {
-  const { user, setUser, session, setSession, signOut }: any = useContext(AuthContext)
+const Profile = (data: ProfileProps) => {
+  const { currentUser, setCurrentUser }: any = useContext(AuthContext)
   const { setOpenClearOverlay }: any = useContext(ModalContext)
 
   const [name, setName] = useState('')
@@ -54,7 +53,6 @@ const Signup = (data: SignupProps) => {
   const [genderCss, setGenderCss] = useState(styles.gender_selected)
   const [isSubmit, setIsSubmit] = useState(false)
   const [errorSubmit, setErrorSubmit] = useState('')
-  const [isButtonLoading, setIsButtonLoading] = useState(false)
 
   const router = useRouter()
 
@@ -84,38 +82,36 @@ const Signup = (data: SignupProps) => {
   //「登録を完了する」ボタンを押下
   const submit = async () => {
     if (validName && year > 0 && month > 0 && gender > 0) {
-      setIsButtonLoading(true)
       setOpenClearOverlay(true)
 
       const { data, error } = await supabase
         .from('users')
         .update({
           user_name: name,
-          birth_year: year,
-          birth_month: month,
+          year: year,
+          month: month,
           gender: gender,
-          sign_up: true,
+          signedup: true,
         })
-        .match({ id: session.user.id })
+        .match({ user_id: currentUser.user_id })
       if (error) {
-        setIsButtonLoading(false)
         setOpenClearOverlay(false)
         console.log({ error })
       } else {
-        const { data: user, error } = await supabase
-          .from('users')
-          .select('id, user_name, avatar_url, sign_up')
-          .eq('id', session.user.id)
-          .single()
-        setUser(user)
-        setIsButtonLoading(false)
-        setOpenClearOverlay(false)
+        const newUser = { ...currentUser }
+        newUser.signedup = true
+        setCurrentUser(newUser)
+        // const { data: user, error } = await supabase
+        //   .from('users')
+        //   .select('id, user_name, avatar_url, sign_up')
+        //   .eq('id', currentUser.user_id)
+        //   .single()
+        // setOpenClearOverlay(false)
         router.push({
-          pathname: '/signup/complate',
+          pathname: '/login/complete',
         })
       }
     }
-    console.log({ user })
   }
 
   //全ての入力のバリデーションがtrueならボタンをアクティブにする
@@ -143,10 +139,9 @@ const Signup = (data: SignupProps) => {
       <main className={styles.main}>
         <Title title='新規登録' />
         <Form>
-          <Step step='2' />
           <div className={styles.notes}>全ての項目を入力し、登録を完了させてください。</div>
+          <InputLabel label='ニックネーム' />
           <div className={styles.inputContainer}>
-            <InputLabel label='ニックネーム' />
             <InputText
               valid={validName}
               name='text'
@@ -185,8 +180,7 @@ const Signup = (data: SignupProps) => {
           <div className={styles.inputContainer}>
             <SubmitButton
               isSubmit={isSubmit}
-              isButtonLoading={isButtonLoading}
-              type='default'
+              svg='check'
               title='登録する'
               onClick={() => submit()}
               error={errorSubmit}
@@ -199,4 +193,4 @@ const Signup = (data: SignupProps) => {
   )
 }
 
-export default Signup
+export default Profile

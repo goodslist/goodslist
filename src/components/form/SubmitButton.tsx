@@ -1,7 +1,6 @@
 import styles from '../../styles/components/form.module.css'
 import Email from '../../../public/images/email.svg'
 import Check from '../../../public/images/check.svg'
-import BtnSpinner from '../Spinner'
 
 const SubmitButton = (props: any) => {
   let svg
@@ -18,10 +17,7 @@ const SubmitButton = (props: any) => {
         onClick={() => props.onClick()}
       >
         {props.title}
-        <span className={styles.btn_svg_container}>{svg}</span>
-        <div className={props.isButtonLoading ? styles.btn_spinner_active : styles.btn_spinner}>
-          <BtnSpinner />
-        </div>
+        {svg}
       </button>
       <div className={styles.input_error}>{props.error}</div>
     </>

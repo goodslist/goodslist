@@ -35,35 +35,20 @@
   position: relative;
   min-width: 260px;
   width: 70%;
-  height: 40px;
   background-color: #edf2f7;
-  border-radius: 10px;
-}
-
-.gender_selected {
-  margin: 0;
-  width: 33%;
-  height: 40px;
-  z-index: 1;
-  position: absolute;
-  top: 0;
-  left: 0%;
-  border-radius: 10px;
-  transition: all 0.3s;
-  background-color: #edf2f7;
-  border: 1px solid #edf2f7;
+  border-radius: 5px;
 }
 
 .gender_selected_1,
 .gender_selected_2,
 .gender_selected_3 {
   margin: 0;
+  height: 100%;
   width: 33%;
-  height: 40px;
   z-index: 1;
   position: absolute;
   top: 0;
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: #fff;
   border: 1px solid #68a9cf;
   transition: all 0.3s;
@@ -91,11 +76,10 @@
 .input_radio,
 .input_radio_active {
   margin: 0;
+  padding: 10px 0;
   width: 33%;
-  height: 40px;
-  border-radius: 10px;
-  font-size: 14px;
-  line-height: 38px;
+  border-radius: 5px;
+  font-size: 1.6rem;
   transition: all 0.3s;
   color: #666;
   z-index: 2;
@@ -115,23 +99,6 @@
   border-radius: 40px;
   border: #f2c746 1px solid;
   cursor: pointer;
-}
-
-.send_email_address {
-  margin: 0 auto 30px auto;
-  width: 90%;
-  font-size: 1.6rem;
-  color: #cf6775;
-  font-weight: bold;
-  text-align: center;
-}
-
-.send_email_text {
-  margin: 0 auto;
-  width: 90%;
-  font-size: 1.4rem;
-  text-align: left;
-  line-height: 2.8rem;
 }
 
 .link_return {

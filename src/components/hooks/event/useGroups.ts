@@ -1,5 +1,5 @@
 import { useState, useRef, useLayoutEffect, createRef } from 'react'
-import { Item, Group } from '../../types/event'
+import { Item, Group } from '../../types'
 import {
   getPrevGroupHeights,
   sortGroups,

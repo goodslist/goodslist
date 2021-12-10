@@ -5,8 +5,10 @@ import { useRouter } from 'next/router'
 import styles from '../../styles/Login.module.css'
 import Title from '../../components/view/title'
 import Form from '../../components/form/Form'
+import { AuthContext } from '../../components/auth/AuthContext'
 
 export default function SignUpSubmit() {
+  const { currentUser, setCurrentUser }: any = useContext(AuthContext)
   const router = useRouter()
 
   // useEffect(() => {
@@ -28,23 +30,13 @@ export default function SignUpSubmit() {
       <main className={styles.main}>
         <Title title='登録完了' />
         <Form>
-          <div className={styles.signup_step_container}>
-            <div className={styles.step_on}>
-              01<span>確認メール送信</span>
-            </div>
-            <div className={styles.step_on}>
-              02<span>必要事項入力</span>
-            </div>
-
-            <div className={styles.step_on}>
-              03<span>登録完了</span>
-            </div>
-          </div>
           <div className={styles.send_email_address}>登録が完了しました。</div>
           <div className={styles.send_email_text}>
             以下の情報で会員登録が完了しました。
             <br />
-            24時間以内に確認メール内のリンクにアクセスし、登録を完了させてください。
+            {currentUser.user_id}
+            <br />
+            {currentUser.signedup}
             <br />
             24時間経過すると確認メールは無効となりますので、もう一度最初からお手続きください。
           </div>

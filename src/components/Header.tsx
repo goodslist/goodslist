@@ -13,10 +13,10 @@ export default function Header() {
   const [photo, setPhoto] = useState('')
   // setPhoto(localStorage.getItem('photo')!)
 
-  useLayoutEffect(() => {
-    const photoUrl = localStorage.getItem('photo')
-    if (photoUrl) setUserPhoto(photoUrl)
-  }, [])
+  // useLayoutEffect(() => {
+  //   const photoUrl = localStorage.getItem('photo')
+  //   if (photoUrl) setUserPhoto(photoUrl)
+  // }, [])
 
   return (
     <div className={styles.header_container}>
@@ -36,10 +36,10 @@ export default function Header() {
             return <></>
           } else if (currentUser) {
             return (
-              <Link href='/mypage'>
+              <Link href='/user/mylist'>
                 <a>
                   <div className={styles.btn_photo}>
-                    <img src={userPhoto} />
+                    <img src={currentUser.photo} />
                   </div>
                 </a>
               </Link>

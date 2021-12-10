@@ -5,27 +5,22 @@ import styles from '../styles/Search.module.css'
 import Title from '../components/view/title'
 import Head from 'next/head'
 import { GetServerSideProps } from 'next'
-
-class SearchResult {
-  event_id: number = 0
-  content_name: string = ''
-  event_name: string = ''
-}
+import { EventList } from '../components/types'
 
 type Props = {
-  searchResults: SearchResult[]
+  searchResults: EventList[]
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const searchWord = ctx.query.keyword
 
-  let newSearchResults: SearchResult[] = []
+  let newSearchResults: EventList[] = []
   const { data, error } = await supabase
     .from('search_events')
     .select('event_id, event_name, content_name, search_word')
     .ilike('search_word', '%' + searchWord + '%')
   data?.map((doc) => {
-    const searchResult: SearchResult = {
+    const searchResult: EventList = {
       event_id: doc.event_id,
       event_name: doc.event_name,
       content_name: doc.content_name,
@@ -71,7 +66,7 @@ export default function Output(props: Props) {
               {keyword}　を含む検索結果({props.searchResults.length}件)
             </div>
             <ul className={styles.ul_event}>
-              {props.searchResults?.map((searchResult: SearchResult) => (
+              {props.searchResults?.map((searchResult: EventList) => (
                 <li key={searchResult.event_id} className={styles.li_event}>
                   <Link href={'event/' + searchResult.event_id}>
                     <a>

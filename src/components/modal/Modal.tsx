@@ -8,6 +8,7 @@ import Reset from './contents/Reset'
 import Delete from './contents/Delete'
 import NotLogin from './contents/NotLogin'
 import Message from './contents/Message'
+import Confirmation from './contents/Confirmation'
 
 export default function Modal(props: any) {
   const [open, setOpen] = useState(true)
@@ -39,7 +40,14 @@ export default function Modal(props: any) {
       case 'memo':
         return <Memo memo={props.memo} onChange={props.onChangeMemo} close={onClickClose} />
       case 'reset':
-        return <Reset reset={props.reset} />
+        return (
+          <Confirmation
+            title='リストをリセットしますか？'
+            text='リセット項目：購入数、並び順、入力欄の開閉'
+            btn_text='リセットする'
+            onClick={props.onClick}
+          />
+        )
       case 'deleteMylist':
         return <Delete onDeleteMylist={props.onDeleteMylist} deleteMylist={props.deleteMylist} />
 

@@ -1,6 +1,6 @@
 import styles from '../../styles/MyPage.module.css'
 import { dateFormat, numberFormat, timeStampFormat } from '../Utils'
-import { MyList } from '../types/event'
+import { MyList } from '../types'
 import { useRouter } from 'next/router'
 import IconMemo from '../../../public/images/memo.svg'
 import IconDelete from '../../../public/images/delete.svg'
@@ -95,54 +95,50 @@ export default function HaveList(props: any) {
               <button className={styles.sort_buy}>公演日順</button>
             </div>
           </div>
-          <div className={styles.grid}>
-            <ul className={styles.ul_event}>
-              {props.mylists.map((myList: MyList) => (
-                <>
-                  <li className={styles.card2} key={myList.list_id} id={String(myList.list_id)}>
-                    <div className={styles.mylistUpdate}>
-                      更新：{timeStampFormat(String(myList.updated_at))}
-                    </div>
-                    <div className={styles.mylistCotentName}>{myList.content_name}</div>
-                    <div className={styles.mylistEventName}>{myList.event_name}</div>
-                    {/* <div className={styles.mylistDate}>{dateFormat(myList.date)}</div> */}
-                    <div className={styles.mylistPlace}>{myList.place}</div>
-                    <div className={styles.mylistMemo}>{myList.memo}</div>
-                    <hr className={styles.mylistLine} />
+          <ul className={styles.ul_event}>
+            {props.mylists.map((myList: MyList) => (
+              <>
+                <li className={styles.card2} key={myList.list_id} id={String(myList.list_id)}>
+                  <div className={styles.mylistUpdate}>
+                    更新：{timeStampFormat(String(myList.updated_at))}
+                  </div>
+                  <div className={styles.mylistCotentName}>{myList.content_name}</div>
+                  <div className={styles.mylistEventName}>{myList.event_name}</div>
+                  {/* <div className={styles.mylistDate}>{dateFormat(myList.date)}</div> */}
+                  <div className={styles.mylistPlace}>{myList.place}</div>
+                  <div className={styles.mylistMemo}>{myList.memo}</div>
+                  <hr className={styles.mylistLine} />
 
-                    <div className={styles.mylistBottomContainer}>
-                      <p
-                        className={styles.mylistEdit}
-                        onClick={() => moveMyList(myList.list_id, myList.event_id)}
-                      >
-                        表示
-                        <IconMemo />
-                      </p>
-                      <div className={styles.totalContainer}>
-                        <p className={styles.totalCount}>{myList.total_count}点</p>
-                        <div className={styles.totalPrice}>
-                          &yen;
-                          {numberFormat(myList.total_price)}
-                        </div>
+                  <div className={styles.mylistBottomContainer}>
+                    <p
+                      className={styles.mylistEdit}
+                      onClick={() => moveMyList(myList.list_id, myList.event_id)}
+                    >
+                      表示
+                      <IconMemo />
+                    </p>
+                    <div className={styles.totalContainer}>
+                      <p className={styles.totalCount}>{myList.total_count}点</p>
+                      <div className={styles.totalPrice}>
+                        &yen;
+                        {numberFormat(myList.total_price)}
                       </div>
                     </div>
-                    <div
-                      className={
-                        isOpenDelete ? styles.deleteContainerActive : styles.deleteContainer
-                      }
+                  </div>
+                  <div
+                    className={isOpenDelete ? styles.deleteContainerActive : styles.deleteContainer}
+                  >
+                    <p
+                      className={styles.btnMylistDelete}
+                      onClick={() => openDeleteModal(myList.list_id)}
                     >
-                      <p
-                        className={styles.btnMylistDelete}
-                        onClick={() => openDeleteModal(myList.list_id)}
-                      >
-                        削除
-                      </p>
-                    </div>
-                  </li>
-                </>
-              ))}
-            </ul>
-          </div>
+                      削除
+                    </p>
+                  </div>
+                </li>
+              </>
+            ))}
+          </ul>
         </main>
       </div>
       <Modal onDeleteMylist={props.onDeleteMylist} deleteMylist={deleteMylist} />

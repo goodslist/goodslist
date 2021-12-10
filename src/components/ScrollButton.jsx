@@ -22,7 +22,6 @@ class ScrollButton extends React.Component {
   render() {
     return (
       <div className={styles.scrollContainer}>
-        ああ
         <div className={this.state.scroll_css} onClick={this.scrollToTop}></div>
       </div>
     )
