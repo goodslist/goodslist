@@ -1,4 +1,4 @@
-import { Group, Item } from '../types/event'
+import { Group, Item } from '../types'
 
 //ソート前のグループの高さを取得する
 export const getPrevGroupHeights = (nowGroupHeights: any) => {
