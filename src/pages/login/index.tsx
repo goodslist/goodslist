@@ -82,8 +82,23 @@ const LogIn = () => {
     await signInWithRedirect(auth, provider)
   }
 
+  const loginSupabase = async () => {
+    const { user, session, error } = await supabase.auth.signIn({
+      provider: 'twitter',
+    })
+    if (session) console.log(session)
+  }
+
+  const logoutSupabase = async () => {
+    const { error } = await supabase.auth.signOut()
+    if (error) console.log(error)
+    else console.log('ログアウト完了')
+  }
+
   useEffect(() => {
-    getRedirect()
+    const session = supabase.auth.session()
+    if (session) console.log(session)
+    // getRedirect()
   }, [])
 
   //各SNSサイトからリダイレクトされてきたか確認する。
@@ -238,8 +253,8 @@ const LogIn = () => {
           <InputLabel label='SNSアカウントでログイン' />
           <div className={styles.inputContainer}>
             <Twitter provider='Twitter' type='signin' auth={loginTwitter} />
-            <Line provider='LINE' type='signin' />
-            <Google provider='Google' type='signin' />
+            <Line provider='LINE' type='signin' auth={loginSupabase} />
+            <Google provider='Google' type='signin' auth={logoutSupabase} />
             <Yahoo provider='Yahoo' type='signin' />
           </div>
           {/* <InputLabel label='メールアドレスでログイン' />
