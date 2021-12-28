@@ -423,6 +423,13 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     location.reload()
   }
 
+  const twitterShareUrl =
+    'https://twitter.com/share?url=https://goodslist-pearl.vercel.app/event/1&text=SANKYO presents マクロスF ギャラクシーライブ 2021［リベンジ］〜まだまだふたりはこれから！私たちの歌を聴け！！〜%0aGoods List イベントのグッズ代が計算できるWEBアプリ%0a&hashtags=マクロスF'
+  // const twitterShareUrl = "https://twitter.com/share?url={{URL}}&text={{本文}}&hashtags={{ハッシュタグ}}"
+
+  const lineShareUrl =
+    'https://social-plugins.line.me/lineit/share?url=https://goodslist-pearl.vercel.app/event/1'
+
   return (
     <>
       <Head>
@@ -446,13 +453,13 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
           <main className={styles.main}>
             <div className={styles.list_header_container}>
               <div className={styles.list_header_sns}>
-                <a href={propsEvent.url} target='_blank'>
+                <a href={twitterShareUrl} target='_blank'>
                   <p className={styles.tag_twitter}>
                     Twitter
                     <IconTwitter />
                   </p>
                 </a>
-                <a href={propsEvent.url} target='_blank'>
+                <a href={lineShareUrl} target='_blank'>
                   <p className={styles.tag_line}>
                     LINE
                     <Line />
