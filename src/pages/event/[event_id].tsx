@@ -439,13 +439,6 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
       <div className={styles.sticky_container}>
         <div className={styles.total_bar_container}>
           <div className={styles.total_bar}>
-            <div
-              className={isSave && totalPrice > 0 ? styles.save : styles.save_off}
-              onClick={() => save()}
-            >
-              <Save />
-              保存
-            </div>
             <div className={styles.total_count}>{totalCount}点</div>
             <div className={styles.total}>&yen;{numberFormat(totalPrice)}</div>
           </div>
@@ -453,11 +446,6 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
         <div className={styles.wrapper_white}>
           <main className={styles.main}>
             <div className={styles.list_header_container}>
-              <div className={styles.list_header_status}>
-                <p className={styles.tag_status}>
-                  {listId > 0 ? 'マイリスト' + listId : '新規作成'}
-                </p>
-              </div>
               <div className={styles.list_header_sns}>
                 <a href={propsEvent.url} target='_blank'>
                   <p className={styles.tag_twitter}>
