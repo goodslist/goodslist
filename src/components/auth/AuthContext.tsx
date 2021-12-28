@@ -75,10 +75,11 @@ export const AuthProvider: FC = ({ children }) => {
         getUser(String(session?.user?.id))
         console.log('ここ2')
       }
-      return () => {
-        authListener?.unsubscribe()
-      }
     })
+    checkUser()
+    return () => {
+      authListener?.unsubscribe()
+    }
   }, [])
 
   async function checkUser() {
@@ -92,6 +93,32 @@ export const AuthProvider: FC = ({ children }) => {
       console.log(user.app_metadata.provider)
       console.log(user.user_metadata.user_name)
       console.log(user.user_metadata.avatar_url)
+      const { data, error } = await supabase
+        .from('users')
+        .select('user_id, user_name, provider, provider_id, photo, signedup')
+        .eq('user_id', 'TRPy99vBM4R1DsGs0uXeu3kwZFk1')
+      if (data) {
+        console.log('ここ4')
+        if (data.length > 0) {
+          console.log('ここ５')
+          console.log('あったよ' + data.length)
+          const user: User = {
+            user_id: data[0].user_id,
+            user_name: data[0].user_name,
+            provider: data[0].provider,
+            provider_id: data[0].provider_id,
+            photo: data[0].photo,
+            signedup: data[0].signedup,
+          }
+          setCurrentUser(user)
+          console.log(user)
+          // if (user.signedup == false) router.push('/login/profile')
+        } else {
+          console.log('ここ６')
+        }
+      }
+    } else {
+      console.log('ここ7')
     }
   }
 

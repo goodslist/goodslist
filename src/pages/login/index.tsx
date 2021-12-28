@@ -31,18 +31,21 @@ import { authTwitter } from '../../components/auth/AuthTwitter'
 import Loading from '../../components/modal/Loading'
 import { User } from '../../components/types'
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const cookies = nookies.get(ctx)
-  const session = cookies.session || ''
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  // const cookies = nookies.get(ctx)
+  // const session = cookies.session || ''
 
   //セッションIDを検証して、認証情報を取得する
-  const user = await firebaseAdmin
-    .auth()
-    .verifySessionCookie(session, true)
-    .catch(() => null)
+  // const user = await firebaseAdmin
+  //   .auth()
+  //   .verifySessionCookie(session, true)
+  //   .catch(() => null)
+  const { user } = await supabase.auth.api.getUserByCookie(req)
+  console.log('11')
 
   //ログイン済みの場合はマイページへ飛ばす
   if (user) {
+    console.log('12')
     return {
       redirect: {
         destination: '/mypage',

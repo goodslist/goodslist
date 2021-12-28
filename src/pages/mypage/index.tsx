@@ -20,15 +20,16 @@ type Props = {
   myLists: MyList[]
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const cookies = nookies.get(ctx)
-  const session = cookies.session || ''
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  // const cookies = nookies.get(ctx)
+  // const session = cookies.session || ''
+  const { user } = await supabase.auth.api.getUserByCookie(req)
 
   // セッションIDを検証して、認証情報を取得する
-  const user = await firebaseAdmin
-    .auth()
-    .verifySessionCookie(session, true)
-    .catch(() => null)
+  // const user = await firebaseAdmin
+  //   .auth()
+  //   .verifySessionCookie(session, true)
+  //   .catch(() => null)
 
   // 認証情報が無い場合は、ログイン画面へ遷移させる
   if (!user) {
@@ -45,7 +46,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     .select(
       'list_id, date, place, memo, item_counts, total_price, total_count, updated_at, events(event_id, event_name, contents(content_id, content_name))',
     )
-    .eq('user_id', user.uid)
+    .eq('user_id', 'TRPy99vBM4R1DsGs0uXeu3kwZFk1')
   const myLists: MyList[] = []
   data?.map((doc) => {
     const data: MyList = {
@@ -89,9 +90,10 @@ const Home = ({ myLists }: Props) => {
   console.log('aaa')
 
   const onLogout = async () => {
-    await logout() // ログアウトさせる
-    setCurrentUser(undefined)
-    router.push('/login') // ログインページへ遷移させる
+    await supabase.auth.signOut()
+    // await logout() // ログアウトさせる
+    // setCurrentUser(undefined)
+    router.push('/') // ログインページへ遷移させる
   }
 
   useEffect(() => {

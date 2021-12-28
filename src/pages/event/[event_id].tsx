@@ -13,7 +13,7 @@ import Official_mobile from '../img/official_mobile.svg'
 import IconTwitter from '../img/icon_twitter.svg'
 import IconMemo from '../../../public/images/memo.svg'
 import IconPlace from '../../../public/images/place.svg'
-import IconScreenshot from '../../../public/images/screenshot.svg'
+import IconPreview from '../../../public/images/preview.svg'
 import Newlist from '../../../public/images/newlist.svg'
 import Line from '../img/line.svg'
 import Reset from '../img/reset.svg'
@@ -522,23 +522,14 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               </p>
               <Link href={'list/' + propsEvent.event_id}>
                 <a className={styles.tag_screenshot}>
-                  一覧表示
-                  <IconScreenshot />
+                  購入一覧表示
+                  <IconPreview />
                 </a>
               </Link>
               <p className={styles.tag_official} onClick={() => openModal('reset')}>
                 リセット
                 <Reset />
               </p>
-              <a
-                href={propsEvent.url}
-                target='_blank'
-                className={styles.tag_screenshot}
-                onClick={() => createNewList()}
-              >
-                新規作成
-                <Newlist />
-              </a>
             </div>
             {/* <div className={styles.event_link_container}>
               <a href={propsEvent.url} target='_blank' className={styles.tag_screenshot}>
