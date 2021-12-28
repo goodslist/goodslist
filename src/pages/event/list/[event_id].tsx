@@ -238,25 +238,6 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
       <div className={styles.sticky_container}>
         <div className={styles.wrapper_white}>
           <main className={styles.main}>
-            <div className={styles.list_header_container}>
-              <div className={styles.list_header_status}>
-                <p className={styles.tag_status}>{listId ? 'マイリスト' + listId : '新規作成'}</p>
-              </div>
-              <div className={styles.list_header_sns}>
-                <a href={propsEvent.url} target='_blank'>
-                  <p className={styles.tag_twitter}>
-                    Twitter
-                    <IconTwitter />
-                  </p>
-                </a>
-                <a href={propsEvent.url} target='_blank'>
-                  <p className={styles.tag_line}>
-                    LINE
-                    <Line />
-                  </p>
-                </a>
-              </div>
-            </div>
             <div className={styles.contant_name_container}>
               <p className={styles.content_name}>{propsEvent.content_name}</p>
             </div>
@@ -272,7 +253,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
         <div className={styles.wrapper_glay}>
           <main className={styles.main}>
             <p className={styles.label_hot_new}>
-              <span>一覧表示</span>
+              <span>購入一覧表示</span>
             </p>
             <div className={styles.screenshot_container}>
               <p className={styles.s_content_name}>{propsEvent.content_name}</p>

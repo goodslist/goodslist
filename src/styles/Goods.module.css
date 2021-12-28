@@ -197,7 +197,7 @@
 
 .event_title_container {
   width: 100%;
-  margin: 10px 0 10px 0;
+  margin: 6px 0 10px 0;
   padding: 0 20px;
   text-align: left;
 }
@@ -210,6 +210,7 @@
   font-size: 2rem;
   font-weight: normal;
   font-weight: bold;
+  line-height: 2rem;
 }
 
 .contant_name_container {

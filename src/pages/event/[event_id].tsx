@@ -17,7 +17,6 @@ import IconPreview from '../../../public/images/preview.svg'
 import Newlist from '../../../public/images/newlist.svg'
 import Line from '../img/line.svg'
 import Reset from '../img/reset.svg'
-import Save from '../img/save.svg'
 import Button_top from '../../components/Button_top'
 import { animateScroll as scroll } from 'react-scroll'
 import { numberFormat, dateFormat } from '../../components/Utils'
@@ -555,13 +554,13 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               <div className={styles.sort_container}>
                 <button
                   className={isDefaultSort ? styles.sort_nomal_active : styles.sort_nomal}
-                  onClick={currentUser ? () => sort('default') : () => openModal('notLogin')}
+                  onClick={() => sort('default')}
                 >
                   通常順
                 </button>
                 <button
                   className={isDefaultSort ? styles.sort_buy : styles.sort_buy_active}
-                  onClick={currentUser ? () => sort('buy') : () => openModal('notLogin')}
+                  onClick={() => sort('buy')}
                 >
                   購入順
                 </button>
