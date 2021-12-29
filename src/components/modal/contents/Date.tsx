@@ -44,9 +44,23 @@ const Date = (props: any) => {
     }
   }
 
+  //月と日が一桁ならば、0埋めをする。
+  const addZero = (month: number, day: number) => {
+    let newMonth = String(month)
+    let newDay = String(day)
+    if (month < 10) {
+      newMonth = '0' + month
+    }
+    if (day < 10) {
+      newDay = '0' + day
+    }
+    return [newMonth, newDay]
+  }
+
   //日程を更新する。
   const setDate = () => {
-    const selectedDate = year + '-' + month + '-' + day
+    const [newMonth, newDay] = addZero(month, day)
+    const selectedDate = year + '-' + newMonth + '-' + newDay
     props.setDate(selectedDate)
   }
   return (
