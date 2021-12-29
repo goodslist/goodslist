@@ -1,6 +1,6 @@
 import styles from '../../styles/components/form.module.css'
 
-const SelectBirth = (props: any) => {
+const SelectDate = (props: any) => {
   const currentTime = new Date()
   const thisYear = currentTime.getFullYear()
 
@@ -44,4 +44,4 @@ const SelectBirth = (props: any) => {
   )
 }
 
-export default SelectBirth
+export default SelectDate

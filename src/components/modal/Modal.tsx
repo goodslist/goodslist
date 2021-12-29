@@ -5,8 +5,7 @@ import { ModalContext } from './ModalContext'
 import Place from './contents/Place'
 import Memo from './contents/Memo'
 import Reset from './contents/Reset'
-import Delete from './contents/Delete'
-import NotLogin from './contents/NotLogin'
+import Date from './contents/Date'
 import Message from './contents/Message'
 import Confirmation from './contents/Confirmation'
 
@@ -48,11 +47,16 @@ export default function Modal(props: any) {
             onClick={props.onClick}
           />
         )
-      case 'deleteMylist':
-        return <Delete onDeleteMylist={props.onDeleteMylist} deleteMylist={props.deleteMylist} />
-
-      case 'notLogin':
-        return <NotLogin />
+      case 'date':
+        return (
+          <Date
+            date={props.date}
+            setDate={props.setDate}
+            place={props.place}
+            onChange={props.onChangePlace}
+            close={onClickClose}
+          />
+        )
       case 'save':
         return <Message message='セーブしました' />
     }

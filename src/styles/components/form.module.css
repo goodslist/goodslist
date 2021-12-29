@@ -188,15 +188,21 @@
 
 .birth_container {
   position: relative;
-  margin: 0 auto 20px auto;
+  margin: 0 auto 30px auto;
   display: flex;
   justify-content: space-between;
-  min-width: 260px;
-  width: 70%;
+  width: 100%;
+}
+.year_container,
+.month_container,
+.day_container {
+  position: relative;
+  margin: 0;
 }
 
-.birth_container :before,
-.birth_container :after {
+.year_container :before,
+.month_container :before,
+.day_container :before {
   content: '';
   width: 6px;
   height: 6px;
@@ -211,27 +217,39 @@
   z-index: 2;
 }
 
-.birth_container :before {
-  left: 86px;
-}
-
-.birth_container :after {
+.year_container :before,
+.month_container :before,
+.day_container :before {
   right: 16px;
 }
 
 .input_select,
-.input_select_active {
+.input_select_active,
+.input_select_small,
+.input_select_small_active {
   margin: 0;
-  width: 110px;
   padding: 10px 20px 10px 10px;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   position: relative;
   background-color: #edf2f7;
   border-radius: 5px;
   transition: all 0.5s;
 }
-.input_select:focus,
+
+.input_select,
 .input_select_active {
+  width: 90px;
+}
+
+.input_select_small,
+.input_select_small_active {
+  width: 74px;
+}
+
+.input_select:focus,
+.input_select_active,
+.input_select_small,
+.input_select_small_active {
   outline: none;
   background-color: #edf2f7;
   border: 1px solid #edf2f7;
@@ -241,7 +259,9 @@
   border: 1px solid #fff;
   background-color: #edf2f7;
 }
-.input_select_active {
+.input_select_active,
+.input_select_small,
+.input_select_small_active {
   color: #666;
   border: 1px solid #68a9cf;
   background-color: #fff;

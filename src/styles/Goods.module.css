@@ -225,37 +225,13 @@
 }
 
 .event_date_container {
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  height: 20px;
-  margin: 0 20px;
-  position: relative;
-}
-.event_date_container svg {
-  width: 20px;
-  height: 20px;
-  fill: #68a9cf;
-  cursor: pointer;
-  display: block;
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 140px;
-  transform: translate(0, -50%);
-  -webkit-transform: translate(0, -50%);
-  -ms-transform: translate(0, -50%);
-  z-index: 1;
-  /* この要素のイベント無効化 */
-  pointer-events: none;
-}
-.event_date {
   margin: 0 20px 0 0;
-  padding: 0px;
+  width: 100%;
+  padding: 0px 20px;
   text-align: left;
   font-size: 1.4rem;
   color: #666;
-  line-height: 20px;
+  height: 20px;
 }
 
 .event_memo_container,

@@ -24,10 +24,6 @@ import { AuthContext } from '../../components/auth/AuthContext'
 import { ModalContext } from '../../components/modal/ModalContext'
 import Modal from '../../components/modal/Modal'
 import Loading from '../../components/modal/Loading'
-import DateFnsUtils from '@date-io/date-fns'
-import jaLocale from 'date-fns/locale/ja'
-import { format } from 'date-fns'
-import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { Event, Group, Item, ItemCount } from '../../components/types'
 import { createTheme } from '@material-ui/core/styles'
 import { ThemeProvider } from '@material-ui/styles'
@@ -335,84 +331,6 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     }
   }
 
-  const changeDateHandler = (newDate: any): void => {
-    // setDate(newDate)
-    setDate(
-      newDate.getFullYear() + '-' + (Number(newDate.getMonth()) + 1) + '-' + newDate.getDate(),
-    )
-  }
-
-  class ExtendedUtils extends DateFnsUtils {
-    getCalendarHeaderText(date: Date) {
-      return format(date, 'yyyy年MMM', { locale: this.locale })
-    }
-    getDatePickerHeaderText(date: Date) {
-      return format(date, 'MMMd日(E)', { locale: this.locale })
-    }
-
-    getYearText = (date: Date): string => {
-      const seireki = date.getFullYear() + '年'
-      return seireki
-    }
-  }
-
-  const materialTheme = createTheme({
-    palette: {
-      primary: {
-        main: '#68a9cf',
-      },
-    },
-    overrides: {
-      //overrideで既存スタイルを上書き
-      MuiInputBase: {
-        root: {
-          width: '170px',
-        },
-        input: {
-          background: '#ffffff',
-          padding: '10px 0px',
-          fontSize: '1.4rem',
-          color: '#666666',
-          cursor: 'pointer',
-          '&&::focus': {
-            border: 'none',
-          },
-          '&&:hover': {
-            border: 'none',
-          },
-        },
-      },
-      MuiInput: {
-        underline: {
-          border: 'none',
-          '&&::before': {
-            border: 'none',
-          },
-          '&&:hover::before': {
-            border: 'none',
-          },
-          '&&:hover::after': {
-            border: 'none',
-          },
-          '&&::after': {
-            border: 'none',
-          },
-          '&&::focus': {
-            border: 'none',
-          },
-        },
-      },
-      MuiOutlinedInput: {
-        input: {
-          padding: '5px',
-        },
-        notchedOutline: {
-          border: 'none',
-        },
-      },
-    },
-  })
-
   const createNewList = () => {
     localStorage.removeItem('listId')
     localStorage.removeItem('eventId')
@@ -473,20 +391,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
             <div className={styles.event_title_container}>
               <h1 className={styles.h1}>{propsEvent.event_name}</h1>
             </div>
-            <div className={styles.event_date_container}>
-              {/* <p className={styles.event_date}>{dateFormat(date)}</p> */}
-              <MuiPickersUtilsProvider utils={ExtendedUtils} locale={jaLocale}>
-                <ThemeProvider theme={materialTheme}>
-                  <DatePicker value={date} onChange={changeDateHandler} format='yyyy年MMMd日(E)' />
-                </ThemeProvider>
-              </MuiPickersUtilsProvider>
-              <Calendar />
-            </div>
-            {/* <MuiPickersUtilsProvider utils={ExtendedUtils} locale={jaLocale}>
-              <ThemeProvider theme={materialTheme}>
-                <DatePicker value={date} onChange={changeDateHandler} format='yyyy年MMMd日(E)' />
-              </ThemeProvider>
-            </MuiPickersUtilsProvider> */}
+            <div className={styles.event_date_container}>{dateFormat(date)}</div>
             <div
               className={
                 place == '' ? styles.event_place_container : styles.event_place_container_active
@@ -506,6 +411,11 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                 公式サイト
                 <Official_mobile />
               </a>
+
+              <p className={styles.tag_memo} onClick={() => openModal('date')}>
+                <Calendar />
+                日程
+              </p>
               <p className={styles.tag_memo} onClick={() => openModal('place')}>
                 会場名
                 <IconPlace />
@@ -659,6 +569,8 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
       <Modal
         onClick={reset}
         place={place}
+        date={date}
+        setDate={setDate}
         onChangePlace={validatePlace}
         errorPlace={errorPlace}
         memo={memo}

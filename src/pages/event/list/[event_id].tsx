@@ -31,10 +31,6 @@ import { numberFormat, dateFormat } from '../../../components/Utils'
 import { AuthContext } from '../../../components/auth/AuthContext'
 import { ModalContext } from '../../../components/modal/ModalContext'
 import Modal from '../../../components/modal/Modal'
-import DateFnsUtils from '@date-io/date-fns'
-import jaLocale from 'date-fns/locale/ja'
-import { format } from 'date-fns'
-import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import {
   getPrevGroupHeights,
   sortGroups,
