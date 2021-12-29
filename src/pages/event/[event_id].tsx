@@ -257,6 +257,8 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
     setGroups(propsGroups.map((group) => Object.assign({}, group)))
     setItemCounts([])
     setIsDefaultSort(true)
+    setIsAllOpenArrow(false)
+    setIsAllCloseArrow(true)
 
     //モーダルを閉じる
     setOpenModalFlag(false)
@@ -329,16 +331,6 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
         setOpenModalContentFlag(false)
       }, 1000)
     }
-  }
-
-  const createNewList = () => {
-    localStorage.removeItem('listId')
-    localStorage.removeItem('eventId')
-    localStorage.removeItem('date')
-    localStorage.removeItem('place')
-    localStorage.removeItem('memo')
-    localStorage.removeItem('itemCounts')
-    location.reload()
   }
 
   const twitterShareUrl =

@@ -221,7 +221,7 @@
 
 .content_name {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
 }
 
 .event_date_container {
@@ -229,7 +229,7 @@
   width: 100%;
   padding: 0px 20px;
   text-align: left;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   color: #666;
   height: 20px;
 }
@@ -258,7 +258,7 @@
 .event_place {
   margin: 0;
   text-align: left;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   color: #666;
   line-height: 20px;
 }
