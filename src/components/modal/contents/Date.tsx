@@ -13,18 +13,41 @@ const Date = (props: any) => {
     setYear(Number(defaultYear))
     setMonth(Number(defaultMonth))
     setDay(Number(defaultDay))
-    console.log(day)
   }, [])
 
-  //年か月が変更されたら、合わせて日の最終日を変更する。
+  //年、月のいずれかが変更されたら、合わせて月の最終日を変更する。
   useEffect(() => {
-    setLastDay(29)
+    changeLastDay(year, month, day)
   }, [year, month])
 
+  //年、月、日いずれかが変更されたら、日程を更新する。
+  useEffect(() => {
+    setDate()
+  }, [year, month, day])
+
+  //月の最終日を変更をする。
+  const changeLastDay = (year: number, month: number, day: number) => {
+    if (month == 4 || month == 6 || month == 9 || month == 11) {
+      setLastDay(30)
+      if (day > 30) setDay(30)
+    } else if (month == 2) {
+      //2月だけうるう年の判定をする。
+      if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
+        setLastDay(29)
+        if (day > 29) setDay(29)
+      } else {
+        setLastDay(28)
+        if (day > 28) setDay(28)
+      }
+    } else {
+      setLastDay(31)
+    }
+  }
+
+  //日程を更新する。
   const setDate = () => {
     const selectedDate = year + '-' + month + '-' + day
     props.setDate(selectedDate)
-    console.log(year)
   }
   return (
     <>
@@ -38,9 +61,7 @@ const Date = (props: any) => {
         setDay={setDay}
         lastDay={lastDay}
       />
-
-      {props.date}
-      <button className={styles.button} onClick={() => setDate()}>
+      <button className={styles.button} onClick={() => props.close()}>
         決定
       </button>
     </>
