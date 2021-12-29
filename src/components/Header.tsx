@@ -4,6 +4,7 @@ import React, { useEffect, useLayoutEffect } from 'react'
 import { useState, useContext } from 'react'
 import { AuthContext } from './auth/AuthContext'
 import { useRouter } from 'next/router'
+import IconMemo from '../../public/images/search.svg'
 
 export default function Header() {
   const { currentUser, userPhoto, setUserPhoto }: any = useContext(AuthContext)
@@ -31,29 +32,11 @@ export default function Header() {
             </a>
           </Link>
         </div>
-        {(() => {
-          if (router.pathname == '/login') {
-            return <></>
-          } else if (currentUser) {
-            return (
-              <Link href='/user/mylist'>
-                <a>
-                  <div className={styles.btn_photo}>
-                    <img src={currentUser.photo} />
-                  </div>
-                </a>
-              </Link>
-            )
-          } else {
-            return (
-              <Link href={'/login'}>
-                <a>
-                  <div className={styles.btn_login}>ログイン</div>
-                </a>
-              </Link>
-            )
-          }
-        })()}
+        <a>
+          <div className={styles.btn_search}>
+            <IconMemo />
+          </div>
+        </a>
       </div>
     </div>
   )
