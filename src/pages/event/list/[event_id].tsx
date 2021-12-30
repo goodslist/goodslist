@@ -41,6 +41,7 @@ import {
 } from '../../../components/event/Sort'
 import { Event, Group, Item, ItemCount } from '../../../components/types'
 import { useRouter } from 'next/router'
+import Header from '../../../components/Header'
 
 type PathParams = {
   event_id: string
@@ -231,6 +232,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
           rel='stylesheet'
         />
       </Head>
+      <Header />
       <div className={styles.sticky_container}>
         <div className={styles.wrapper_white}>
           <main className={styles.main}>

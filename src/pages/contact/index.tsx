@@ -5,6 +5,7 @@ import styles from '../../styles/Contact.module.css'
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import Title from '../../components/view/title'
 import Form from '../../components/form/Form'
+import Header from '../../components/Header'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -29,6 +30,7 @@ const Contact = (data: Props) => {
           rel='stylesheet'
         />
       </Head>
+      <Header />
 
       <main className={styles.main}>
         <Title title='お問い合わせ' />

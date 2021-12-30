@@ -31,6 +31,7 @@ import { useTotalPrice } from '../../components/hooks/event/useTotalPrice'
 import { useGroups } from '../../components/hooks/event/useGroups'
 import { useItems } from '../../components/hooks/event/useItems'
 import { useDate } from '../../components/hooks/event/useDate'
+import Header from '../../components/Header'
 
 type PathParams = {
   event_id: string
@@ -352,6 +353,8 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
           rel='stylesheet'
         />
       </Head>
+
+      <Header />
       <div className={styles.sticky_container}>
         <div className={styles.total_bar_container}>
           <div className={styles.total_bar}>

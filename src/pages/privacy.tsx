@@ -8,6 +8,7 @@ import styles from '../styles/Privacy.module.css'
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import Title from '../components/view/title'
 import Form from '../components/form/Form'
+import Header from '../components/Header'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -32,6 +33,7 @@ const LoginGate = (data: Props) => {
           rel='stylesheet'
         />
       </Head>
+      <Header />
 
       <main className={styles.main}>
         <Title title='プライバシー・ポリシー' />
