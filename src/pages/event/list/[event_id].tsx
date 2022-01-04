@@ -70,25 +70,25 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const { event_id } = context.params as PathParams
 
   const { data, error } = await supabase
-    .from('items')
+    .from('events')
     .select(
-      'item_id, item_name, group, version, color, size, price, events(event_id, event_name, date, url, contents(content_id, content_name))',
+      'event_id, event_name, date, url, items, content_id2, content_id3, contents(content_id, content_name)',
     )
     .eq('event_id', event_id)
-
+  console.log(data![0])
   const event: Event = {
-    content_id: data![0].events.contents.content_id,
-    content_name: data![0].events.contents.content_name,
-    event_id: data![0].events.event_id,
-    event_name: data![0].events.event_name,
-    date: data![0].events.date,
+    content_id: data![0].contents.content_id,
+    content_name: data![0].contents.content_name,
+    event_id: data![0].event_id,
+    event_name: data![0].event_name,
+    date: data![0].date,
     place: '',
-    url: data![0].events.url,
+    url: data![0].url,
     memo: '',
   }
 
   const items: Item[] = []
-  data?.map((doc) => {
+  data![0].items.map((doc: any) => {
     const item: Item = {
       item_id: doc.item_id,
       group: doc.group,
@@ -105,7 +105,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   const groups: Group[] = []
   let now_group = 1
-  items.map((item) => {
+  data![0].items.map((item: any) => {
     if (item.group == now_group) {
       groups[now_group - 1] = {
         group: item.group,
