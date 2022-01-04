@@ -91,8 +91,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   data?.map((doc) => {
     const item: Item = {
       item_id: doc.item_id,
-      item_name: doc.item_name,
       group: doc.group,
+      order: doc.order,
+      item_name: doc.item_name,
       item_type: doc.version,
       color: doc.color,
       size: doc.size,
