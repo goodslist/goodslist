@@ -1,13 +1,14 @@
 import { useRouter } from 'next/router'
 import { supabase } from '../../components/supabase'
 import Link from 'next/link'
-import styles from '../../styles/Search.module.css'
+import styles from '../../styles/Admin.module.css'
 import Title from '../../components/view/title'
 import Head from 'next/head'
 import { GetServerSideProps } from 'next'
 import InputText from '../../components/form/InputText'
 import Form from '../../components/form/Form'
 import { useEffect, useState } from 'react'
+import AdminHeader from '../../components/admin/Header'
 import AdminLogin from '../../components/admin/login'
 
 type Props = {}
@@ -36,6 +37,7 @@ export default function Admin(props: Props) {
           rel='stylesheet'
         ></link>
       </Head>
+      <AdminHeader />
       <div className={styles.wrapper_white}>
         <AdminLogin />
       </div>

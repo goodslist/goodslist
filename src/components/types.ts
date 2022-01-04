@@ -27,6 +27,7 @@ export type Event = {
 export type Item = {
   item_id: number
   item_name: string
+  order: number
   group: number
   item_type: string
   color: string
@@ -62,4 +63,16 @@ export type MyList = {
   total_price: number
   total_count: number
   updated_at: Date
+}
+
+export type ContentsList = {
+  content_id: number
+  content_name: string
+}
+
+export type Contents = {
+  content_id: number
+  content_name: string
+  content_name_hira: string
+  content_name_kana: string
 }
