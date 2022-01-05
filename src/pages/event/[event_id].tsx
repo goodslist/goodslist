@@ -32,6 +32,7 @@ import { useGroups } from '../../components/hooks/event/useGroups'
 import { useItems } from '../../components/hooks/event/useItems'
 import { useDate } from '../../components/hooks/event/useDate'
 import Header from '../../components/Header'
+import SocialButton from '../../components/form/SocialButton'
 
 type PathParams = {
   event_id: string
@@ -87,7 +88,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       item_type: doc.version,
       color: doc.color,
       size: doc.size,
-      price: doc.price,
+      price: Number(doc.price),
       item_count: 0,
     }
     items.push(item)
@@ -101,7 +102,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
         group: item.group,
         item_name: item.item_name,
         group_count: 0,
-        price: item.price,
+        price: Number(item.price),
         sub_total: 0,
         open: true,
       }
@@ -422,7 +423,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
               </p>
               <Link href={'list/' + propsEvent.event_id}>
                 <a className={styles.tag_screenshot}>
-                  購入一覧表示
+                  一覧表示
                   <IconPreview />
                 </a>
               </Link>
@@ -558,6 +559,10 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                   </>
                 ))}
               </ul>
+              <div className={styles.card2}>
+                <SocialButton provider='Twitter' />
+                <SocialButton provider='LINE' />
+              </div>
             </div>
           </main>
         </div>
