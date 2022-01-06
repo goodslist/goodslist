@@ -390,9 +390,10 @@
   margin: 0;
   padding: 0 0 100px 0;
   width: 100%;
-  background: url('/images/background2.png');
+  background: url('/images/background3.png');
   background-repeat: repeat;
   background-position: 50% 0%;
+  background-size: 100%;
 }
 .wrapper_glay {
   margin: 0;
