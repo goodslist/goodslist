@@ -390,10 +390,23 @@
   margin: 0;
   padding: 0 0 100px 0;
   width: 100%;
-  background: url('/images/background3.png');
+  background: url('/images/background4.png');
   background-repeat: repeat;
   background-position: 50% 0%;
   background-size: 450px 450px;
+
+  position: relative;
+}
+.wrapper_white::after {
+  content: '';
+  position: absolute;
+  background: linear-gradient(45deg, #f1f1f1 50%, transparent 50%),
+    linear-gradient(315deg, #f1f1f1 50%, transparent 50%);
+  background-size: 20px 20px;
+  height: 14px;
+  width: 100%;
+  left: 0;
+  bottom: 0;
 }
 .wrapper_glay {
   margin: 0;

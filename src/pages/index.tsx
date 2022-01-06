@@ -104,6 +104,30 @@ const Home = ({ eventList }: Props) => {
             </span>
           </form>
         </main>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
       </div>
       <div className={styles.wrapper_glay}>
         <main className={styles.main_g}>
