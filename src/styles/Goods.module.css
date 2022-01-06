@@ -943,6 +943,7 @@
   transition: all 0.3s;
   font-size: 1.4rem;
   position: relative;
+  overflow: hidden;
   /* box-shadow: 0 1px 4px rgb(0 0 0 / 5%); */
 }
 

@@ -105,11 +105,10 @@ const Home = ({ eventList }: Props) => {
               <Search />
             </span>
           </form>
-          <Loading />
         </main>
       </div>
       <div className={styles.wrapper_glay}>
-        <main className={styles.main}>
+        <main className={styles.main_g}>
           <div className={styles.grid}>
             <p className={styles.label_hot_new}>
               <span>人気イベント</span>
