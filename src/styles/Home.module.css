@@ -393,7 +393,7 @@
   background: url('/images/background3.png');
   background-repeat: repeat;
   background-position: 50% 0%;
-  background-size: 100%;
+  background-size: 450px 450px;
 }
 .wrapper_glay {
   margin: 0;
