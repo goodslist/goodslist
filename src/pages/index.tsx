@@ -86,9 +86,7 @@ const Home = ({ eventList }: Props) => {
       </Head>
       <div className={styles.wrapper_white}>
         <main className={styles.main}>
-          <h1 className={styles.title}>
-            <span>G</span>oods Lista
-          </h1>
+          <h1 className={styles.title}>Goods List</h1>
           <h2 className={styles.sub_title}>グッズ代が計算できるWEBアプリ</h2>
           <form className={styles.search_container} onSubmit={enterForm}>
             <input
