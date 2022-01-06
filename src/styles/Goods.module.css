@@ -7,7 +7,12 @@
   width: 100%;
 }
 .wrapper_white {
+  margin: 0;
   width: 100%;
+  background: url('/images/background6.png');
+  background-repeat: repeat;
+  background-position: 50% 0%;
+  background-size: 450px 450px;
   padding: 30px 0 30px 0;
   position: relative;
 }
@@ -646,6 +651,7 @@
   border: 1px solid #68a9cf;
   cursor: pointer;
   box-sizing: border-box;
+  background: #fff;
 }
 
 .tag_official svg,
