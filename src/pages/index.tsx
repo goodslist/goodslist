@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { GetStaticProps } from 'next'
 import type { NextPage } from 'next'
 import Head from 'next/head'
@@ -99,11 +99,19 @@ const Home = ({ eventList }: Props) => {
 
   const onFocusInput = () => {
     setSearchFocus(true)
+    window.scrollTo({
+      top: 307,
+      behavior: 'smooth',
+    })
   }
-
-  const onBlurInput = () => {
+  const onBlurInput = (e: any) => {
+    console.log(e)
     // setSearchFocus(false)
   }
+
+  const refEle = useRef(null)
+
+  const handleClickDocument = useRef(null)
 
   return (
     <>
@@ -133,7 +141,7 @@ const Home = ({ eventList }: Props) => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onFocus={() => onFocusInput()}
-              onBlur={() => onBlurInput()}
+              onBlur={(e) => onBlurInput(e.target)}
             />
             <span
               className={input ? styles.search_button_active : styles.search_button}
@@ -144,7 +152,7 @@ const Home = ({ eventList }: Props) => {
             {events?.length > 0 && input.length > 0 && searchFocus ? (
               <ul className={styles.search_result_active}>
                 {events.map((event) => (
-                  <li key={event.event_id}>
+                  <li key={event.event_id} ref={refEle}>
                     <Link href={'event/' + event.event_id}>
                       <a>
                         <b>{event.content_name}</b>
