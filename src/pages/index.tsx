@@ -102,7 +102,7 @@ const Home = ({ eventList }: Props) => {
   }
 
   const onBlurInput = () => {
-    setSearchFocus(false)
+    // setSearchFocus(false)
   }
 
   return (
@@ -150,8 +150,6 @@ const Home = ({ eventList }: Props) => {
                         <b>{event.content_name}</b>
                         <br />
                         {event.event_name}
-                        <br />
-                        <br />
                       </a>
                     </Link>
                   </li>

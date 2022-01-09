@@ -422,17 +422,24 @@
   padding: 0;
   position: absolute;
   width: 300px;
-  top: 70px;
+  top: 50px;
   background-color: #fff;
-  white-space: nowrap;
-  overflow: hidden;
   text-align: left;
   font-size: 1.2rem;
+  -webkit-box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 8%);
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 8%);
 }
 
 .search_result {
   height: 0;
 }
 
-.search_result_active {
+.search_result_active li {
+  margin: 0;
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
