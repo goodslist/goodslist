@@ -98,13 +98,21 @@ const Home = ({ eventList }: Props) => {
   const { setCurrentUser }: any = useContext(AuthContext)
 
   const searchRef = useRef<HTMLInputElement>(null)
+  const [searchTop, setSearchTop] = useState(0)
+
+  useEffect(() => {
+    const clientHeight = searchRef.current!.getBoundingClientRect().top
+    setSearchTop(clientHeight)
+  }, [])
 
   const onFocusInput = () => {
     setSearchFocus(true)
-    if (searchRef.current) {
-      const clientHeight = searchRef?.current.scrollIntoView()
-      console.log(clientHeight)
-    }
+    // const clientHeight = searchRef?.current.scrollIntoView()
+    console.log(searchTop)
+    window.scrollTo({
+      top: searchTop,
+      behavior: 'smooth',
+    })
 
     // window.scrollTo({
     //   top: 307,
