@@ -48,6 +48,7 @@ const Home = ({ eventList }: Props) => {
   const router = useRouter()
   const [input, setInput] = useState<string>('')
   const [events, setEvents] = useState<EventList[]>([])
+  const [searchFocus, setSearchFocus] = useState<boolean>(false)
 
   //エンターキーを押した時、submitを止める
   const enterForm = (e: React.FormEvent<HTMLFormElement>) => {
@@ -96,6 +97,14 @@ const Home = ({ eventList }: Props) => {
 
   const { setCurrentUser }: any = useContext(AuthContext)
 
+  const onFocusInput = () => {
+    setSearchFocus(true)
+  }
+
+  const onBlurInput = () => {
+    setSearchFocus(false)
+  }
+
   return (
     <>
       <Head>
@@ -123,7 +132,8 @@ const Home = ({ eventList }: Props) => {
               placeholder='アーティスト・イベント名で検索'
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onFocus={() => searchEvent()}
+              onFocus={() => onFocusInput()}
+              onBlur={() => onBlurInput()}
             />
             <span
               className={input ? styles.search_button_active : styles.search_button}
@@ -131,7 +141,7 @@ const Home = ({ eventList }: Props) => {
             >
               <Search />
             </span>
-            {events?.length > 0 && input.length > 0 ? (
+            {events?.length > 0 && input.length > 0 && searchFocus ? (
               <ul className={styles.search_result_active}>
                 {events.map((event) => (
                   <li key={event.event_id}>
