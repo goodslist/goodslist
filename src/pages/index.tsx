@@ -97,21 +97,24 @@ const Home = ({ eventList }: Props) => {
 
   const { setCurrentUser }: any = useContext(AuthContext)
 
+  const searchRef = useRef<HTMLInputElement>(null)
+
   const onFocusInput = () => {
     setSearchFocus(true)
-    window.scrollTo({
-      top: 307,
-      behavior: 'smooth',
-    })
+    if (searchRef.current) {
+      const clientHeight = searchRef?.current.scrollIntoView()
+      console.log(clientHeight)
+    }
+
+    // window.scrollTo({
+    //   top: 307,
+    //   behavior: 'smooth',
+    // })
   }
   const onBlurInput = (e: any) => {
     console.log(e)
     // setSearchFocus(false)
   }
-
-  const refEle = useRef(null)
-
-  const handleClickDocument = useRef(null)
 
   return (
     <>
@@ -142,6 +145,7 @@ const Home = ({ eventList }: Props) => {
               onChange={(e) => setInput(e.target.value)}
               onFocus={() => onFocusInput()}
               onBlur={(e) => onBlurInput(e.target)}
+              ref={searchRef}
             />
             <span
               className={input ? styles.search_button_active : styles.search_button}
