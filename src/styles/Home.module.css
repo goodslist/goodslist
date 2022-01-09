@@ -415,3 +415,24 @@
   /* background-color: #faf9f7; */
   padding: 30px 0 60px 0;
 }
+
+.search_result,
+.search_result_active {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  width: 300px;
+  top: 70px;
+  background-color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: left;
+  font-size: 1.2rem;
+}
+
+.search_result {
+  height: 0;
+}
+
+.search_result_active {
+}

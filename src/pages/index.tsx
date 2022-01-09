@@ -12,6 +12,7 @@ import Loading from '../components/modal/Loading'
 import { AuthContext } from '../components/auth/AuthContext'
 import { useContext } from 'react'
 import { EventList } from '../components/types'
+import Image from 'next/image'
 
 // ページコンポーネントに渡されるデータ
 type Props = {
@@ -45,12 +46,39 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
 // ページコンポーネントの実装
 const Home = ({ eventList }: Props) => {
   const router = useRouter()
-  const [input, setInput] = useState<string>()
+  const [input, setInput] = useState<string>('')
+  const [events, setEvents] = useState<EventList[]>([])
 
   //エンターキーを押した時、submitを止める
   const enterForm = (e: React.FormEvent<HTMLFormElement>) => {
     if (e) e.preventDefault()
     clickButton()
+  }
+
+  useEffect(() => {
+    searchEvent()
+  }, [input])
+
+  const searchEvent = async () => {
+    let newSearchResults: EventList[] = []
+    if (input?.length > 0) {
+      const { data, error } = await supabase
+        .from('search_events')
+        .select('event_id, event_name, content_name, search_word')
+        .ilike('search_word', '%' + input + '%')
+        .limit(5)
+      data?.map((doc) => {
+        const searchResult: EventList = {
+          event_id: doc.event_id,
+          event_name: doc.event_name,
+          content_name: doc.content_name,
+        }
+        newSearchResults.push(searchResult)
+      })
+    }
+    setEvents(newSearchResults)
+    console.log('searchEvent')
+    console.log(newSearchResults)
   }
 
   //入力テキストを元に検索結果へ遷移する
@@ -102,6 +130,25 @@ const Home = ({ eventList }: Props) => {
             >
               <Search />
             </span>
+            {events?.length > 0 ? (
+              <ul className={styles.search_result_active}>
+                {events.map((event) => (
+                  <li key={event.event_id}>
+                    <Link href={'event/' + event.event_id}>
+                      <a>
+                        <b>{event.content_name}</b>
+                        <br />
+                        {event.event_name}
+                        <br />
+                        <br />
+                      </a>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className={styles.search_result}>bb</div>
+            )}
           </form>
         </main>
         <br />
