@@ -97,27 +97,20 @@ const Home = ({ eventList }: Props) => {
 
   const { setCurrentUser }: any = useContext(AuthContext)
 
-  const searchRef = useRef<HTMLInputElement>(null)
   const [searchTop, setSearchTop] = useState(0)
 
+  const searchRef = useRef<HTMLInputElement>(null)
+
   useEffect(() => {
-    const clientHeight = searchRef.current!.getBoundingClientRect().top
-    setSearchTop(clientHeight)
+    if (searchRef.current) setSearchTop(searchRef.current.getBoundingClientRect().top)
   }, [])
 
   const onFocusInput = () => {
     setSearchFocus(true)
-    // const clientHeight = searchRef?.current.scrollIntoView()
-    console.log(searchTop)
     window.scrollTo({
       top: searchTop,
       behavior: 'smooth',
     })
-
-    // window.scrollTo({
-    //   top: 307,
-    //   behavior: 'smooth',
-    // })
   }
   const onBlurInput = (e: any) => {
     console.log(e)
@@ -164,7 +157,7 @@ const Home = ({ eventList }: Props) => {
             {events?.length > 0 && input.length > 0 && searchFocus ? (
               <ul className={styles.search_result_active}>
                 {events.map((event) => (
-                  <li key={event.event_id}>
+                  <li key={event.event_id} ref={refEle}>
                     <Link href={'event/' + event.event_id}>
                       <a>
                         <b>{event.content_name}</b>
