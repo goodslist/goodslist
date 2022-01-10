@@ -105,19 +105,30 @@ const Home = ({ eventList }: Props) => {
     if (searchRef.current) setSearchTop(searchRef.current.getBoundingClientRect().y)
   }, [])
 
+  const [searchFocus2, setSearchFocus2] = useState<boolean>(false)
   const onFocusInput = () => {
     setSearchFocus(true)
-    if (!(window.scrollY == searchTop)) {
-      window.scrollTo({
-        top: searchTop,
-        behavior: 'smooth',
-      })
-    }
+    // if (!(window.scrollY == searchTop)) {
+    //   window.scrollTo({
+    //     top: searchTop,
+    //     behavior: 'smooth',
+    //   })
+    // }
     console.log(searchRef.current!.getBoundingClientRect())
   }
   const onBlurInput = (e: any) => {
     console.log(e)
-    // setSearchFocus(false)
+    setSearchFocus(false)
+  }
+
+  const onMouseOver = (e: any) => {
+    setSearchFocus2(true)
+    console.log(e)
+  }
+
+  const onMouseLeave = (e: any) => {
+    setSearchFocus2(false)
+    console.log(e)
   }
 
   return (
@@ -157,10 +168,10 @@ const Home = ({ eventList }: Props) => {
             >
               <Search />
             </span>
-            {events?.length > 0 && input.length > 0 ? (
+            {(events?.length > 0 && input.length > 0 && searchFocus) || searchFocus2 ? (
               <ul className={styles.search_result_active}>
                 {events.map((event) => (
-                  <li key={event.event_id}>
+                  <li key={event.event_id} onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
                     <Link href={'event/' + event.event_id}>
                       <a>
                         <b>{event.content_name}</b>
@@ -172,7 +183,7 @@ const Home = ({ eventList }: Props) => {
                 ))}
               </ul>
             ) : (
-              <div className={styles.search_result}>bb</div>
+              <></>
             )}
           </form>
         </main>
