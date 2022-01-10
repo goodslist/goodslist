@@ -436,6 +436,11 @@
 
 .search_result_active li {
   margin: 0;
+}
+
+.search_result_active li a {
+  display: block;
+  margin: 0;
   width: 100%;
   padding: 10px;
   border-bottom: 1px solid #ccc;
