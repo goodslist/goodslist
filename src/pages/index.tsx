@@ -157,7 +157,7 @@ const Home = ({ eventList }: Props) => {
             {events?.length > 0 && input.length > 0 && searchFocus ? (
               <ul className={styles.search_result_active}>
                 {events.map((event) => (
-                  <li key={event.event_id} ref={refEle}>
+                  <li key={event.event_id}>
                     <Link href={'event/' + event.event_id}>
                       <a>
                         <b>{event.content_name}</b>
