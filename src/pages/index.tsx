@@ -102,7 +102,7 @@ const Home = ({ eventList }: Props) => {
   const searchRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    if (searchRef.current) setSearchTop(searchRef.current.getBoundingClientRect().top)
+    if (searchRef.current) setSearchTop(searchRef.current.getBoundingClientRect().y)
   }, [])
 
   const onFocusInput = () => {
@@ -111,6 +111,7 @@ const Home = ({ eventList }: Props) => {
       top: searchTop,
       behavior: 'smooth',
     })
+    console.log(searchRef.current!.getBoundingClientRect())
   }
   const onBlurInput = (e: any) => {
     console.log(e)
@@ -154,7 +155,7 @@ const Home = ({ eventList }: Props) => {
             >
               <Search />
             </span>
-            {events?.length > 0 && input.length > 0 && searchFocus ? (
+            {events?.length > 0 && input.length > 0 ? (
               <ul className={styles.search_result_active}>
                 {events.map((event) => (
                   <li key={event.event_id}>
