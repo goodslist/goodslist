@@ -268,10 +268,10 @@
 
   .title {
     margin: 20px 0 10px 0;
-    line-height: 0.9;
-    font-size: 8rem;
-    /* font-family: 'Montserrat', sans-serif; */
-    font-family: 'Hind', sans-serif;
+    line-height: 1.2;
+    font-size: 7rem;
+    font-family: 'Montserrat', sans-serif;
+    /* font-family: 'Hind', sans-serif; */
     text-align: center;
     color: #000;
   }
@@ -332,8 +332,8 @@
     margin: 20px 0 10px 0;
     line-height: 1.15;
     font-size: 8rem;
-    /* font-family: 'Montserrat', sans-serif; */
-    font-family: 'Hind', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    /* font-family: 'Hind', sans-serif; */
     text-align: center;
     color: #000;
   }
