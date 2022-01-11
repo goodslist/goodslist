@@ -139,7 +139,8 @@ const Home = ({ eventList }: Props) => {
         <meta name='viewport' content='width=device-width,initial-scale=1.0,maximum-scale=1.0' />
         <link rel='icon' href='/favicon.ico' />
         <link
-          href='https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap&text=Goodsist'
+          href='https://fonts.googleapis.com/css2?family=Hind:wght@700&display=swap&text=GOODS LIST'
+          // href='https://fonts.googleapis.com/css2?family=Hind:wght@600&display=swap&text=GOODS LIST'
           rel='stylesheet'
         />
         <link
@@ -149,7 +150,11 @@ const Home = ({ eventList }: Props) => {
       </Head>
       <div className={styles.wrapper_white}>
         <main className={styles.main}>
-          <h1 className={styles.title}>Goods List</h1>
+          <h1 className={styles.title}>
+            GOODS
+            <br />
+            LIST
+          </h1>
           <h2 className={styles.sub_title}>グッズ代が計算できるWEBアプリ</h2>
           <form className={styles.search_container} onSubmit={enterForm}>
             <input
