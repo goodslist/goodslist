@@ -34,7 +34,7 @@ const createOgp = async (req: NextApiRequest, res: NextApiResponse): Promise<voi
   ctx.fillStyle = '#000000'
   ctx.textAlign = 'left'
   ctx.textBaseline = 'top'
-  let content_name = 'ラブライブ！虹ヶ咲学園スクールアイドル同好会'
+  let content_name = ogp.content_name
   // const content_name = ogp.content_name
   ctx.drawImage(backgroundImage, 0, 0, WIDTH, HEIGHT)
 
@@ -53,7 +53,7 @@ const createOgp = async (req: NextApiRequest, res: NextApiResponse): Promise<voi
   ctx.fillText(content_name, 150, 100, 900)
   ctx.font = '50px "KosugiMaru"'
   // const event_name = ogp.event_name
-  const event_name = test
+  const event_name = ogp.event_name
   const event_names = event_name.split(' ')
   for (let i = 0; i < event_names.length; i++) {
     if (i < event_names.length - 1) {

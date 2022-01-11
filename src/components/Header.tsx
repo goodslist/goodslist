@@ -15,7 +15,7 @@ export default function Header() {
             <a>
               <p className={styles.logo}>
                 <span>G</span>
-                oods List
+                OODS LIST
               </p>
             </a>
           </Link>
