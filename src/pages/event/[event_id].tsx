@@ -352,7 +352,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
         <meta
           property='og:image'
           key='ogImage'
-          content={'https://goodslist-pearl.vercel.app/api/ogp?event_id=1'}
+          content={'https://goodslist-pearl.vercel.app/images/ogp.png'}
         />
         <link rel='icon' href='/favicon.ico' />
         <link
