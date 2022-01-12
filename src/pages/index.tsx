@@ -140,7 +140,7 @@ const Home = ({ eventList }: Props) => {
         <meta name='viewport' content='width=device-width,initial-scale=1.0,maximum-scale=1.0' />
         <link rel='icon' href='/favicon.ico' />
         <link
-          href='https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap&text=GOODS LISTGoosist'
+          href='https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap&text=GOODS LISTGoodsist'
           // href='https://fonts.googleapis.com/css2?family=Hind:wght@600&display=swap&text=GOODS LIST'
           rel='stylesheet'
         />
