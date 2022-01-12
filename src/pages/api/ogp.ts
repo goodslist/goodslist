@@ -6,15 +6,15 @@ import * as path from 'path'
 const createOgp = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   const { event_id } = req.query
 
-  const { data, error } = await supabase
-    .from('events')
-    .select('event_name, contents(content_name)')
-    .eq('event_id', event_id)
+  // const { data, error } = await supabase
+  //   .from('events')
+  //   .select('event_name, contents(content_name)')
+  //   .eq('event_id', event_id)
 
-  const ogp = {
-    content_name: data![0].contents.content_name,
-    event_name: data![0].event_name,
-  }
+  // const ogp = {
+  //   content_name: data![0].contents.content_name,
+  //   event_name: data![0].event_name,
+  // }
 
   const WIDTH = 1200 as const
   const HEIGHT = 630 as const
