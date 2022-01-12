@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { createCanvas, registerFont, loadImage } from 'canvas'
+const { createCanvas, loadImage } = require('canvas')
 import { supabase } from '../../components/supabase'
 import * as path from 'path'
 
