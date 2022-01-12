@@ -18,7 +18,7 @@ const createOgp = async (req: NextApiRequest, res: NextApiResponse): Promise<voi
 
   const WIDTH = 1200 as const
   const HEIGHT = 630 as const
-  // const canvas = createCanvas(WIDTH, HEIGHT)
+  const canvas = createCanvas(1200, 630)
   //   const ctx = canvas.getContext('2d')
   //   // registerFont(path.resolve('./public/fonts/NotoSansJP-Regular.otf'), {
   //   //   family: 'Noto',
