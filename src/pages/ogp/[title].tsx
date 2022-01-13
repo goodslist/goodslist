@@ -72,10 +72,10 @@ export const getServerSideProps: GetServerSideProps = async (
           justify-content: center;
           align-items: center;
           width: 80%;
-          height: 20%;
+          height: 30%;
           margin: auto;
           color: #374151;
-          font-size: 2rem;
+          font-size: 4rem;
           font-weight: bold;
           line-height: 1.5;
         }
@@ -85,10 +85,10 @@ export const getServerSideProps: GetServerSideProps = async (
           justify-content: center;
           align-items: center;
           width: 80%;
-          height: 80%;
+          height: 70%;
           margin: auto;
           color: #374151;
-          font-size: 5rem;
+          font-size: 4rem;
           font-weight: bold;
           line-height: 1.5;
         }
