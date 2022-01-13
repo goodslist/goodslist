@@ -76,3 +76,9 @@ export type Contents = {
   content_name_hira: string
   content_name_kana: string
 }
+
+export type MetaInfo = {
+  title: string
+  url: string
+  image: string
+}

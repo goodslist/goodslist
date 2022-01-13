@@ -2,7 +2,6 @@ import Link from 'next/link'
 import React from 'react'
 import { GetStaticProps } from 'next'
 import type { NextPage } from 'next'
-import Head from 'next/head'
 import { useState, useEffect, useContext } from 'react'
 import { supabase } from '../../components/supabase'
 import styles from '../../styles/Goods.module.css'
@@ -33,6 +32,8 @@ import { useItems } from '../../components/hooks/event/useItems'
 import { useDate } from '../../components/hooks/event/useDate'
 import Header from '../../components/Header'
 import SocialButton from '../../components/form/SocialButton'
+import Meta from '../../components/Meta'
+import { MetaInfo } from '../../components/types'
 
 type PathParams = {
   event_id: string
@@ -343,43 +344,14 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   const lineShareUrl =
     'https://social-plugins.line.me/lineit/share?url=https://goodslist-pearl.vercel.app/event/1'
 
-  type Seo = {
-    title: string
-    url: string
-    image: string
-  }
-  const seo: Seo = {
+  const meta: MetaInfo = {
     title: propsEvent.content_name + ' ' + propsEvent.event_name,
     url: 'https://goodslist-pearl.vercel.app/event/' + propsEvent.event_id,
     image: 'https://goodslist-pearl.vercel.app/ogp/' + propsEvent.event_id,
   }
   return (
     <>
-      <Head>
-        <title>{seo.title}</title>
-        <meta name='description' content='グッズ代が計算できるWEBアプリ' />
-        <meta name='viewport' content='width=device-width,initial-scale=1.0,maximum-scale=1.0' />
-        <meta name='twitter:card' content='summary_large_image' />
-        <meta property='og:site_name' content='Goodsist' />
-        <link rel='canonical' href={seo.url} />
-        <meta property='og:url' content={seo.url} />
-        <meta property='og:title' content={seo.title} />
-        <meta property='og:image' content={seo.image} />
-        <meta property='og:type' content='article' />
-        <link rel='icon' href='/favicon.ico' />
-        <link
-          href='https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap&text=Goodsist'
-          rel='stylesheet'
-        />
-
-        {/* <meta
-          property='og:image'
-          key='ogImage'
-          content={'https://goodslist-pearl.vercel.app/ogp/1'}
-        />
-        <meta name='twitter:card' content='summary_large_image' />
-        <meta name='twitter:card' content='summary_large_image' /> */}
-      </Head>
+      <Meta title={meta.title} url={meta.url} image={meta.image} />
 
       <Header />
       <div className={styles.sticky_container}>
