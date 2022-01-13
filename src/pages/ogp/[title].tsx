@@ -67,11 +67,37 @@ export const getServerSideProps: GetServerSideProps = async (
           line-height: 1.5;
         }
 
+        .content_name {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 80%;
+          height: 20%;
+          margin: auto;
+          color: #374151;
+          font-size: 2rem;
+          font-weight: bold;
+          line-height: 1.5;
+        }
+
+        .event_name {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 80%;
+          height: 80%;
+          margin: auto;
+          color: #374151;
+          font-size: 5rem;
+          font-weight: bold;
+          line-height: 1.5;
+        }
+
         </style>
       </head>
       <body>
-        <div>${ogp.content_name}</div>
-        <div>${ogp.event_name}</div>
+        <div class='content_name'>${ogp.content_name}</div>
+        <div class='event_name'>${ogp.event_name}</div>
       </body>
     </html>`
 
