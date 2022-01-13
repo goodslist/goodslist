@@ -1,6 +1,7 @@
 import { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import puppeteer from 'puppeteer-core'
 import chromium from 'chrome-aws-lambda'
+import { supabase } from '../../components/supabase'
 
 const Image: React.FC = () => {
   return <></>
@@ -22,10 +23,20 @@ export const getServerSideProps: GetServerSideProps = async (
     return { props: {} }
   }
 
+  const { data, error } = await supabase
+    .from('events')
+    .select('event_name, contents(content_name)')
+    .eq('event_id', Number(title))
+
+  const ogp = {
+    content_name: data![0].contents.content_name,
+    event_name: data![0].event_name,
+  }
+
   await chromium.font('https://goodslist-pearl.vercel.app/fonts/KosugiMaru-Regular.ttf')
   const browser = await puppeteer.launch({
     args: chromium.args,
-    defaultViewport: { width: 1200, height: 675 },
+    defaultViewport: { width: 1200, height: 630 },
     executablePath: await chromium.executablePath,
     headless: chromium.headless,
   })
@@ -48,7 +59,7 @@ export const getServerSideProps: GetServerSideProps = async (
           justify-content: center;
           align-items: center;
           width: 60%;
-          height: 100%;
+          height: 40%;
           margin: auto;
           color: #374151;
           font-size: 2rem;
@@ -59,7 +70,8 @@ export const getServerSideProps: GetServerSideProps = async (
         </style>
       </head>
       <body>
-        <div>${title}</div>
+        <div>${ogp.content_name}</div>
+        <div>${ogp.event_name}</div>
       </body>
     </html>`
 
