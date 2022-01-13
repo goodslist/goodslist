@@ -34,6 +34,7 @@ import Header from '../../components/Header'
 import SocialButton from '../../components/form/SocialButton'
 import Meta from '../../components/Meta'
 import { MetaInfo } from '../../components/types'
+import createOgp from '../../components/createOgp'
 
 type PathParams = {
   event_id: string
@@ -110,6 +111,8 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       now_group++
     }
   })
+
+  createOgp(event.content_name, String(event.event_id), event.event_name)
 
   type PageProps = {
     propsEvent: Event

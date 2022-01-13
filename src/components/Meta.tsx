@@ -7,7 +7,7 @@ const Meta = (props: MetaInfo) => {
       <title>{props.title}</title>
       <meta property='og:site_name' content='Goodsist' />
       <meta property='og:title' content={props.title} />
-      <meta name='description' content='グッズ代が計算できるWEBアプリ' />
+      <meta name='description' content='イベントのグッズ代が計算できるWEBアプリ' />
       <link rel='canonical' href={props.url} />
       <meta property='og:url' content={props.url} />
       <meta property='og:image' content={props.image} />
