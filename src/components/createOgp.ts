@@ -1,8 +1,8 @@
 import fs from 'fs'
 import * as path from 'path'
 
-import puppeteer from 'puppeteer-core'
-import chromium from 'chrome-aws-lambda'
+const chromium = require('chrome-aws-lambda')
+const puppeteer = require('puppeteer-core')
 
 const createOgp = async (
   content_name: string,
@@ -20,6 +20,7 @@ const createOgp = async (
     defaultViewport: { width: 1200, height: 630 },
     executablePath: await chromium.executablePath,
     headless: chromium.headless,
+    ignoreHTTPSErrors: true,
   })
 
   const html = `<html lang="ja">
