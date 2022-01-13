@@ -22,7 +22,7 @@ export const getServerSideProps: GetServerSideProps = async (
     return { props: {} }
   }
   const browser = await puppeteer.launch({
-    args: ['--lang=ja'],
+    args: chromium.args,
     defaultViewport: { width: 1200, height: 675 },
     executablePath: await chromium.executablePath,
     headless: chromium.headless,
