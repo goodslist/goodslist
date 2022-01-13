@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import puppeteer from 'puppeteer-core'
 import chromium from 'chrome-aws-lambda'
 
@@ -6,13 +6,15 @@ const Image: React.FC = () => {
   return <></>
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ res, query }): Promise<any> => {
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext,
+): Promise<any> => {
   // const title = params
-  const title = query.keyword
+  const title = context.params
 
   if (!title) {
-    res.statusCode = 400
-    res.end('Bad Request')
+    context.res.statusCode = 400
+    context.res.end('Bad Request')
     return { props: {} }
   }
   const browser = await puppeteer.launch({
@@ -56,12 +58,12 @@ export const getServerSideProps: GetServerSideProps = async ({ res, query }): Pr
   await page.setContent(html)
   const buffer = await page.screenshot()
 
-  res.setHeader('Content-Type', 'image/png')
-  res.setHeader(
+  context.res.setHeader('Content-Type', 'image/png')
+  context.res.setHeader(
     'Cache-Control',
     'public, immutable, no-transform, s-maxage=31536000, max-age=31536000',
   )
-  res.end(buffer, 'binary')
+  context.res.end(buffer, 'binary')
 
   return { props: {} }
 }
