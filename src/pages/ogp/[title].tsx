@@ -48,6 +48,7 @@ export const getServerSideProps: GetServerSideProps = async (
         body {
           width: 1200px;
           height: 630px;
+          margin: 0;
           background-color: #f9fafb;
           background: url('https://goodslist-pearl.vercel.app/images/ogp.png');
           background-position: 0% 0%;
@@ -98,11 +99,27 @@ export const getServerSideProps: GetServerSideProps = async (
           background: blue;
         }
 
+        .under {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 80%;
+          height: 30%;
+          margin: 0 auto;
+          color: #374151;
+          font-size: 4rem;
+          font-weight: bold;
+          line-height: 1.5;
+          overflow: hidden;
+          background: green;
+        }
+
         </style>
       </head>
       <body>
         <div class='content_name'>${ogp.content_name}</div>
         <div class='event_name'>${ogp.event_name}</div>
+        <div class='under'>${ogp.content_name}</div>
       </body>
     </html>`
 
