@@ -349,12 +349,30 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
         <title>Goodsist イベントのグッズ代が計算できるWEBアプリ</title>
         <meta name='description' content={propsEvent.event_name} />
         <meta name='viewport' content='width=device-width,initial-scale=1.0,maximum-scale=1.0' />
-        <meta
+        {/* <meta
           property='og:image'
           key='ogImage'
           content={'https://goodslist-pearl.vercel.app/ogp/1'}
         />
         <meta name='twitter:card' content='summary_large_image' />
+        <meta name='twitter:card' content='summary_large_image' /> */}
+
+        <title>プログラムがメモリをどう使うかを理解する(1)</title>
+        <link rel='canonical' href='https://zenn.dev/rita0222/articles/e6ff75245d79b5' />
+        <meta name='twitter:card' content='summary_large_image' />
+        <meta property='og:url' content='https://zenn.dev/rita0222/articles/e6ff75245d79b5' />
+        <meta property='og:title' content='プログラムがメモリをどう使うかを理解する(1)' />
+        <meta
+          property='og:image'
+          content='https://res.cloudinary.com/zenn/image/upload/s--F02y_r5P--/co_rgb:222%2Cg_south_west%2Cl_text:notosansjp-medium.otf_37_bold:rita%2Cx_203%2Cy_98/c_fit%2Cco_rgb:222%2Cg_north_west%2Cl_text:notosansjp-medium.otf_70_bold:%25E3%2583%2597%25E3%2583%25AD%25E3%2582%25B0%25E3%2583%25A9%25E3%2583%25A0%25E3%2581%258C%25E3%2583%25A1%25E3%2583%25A2%25E3%2583%25AA%25E3%2582%2592%25E3%2581%25A9%25E3%2581%2586%25E4%25BD%25BF%25E3%2581%2586%25E3%2581%258B%25E3%2582%2592%25E7%2590%2586%25E8%25A7%25A3%25E3%2581%2599%25E3%2582%258B%25281%2529%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2hCYVZqODllWHZSeVN0bHJIZUtSRVBoMGxuSVVoUTdDU3ZpWTB0dm80PXM4MC1j%2Cr_max%2Cw_90%2Cx_87%2Cy_72/v1627274783/default/og-base_z4sxah.png'
+        />
+        <meta property='og:type' content='article' />
+        <meta property='og:site_name' content='Zenn' />
+        <meta
+          name='zenn:image'
+          content='https://lh3.googleusercontent.com/a-/AOh14GhBaVj89eXvRyStlrHeKREPh0lnIUhQ7CSviY0tvo4=s250-c'
+        />
+        <meta name='zenn:description' content='ritaさんによる記事' />
         <link rel='icon' href='/favicon.ico' />
         <link
           href='https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap&text=Goodsist'
