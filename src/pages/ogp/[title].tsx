@@ -80,7 +80,6 @@ export const getServerSideProps: GetServerSideProps = async (
           font-weight: bold;
           line-height: 1.5;
           overflow: hidden;
-          background: red;
         }
 
         .event_name {
@@ -96,7 +95,6 @@ export const getServerSideProps: GetServerSideProps = async (
           font-weight: bold;
           line-height: 1.5;
           overflow: hidden;
-          background: blue;
         }
 
         .under {
@@ -111,7 +109,6 @@ export const getServerSideProps: GetServerSideProps = async (
           font-weight: bold;
           line-height: 1.5;
           overflow: hidden;
-          background: green;
         }
 
         </style>
