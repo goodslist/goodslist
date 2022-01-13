@@ -95,8 +95,6 @@ export const getServerSideProps: GetServerSideProps = async (
           font-weight: bold;
           line-height: 1.5;
           overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
         }
 
         </style>
