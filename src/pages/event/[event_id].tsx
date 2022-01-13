@@ -343,12 +343,35 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   const lineShareUrl =
     'https://social-plugins.line.me/lineit/share?url=https://goodslist-pearl.vercel.app/event/1'
 
+  type Seo = {
+    title: string
+    url: string
+    image: string
+  }
+  const seo: Seo = {
+    title: propsEvent.content_name + ' ' + propsEvent.event_name,
+    url: 'https://goodslist-pearl.vercel.app/event/' + propsEvent.event_id,
+    image: 'https://goodslist-pearl.vercel.app/ogp/' + propsEvent.event_id,
+  }
   return (
     <>
       <Head>
-        <title>Goodsist イベントのグッズ代が計算できるWEBアプリ</title>
-        <meta name='description' content={propsEvent.event_name} />
+        <title>{seo.title}</title>
+        <meta name='description' content='グッズ代が計算できるWEBアプリ' />
         <meta name='viewport' content='width=device-width,initial-scale=1.0,maximum-scale=1.0' />
+        <meta name='twitter:card' content='summary_large_image' />
+        <meta property='og:site_name' content='Goodsist' />
+        <link rel='canonical' href={seo.url} />
+        <meta property='og:url' content={seo.url} />
+        <meta property='og:title' content={seo.title} />
+        <meta property='og:image' content={seo.image} />
+        <meta property='og:type' content='article' />
+        <link rel='icon' href='/favicon.ico' />
+        <link
+          href='https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap&text=Goodsist'
+          rel='stylesheet'
+        />
+
         {/* <meta
           property='og:image'
           key='ogImage'
@@ -356,25 +379,6 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
         />
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:card' content='summary_large_image' /> */}
-
-        <title>プaログラムがメモリをどう使うかを理解する(1)</title>
-        <link rel='canonical' href='https://zenn.dev/rita0222/articles/e6ff75245d79b5' />
-        <meta name='twitter:card' content='summary_large_image' />
-        <meta property='og:url' content='https://zenn.dev/rita0222/articles/e6ff75245d79b5' />
-        <meta property='og:title' content='プaログラムがメモリをどう使うかを理解する(1)' />
-        <meta property='og:image' content='https://goodslist-pearl.vercel.app/ogp/1' />
-        <meta property='og:type' content='article' />
-        <meta property='og:site_name' content='Zenn' />
-        <meta
-          name='zenn:image'
-          content='https://lh3.googleusercontent.com/a-/AOh14GhBaVj89eXvRyStlrHeKREPh0lnIUhQ7CSviY0tvo4=s250-c'
-        />
-        <meta name='zenn:description' content='ritaさんによる記事' />
-        <link rel='icon' href='/favicon.ico' />
-        <link
-          href='https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap&text=Goodsist'
-          rel='stylesheet'
-        />
       </Head>
 
       <Header />
