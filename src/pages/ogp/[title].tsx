@@ -6,11 +6,15 @@ const Image: React.FC = () => {
   return <></>
 }
 
+type PathParams = {
+  title: string
+}
+
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext,
 ): Promise<any> => {
   // const title = params
-  const title = context.params
+  const { title } = context.params as PathParams
 
   if (!title) {
     context.res.statusCode = 400
