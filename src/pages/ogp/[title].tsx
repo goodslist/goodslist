@@ -78,19 +78,25 @@ export const getServerSideProps: GetServerSideProps = async (
           font-size: 4rem;
           font-weight: bold;
           line-height: 1.5;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
 
         .event_name {
           display: flex;
           justify-content: center;
-          align-items: center;
+          align-items: top;
           width: 80%;
-          height: 60%;
+          height: 40%;
           margin: auto;
           color: #374151;
           font-size: 4rem;
           font-weight: bold;
           line-height: 1.5;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
 
         </style>
