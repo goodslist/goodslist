@@ -68,7 +68,6 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       'event_id, event_name, date, url, items, content_id2, content_id3, contents(content_id, content_name)',
     )
     .eq('event_id', event_id)
-  console.log(data![0])
   const event: Event = {
     content_id: data![0].contents.content_id,
     content_name: data![0].contents.content_name,
@@ -112,7 +111,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     }
   })
 
-  createOgp(event.content_name, String(event.event_id), event.event_name)
+  await createOgp(event.content_name, String(event.event_id), event.event_name).catch((e) =>
+    console.error(e),
+  )
 
   type PageProps = {
     propsEvent: Event
