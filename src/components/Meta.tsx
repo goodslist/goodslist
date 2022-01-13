@@ -1,7 +1,7 @@
 import Head from 'next/head'
-import { Meta } from './types'
+import { MetaInfo } from './types'
 
-const Meta = (props: Meta) => {
+const Meta = (props: MetaInfo) => {
   return (
     <Head>
       <title>{props.title}</title>
