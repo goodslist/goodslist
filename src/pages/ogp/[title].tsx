@@ -131,7 +131,7 @@ export const getServerSideProps: GetServerSideProps = async (
     'public, immutable, no-transform, s-maxage=31536000, max-age=31536000',
   )
   context.res.end(buffer, 'binary')
-  fs.mkdirSync('./public/images/ogp', { recursive: true })
+  // fs.mkdirSync('./public/images/ogp', { recursive: true })
   // fs.writeFileSync(`./public/images/ogp/${title}.png`, buffer)
 
   return { props: {} }
