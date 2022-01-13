@@ -22,9 +22,7 @@ export const getServerSideProps: GetServerSideProps = async (
     return { props: {} }
   }
 
-  await chromium.font(
-    'https://raw.githack.com/minoryorg/Noto-Sans-CJK-JP/master/fonts/NotoSansCJKjp-Regular.ttf',
-  )
+  await chromium.font('./public/fonts/KosugiMaru-Regular.ttf')
   const browser = await puppeteer.launch({
     args: chromium.args,
     defaultViewport: { width: 1200, height: 675 },
@@ -38,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async (
 
         body {
           width: 1200px;
-          height: 675px;
+          height: 630px;
           background-color: #f9fafb;
         }
 
@@ -50,7 +48,7 @@ export const getServerSideProps: GetServerSideProps = async (
           height: 100%;
           margin: auto;
           color: #374151;
-          font-size: 3rem;
+          font-size: 2rem;
           font-weight: bold;
           line-height: 1.5;
         }
