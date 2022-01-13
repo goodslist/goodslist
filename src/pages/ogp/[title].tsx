@@ -84,7 +84,7 @@ export const getServerSideProps: GetServerSideProps = async (
         .event_name {
           display: flex;
           justify-content: center;
-          align-items: center;
+          align-items: start;
           width: 80%;
           height: 40%;
           margin: auto;
