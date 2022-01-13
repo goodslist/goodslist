@@ -87,7 +87,7 @@ const createOgp = async (
   await page.setContent(html)
   const buffer: any = await page.screenshot()
 
-  fs.writeFileSync(path.resolve(`./public/ogp/${event_id}.png`), buffer)
+  fs.writeFileSync(path.resolve(`./public/images/ogp/${event_id}.png`), buffer)
 }
 
 export default createOgp
