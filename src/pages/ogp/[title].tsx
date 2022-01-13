@@ -2,6 +2,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import puppeteer from 'puppeteer-core'
 import chromium from 'chrome-aws-lambda'
 import { supabase } from '../../components/supabase'
+import fs from 'fs'
 
 const Image: React.FC = () => {
   return <></>
@@ -116,13 +117,13 @@ export const getServerSideProps: GetServerSideProps = async (
       <body>
         <div class='content_name'>${ogp.content_name}</div>
         <div class='event_name'>${ogp.event_name}</div>
-        <div class='under'>${ogp.content_name}</div>
+        <div class='under'></div>
       </body>
     </html>`
 
   const page = await browser.newPage()
   await page.setContent(html)
-  const buffer = await page.screenshot()
+  const buffer: any = await page.screenshot()
 
   context.res.setHeader('Content-Type', 'image/png')
   context.res.setHeader(
@@ -130,6 +131,8 @@ export const getServerSideProps: GetServerSideProps = async (
     'public, immutable, no-transform, s-maxage=31536000, max-age=31536000',
   )
   context.res.end(buffer, 'binary')
+  fs.mkdirSync('./public/images/ogp', { recursive: true })
+  fs.writeFileSync(`./public/images/ogp/${title}.png`, buffer)
 
   return { props: {} }
 }
