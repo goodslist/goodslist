@@ -73,12 +73,13 @@ export const getServerSideProps: GetServerSideProps = async (
           align-items: center;
           width: 80%;
           height: 30%;
-          margin: auto;
+          margin: 0 auto;
           color: #374151;
           font-size: 4rem;
           font-weight: bold;
           line-height: 1.5;
           overflow: hidden;
+          background: red;
         }
 
         .event_name {
@@ -87,13 +88,14 @@ export const getServerSideProps: GetServerSideProps = async (
           align-items: start;
           width: 80%;
           height: 40%;
-          margin: auto;
+          margin: 0 auto;
           text-align:left;
           color: #374151;
           font-size: 4rem;
           font-weight: bold;
           line-height: 1.5;
           overflow: hidden;
+          background: blue;
         }
 
         </style>
