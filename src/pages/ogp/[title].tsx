@@ -132,7 +132,7 @@ export const getServerSideProps: GetServerSideProps = async (
   )
   context.res.end(buffer, 'binary')
   fs.mkdirSync('./public/images/ogp', { recursive: true })
-  fs.writeFileSync(`./public/images/ogp/${title}.png`, buffer)
+  // fs.writeFileSync(`./public/images/ogp/${title}.png`, buffer)
 
   return { props: {} }
 }
