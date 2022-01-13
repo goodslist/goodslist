@@ -6,9 +6,9 @@ const Image: React.FC = () => {
   return <></>
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ res, params }): Promise<any> => {
+export const getServerSideProps: GetServerSideProps = async ({ res, query }): Promise<any> => {
   // const title = params
-  const title = 'aaaa'
+  const title = query.keyword
 
   if (!title) {
     res.statusCode = 400
