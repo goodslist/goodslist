@@ -38,6 +38,9 @@ export const getServerSideProps: GetServerSideProps = async (
           width: 1200px;
           height: 630px;
           background-color: #f9fafb;
+          background: url('https://goodslist-pearl.vercel.app/images/ogp.png');
+          background-position: 0% 0%;
+          background-size: 1200px 630px;
         }
 
         div {
