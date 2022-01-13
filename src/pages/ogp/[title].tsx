@@ -21,6 +21,10 @@ export const getServerSideProps: GetServerSideProps = async (
     context.res.end('Bad Request')
     return { props: {} }
   }
+
+  await chromium.font(
+    'https://raw.githack.com/minoryorg/Noto-Sans-CJK-JP/master/fonts/NotoSansCJKjp-Regular.ttf',
+  )
   const browser = await puppeteer.launch({
     args: chromium.args,
     defaultViewport: { width: 1200, height: 675 },
