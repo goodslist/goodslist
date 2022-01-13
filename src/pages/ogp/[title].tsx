@@ -22,7 +22,7 @@ export const getServerSideProps: GetServerSideProps = async (
     return { props: {} }
   }
 
-  await chromium.font('./public/fonts/KosugiMaru-Regular.ttf')
+  await chromium.font('https://goodslist-pearl.vercel.app/fonts/KosugiMaru-Regular.ttf')
   const browser = await puppeteer.launch({
     args: chromium.args,
     defaultViewport: { width: 1200, height: 675 },
