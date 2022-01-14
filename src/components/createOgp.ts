@@ -1,8 +1,8 @@
 import fs from 'fs'
 import * as path from 'path'
 
-const chromium = require('chrome-aws-lambda')
-const puppeteer = require('puppeteer-core')
+import chromium from 'chrome-aws-lambda'
+import puppeteer from 'puppeteer-core'
 
 const createOgp = async (
   content_name: string,
@@ -22,6 +22,9 @@ const createOgp = async (
     headless: chromium.headless,
     ignoreHTTPSErrors: true,
   })
+
+  const byteContent = Buffer.byteLength(ogp.content_name)
+  const byteEvent = Buffer.byteLength(ogp.event_name)
 
   const html = `<html lang="ja">
       <head>
@@ -78,8 +81,8 @@ const createOgp = async (
         </style>
       </head>
       <body>
-        <div class='content_name'>${ogp.content_name}</div>
-        <div class='event_name'>${ogp.event_name}</div>
+        <div class='content_name'>${byteContent} ${ogp.content_name}</div>
+        <div class='event_name'>${byteEvent} ${ogp.event_name}</div>
       </body>
     </html>`
 
