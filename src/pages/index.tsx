@@ -155,7 +155,7 @@ const Home = ({ eventList }: Props) => {
             GOODSist
             {/* GOODS<br></br>LIST */}
           </h1>
-          <h2 className={styles.sub_title}>グッズ代が計算できるWEBアプリ</h2>
+          <h2 className={styles.sub_title}>イベントグッズ代が計算できるWEBアプリ</h2>
           <form className={styles.search_container} onSubmit={enterForm}>
             <input
               type='text'

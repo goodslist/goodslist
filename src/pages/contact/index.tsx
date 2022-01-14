@@ -33,7 +33,7 @@ const Contact = (data: Props) => {
       <Header />
 
       <main className={styles.main}>
-        <Title title='お問い合わせ' />
+        <Title title='Contact' />
         <Form>
           <br />
           <br />

@@ -19,7 +19,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { data, error } = await supabase
     .from('search_events')
     .select('event_id, event_name, content_name, search_word')
-    .ilike('search_word', '%' + searchWord + '%')
+    .ilike('search_word', '%' + '2021' + '%')
+    .ilike('search_word', '%' + 'tour' + '%')
   data?.map((doc) => {
     const searchResult: EventList = {
       event_id: doc.event_id,

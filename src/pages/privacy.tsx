@@ -36,7 +36,7 @@ const LoginGate = (data: Props) => {
       <Header />
 
       <main className={styles.main}>
-        <Title title='プライバシー・ポリシー' />
+        <Title title='Privacy Policy' />
         <Form>
           <br />
           <br />
