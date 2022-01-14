@@ -456,7 +456,7 @@
 }
 
 .topic_title {
-  margin: 20px 0;
+  margin: 40px 0;
   width: 100%;
   padding: 0 20px;
   font-size: 2.4rem;
@@ -469,5 +469,5 @@
   padding: 0 20px;
   font-size: 1.6rem;
   text-align: left;
-  line-height: 1.5;
+  line-height: 1.6rem;
 }
