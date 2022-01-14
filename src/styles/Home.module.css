@@ -270,8 +270,8 @@
     border-radius: 10px;
     /* opacity: 0;
     visibility: hidden; */
-    /* box-shadow: 0 0 6px rgb(0 0 0 / 20%); */
-    border: 1px solid #ccc;
+    box-shadow: 0 0 6px rgb(0 0 0 / 20%);
+    /* border: 1px solid #ccc; */
   }
 
   .title {
