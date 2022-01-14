@@ -397,9 +397,9 @@
   padding: 0 0 100px 0;
   width: 100%;
   background: url('/images/background11.png');
-  background-repeat: repeat;
+  background-repeat: repeat-x;
   background-position: 50% 0%;
-  background-size: 450px 900px;
+  background-size: 400px 600px;
 
   position: relative;
 }

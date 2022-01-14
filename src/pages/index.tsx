@@ -203,6 +203,12 @@ const Home = ({ eventList }: Props) => {
         <br />
         <br />
         <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <Image src='/images/iphone.png' width={355} height={355} alt='iphone' />
         <div className={styles.topic_title}>答えは27,100円です。</div>
         <div className={styles.topic_text}>
