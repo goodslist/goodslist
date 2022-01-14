@@ -200,7 +200,7 @@ const Home = ({ eventList }: Props) => {
         <br />
         <br />
         <br />
-        <Image src='/images/iphone.png' width={300} height={300} alt='iphone' />
+        <Image src='/images/iphone.png' width={355} height={355} alt='iphone' />
         <br />
         <br />
         <br />
