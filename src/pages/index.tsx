@@ -149,7 +149,6 @@ const Home = ({ eventList }: Props) => {
           rel='stylesheet'
         ></link>
       </Head>
-      <Header />
       <div className={styles.wrapper_white}>
         <main className={styles.main}>
           <h1 className={styles.title}>
@@ -192,6 +191,9 @@ const Home = ({ eventList }: Props) => {
             )}
           </form>
         </main>
+        <br />
+        <br />
+        <br />
         <br />
         <br />
         <br />
