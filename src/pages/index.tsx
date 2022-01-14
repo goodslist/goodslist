@@ -202,6 +202,7 @@ const Home = ({ eventList }: Props) => {
         <br />
         <br />
         <br />
+        <br />
         <Image src='/images/iphone.png' width={355} height={355} alt='iphone' />
         <div className={styles.topic_title}>答えは27,100円です。</div>
         <div className={styles.topic_text}>
@@ -209,13 +210,6 @@ const Home = ({ eventList }: Props) => {
           私自身が感じたこういうアプリがあれば便利なのになというものを作りました。
           登録があるイベントであれば、アイテムを追加していくだけで自動的に合計金額を計算します。
         </div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
         <br />
         <br />
         <br />
