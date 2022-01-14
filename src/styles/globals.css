@@ -12,7 +12,18 @@ body {
   min-width: 320px;
   color: #000;
 }
-
+@font-face {
+  font-family: 'FuturaPTMedium';
+  src: url('/fonts/FuturaPTMedium.otf');
+}
+@font-face {
+  font-family: 'D-DINCondensed';
+  src: url('/fonts/D-DINCondensed.otf');
+}
+@font-face {
+  font-family: 'D-DINCondensed-Bold';
+  src: url('/fonts/D-DINCondensed-Bold.otf');
+}
 a {
   color: inherit;
   text-decoration: none;

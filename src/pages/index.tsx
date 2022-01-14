@@ -152,7 +152,9 @@ const Home = ({ eventList }: Props) => {
       <Header />
       <div className={styles.wrapper_white}>
         <main className={styles.main}>
-          <h1 className={styles.title}>Goodsist</h1>
+          <h1 className={styles.title}>
+            GOODS<br></br>LIST
+          </h1>
           <h2 className={styles.sub_title}>グッズ代が計算できるWEBアプリ</h2>
           <form className={styles.search_container} onSubmit={enterForm}>
             <input
@@ -219,7 +221,7 @@ const Home = ({ eventList }: Props) => {
         <main className={styles.main_g}>
           <div className={styles.grid}>
             <p className={styles.label_hot_new}>
-              <span>人気イベント</span>
+              <span>Hot Event</span>
             </p>
             <ul className={styles.ul_event}>
               {eventList.map((event) => (
@@ -239,7 +241,7 @@ const Home = ({ eventList }: Props) => {
               ))}
             </ul>
             <p className={styles.label_hot_new}>
-              <span>新しいイベント</span>
+              <span>New Event</span>
             </p>
             <ul className={styles.ul_event}>
               {eventList.map((event) => (

@@ -21,7 +21,9 @@
 
 .label_hot_new {
   margin: 40px 0 60px 0;
-  font-size: 2rem;
+  font-size: 4rem;
+  font-weight: normal;
+  font-family: 'D-DINCondensed', sans-serif;
   position: relative;
   text-align: center;
   font-weight: bold;
@@ -269,8 +271,9 @@
   .title {
     margin: 20px 0 10px 0;
     line-height: 1.2;
-    font-size: 6rem;
-    font-family: 'Montserrat', sans-serif;
+    font-size: 7rem;
+    font-weight: normal;
+    font-family: 'FuturaPTMedium', sans-serif;
     /* font-family: 'Hind', sans-serif; */
     text-align: center;
     color: #000;
@@ -332,7 +335,8 @@
     margin: 20px 0 10px 0;
     line-height: 1.15;
     font-size: 8rem;
-    font-family: 'Montserrat', sans-serif;
+    font-weight: normal;
+    font-family: 'FuturaPTMedium', sans-serif;
     /* font-family: 'Hind', sans-serif; */
     text-align: center;
     color: #000;

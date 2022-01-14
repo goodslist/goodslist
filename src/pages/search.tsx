@@ -58,7 +58,7 @@ export default function Output(props: Props) {
       <Header />
       <div className={styles.wrapper_white}>
         <main className={styles.main}>
-          <Title title='検索結果' />
+          <Title title='Search Result' />
         </main>
       </div>
       <div className={styles.wrapper_glay}>
