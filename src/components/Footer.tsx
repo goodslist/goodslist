@@ -11,20 +11,16 @@ export default function Footer() {
           <p>
             |　
             <Link href={'/privacy'}>
-              <a>
-                <u>プライバシーポリシー</u>
-              </a>
+              <a>Privacy Policy</a>
             </Link>
             　|　
             <Link href={'/contact'}>
-              <a>
-                <u>お問い合わせ</u>
-              </a>
+              <a>Contact</a>
             </Link>
             　|
           </p>
           <br />
-          <p>© {thisYear} Goods List</p>
+          <p>© {thisYear} GOODSist</p>
         </div>
       </div>
     </>
