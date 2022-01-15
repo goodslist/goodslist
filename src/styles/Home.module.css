@@ -474,3 +474,27 @@
   text-align: left;
   line-height: 3.2rem;
 }
+
+.topic_container {
+  margin: 0;
+  width: 100%;
+  padding: 0 20px;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.fadein {
+  position: relative;
+  top: 200px;
+}
+.opacity {
+  opacity: 0;
+}
+
+.fadein_active {
+  /* position: absolute; */
+  opacity: 1;
+  position: relative;
+  top: 0px;
+  transition: all 0.3s;
+}
