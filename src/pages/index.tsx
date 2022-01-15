@@ -207,27 +207,30 @@ const Home = ({ eventList }: Props) => {
             )}
           </form>
         </main>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <Topic />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <Topic />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <Topic />
+        <Topic
+          image='/images/iphone.png'
+          alt='はじめに'
+          title='答えは27,100円です。'
+          text='日頃からイベントに参加する人は、誰しもがこのような経験をしたことがあると思います。
+          私自身が感じたこういうアプリがあれば便利なのになというものを作りました。
+          登録があるイベントであれば、アイテムを追加していくだけで自動的に合計金額を計算します。'
+        />
+        <Topic
+          image='/images/iphone.png'
+          alt='使い方'
+          title='使い方。'
+          text='日頃からイベントに参加する人は、誰しもがこのような経験をしたことがあると思います。
+          私自身が感じたこういうアプリがあれば便利なのになというものを作りました。
+          登録があるイベントであれば、アイテムを追加していくだけで自動的に合計金額を計算します。'
+        />
+        <Topic
+          image='/images/iphone.png'
+          alt='リストを共有しよう'
+          title='リストを共有しよう。'
+          text='日頃からイベントに参加する人は、誰しもがこのような経験をしたことがあると思います。
+          私自身が感じたこういうアプリがあれば便利なのになというものを作りました。
+          登録があるイベントであれば、アイテムを追加していくだけで自動的に合計金額を計算します。'
+        />
         {/* <ScrollAnimation index={0} onIntersection={intersectCallback}>
           <div
             className={
@@ -308,14 +311,6 @@ const Home = ({ eventList }: Props) => {
             登録があるイベントであれば、アイテムを追加していくだけで自動的に合計金額を計算します。
           </div>
         </ScrollAnimation> */}
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
       </div>
       <div className={styles.wrapper_glay}>
         <main className={styles.main_g}>

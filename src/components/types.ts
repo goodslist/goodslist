@@ -82,3 +82,10 @@ export type MetaInfo = {
   url: string
   image: string
 }
+
+export type TopicProps = {
+  image: string
+  alt: string
+  title: string
+  text: string
+}

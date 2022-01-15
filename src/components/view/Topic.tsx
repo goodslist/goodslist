@@ -2,19 +2,22 @@ import styles from '../../styles/Home.module.css'
 import ScrollAnimation from '../../components/ScrollAnimation'
 import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
+import { TopicProps } from '../../components/types'
 
-const Topic = (props: any) => {
+const Topic = (props: TopicProps) => {
   const [isImage, setIsImage] = useState(false)
   const [isTitle, setIsTitle] = useState(false)
   const [isText, setIsText] = useState(false)
+
   const ref = React.useRef<HTMLDivElement>(null)
+
   const intersectCallback = (index: number) => {
     if (index == 0) setIsImage(true)
     else if (index == 1) setIsTitle(true)
     else if (index == 2) setIsText(true)
   }
   return (
-    <>
+    <div className={styles.topic_container}>
       <ScrollAnimation index={0} onIntersection={intersectCallback}>
         <div
           className={
@@ -23,7 +26,7 @@ const Topic = (props: any) => {
               : `${styles.topic_image} ${styles.fadein_bottom_before}`
           }
         >
-          <Image src='/images/iphone.png' width={355} height={355} alt='iphone' />
+          <Image src={props.image} width={355} height={355} alt={props.alt} />
         </div>
       </ScrollAnimation>
       <ScrollAnimation index={1} onIntersection={intersectCallback}>
@@ -34,7 +37,7 @@ const Topic = (props: any) => {
               : `${styles.topic_title} ${styles.fadein_left_before}`
           }
         >
-          答えは27,100円です。
+          {props.title}
         </div>
       </ScrollAnimation>
 
@@ -46,12 +49,10 @@ const Topic = (props: any) => {
               : `${styles.topic_text} ${styles.fadein_left_before}`
           }
         >
-          日頃からイベントに参加する人は、誰しもがこのような経験をしたことがあると思います。
-          私自身が感じたこういうアプリがあれば便利なのになというものを作りました。
-          登録があるイベントであれば、アイテムを追加していくだけで自動的に合計金額を計算します。
+          {props.text}
         </div>
       </ScrollAnimation>
-    </>
+    </div>
   )
 }
 
