@@ -231,93 +231,13 @@ const Home = ({ eventList }: Props) => {
           私自身が感じたこういうアプリがあれば便利なのになというものを作りました。
           登録があるイベントであれば、アイテムを追加していくだけで自動的に合計金額を計算します。'
         />
-        {/* <ScrollAnimation index={0} onIntersection={intersectCallback}>
-          <div
-            className={
-              isFadein[0]
-                ? `${styles.topic_image} ${styles.fadein_bottom_after}`
-                : `${styles.topic_image} ${styles.fadein_bottom_before}`
-            }
-          >
-            <Image src='/images/iphone.png' width={355} height={355} alt='iphone' />
-          </div>
-        </ScrollAnimation>
-        <ScrollAnimation index={1} onIntersection={intersectCallback}>
-          <div
-            className={
-              isFadein[1]
-                ? `${styles.topic_title} ${styles.fadein_left_after}`
-                : `${styles.topic_title} ${styles.fadein_left_before}`
-            }
-          >
-            答えは27,100円です。
-          </div>
-        </ScrollAnimation>
-
-        <ScrollAnimation index={2} onIntersection={intersectCallback}>
-          <div
-            className={
-              isFadein[2]
-                ? `${styles.topic_text} ${styles.fadein_left_after}`
-                : `${styles.topic_text} ${styles.fadein_left_before}`
-            }
-          >
-            日頃からイベントに参加する人は、誰しもがこのような経験をしたことがあると思います。
-            私自身が感じたこういうアプリがあれば便利なのになというものを作りました。
-            登録があるイベントであれば、アイテムを追加していくだけで自動的に合計金額を計算します。
-          </div>
-        </ScrollAnimation>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <ScrollAnimation index={3} onIntersection={intersectCallback}>
-          <div
-            className={
-              isFadein[3]
-                ? `${styles.topic_image} ${styles.fadein_bottom_after}`
-                : `${styles.topic_image} ${styles.fadein_bottom_before}`
-            }
-          >
-            <Image src='/images/iphone.png' width={355} height={355} alt='iphone' />
-          </div>
-        </ScrollAnimation>
-        <ScrollAnimation index={4} onIntersection={intersectCallback}>
-          <div
-            className={
-              isFadein[4]
-                ? `${styles.topic_title} ${styles.fadein_left_after}`
-                : `${styles.topic_title} ${styles.fadein_left_before}`
-            }
-          >
-            答えは27,100円です。
-          </div>
-        </ScrollAnimation>
-
-        <ScrollAnimation index={5} onIntersection={intersectCallback}>
-          <div
-            className={
-              isFadein[5]
-                ? `${styles.topic_text} ${styles.fadein_left_after}`
-                : `${styles.topic_text} ${styles.fadein_left_before}`
-            }
-          >
-            日頃からイベントに参加する人は、誰しもがこのような経験をしたことがあると思います。
-            私自身が感じたこういうアプリがあれば便利なのになというものを作りました。
-            登録があるイベントであれば、アイテムを追加していくだけで自動的に合計金額を計算します。
-          </div>
-        </ScrollAnimation> */}
       </div>
       <div className={styles.wrapper_glay}>
         <main className={styles.main_g}>
           <div className={styles.grid}>
             <p className={styles.label_hot_new}>
               <ScrollAnimation index={1} onIntersection={intersectCallback}>
-                <span className={styles.jsshowonscroll}>Hot Event</span>
+                <span>Hot Event</span>
               </ScrollAnimation>
             </p>
             <ul className={styles.ul_event}>
@@ -338,7 +258,7 @@ const Home = ({ eventList }: Props) => {
               ))}
             </ul>
             <p className={styles.label_hot_new}>
-              <span className={styles.jsshowonscroll}>New Event</span>
+              <span>New Event</span>
             </p>
             <ul className={styles.ul_event}>
               {eventList.map((event) => (
