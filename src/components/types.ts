@@ -11,6 +11,7 @@ export type EventList = {
   content_name: string
   event_id: number
   event_name: string
+  date: string
 }
 
 export type Event = {

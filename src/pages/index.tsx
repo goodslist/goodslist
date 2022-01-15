@@ -30,7 +30,7 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
     .from('events')
     .select('event_id, event_name, date, contents(content_name)')
     .order('date', { ascending: false })
-    .limit(10)
+    .limit(5)
 
   const eventList: EventList[] = []
   data?.map((doc) => {
@@ -38,6 +38,7 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
       content_name: doc.contents.content_name,
       event_id: doc.event_id,
       event_name: doc.event_name,
+      date: doc.date,
     }
     eventList.push(data)
   })
@@ -76,6 +77,7 @@ const Home = ({ eventList }: Props) => {
           event_id: doc.event_id,
           event_name: doc.event_name,
           content_name: doc.content_name,
+          date: doc.date,
         }
         newSearchResults.push(searchResult)
       })

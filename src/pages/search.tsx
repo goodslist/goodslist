@@ -26,6 +26,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       event_id: doc.event_id,
       event_name: doc.event_name,
       content_name: doc.content_name,
+      date: doc.date,
     }
     newSearchResults.push(searchResult)
   })
