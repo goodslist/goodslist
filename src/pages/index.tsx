@@ -15,6 +15,7 @@ import { EventList } from '../components/types'
 import Image from 'next/image'
 import Header from '../components/Header'
 import ScrollAnimation from '../components/ScrollAnimation'
+import Topic from '../components/view/Topic'
 
 // ページコンポーネントに渡されるデータ
 type Props = {
@@ -132,12 +133,19 @@ const Home = ({ eventList }: Props) => {
     setSearchFocus2(false)
     console.log(e)
   }
-  const [isFadein, setIsFadein] = useState(0)
+  const [isFadein, setIsFadein] = useState<boolean[]>([false, false, false, false, false, false])
 
   const ref = React.useRef<HTMLDivElement>(null)
   const intersectCallback = (index: number) => {
-    setIsFadein(index)
+    const newFadeins = [...isFadein]
+    newFadeins[index] = true
+    setIsFadein(newFadeins)
+    console.log(newFadeins)
   }
+
+  useEffect(() => {
+    console.log('isFadein')
+  }, [isFadein])
 
   return (
     <>
@@ -205,44 +213,101 @@ const Home = ({ eventList }: Props) => {
         <br />
         <br />
         <br />
+        <Topic />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <Topic />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <Topic />
+        {/* <ScrollAnimation index={0} onIntersection={intersectCallback}>
+          <div
+            className={
+              isFadein[0]
+                ? `${styles.topic_image} ${styles.fadein_bottom_after}`
+                : `${styles.topic_image} ${styles.fadein_bottom_before}`
+            }
+          >
+            <Image src='/images/iphone.png' width={355} height={355} alt='iphone' />
+          </div>
+        </ScrollAnimation>
         <ScrollAnimation index={1} onIntersection={intersectCallback}>
-          <div className={styles.topic_container} ref={ref}>
-            <div
-              className={isFadein > 0 ? styles.fadein_active : `${styles.fadein} ${styles.opacity}`}
-            >
-              <Image src='/images/iphone.png' width={355} height={355} alt='iphone' />
-            </div>
+          <div
+            className={
+              isFadein[1]
+                ? `${styles.topic_title} ${styles.fadein_left_after}`
+                : `${styles.topic_title} ${styles.fadein_left_before}`
+            }
+          >
+            答えは27,100円です。
           </div>
         </ScrollAnimation>
-        <div className={styles.topic_title}>答えは27,100円です。</div>
-        <div className={styles.topic_text}>
-          日頃からイベントに参加する人は、誰しもがこのような経験をしたことがあると思います。
-          私自身が感じたこういうアプリがあれば便利なのになというものを作りました。
-          登録があるイベントであれば、アイテムを追加していくだけで自動的に合計金額を計算します。
-        </div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+
         <ScrollAnimation index={2} onIntersection={intersectCallback}>
-          <div className={styles.topic_container} ref={ref}>
-            <div
-              className={isFadein > 1 ? styles.fadein_active : `${styles.fadein} ${styles.opacity}`}
-            >
-              <Image src='/images/iphone.png' width={355} height={355} alt='iphone' />
-            </div>
+          <div
+            className={
+              isFadein[2]
+                ? `${styles.topic_text} ${styles.fadein_left_after}`
+                : `${styles.topic_text} ${styles.fadein_left_before}`
+            }
+          >
+            日頃からイベントに参加する人は、誰しもがこのような経験をしたことがあると思います。
+            私自身が感じたこういうアプリがあれば便利なのになというものを作りました。
+            登録があるイベントであれば、アイテムを追加していくだけで自動的に合計金額を計算します。
           </div>
         </ScrollAnimation>
-        <div className={styles.topic_title}>答えは27,100円です。</div>
-        <div className={styles.topic_text}>
-          日頃からイベントに参加する人は、誰しもがこのような経験をしたことがあると思います。
-          私自身が感じたこういうアプリがあれば便利なのになというものを作りました。
-          登録があるイベントであれば、アイテムを追加していくだけで自動的に合計金額を計算します。
-        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <ScrollAnimation index={3} onIntersection={intersectCallback}>
+          <div
+            className={
+              isFadein[3]
+                ? `${styles.topic_image} ${styles.fadein_bottom_after}`
+                : `${styles.topic_image} ${styles.fadein_bottom_before}`
+            }
+          >
+            <Image src='/images/iphone.png' width={355} height={355} alt='iphone' />
+          </div>
+        </ScrollAnimation>
+        <ScrollAnimation index={4} onIntersection={intersectCallback}>
+          <div
+            className={
+              isFadein[4]
+                ? `${styles.topic_title} ${styles.fadein_left_after}`
+                : `${styles.topic_title} ${styles.fadein_left_before}`
+            }
+          >
+            答えは27,100円です。
+          </div>
+        </ScrollAnimation>
+
+        <ScrollAnimation index={5} onIntersection={intersectCallback}>
+          <div
+            className={
+              isFadein[5]
+                ? `${styles.topic_text} ${styles.fadein_left_after}`
+                : `${styles.topic_text} ${styles.fadein_left_before}`
+            }
+          >
+            日頃からイベントに参加する人は、誰しもがこのような経験をしたことがあると思います。
+            私自身が感じたこういうアプリがあれば便利なのになというものを作りました。
+            登録があるイベントであれば、アイテムを追加していくだけで自動的に合計金額を計算します。
+          </div>
+        </ScrollAnimation> */}
         <br />
         <br />
         <br />

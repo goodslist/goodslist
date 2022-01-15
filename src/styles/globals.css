@@ -18,11 +18,7 @@ body {
 }
 @font-face {
   font-family: 'D-DINCondensed';
-  src: url('/fonts/D-DINCondensed.otf');
-}
-@font-face {
-  font-family: 'D-DINCondensed-Bold';
-  src: url('/fonts/D-DINCondensed-Bold.otf');
+  src: url('/fonts/D-DINCondensed.woff2');
 }
 a {
   color: inherit;

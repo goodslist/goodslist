@@ -464,6 +464,8 @@
   padding: 0 20px;
   font-size: 2.4rem;
   font-weight: bold;
+  position: relative;
+  transition: all 0.3s;
 }
 
 .topic_text {
@@ -473,28 +475,40 @@
   font-size: 1.6rem;
   text-align: left;
   line-height: 3.2rem;
+  position: relative;
+  transition: all 0.3s;
 }
 
-.topic_container {
-  margin: 0;
-  width: 100%;
-  padding: 0 20px;
-  position: relative;
-  top: 0;
-  left: 0;
-}
-.fadein {
+/* .fadein {
   position: relative;
   top: 200px;
 }
+
 .opacity {
+  opacity: 0;
+} */
+
+.topic_image {
+  position: relative;
+  transition: all 1s;
+}
+
+.fadein_bottom_before {
+  top: 50px;
   opacity: 0;
 }
 
-.fadein_active {
-  /* position: absolute; */
-  opacity: 1;
-  position: relative;
+.fadein_bottom_after {
   top: 0px;
-  transition: all 0.3s;
+  opacity: 1;
+}
+
+.fadein_left_before {
+  left: -50px;
+  opacity: 0;
+}
+
+.fadein_left_after {
+  left: 0px;
+  opacity: 1;
 }
