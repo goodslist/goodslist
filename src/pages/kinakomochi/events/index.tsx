@@ -10,11 +10,11 @@ import Form from '../../../components/form/Form'
 import { useEffect, useState } from 'react'
 import AdminHeader from '../../../components/admin/Header'
 import AdminLogin from '../../../components/admin/login'
-import { EventList } from '../../../components/types'
+import { Events } from '../../../components/types'
 
 // ページコンポーネントに渡されるデータ
 type Props = {
-  eventList: EventList[]
+  eventList: Events[]
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     .select('event_id, event_name, items, contents(content_name)')
     .order('event_id', { ascending: false })
 
-  const eventList: EventList[] = []
+  const eventList: Events[] = []
 
   data?.map((doc) => {
     const event: any = {
