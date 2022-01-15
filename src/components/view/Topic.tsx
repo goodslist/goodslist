@@ -1,6 +1,6 @@
 import styles from '../../styles/Home.module.css'
 import ScrollAnimation from '../../components/ScrollAnimation'
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import { TopicProps } from '../../components/types'
 
@@ -30,7 +30,7 @@ const Topic = (props: TopicProps) => {
         </div>
       </ScrollAnimation>
       <ScrollAnimation index={1} onIntersection={intersectCallback}>
-        <div
+        <p
           className={
             isTitle
               ? `${styles.topic_title} ${styles.fadein_left_after}`
@@ -38,11 +38,11 @@ const Topic = (props: TopicProps) => {
           }
         >
           {props.title}
-        </div>
+        </p>
       </ScrollAnimation>
 
       <ScrollAnimation index={2} onIntersection={intersectCallback}>
-        <div
+        <p
           className={
             isText
               ? `${styles.topic_text} ${styles.fadein_left_after}`
@@ -50,7 +50,7 @@ const Topic = (props: TopicProps) => {
           }
         >
           {props.text}
-        </div>
+        </p>
       </ScrollAnimation>
     </div>
   )

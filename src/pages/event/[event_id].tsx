@@ -33,8 +33,7 @@ import { useDate } from '../../components/hooks/event/useDate'
 import Header from '../../components/Header'
 import SocialButton from '../../components/form/SocialButton'
 import Meta from '../../components/Meta'
-import { MetaInfo } from '../../components/types'
-import createOgp from '../../components/createOgp'
+import { MetaProps } from '../../components/types'
 
 type PathParams = {
   event_id: string
@@ -68,6 +67,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       'event_id, event_name, date, url, items, content_id2, content_id3, contents(content_id, content_name)',
     )
     .eq('event_id', event_id)
+  console.log(data![0])
   const event: Event = {
     content_id: data![0].contents.content_id,
     content_name: data![0].contents.content_name,
@@ -110,10 +110,6 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       now_group++
     }
   })
-
-  await createOgp(event.content_name, String(event.event_id), event.event_name).catch((e) =>
-    console.error(e),
-  )
 
   type PageProps = {
     propsEvent: Event
@@ -348,7 +344,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   const lineShareUrl =
     'https://social-plugins.line.me/lineit/share?url=https://goodslist-pearl.vercel.app/event/1'
 
-  const meta: MetaInfo = {
+  const meta: MetaProps = {
     title: propsEvent.content_name + ' ' + propsEvent.event_name,
     url: 'https://goodslist-pearl.vercel.app/event/' + propsEvent.event_id,
     image: 'https://goodslist-pearl.vercel.app/ogp/' + propsEvent.event_id,
@@ -356,7 +352,6 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   return (
     <>
       <Meta title={meta.title} url={meta.url} image={meta.image} />
-
       <Header />
       <div className={styles.sticky_container}>
         <div className={styles.total_bar_container}>

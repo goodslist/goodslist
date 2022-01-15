@@ -7,7 +7,7 @@ export type User = {
   signedup: boolean
 }
 
-export type EventList = {
+export type Events = {
   content_name: string
   event_id: number
   event_name: string
@@ -78,7 +78,7 @@ export type Contents = {
   content_name_kana: string
 }
 
-export type MetaInfo = {
+export type MetaProps = {
   title: string
   url: string
   image: string

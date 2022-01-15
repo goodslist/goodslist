@@ -1,11 +1,11 @@
 import Head from 'next/head'
-import { MetaInfo } from './types'
+import { MetaProps } from './types'
 
-const Meta = (props: MetaInfo) => {
+const Meta = (props: MetaProps) => {
   return (
     <Head>
       <title>{props.title}</title>
-      <meta property='og:site_name' content='Goodsist' />
+      <meta property='og:site_name' content='GOODSist' />
       <meta property='og:title' content={props.title} />
       <meta name='description' content='イベントのグッズ代が計算できるWEBアプリ' />
       <link rel='canonical' href={props.url} />
@@ -15,10 +15,10 @@ const Meta = (props: MetaInfo) => {
       <meta name='twitter:card' content='summary_large_image' />
       <meta name='viewport' content='width=device-width,initial-scale=1.0,maximum-scale=1.0' />
       <link rel='icon' href='/favicon.ico' />
-      <link
+      {/* <link
         href='https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap&text=Goodsist'
         rel='stylesheet'
-      />
+      /> */}
     </Head>
   )
 }
