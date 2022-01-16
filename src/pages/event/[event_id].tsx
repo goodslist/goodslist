@@ -34,6 +34,7 @@ import Header from '../../components/Header'
 import SocialButton from '../../components/form/SocialButton'
 import Meta from '../../components/Meta'
 import { MetaProps } from '../../components/types'
+import Title from '../../components/view/title'
 
 type PathParams = {
   event_id: string
@@ -362,6 +363,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
         </div>
         <div className={styles.wrapper_white}>
           <main className={styles.main}>
+            <Title title='Create List' />
             <div className={styles.list_header_container}>
               <div className={styles.list_header_sns}>
                 <a href={twitterShareUrl} target='_blank'>
