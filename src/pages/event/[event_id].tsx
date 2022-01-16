@@ -424,11 +424,16 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                 <Reset />
               </p>
             </div>
-            <Link href={'list/' + propsEvent.event_id}>
-              <a className={styles.tag_screenshot}>
-                <button className={styles.btn_show_list}>SHOW LIST</button>
-              </a>
-            </Link>
+
+            {totalCount > 0 ? (
+              <Link href={'show/' + propsEvent.event_id}>
+                <a>
+                  <button className={styles.btn_show_list_active}>Show List</button>
+                </a>
+              </Link>
+            ) : (
+              <button className={styles.btn_show_list}>Show List</button>
+            )}
           </main>
         </div>
         <div className={styles.wrapper_glay}>

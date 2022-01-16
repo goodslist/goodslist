@@ -1104,14 +1104,22 @@
   background: #68a9cf;
 }
 
-.btn_show_list {
+.btn_show_list,
+.btn_show_list_active {
   margin: 40px 0 0 0;
   padding: 20px;
   width: 200px;
   border-radius: 30px;
   border: 0px;
-  background-color: #ccc;
   color: #fff;
-  font-size: 1.6rem;
+  font-size: 2rem;
   font-weight: bold;
+  transition: all 0.3s;
+}
+.btn_show_list {
+  background-color: #ccc;
+}
+.btn_show_list_active {
+  background-color: #cf6775;
+  cursor: pointer;
 }
