@@ -195,12 +195,10 @@ const Home = ({ eventList }: Props) => {
       </div>
 
       <div className={styles.wrapper_glay}>
-        <main className={styles.main_g}>
-          <div className={styles.grid}>
-            <EventList events={eventList} title='Hot Event' start='left' />
-            <EventList events={eventList} title='New Event' start='right' />
-          </div>
-        </main>
+        <div className={styles.grid}>
+          <EventList events={eventList} title='Hot Event' start='left' />
+          <EventList events={eventList} title='New Event' start='right' />
+        </div>
       </div>
       <div className={styles.wrapper_white}>
         <Topic
@@ -223,7 +221,7 @@ const Home = ({ eventList }: Props) => {
           image='/images/iphone.png'
           alt='取り扱いジャンル'
           title='取り扱いジャンル'
-          text='アイドル、ポップス、ロック、K-POOP、フェス、映画、アニメ、漫画、ミュージカル、演劇、スポーツなど様々なジャンルのイベントを扱います。'
+          text='コンサート、フェス、映画、アニメ、漫画、ミュージカル、演劇、スポーツなど様々なジャンルのイベントを扱います。'
         />
       </div>
     </>

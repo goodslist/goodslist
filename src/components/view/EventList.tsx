@@ -43,7 +43,7 @@ const EventList = (props: any) => {
   }, [])
 
   return (
-    <>
+    <div className={styles.event_list_container}>
       <ScrollAnimation index={5} onIntersection={intersectCallback}>
         <div className={styles.event_list_title_container}>
           <p
@@ -92,7 +92,7 @@ const EventList = (props: any) => {
           </ScrollAnimation>
         ))}
       </ul>
-    </>
+    </div>
   )
 }
 
