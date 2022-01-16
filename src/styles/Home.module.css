@@ -47,6 +47,7 @@
   border-radius: 3px;
   background: #68a9cf;
   margin: 0 auto 60px auto;
+  transition: all 0.2s;
 }
 
 .card {

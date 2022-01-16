@@ -20,7 +20,7 @@ const EventList = (props: any) => {
       setIsFadeInTitle(true)
       setTimeout(function () {
         setIsFadeInTitleBar(true)
-      }, 1000)
+      }, 200)
     } else {
       setIsFadein((prevState) => {
         const newPrevState = [...prevState]
@@ -57,7 +57,7 @@ const EventList = (props: any) => {
           </p>
           <hr
             className={
-              isFadeInTitle
+              isFadeInTitleBar
                 ? `${styles.event_list_title_bar} ${styles.fadein_bottom_after}`
                 : `${styles.event_list_title_bar} ${styles.fadein_bottom_before}`
             }
