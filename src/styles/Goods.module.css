@@ -1115,6 +1115,7 @@
   font-size: 2rem;
   font-weight: bold;
   transition: all 0.3s;
+  position: relative;
 }
 .btn_show_list {
   background-color: #ccc;
@@ -1122,4 +1123,23 @@
 .btn_show_list_active {
   background-color: #f2c746;
   cursor: pointer;
+}
+
+.btn_show_list_active:before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border: 0;
+  border-top: solid 3px #fff;
+  border-right: solid 3px #fff;
+  position: absolute;
+  top: calc(50% - 3px);
+  right: 24px;
+  margin-top: -4px;
+  transform: rotate(45deg);
+  transition: all 0.7s;
+  cursor: pointer;
+}
+
+.btn_show_list_active:after {
 }
