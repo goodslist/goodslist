@@ -263,7 +263,7 @@
     width: 100% !important;
     height: auto !important;
     background-color: #fff;
-    transition: all 0.5s;
+    transition: all 0.2s;
     font-size: 1.4rem;
     position: relative;
     /* box-shadow: 0 1px 4px rgb(0 0 0 / 10%); */
@@ -492,7 +492,7 @@
   font-size: 2.4rem;
   font-weight: bold;
   position: relative;
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
 .topic_text {
@@ -503,7 +503,7 @@
   text-align: left;
   line-height: 3.2rem;
   position: relative;
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
 /* .fadein {
@@ -517,7 +517,7 @@
 
 .topic_image {
   position: relative;
-  transition: all 1s;
+  transition: all 0.2s;
 }
 
 .fadein_bottom_before {
