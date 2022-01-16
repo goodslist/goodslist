@@ -419,18 +419,16 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                 メモ
                 <IconMemo />
               </p>
-              <Link href={'list/' + propsEvent.event_id}>
-                <a className={styles.tag_screenshot}>
-                  一覧表示
-                  <IconPreview />
-                </a>
-              </Link>
               <p className={styles.tag_official} onClick={() => openModal('reset')}>
                 リセット
                 <Reset />
               </p>
             </div>
-            <button className={styles.btn_show_list}>SHOW LIST</button>
+            <Link href={'list/' + propsEvent.event_id}>
+              <a className={styles.tag_screenshot}>
+                <button className={styles.btn_show_list}>SHOW LIST</button>
+              </a>
+            </Link>
           </main>
         </div>
         <div className={styles.wrapper_glay}>
