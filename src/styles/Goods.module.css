@@ -16,7 +16,7 @@
   padding: 30px 0 30px 0;
   position: relative;
 }
-.wrapper_white::after {
+/* .wrapper_white::after {
   content: '';
   position: absolute;
   background: linear-gradient(45deg, #f1f1f1 50%, transparent 50%),
@@ -26,11 +26,11 @@
   width: 100%;
   left: 0;
   bottom: 0;
-}
+} */
 .wrapper_glay {
   width: 100%;
-  background-color: #f1f1f1;
-  /* background-color: #fff; */
+  /* background-color: #f1f1f1; */
+  background-color: #fff;
   /* background-color: #faf9f7; */
   padding: 30px 0 60px 0;
 }
@@ -938,7 +938,7 @@
   padding: 0 10px;
 }
 .card2 {
-  margin: 0 0 20px 0;
+  margin: 0 0 40px 0;
   padding: 10px 20px;
   text-align: left;
   color: inherit;
@@ -952,6 +952,7 @@
   font-size: 1.4rem;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 0 6px rgb(0 0 0 / 20%);
   /* box-shadow: 0 0 10px rgb(0 0 0 / 10%);
   border: 1px solid #ccc; */
 }
