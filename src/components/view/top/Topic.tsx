@@ -1,15 +1,15 @@
-import styles from '../../styles/Home.module.css'
-import ScrollAnimation from '../../components/ScrollAnimation'
-import { useState, useRef } from 'react'
+import styles from '../../../styles/Home.module.css'
+import ScrollAnimation from '../../../components/ScrollAnimation'
+import React, { useState } from 'react'
 import Image from 'next/image'
-import { TopicProps } from '../../components/types'
+import { TopicProps } from '../../../components/types'
 
 const Topic = (props: TopicProps) => {
   const [isImage, setIsImage] = useState(false)
   const [isTitle, setIsTitle] = useState(false)
   const [isText, setIsText] = useState(false)
 
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = React.useRef<HTMLDivElement>(null)
 
   const intersectCallback = (index: number) => {
     if (index == 0) setIsImage(true)

@@ -15,9 +15,10 @@ import { Events } from '../components/types'
 import Image from 'next/image'
 import Header from '../components/Header'
 import ScrollAnimation from '../components/ScrollAnimation'
-import Topic from '../components/view/Topic'
+import Topic from '../components/view/top/Topic'
 import Meta from '../components/Meta'
 import { MetaProps } from '../components/types'
+import EventListTitle from '../components/view/top/EventListTitle'
 import EventList from '../components/view/EventList'
 
 // ページコンポーネントに渡されるデータ
@@ -191,6 +192,19 @@ const Home = ({ eventList }: Props) => {
             )}
           </form>
         </main>
+      </div>
+
+      <div className={styles.wrapper_glay}>
+        <main className={styles.main_g}>
+          <div className={styles.grid}>
+            <EventListTitle title='Hot Event' />
+            <EventList events={eventList} start='left' />
+            <EventListTitle title='New Event' />
+            <EventList events={eventList} start='right' />
+          </div>
+        </main>
+      </div>
+      <div className={styles.wrapper_white}>
         <Topic
           image='/images/iphone.png'
           alt='はじめに'
@@ -213,20 +227,6 @@ const Home = ({ eventList }: Props) => {
           title='取り扱いジャンル'
           text='アイドル、ポップス、ロック、K-POOP、フェス、映画、アニメ、漫画、ミュージカル、演劇、スポーツなど様々なジャンルのイベントを扱います。'
         />
-      </div>
-      <div className={styles.wrapper_glay}>
-        <main className={styles.main_g}>
-          <div className={styles.grid}>
-            <p className={styles.label_hot_new}>
-              <span>Hot Event</span>
-            </p>
-            <EventList events={eventList} start='left' />
-            <p className={styles.label_hot_new}>
-              <span>New Event</span>
-            </p>
-            <EventList events={eventList} start='right' />
-          </div>
-        </main>
       </div>
     </>
   )

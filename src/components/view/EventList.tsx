@@ -1,6 +1,6 @@
 import styles from '../../styles/Home.module.css'
 import ScrollAnimation from '../ScrollAnimation'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Link from 'next/link'
 import { Events } from '../types'
 import { dateFormat } from '../../components/Utils'
@@ -10,8 +10,9 @@ const EventList = (props: any) => {
     new Array<boolean>(props.events.length).fill(false),
   )
 
-  const ref = React.useRef<HTMLLIElement>(null)
+  const ref = useRef<HTMLLIElement>(null)
 
+  //普通に配列を呼び出すとuseEffectからのコールバックで配列が常に初期状態になるのでprevStateで前回の配列を呼び出して処理する。
   const intersectCallback = (index: number) => {
     setIsFadein((prevState) => {
       const newPrevState = [...prevState]
