@@ -151,10 +151,7 @@ const Home = ({ eventList }: Props) => {
       <Meta title={meta.title} url={meta.url} image={meta.image} />
       <div className={styles.wrapper_white}>
         <main className={styles.main}>
-          <h1 className={styles.title}>
-            GOODSist
-            {/* GOODS<br></br>LIST */}
-          </h1>
+          <h1 className={styles.title}>GOODSist</h1>
           <h2 className={styles.sub_title}>イベントグッズ代が計算できるWEBアプリ</h2>
           <form className={styles.search_container} onSubmit={enterForm}>
             <input

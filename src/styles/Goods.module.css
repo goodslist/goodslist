@@ -787,9 +787,23 @@
 .arrow_all_close_active {
   width: 40px;
   height: 100%;
-  display: inline-block;
   position: relative;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0 0 3px 0;
+  font-size: 1rem;
+}
+
+.arrow_all_close,
+.arrow_all_open {
+  color: #999;
+}
+
+.arrow_all_close_active,
+.arrow_all_open_active {
+  color: #68a9cf;
 }
 
 .arrow_all_close::before,
@@ -799,7 +813,7 @@
   height: 10px;
   border: 0;
   position: absolute;
-  top: 20px;
+  top: 13px;
   left: 12px;
   margin-top: -4px;
   transform: rotate(-45deg);
@@ -833,9 +847,13 @@
 .arrow_all_open_active {
   width: 40px;
   height: 100%;
-  display: inline-block;
   position: relative;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0 0 3px 0;
+  font-size: 1rem;
 }
 
 .arrow_all_open::before,
@@ -845,7 +863,7 @@
   height: 10px;
   border: 0;
   position: absolute;
-  top: 14px;
+  top: 6px;
   left: 12px;
   margin-top: -4px;
   transform: rotate(-225deg);

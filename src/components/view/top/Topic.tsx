@@ -29,29 +29,31 @@ const Topic = (props: TopicProps) => {
           <Image src={props.image} width={355} height={355} alt={props.alt} />
         </div>
       </ScrollAnimation>
-      <ScrollAnimation index={1} onIntersection={intersectCallback}>
-        <p
-          className={
-            isTitle
-              ? `${styles.topic_title} ${styles.fadein_left_after}`
-              : `${styles.topic_title} ${styles.fadein_left_before}`
-          }
-        >
-          {props.title}
-        </p>
-      </ScrollAnimation>
+      <div className={styles.topic_text_container}>
+        <ScrollAnimation index={1} onIntersection={intersectCallback}>
+          <p
+            className={
+              isTitle
+                ? `${styles.topic_title} ${styles.fadein_left_after}`
+                : `${styles.topic_title} ${styles.fadein_left_before}`
+            }
+          >
+            {props.title}
+          </p>
+        </ScrollAnimation>
 
-      <ScrollAnimation index={2} onIntersection={intersectCallback}>
-        <p
-          className={
-            isText
-              ? `${styles.topic_text} ${styles.fadein_left_after}`
-              : `${styles.topic_text} ${styles.fadein_left_before}`
-          }
-        >
-          {props.text}
-        </p>
-      </ScrollAnimation>
+        <ScrollAnimation index={2} onIntersection={intersectCallback}>
+          <p
+            className={
+              isText
+                ? `${styles.topic_text} ${styles.fadein_left_after}`
+                : `${styles.topic_text} ${styles.fadein_left_before}`
+            }
+          >
+            {props.text}
+          </p>
+        </ScrollAnimation>
+      </div>
     </div>
   )
 }

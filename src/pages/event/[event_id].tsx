@@ -430,16 +430,6 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                 <Reset />
               </p>
             </div>
-            {/* <div className={styles.event_link_container}>
-              <a href={propsEvent.url} target='_blank' className={styles.tag_screenshot}>
-                ツイート
-                <IconTwitter />
-              </a>
-              <a href={propsEvent.url} target='_blank' className={styles.tag_screenshot}>
-                LINE
-                <Line />
-              </a>
-            </div> */}
           </main>
         </div>
         <div className={styles.wrapper_glay}>
@@ -447,20 +437,18 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
             <div className={styles.sort_arrow_container}>
               <div className={styles.arrow_container}>
                 {isAllCloseArrow ? (
-                  <span
-                    className={styles.arrow_all_close_active}
-                    onClick={() => closeAllItemInputs()}
-                  />
+                  <p className={styles.arrow_all_close_active} onClick={() => closeAllItemInputs()}>
+                    CLOSE
+                  </p>
                 ) : (
-                  <span className={styles.arrow_all_close} />
+                  <p className={styles.arrow_all_close}>CLOSE</p>
                 )}
                 {isAllOpenArrow ? (
-                  <span
-                    className={styles.arrow_all_open_active}
-                    onClick={() => openAllItemInputs()}
-                  />
+                  <p className={styles.arrow_all_open_active} onClick={() => openAllItemInputs()}>
+                    OPEN
+                  </p>
                 ) : (
-                  <span className={styles.arrow_all_open} />
+                  <p className={styles.arrow_all_open}>OPEN</p>
                 )}
               </div>
               <div className={styles.sort_container}>
