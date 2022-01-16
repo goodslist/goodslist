@@ -197,10 +197,8 @@ const Home = ({ eventList }: Props) => {
       <div className={styles.wrapper_glay}>
         <main className={styles.main_g}>
           <div className={styles.grid}>
-            <EventListTitle title='Hot Event' />
-            <EventList events={eventList} start='left' />
-            <EventListTitle title='New Event' />
-            <EventList events={eventList} start='right' />
+            <EventList events={eventList} title='Hot Event' start='left' />
+            <EventList events={eventList} title='New Event' start='right' />
           </div>
         </main>
       </div>

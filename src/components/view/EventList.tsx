@@ -6,6 +6,8 @@ import { Events } from '../types'
 import { dateFormat } from '../../components/Utils'
 
 const EventList = (props: any) => {
+  const [isFadeInTitle, setIsFadeInTitle] = useState(false)
+  const [isFadeInTitleBar, setIsFadeInTitleBar] = useState(false)
   const [isFadein, setIsFadein] = useState<boolean[]>(
     new Array<boolean>(props.events.length).fill(false),
   )
@@ -14,11 +16,18 @@ const EventList = (props: any) => {
 
   //普通に配列を呼び出すとuseEffectからのコールバックで配列が常に初期状態になるのでprevStateで前回の配列を呼び出して処理する。
   const intersectCallback = (index: number) => {
-    setIsFadein((prevState) => {
-      const newPrevState = [...prevState]
-      newPrevState[index] = true
-      return newPrevState
-    })
+    if (index == 5) {
+      setIsFadeInTitle(true)
+      setTimeout(function () {
+        setIsFadeInTitleBar(true)
+      }, 1000)
+    } else {
+      setIsFadein((prevState) => {
+        const newPrevState = [...prevState]
+        newPrevState[index] = true
+        return newPrevState
+      })
+    }
   }
   const [startAfter, setStartAfter] = useState<any>()
   const [startBefore, setStartBefore] = useState<any>()
@@ -34,34 +43,56 @@ const EventList = (props: any) => {
   }, [])
 
   return (
-    <ul className={styles.ul_event}>
-      {props.events.map((event: Events, index: number) => (
-        <ScrollAnimation index={index} onIntersection={intersectCallback}>
-          <li
-            ref={ref}
-            key={event.event_id}
+    <>
+      <ScrollAnimation index={5} onIntersection={intersectCallback}>
+        <div className={styles.event_list_title_container}>
+          <p
             className={
-              isFadein[index]
-                ? `${styles.li_event} ${startAfter}`
-                : `${styles.li_event} ${startBefore}`
+              isFadeInTitle
+                ? `${styles.event_list_title} ${styles.fadein_bottom_after}`
+                : `${styles.event_list_title} ${styles.fadein_bottom_before}`
             }
           >
-            <Link href={'event/' + event.event_id}>
-              <a>
-                <div className={styles.li_event_padding}>
-                  <p className={styles.contents_title}>
-                    <b>{event.content_name}</b>
-                  </p>
-                  <p className={styles.event_date}>{dateFormat(event.date)}</p>
-                  <hr className={styles.li_event_line} />
-                  <p className={styles.event_title}>{event.event_name}</p>
-                </div>
-              </a>
-            </Link>
-          </li>
-        </ScrollAnimation>
-      ))}
-    </ul>
+            {props.title}
+          </p>
+          <hr
+            className={
+              isFadeInTitle
+                ? `${styles.event_list_title_bar} ${styles.fadein_bottom_after}`
+                : `${styles.event_list_title_bar} ${styles.fadein_bottom_before}`
+            }
+          ></hr>
+        </div>
+      </ScrollAnimation>
+      <ul className={styles.ul_event}>
+        {props.events.map((event: Events, index: number) => (
+          <ScrollAnimation index={index} onIntersection={intersectCallback}>
+            <li
+              ref={ref}
+              key={event.event_id}
+              className={
+                isFadein[index]
+                  ? `${styles.li_event} ${startAfter}`
+                  : `${styles.li_event} ${startBefore}`
+              }
+            >
+              <Link href={'event/' + event.event_id}>
+                <a>
+                  <div className={styles.li_event_padding}>
+                    <p className={styles.contents_title}>
+                      <b>{event.content_name}</b>
+                    </p>
+                    <p className={styles.event_date}>{dateFormat(event.date)}</p>
+                    <hr className={styles.li_event_line} />
+                    <p className={styles.event_title}>{event.event_name}</p>
+                  </div>
+                </a>
+              </Link>
+            </li>
+          </ScrollAnimation>
+        ))}
+      </ul>
+    </>
   )
 }
 
