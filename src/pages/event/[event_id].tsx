@@ -430,6 +430,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                 <Reset />
               </p>
             </div>
+            <button className={styles.btn_show_list}>SHOW LIST</button>
           </main>
         </div>
         <div className={styles.wrapper_glay}>
@@ -545,10 +546,6 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                   </>
                 ))}
               </ul>
-              <div className={styles.card2}>
-                <SocialButton provider='Twitter' />
-                <SocialButton provider='LINE' />
-              </div>
             </div>
           </main>
         </div>
