@@ -277,9 +277,10 @@
   .title {
     margin: 20px 0 10px 0;
     line-height: 1.2;
-    font-size: 7rem;
+    font-size: 9rem;
     font-weight: normal;
-    font-family: 'FuturaPTMedium', sans-serif;
+    font-family: 'D-DINCondensed', sans-serif;
+    /* font-family: 'FuturaPTMedium', sans-serif; */
     /* font-family: 'Hind', sans-serif; */
     text-align: center;
     color: #000;
