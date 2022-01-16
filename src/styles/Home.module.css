@@ -518,6 +518,10 @@
 .topic_image {
   position: relative;
   transition: all 0.2s;
+  overflow: hidden;
+}
+.topic_image img {
+  border-radius: 20px;
 }
 
 .fadein_bottom_before {
