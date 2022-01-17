@@ -20,6 +20,7 @@ import Meta from '../components/Meta'
 import { MetaProps } from '../components/types'
 import EventListTitle from '../components/view/top/EventListTitle'
 import EventList from '../components/view/EventList'
+import searchEvent from '../components/db/SearchEvent'
 
 // ページコンポーネントに渡されるデータ
 type Props = {
@@ -65,30 +66,14 @@ const Home = ({ eventList }: Props) => {
   }
 
   useEffect(() => {
-    searchEvent()
+    inputSearchWord()
   }, [input])
 
-  const searchEvent = async () => {
-    let newSearchResults: Events[] = []
+  const inputSearchWord = async () => {
     if (input?.length > 0) {
-      const { data, error } = await supabase
-        .from('search_events')
-        .select('event_id, event_name, content_name, search_word')
-        .ilike('search_word', '%' + input + '%')
-        .limit(5)
-      data?.map((doc) => {
-        const searchResult: Events = {
-          event_id: doc.event_id,
-          event_name: doc.event_name,
-          content_name: doc.content_name,
-          date: doc.date,
-        }
-        newSearchResults.push(searchResult)
-      })
+      const SearchResults: Events[] = await searchEvent(input)
+      setEvents(SearchResults)
     }
-    setEvents(newSearchResults)
-    console.log('searchEvent')
-    console.log(newSearchResults)
   }
 
   //入力テキストを元に検索結果へ遷移する

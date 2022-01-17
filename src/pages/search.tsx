@@ -15,12 +15,50 @@ type Props = {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const searchWord = ctx.query.keyword
 
+  const searchWords = String(searchWord).replace(/　/g, ' ').split(' ')
+
+  console.log(searchWord)
+  console.log(searchWords)
+  const aa = 'aa'
+  const aaa = `'${aa}'`
+  const bbb = `'bbbb'`
+  const test = aaa + ' & ' + bbb
+  console.log(test)
+
+  let qurry = ''
+  for (let i = 0; i < searchWords.length; i++) {
+    if (i == searchWords.length - 1) {
+      qurry = qurry + `'${searchWords[i]}'`
+    } else {
+      qurry = qurry + `'${searchWords[i]}'` + ' & '
+    }
+  }
+  console.log(qurry)
+
   let newSearchResults: Events[] = []
+
+  // const { data, error } = await supabase
+  //   .from('search_events')
+  //   .select('event_id, event_name, content_name,date, search_word')
+  //   .ilike('search_word', `%ばんぷ% & %ちきん%`)
+
+  // const { data, error } = await supabase
+  //   .from('search_events')
+  //   .select('event_id, event_name, content_name, search_word')
+  //   .ilike('search_word', '%' + searchWord + '%')
+
+  // const { data, error } = await supabase
+  //   .from('search_events')
+  //   .select('event_id, event_name, content_name,date, search_word')
+  //   .textSearch('search_word', `'ばんぷ' & 'ちきん'`)
+
   const { data, error } = await supabase
     .from('search_events')
-    .select('event_id, event_name, content_name, date, search_word')
-    .ilike('search_word', '%' + '2021' + '%')
-    .ilike('search_word', '%' + 'tour' + '%')
+    .select('event_id, event_name, content_name,date, search_word')
+    .textSearch('search_word', `'chicken' & '2017'`, {
+      config: 'english',
+    })
+
   data?.map((doc) => {
     const searchResult: Events = {
       event_id: doc.event_id,
