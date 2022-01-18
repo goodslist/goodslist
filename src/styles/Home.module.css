@@ -141,9 +141,11 @@
   height: 60px;
   font-size: 1.6rem;
   padding: 15px 0 15px 25px;
-  border: 1px solid #fff;
+  border: 1px solid #999;
   border-radius: 3rem;
-  background-color: #edf2f7;
+  /* background-color: #edf2f7; */
+  background-color: #fff;
+
   transition: all 0.5s;
   margin: 0 0 40px 0;
   -webkit-appearance: none;
@@ -200,7 +202,6 @@
   text-align: center;
   line-height: 14px;
   border-radius: 50%;
-  border: solid 2px #000;
   transition: all 0.7s;
 }
 
@@ -216,7 +217,20 @@
   transform: translate(-50%, -50%) rotate(-45deg);
   transition: all 0.7s;
   cursor: pointer;
-  background-color: #000;
+  background-color: #999;
+}
+
+.search_button:before {
+  border: solid 2px #999;
+}
+.search_button:after {
+  background-color: #999;
+}
+.search_button_active:before {
+  border: solid 2px #68a9cf;
+}
+.search_button_active:after {
+  background-color: #68a9cf;
 }
 
 .search_button svg,
