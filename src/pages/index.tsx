@@ -21,6 +21,7 @@ import { MetaProps } from '../components/types'
 import EventListTitle from '../components/view/top/EventListTitle'
 import EventList from '../components/view/EventList'
 import searchEvent from '../components/db/SearchEvent'
+import SearchEventForm from '../components/SearchEventForm'
 
 // ページコンポーネントに渡されるデータ
 type Props = {
@@ -139,7 +140,7 @@ const Home = ({ eventList }: Props) => {
         <main className={styles.main}>
           <h1 className={styles.title}>GOODSist</h1>
           <h2 className={styles.sub_title}>イベントグッズ代が計算できるWEBアプリ</h2>
-          <form className={styles.search_container} onSubmit={enterForm}>
+          {/* <form className={styles.search_container} onSubmit={enterForm}>
             <input
               type='text'
               className={input ? styles.search_active : styles.search}
@@ -154,7 +155,6 @@ const Home = ({ eventList }: Props) => {
               className={input ? styles.search_button_active : styles.search_button}
               onClick={clickButton}
             >
-              {/* <Search /> */}
             </span>
             {(events?.length > 0 && input.length > 0 && searchFocus) || searchFocus2 ? (
               <ul className={styles.search_result_active}>
@@ -173,7 +173,8 @@ const Home = ({ eventList }: Props) => {
             ) : (
               <></>
             )}
-          </form>
+          </form> */}
+          <SearchEventForm />
         </main>
       </div>
 

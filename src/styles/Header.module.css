@@ -2,6 +2,9 @@
   width: 100%;
   margin: 0;
   border-bottom: #e6e6e6 1px solid;
+  position: relative;
+  background-color: #fff;
+  z-index: 10;
 }
 
 .header {
@@ -15,6 +18,7 @@
   align-items: center;
   font-family: sans-serif;
   text-align: right;
+  z-index: 5;
 }
 
 .logo_container {
@@ -38,18 +42,48 @@
   color: #68a9cf;
 }
 
-.btn_search {
+.btn_search,
+.btn_search_active {
   margin: 0;
   width: 60px;
   height: 60px;
   position: relative;
   cursor: pointer;
+  border: 0;
+  transition: all 0.3s;
+  background-color: #fff;
+}
+.btn_search_active:before {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 20px;
+  top: 30px;
+  left: 30px;
+  border-radius: 10px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  transition: all 0.3s;
+  cursor: pointer;
+  background-color: #666;
+}
+.btn_search_active:after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 20px;
+  top: 30px;
+  left: 30px;
+  border-radius: 10px;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  transition: all 0.3s;
+  cursor: pointer;
+  background-color: #666;
 }
 
 .btn_search:before {
   content: '';
   position: absolute;
-  top: 20px;
+  top: 18px;
   left: 20px;
   cursor: pointer;
   display: inline-block;
@@ -59,7 +93,7 @@
   line-height: 14px;
   border-radius: 50%;
   border: solid 2px #666;
-  transition: all 0.7s;
+  transition: all 0.3s;
 }
 
 .btn_search:after {
@@ -67,11 +101,11 @@
   position: absolute;
   width: 2px;
   height: 8px;
-  top: 38px;
+  top: 36px;
   left: 38px;
   border-radius: 10px;
   transform: translate(-50%, -50%) rotate(-45deg);
-  transition: all 0.7s;
+  transition: all 0.3s;
   cursor: pointer;
   background-color: #666;
 }
@@ -124,4 +158,27 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
+}
+
+.header_search_container {
+  background-color: #fff;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  opacity: 0;
+  transition: all 0.3s;
+  padding: 111px 0 0 0;
+}
+
+.header_search_container_active {
+  z-index: 3;
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  position: fixed;
+  opacity: 1;
+  padding: 111px 0 0 0;
+  transition: all 0.3s;
 }
