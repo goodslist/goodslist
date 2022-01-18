@@ -212,7 +212,9 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
       }
       //引き継がれたイベントIDがない場合、新規にイベントIDを追加
     } else localStorage.setItem('eventId', String(propsEvent.event_id))
+  }, [])
 
+  useEffect(() => {
     let totalPrice: number = 0
     let totalCount: number = 0
     items.map((item) => {
@@ -223,7 +225,8 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
     })
     setTotalPrice(totalPrice)
     setTotalCount(totalCount)
-  }, [])
+  }, [items])
+
   let prevGroupId = 0
 
   const checkItem = (index: number) => {
