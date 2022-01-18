@@ -153,7 +153,7 @@ const Home = ({ eventList }: Props) => {
               className={input ? styles.search_button_active : styles.search_button}
               onClick={clickButton}
             >
-              <Search />
+              {/* <Search /> */}
             </span>
             {(events?.length > 0 && input.length > 0 && searchFocus) || searchFocus2 ? (
               <ul className={styles.search_result_active}>

@@ -18,9 +18,7 @@ export default function Header() {
           </Link>
         </div>
         <a>
-          <div className={styles.btn_search}>
-            <IconMemo />
-          </div>
+          <div className={styles.btn_search}>{/* <IconMemo /> */}</div>
         </a>
       </div>
     </div>
