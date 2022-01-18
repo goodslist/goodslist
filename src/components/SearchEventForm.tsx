@@ -1,11 +1,11 @@
 import Link from 'next/dist/client/link'
-import styles from '../styles/Home.module.css'
+import styles from '../styles/components/SearchEventForm.module.css'
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { Events } from '../components/types'
 import searchEvent from '../components/db/SearchEvent'
 
-export default function SearchEventForm() {
+export default function SearchEventForm(props: any) {
   const [input, setInput] = useState<string>('')
   const [events, setEvents] = useState<Events[]>([])
   const [searchFocus, setSearchFocus] = useState<boolean>(false)
@@ -57,16 +57,32 @@ export default function SearchEventForm() {
   }
 
   //入力テキストを元に検索結果へ遷移する
-  const clickButton = () => {
+  const clickButton = async () => {
     //テキストが未入力の時は無効にする
     if (!input) {
       return
     }
 
-    router.push({
+    await router.push({
       pathname: '/search', //URL
       query: { keyword: input }, //検索クエリ
     })
+
+    props.setIsSearchOpen(false)
+    setInput('')
+    setEvents([])
+    setSearchFocus(false)
+  }
+
+  const moveEvent = async (event_id: number) => {
+    await router.push({
+      pathname: '/event/' + event_id, //URL
+      query: { keyword: input }, //検索クエリ
+    })
+    props.setIsSearchOpen(false)
+    setInput('')
+    setEvents([])
+    setSearchFocus(false)
   }
 
   return (
@@ -90,14 +106,24 @@ export default function SearchEventForm() {
       {(events?.length > 0 && input.length > 0 && searchFocus) || searchFocus2 ? (
         <ul className={styles.search_result_active}>
           {events.map((event) => (
-            <li key={event.event_id} onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
-              <Link href={'/event/' + event.event_id}>
-                <a>
-                  <b>{event.content_name}</b>
-                  <br />
-                  {event.event_name}
-                </a>
-              </Link>
+            // <li key={event.event_id} onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
+            //   <Link href={'/event/' + event.event_id}>
+            //     <a>
+            //       <b>{event.content_name}</b>
+            //       <br />
+            //       {event.event_name}
+            //     </a>
+            //   </Link>
+            // </li>
+            <li
+              key={event.event_id}
+              onMouseOver={onMouseOver}
+              onMouseLeave={onMouseLeave}
+              onClick={() => moveEvent(event.event_id)}
+            >
+              <b>{event.content_name}</b>
+              <br />
+              {event.event_name}
             </li>
           ))}
         </ul>

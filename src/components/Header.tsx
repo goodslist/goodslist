@@ -39,7 +39,7 @@ export default function Header() {
         }
       >
         <Title title='Search Event' />
-        <SearchEventForm />
+        <SearchEventForm setIsSearchOpen={setIsSearchOpen} />
       </div>
     </>
   )
