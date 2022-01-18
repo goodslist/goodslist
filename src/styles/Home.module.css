@@ -188,11 +188,11 @@
 }
 
 .search_button:before,
-.search_button_active:after {
+.search_button_active:before {
   content: '';
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 20px;
+  left: 20px;
   cursor: pointer;
   display: inline-block;
   width: 14px;
@@ -210,10 +210,10 @@
   position: absolute;
   width: 2px;
   height: 8px;
-  top: 26px;
-  left: 28px;
+  top: 38px;
+  left: 38px;
   border-radius: 10px;
-  transform: translate(-50%, -50%) rotate(-50deg);
+  transform: translate(-50%, -50%) rotate(-45deg);
   transition: all 0.7s;
   cursor: pointer;
   background-color: #666;
