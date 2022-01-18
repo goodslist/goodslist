@@ -69,10 +69,10 @@
   position: absolute;
   width: 2px;
   height: 8px;
-  top: 36px;
-  left: 39px;
+  top: 38px;
+  left: 38px;
   border-radius: 10px;
-  transform: translate(-50%, -50%) rotate(-50deg);
+  transform: translate(-50%, -50%) rotate(-45deg);
   transition: all 0.7s;
   cursor: pointer;
   background-color: #666;
