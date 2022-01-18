@@ -134,6 +134,7 @@ const Home = ({ eventList }: Props) => {
   return (
     <>
       <Meta title={meta.title} url={meta.url} image={meta.image} />
+      <Header />
       <div className={styles.wrapper_white}>
         <main className={styles.main}>
           <h1 className={styles.title}>GOODSist</h1>
