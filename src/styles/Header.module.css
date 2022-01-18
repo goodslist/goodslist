@@ -169,6 +169,7 @@
   opacity: 0;
   transition: all 0.3s;
   padding: 111px 0 0 0;
+  pointer-events: none;
 }
 
 .header_search_container_active {
