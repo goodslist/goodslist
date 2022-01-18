@@ -152,6 +152,7 @@
 }
 .search_active {
   width: 100%;
+  height: 60px;
   font-size: 1.6rem;
   padding: 15px 0 15px 25px;
   border: 1px solid #68a9cf;
@@ -169,7 +170,7 @@
 .search_container {
   min-width: 300px;
   max-width: 50%;
-  height: 50px;
+  height: 60px;
   position: relative;
   border: 0;
   left: 50%;
@@ -185,8 +186,7 @@
   height: 40px;
   /* top: 12px; */
   right: 12px;
-  top: calc(50% - 15px);
-  /* background-color: aqua; */
+  top: calc(50% - 20px);
 }
 
 .search_button:before,
