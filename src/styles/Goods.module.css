@@ -1016,22 +1016,26 @@
 
 .s_content_name {
   margin: 20px 0 0 0;
+  padding: 0 10px;
   width: 100%;
   font-size: 1.4rem;
 }
 
 .s_event_name {
   margin: 10px 0 0 0;
+  padding: 0 10px;
   width: 100%;
   font-size: 1.4rem;
 }
 
 .s_event_date {
   margin: 10px 0 0 0;
+  padding: 0 10px;
 }
 
 .s_item_name {
   margin: 20px 0 10px 0;
+  padding: 0 10px;
   font-size: 1.4rem;
 }
 
@@ -1039,7 +1043,7 @@
 .s_detail_container_checked {
   margin: 0;
   width: 100%;
-  padding: 10px 0;
+  padding: 10px;
   display: -webkit-flex;
   display: flex;
   -webkit-justify-content: flex-end;
@@ -1069,6 +1073,7 @@
 
 .s_total_container {
   margin: 10px 0;
+  padding: 0 10px;
   width: 100%;
   height: 30px;
   display: -webkit-flex;
