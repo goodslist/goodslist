@@ -1105,9 +1105,9 @@
 }
 
 .btn_show_list,
-.btn_show_list_active {
+.btn_show_list_active,
+.btn_create_list {
   margin: 40px 0 0 0;
-  padding: 20px;
   width: 200px;
   border-radius: 30px;
   border: 0px;
@@ -1117,14 +1117,27 @@
   transition: all 0.3s;
   position: relative;
 }
+
+.btn_show_list,
+.btn_show_list_active {
+  padding: 20px 20px 20px 40px;
+  text-align: left;
+}
+
+.btn_create_list {
+  padding: 20px 40px 20px 20px;
+  text-align: right;
+}
 .btn_show_list {
   background-color: #ccc;
 }
-.btn_show_list_active {
+.btn_show_list_active,
+.btn_create_list {
   background-color: #f2c746;
   cursor: pointer;
 }
 
+.btn_show_list:before,
 .btn_show_list_active:before {
   content: '';
   width: 10px;
@@ -1134,12 +1147,25 @@
   border-right: solid 3px #fff;
   position: absolute;
   top: calc(50% - 3px);
-  right: 24px;
+  right: 30px;
   margin-top: -4px;
   transform: rotate(45deg);
   transition: all 0.7s;
   cursor: pointer;
 }
 
-.btn_show_list_active:after {
+.btn_create_list:before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border: 0;
+  border-top: solid 3px #fff;
+  border-right: solid 3px #fff;
+  position: absolute;
+  top: calc(50% - 3px);
+  left: 30px;
+  margin-top: -4px;
+  transform: rotate(225deg);
+  transition: all 0.7s;
+  cursor: pointer;
 }

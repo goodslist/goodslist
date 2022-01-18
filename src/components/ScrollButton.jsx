@@ -15,7 +15,7 @@ class ScrollButton extends React.Component {
   scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      // behavior: 'smooth',
     })
   }
 

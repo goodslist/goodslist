@@ -250,7 +250,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
             </div>
             <Link href={'../../event/' + propsEvent.event_id}>
               <a>
-                <button className={styles.btn_show_list_active}>Create List</button>
+                <button className={styles.btn_create_list}>Create List</button>
               </a>
             </Link>
           </main>
