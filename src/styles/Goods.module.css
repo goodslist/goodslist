@@ -1012,7 +1012,6 @@
   transition: all 0.3s;
   font-size: 1.4rem;
   position: relative;
-  box-shadow: 0 1px 4px rgb(0 0 0 / 10%);
 }
 
 .s_content_name {
@@ -1036,7 +1035,8 @@
   font-size: 1.4rem;
 }
 
-.s_detail_container {
+.s_detail_container,
+.s_detail_container_checked {
   margin: 0;
   width: 100%;
   padding: 10px 0;
@@ -1044,6 +1044,15 @@
   display: flex;
   -webkit-justify-content: flex-end;
   justify-content: flex-end;
+  transition: all 0.3s;
+}
+
+.s_detail_container {
+  background-color: #fff;
+}
+
+.s_detail_container_checked {
+  background-color: #ccc;
 }
 
 .s_price {

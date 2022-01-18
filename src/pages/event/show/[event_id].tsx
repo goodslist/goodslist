@@ -39,7 +39,7 @@ import {
   returnPosition,
   startSortAnimation,
 } from '../../../components/event/Sort'
-import { Event, Group, Item, ItemCount } from '../../../components/types'
+import { Event, ShowGroup, ShowItem, ItemCount } from '../../../components/types'
 import { useRouter } from 'next/router'
 import Header from '../../../components/Header'
 import Meta from '../../../components/Meta'
@@ -90,9 +90,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     memo: '',
   }
 
-  const items: Item[] = []
+  const items: ShowItem[] = []
   data![0].items.map((doc: any) => {
-    const item: Item = {
+    const item: ShowItem = {
       item_id: doc.item_id,
       group: doc.group,
       order: doc.order,
@@ -102,21 +102,20 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       size: doc.size,
       price: doc.price,
       item_count: 0,
+      check: false,
     }
     items.push(item)
   })
 
-  const groups: Group[] = []
+  const groups: ShowGroup[] = []
   let now_group = 1
   data![0].items.map((item: any) => {
     if (item.group == now_group) {
       groups[now_group - 1] = {
         group: item.group,
-        item_name: item.item_name,
-        group_count: 0,
-        price: item.price,
-        sub_total: 0,
-        open: true,
+        item_version_count: 0,
+        item_check_count: 0,
+        check: false,
       }
       now_group++
     }
@@ -124,19 +123,19 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   type PageProps = {
     propsEvent: Event
-    propsItems: Item[]
-    propsGroups: Group[]
+    propsShowItems: ShowItem[]
+    propsShowGroups: ShowGroup[]
   }
   const props: PageProps = {
     propsEvent: event,
-    propsItems: items,
-    propsGroups: groups,
+    propsShowItems: items,
+    propsShowGroups: groups,
   }
 
   return { props }
 }
 
-const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
+const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
   //ログインユーザー
   const { currentUser }: any = useContext(AuthContext)
 
@@ -144,10 +143,10 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   const [listId, setListId] = useState(0)
 
   // アイテムの配列
-  const [items, setItems] = useState<Item[]>(propsItems.map((item) => Object.assign({}, item)))
+  const [items, setItems] = useState<ShowItem[]>([])
 
-  //アイテムカウントの配列(DBとローカルストレージに保存する配列)
-  const [itemCounts, setItemCounts] = useState<ItemCount[]>([])
+  // グループの配列
+  const [group, setGroup] = useState<ShowGroup[]>([])
 
   //日程(YYYY-MM-DD)
   const [date, setDate] = useState(propsEvent.date)
@@ -176,10 +175,13 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
 
         //ローカルストレージのアイテムカウントを読み込み、アイテムを更新する。
         const localStorageItemCounts = JSON.parse(localStorage.getItem('itemCounts')!)
-        const newItems = [...items]
+        const newItems: ShowItem[] = []
         localStorageItemCounts.map((ItemCount: ItemCount) => {
-          newItems.map((item: Item) => {
-            if (ItemCount.item_id == item.item_id) item.item_count = ItemCount.item_count
+          propsShowItems.map((showItem: ShowItem) => {
+            if (ItemCount.item_id == showItem.item_id) {
+              showItem.item_count = ItemCount.item_count
+              newItems.push(showItem)
+            }
           })
         })
         setItems(newItems)
@@ -224,11 +226,26 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   }, [])
   let prevGroupId = 0
 
+  const checkItem = (index: number) => {
+    const newitems = [...items]
+    if (newitems[index].check == false) newitems[index].check = true
+    else newitems[index].check = false
+    setItems(newitems)
+  }
+
+  // useEffect(() => {
+
+  // },[items])
+
   const meta: MetaProps = {
     title: propsEvent.content_name + ' ' + propsEvent.event_name,
     url: 'https://goodslist-pearl.vercel.app/event/' + propsEvent.event_id,
     image: 'https://goodslist-pearl.vercel.app/ogp/' + propsEvent.event_id,
   }
+
+  const [isCheckItem, setIsCheckItem] = useState<boolean[]>(
+    new Array<boolean>(items.length).fill(false),
+  )
 
   return (
     <>
@@ -250,7 +267,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
             </div>
             <Link href={'../../event/' + propsEvent.event_id}>
               <a>
-                <button className={styles.btn_create_list}>Create List</button>
+                <button className={styles.btn_show_list_active}>Create List</button>
               </a>
             </Link>
           </main>
@@ -267,7 +284,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                 <div className={styles.s_total_count}>{totalCount}点</div>
                 <div className={styles.s_total_price}>&yen;{numberFormat(totalPrice)}</div>
               </div>
-              {items.map((item: Item) =>
+              {items.map((item: ShowItem, index) =>
                 (() => {
                   if (item.item_count > 0) {
                     if (prevGroupId != item.group) {
@@ -276,7 +293,14 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                         <>
                           <hr className={styles.li_goods_line} />
                           <p className={styles.s_item_name}>{item.item_name}</p>
-                          <div className={styles.s_detail_container}>
+                          <div
+                            className={
+                              items[index].check
+                                ? styles.s_detail_container_checked
+                                : styles.s_detail_container
+                            }
+                            onClick={() => checkItem(index)}
+                          >
                             <p className={styles.s_item_type}>
                               {item.item_type}
                               {item.item_type && item.color ? ' ' : ''}
@@ -285,7 +309,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                               {item.size}
                             </p>
                             <p className={styles.s_price}>
-                              &yen;{numberFormat(item.price)} x {item.item_count}
+                              &yen;{numberFormat(Number(item.price))} x {item.item_count}
                             </p>
                           </div>
                         </>
@@ -293,7 +317,14 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                     } else {
                       return (
                         <>
-                          <div className={styles.s_detail_container}>
+                          <div
+                            className={
+                              items[index].check
+                                ? styles.s_detail_container_checked
+                                : styles.s_detail_container
+                            }
+                            onClick={() => checkItem(index)}
+                          >
                             <p className={styles.s_item_type}>
                               {item.item_type}
                               {item.item_type && item.color ? ' ' : ''}
@@ -302,7 +333,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                               {item.size}
                             </p>
                             <p className={styles.s_price}>
-                              &yen;{numberFormat(item.price)} x {item.item_count}
+                              &yen;{numberFormat(Number(item.price))} x {item.item_count}
                             </p>
                           </div>
                         </>

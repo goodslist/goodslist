@@ -37,6 +37,19 @@ export type Item = {
   item_count: number
 }
 
+export type ShowItem = {
+  item_id: number
+  item_name: string
+  order: number
+  group: number
+  item_type: string
+  color: string
+  size: string
+  price: number
+  item_count: number
+  check: boolean
+}
+
 export type Group = {
   group: number
   group_count: number
@@ -44,6 +57,13 @@ export type Group = {
   price: number
   sub_total: number
   open: boolean
+}
+
+export type ShowGroup = {
+  group: number
+  item_version_count: number
+  item_check_count: number
+  check: boolean
 }
 
 export type ItemCount = {
