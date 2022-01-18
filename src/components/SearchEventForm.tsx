@@ -39,12 +39,6 @@ export default function SearchEventForm() {
 
   const onFocusInput = () => {
     setSearchFocus(true)
-    // if (!(window.scrollY == searchTop)) {
-    //   window.scrollTo({
-    //     top: searchTop,
-    //     behavior: 'smooth',
-    //   })
-    // }
     console.log(searchRef.current!.getBoundingClientRect())
   }
   const onBlurInput = (e: any) => {
