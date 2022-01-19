@@ -294,10 +294,6 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
               <p className={styles.s_event_date}>{dateFormat(date)}</p>
               {place ? <p className={styles.s_event_date}>{place}</p> : <></>}
               {memo ? <p className={styles.s_event_date}>{memo}</p> : <></>}
-              <div className={styles.s_total_container}>
-                <div className={styles.s_total_count}>{totalCount}点</div>
-                <div className={styles.s_total_price}>&yen;{numberFormat(totalPrice)}</div>
-              </div>
               {group.map((group: ShowGroup, index) =>
                 (() => {
                   if (group.item_version_count > 0) {
@@ -340,9 +336,14 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
                   }
                 })(),
               )}
+              <div className={styles.s_total_container}>
+                <div className={styles.s_total_count}>{totalCount}点</div>
+                <div className={styles.s_total_price}>&yen;{numberFormat(totalPrice)}</div>
+              </div>
             </div>
           </main>
         </div>
+        <div className={styles.card2}>aa</div>
       </div>
     </>
   )
