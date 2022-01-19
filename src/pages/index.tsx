@@ -144,13 +144,13 @@ const Home = ({ eventList }: Props) => {
         </main>
       </div>
 
-      {/* <div className={styles.wrapper_glay}>
+      <div className={styles.wrapper_glay}>
         <div className={styles.grid}>
           <EventList events={eventList} title='Hot Event' start='left' />
           <EventList events={eventList} title='New Event' start='right' />
         </div>
       </div>
-      <div className={styles.wrapper_white}>
+      {/* <div className={styles.wrapper_white}>
         <Topic
           image='/images/iphone.png'
           alt='はじめに'
