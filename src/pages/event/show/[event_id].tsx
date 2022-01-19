@@ -232,6 +232,7 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
 
   let prevGroupId = 0
 
+  const [checkedItems, setCheckedItems] = useState(0)
   const checkItem = (index: number) => {
     const newItems = [...items]
     const newGroup = [...group]
@@ -239,10 +240,12 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
       newItems[index].check = true
       newGroup[newItems[index].group - 1].item_check_count =
         newGroup[newItems[index].group - 1].item_check_count + 1
+      setCheckedItems(checkedItems + 1)
     } else {
       newItems[index].check = false
       newGroup[newItems[index].group - 1].item_check_count =
         newGroup[newItems[index].group - 1].item_check_count - 1
+      setCheckedItems(checkedItems - 1)
     }
     if (
       newGroup[newItems[index].group - 1].item_check_count ==
@@ -288,7 +291,13 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
         </div>
         <div className={styles.wrapper_glay}>
           <main className={styles.main}>
-            <div className={styles.screenshot_container}>
+            <div
+              className={
+                checkedItems == items.length
+                  ? styles.screenshot_container_checked
+                  : styles.screenshot_container
+              }
+            >
               <p className={styles.s_content_name}>{propsEvent.content_name}</p>
               <p className={styles.s_event_name}>{propsEvent.event_name}</p>
               <p className={styles.s_event_date}>{dateFormat(date)}</p>

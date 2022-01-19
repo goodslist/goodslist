@@ -998,9 +998,10 @@
   font-size: 2rem;
 }
 
-.screenshot_container {
+.screenshot_container,
+.screenshot_container_checked {
   margin: 0 0 20px 0;
-  padding: 30px 10px 30px 10px;
+  padding: 20px 0 20px 0;
   text-align: left;
   color: inherit;
   text-decoration: none;
@@ -1008,10 +1009,18 @@
   /* border-radius: 5px; */
   width: 100% !important;
   height: auto !important;
-  background-color: #fff;
   transition: all 0.3s;
   font-size: 1.4rem;
   position: relative;
+  border: 10px solid #fff;
+}
+
+.screenshot_container {
+  background-color: #fff;
+}
+
+.screenshot_container_checked {
+  background-color: #eaeaea;
 }
 
 .s_content_name {
