@@ -66,30 +66,22 @@ const EventList = (props: any) => {
       </ScrollAnimation>
       <ul className={styles.ul_event}>
         {props.events.map((event: Events, index: number) => (
-          // <ScrollAnimation index={index} onIntersection={intersectCallback}>
-          <li
-            ref={ref}
-            key={event.event_id}
-            className={
-              isFadein[index]
-                ? `${styles.li_event} ${startAfter}`
-                : `${styles.li_event} ${startBefore}`
-            }
-          >
-            <Link href={'event/' + event.event_id}>
-              <a>
-                <div className={styles.li_event_padding}>
-                  <p className={styles.contents_title}>
-                    <b>{event.content_name}</b>
-                  </p>
-                  <p className={styles.event_date}>{dateFormat(event.date)}</p>
-                  <hr className={styles.li_event_line} />
-                  <p className={styles.event_title}>{event.event_name}</p>
-                </div>
-              </a>
-            </Link>
-          </li>
-          // </ScrollAnimation>
+          <ScrollAnimation index={index} onIntersection={intersectCallback}>
+            <li ref={ref} key={event.event_id} className={styles.li_event}>
+              <Link href={'event/' + event.event_id}>
+                <a>
+                  <div className={styles.li_event_padding}>
+                    <p className={styles.contents_title}>
+                      <b>{event.content_name}</b>
+                    </p>
+                    <p className={styles.event_date}>{dateFormat(event.date)}</p>
+                    <hr className={styles.li_event_line} />
+                    <p className={styles.event_title}>{event.event_name}</p>
+                  </div>
+                </a>
+              </Link>
+            </li>
+          </ScrollAnimation>
         ))}
       </ul>
     </div>
@@ -97,3 +89,30 @@ const EventList = (props: any) => {
 }
 
 export default EventList
+
+{
+  /* <ScrollAnimation index={index} onIntersection={intersectCallback}>
+<li
+  ref={ref}
+  key={event.event_id}
+  className={
+    isFadein[index]
+      ? `${styles.li_event} ${startAfter}`
+      : `${styles.li_event} ${startBefore}`
+  }
+>
+  <Link href={'event/' + event.event_id}>
+    <a>
+      <div className={styles.li_event_padding}>
+        <p className={styles.contents_title}>
+          <b>{event.content_name}</b>
+        </p>
+        <p className={styles.event_date}>{dateFormat(event.date)}</p>
+        <hr className={styles.li_event_line} />
+        <p className={styles.event_title}>{event.event_name}</p>
+      </div>
+    </a>
+  </Link>
+</li>
+</ScrollAnimation> */
+}
