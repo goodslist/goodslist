@@ -188,6 +188,7 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
                 newGroup[showItem.group - 1].item_version_count + 1
 
               newGroup[showItem.group - 1].check = false
+              newGroup[showItem.group - 1].item_check_count = 0
             }
           })
         })
@@ -233,7 +234,23 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
     setTotalCount(totalCount)
   }, [])
 
-  let prevGroupId = 0
+  const resetChecked = () => {
+    const newGroup = [...group]
+    const newItems = [...items]
+
+    newGroup.map((item) => {
+      item.check = false
+      item.item_check_count = 0
+    })
+
+    newItems.map((item) => {
+      item.check = false
+    })
+
+    setGroup(newGroup)
+    setItems(newItems)
+    setCheckedItems(0)
+  }
 
   const [checkedItems, setCheckedItems] = useState(0)
   const checkItem = (index: number) => {
@@ -354,8 +371,18 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
               </div>
             </div>
           </main>
+          <div className={styles.show_list_reset_container}>
+            {checkedItems > 0 ? (
+              <button className={styles.btn_show_list_reset_active} onClick={() => resetChecked()}>
+                Reset
+              </button>
+            ) : (
+              <button className={styles.btn_show_list_reset}>Reset</button>
+            )}
+          </div>
+
+          <main>aa</main>
         </div>
-        <div className={styles.card2}>aa</div>
       </div>
     </>
   )

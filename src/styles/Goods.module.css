@@ -1223,3 +1223,35 @@
   width: 100%;
   margin: 10px 0;
 } */
+
+.show_list_reset_container {
+  max-width: 800px;
+  min-width: 320px;
+  margin: 20px auto;
+  padding: 0 10px;
+  position: relative;
+  display: flex;
+  justify-content: right;
+}
+
+.btn_show_list_reset,
+.btn_show_list_reset_active {
+  margin: 0 0 0 0;
+  padding: 5px 20px;
+  border-radius: 30px;
+  color: #fff;
+  font-family: 'FuturaPTMedium', sans-serif;
+  border: 0px;
+  transition: all 0.3s;
+  letter-spacing: 2px;
+  font-size: 2rem;
+}
+
+.btn_show_list_reset {
+  background-color: #ccc;
+}
+
+.btn_show_list_reset_active {
+  background-color: #f2c746;
+  cursor: pointer;
+}

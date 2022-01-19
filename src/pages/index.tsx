@@ -1,27 +1,23 @@
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
 import { GetStaticProps } from 'next'
-import type { NextPage } from 'next'
-import Head from 'next/head'
 import { useState } from 'react'
 import { supabase } from '../components/supabase'
 import styles from '../styles/Home.module.css'
-import Search from './img/search.svg'
 import { useRouter } from 'next/router'
 import Loading from '../components/modal/Loading'
 import { AuthContext } from '../components/auth/AuthContext'
 import { useContext } from 'react'
 import { Events } from '../components/types'
-import Image from 'next/image'
 import Header from '../components/Header'
-import ScrollAnimation from '../components/ScrollAnimation'
 import Topic from '../components/view/top/Topic'
 import Meta from '../components/Meta'
 import { MetaProps } from '../components/types'
-import EventListTitle from '../components/view/top/EventListTitle'
 import EventList from '../components/view/EventList'
 import searchEvent from '../components/db/SearchEvent'
 import SearchEventForm from '../components/SearchEventForm'
+import BoxWhite from '../components/view/BoxWhite'
+import BoxGray from '../components/view/BoxGray'
 
 // ページコンポーネントに渡されるデータ
 type Props = {
@@ -144,13 +140,13 @@ const Home = ({ eventList }: Props) => {
         </main>
       </div>
 
-      <div className={styles.wrapper_glay}>
+      <BoxGray>
         <div className={styles.grid}>
           <EventList events={eventList} title='Hot Event' start='left' />
           <EventList events={eventList} title='New Event' start='right' />
         </div>
-      </div>
-      <div className={styles.wrapper_white}>
+      </BoxGray>
+      <BoxWhite>
         <Topic
           image='/images/iphone.png'
           alt='はじめに'
@@ -173,7 +169,7 @@ const Home = ({ eventList }: Props) => {
           title='取り扱いジャンル'
           text='コンサート、フェス、映画、アニメ、漫画、ミュージカル、演劇、スポーツなど様々なジャンルのイベントを扱います。'
         />
-      </div>
+      </BoxWhite>
     </>
   )
 }
