@@ -1,6 +1,5 @@
 import { StylesProvider } from '@material-ui/core'
 import React, { useEffect } from 'react'
-import styles from '../styles/Home.module.css'
 
 type Props = {
   index: number
@@ -33,11 +32,7 @@ const Container: React.FC<Props> = ({ index, onIntersection, children }) => {
     }
   }, [])
 
-  return (
-    <div className={styles.abc} ref={ref}>
-      {children}
-    </div>
-  )
+  return <div ref={ref}>{children}</div>
 }
 
 export default Container
