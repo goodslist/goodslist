@@ -155,6 +155,27 @@
   }
 
   .li_event {
+    margin: 0 0 40px 0;
+    padding: 0;
+    text-align: left;
+    color: inherit;
+    text-decoration: none;
+    /* border: 1px solid #eaeaea; */
+    /* border-radius: 5px; */
+    min-width: 320px;
+    max-width: 400px !important;
+    height: auto !important;
+    background-color: #fff;
+    transition: all 0.5s;
+    font-size: 1.4rem;
+    position: relative;
+    /* box-shadow: 0 1px 4px rgb(0 0 0 / 10%); */
+    border-radius: 10px;
+    opacity: 1;
+    /* opacity: 0;
+    visibility: hidden; */
+  }
+  .li_event_active {
     margin: 0 0 20px 0;
     padding: 0;
     text-align: left;
@@ -162,13 +183,16 @@
     text-decoration: none;
     /* border: 1px solid #eaeaea; */
     /* border-radius: 5px; */
-    width: 100% !important;
+    min-width: 320px;
+    max-width: 400px !important;
     height: auto !important;
     background-color: #fff;
     transition: all 0.5s;
     font-size: 1.4rem;
     position: relative;
-    box-shadow: 0 1px 4px rgb(0 0 0 / 10%);
+    /* box-shadow: 0 1px 4px rgb(0 0 0 / 10%); */
+    border-radius: 10px;
+    opacity: 1;
     /* opacity: 0;
     visibility: hidden; */
   }
@@ -177,7 +201,7 @@
   .ul_event {
     box-sizing: border-box;
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: calc(50% - 10px) auto;
     margin: 0;
     padding: 0;
     line-height: 0;
@@ -191,11 +215,10 @@
     -webkit-column-break-inside: avoid;
     page-break-inside: avoid;
     break-inside: avoid;
-    width: 820px;
   }
 
   .li_event {
-    margin: 0 0 20px 0;
+    margin: 0 0 40px 0;
     padding: 0;
     text-align: left;
     color: inherit;
@@ -203,15 +226,17 @@
     /* border: 1px solid #eaeaea; */
     /* border-radius: 5px; */
     width: 100% !important;
-    max-width: 400px !important;
     height: auto !important;
     background-color: #fff;
-    transition: all 0.5s;
+    transition: all 0.2s;
     font-size: 1.4rem;
     position: relative;
-    box-shadow: 0 1px 4px rgb(0 0 0 / 10%);
+    /* box-shadow: 0 1px 4px rgb(0 0 0 / 10%); */
+    border-radius: 10px;
     /* opacity: 0;
     visibility: hidden; */
+    /* box-shadow: 0 0 6px rgb(0 0 0 / 20%); */
+    /* border: 1px solid #ccc; */
   }
 }
 
