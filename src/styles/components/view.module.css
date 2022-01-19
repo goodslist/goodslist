@@ -29,14 +29,14 @@
 .box_gray {
   margin: 0;
   width: 100%;
-  padding: 100px 0 0 0;
+  padding: 80px 0 80px 0;
   position: relative;
-  background: #fff;
+  background: #f1f1f1;
 }
 
-.box_gray {
+/* .box_gray {
   margin: 0;
   width: 100%;
   background-color: #f1f1f1;
   padding: 30px 0 60px 0;
-}
+} */

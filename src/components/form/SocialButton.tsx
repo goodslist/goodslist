@@ -1,4 +1,4 @@
-import styles from '../../styles/components/form.module.css'
+import styles from '../../styles/components/SocialButton.module.css'
 import Twitter from '../../../public/images/twitter.svg'
 import Line from '../../../public/images/line.svg'
 import Google from '../../../public/images/google.svg'

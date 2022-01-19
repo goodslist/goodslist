@@ -31,20 +31,15 @@ import { numberFormat, dateFormat } from '../../../components/Utils'
 import { AuthContext } from '../../../components/auth/AuthContext'
 import { ModalContext } from '../../../components/modal/ModalContext'
 import Modal from '../../../components/modal/Modal'
-import {
-  getPrevGroupHeights,
-  sortGroups,
-  getAfterGroupHeights,
-  getDifferenceGroupHeights,
-  returnPosition,
-  startSortAnimation,
-} from '../../../components/event/Sort'
 import { Event, ShowGroup, ShowItem, ItemCount } from '../../../components/types'
 import { useRouter } from 'next/router'
 import Header from '../../../components/Header'
 import Meta from '../../../components/Meta'
 import { MetaProps } from '../../../components/types'
 import Title from '../../../components/view/title'
+import BoxWhite from '../../../components/view/BoxWhite'
+import BoxGray from '../../../components/view/BoxGray'
+import SocialButton from '../../../components/form/SocialButton'
 
 type PathParams = {
   event_id: string
@@ -309,7 +304,7 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
             </Link>
           </main>
         </div>
-        <div className={styles.wrapper_glay}>
+        <BoxGray>
           <main className={styles.main}>
             <div
               className={
@@ -380,9 +375,21 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
               <button className={styles.btn_show_list_reset}>Reset</button>
             )}
           </div>
-
-          <main>aa</main>
-        </div>
+        </BoxGray>
+        <BoxWhite>
+          <main className={styles.main}>
+            <div className={styles.card2}>リストを共有しよう</div>
+            <button className={styles.btn_login_twitter}>
+              Twitterで共有
+              <span></span>
+            </button>
+            <br></br>
+            <button className={styles.btn_login_line}>
+              LINEで共有
+              <span></span>
+            </button>
+          </main>
+        </BoxWhite>
       </div>
     </>
   )

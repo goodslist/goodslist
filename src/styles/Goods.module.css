@@ -1255,3 +1255,54 @@
   background-color: #f2c746;
   cursor: pointer;
 }
+
+/* ソーシャルログインボタン */
+
+.btn_login_twitter,
+.btn_login_line,
+.btn_login_google,
+.btn_login_yahoo {
+  box-sizing: border-box;
+  margin: 0 0 30px 0;
+  min-width: 280px;
+  padding: 15px 0;
+  position: relative;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.btn_login_twitter {
+  background-color: #1da1f2;
+  color: #fff;
+}
+
+.btn_login_line {
+  background-color: #06c755;
+  color: #fff;
+}
+
+.btn_login_google {
+  background-color: #eeeeee;
+  color: #000;
+}
+.btn_login_yahoo {
+  background-color: #ff0027;
+  color: #fff;
+}
+
+.btn_login_twitter svg,
+.btn_login_line svg,
+.btn_login_google svg,
+.btn_login_yahoo svg {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  fill: #fff;
+  left: 15px;
+  top: 50%;
+  transform: translate(0, -50%);
+  -webkit-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+}
