@@ -166,7 +166,6 @@
   .ul_event {
     margin: 0;
     padding: 0 10px;
-    background: red;
   }
 
   .li_event {
@@ -469,7 +468,7 @@
 
 .fadein_left_before {
   left: -50px;
-  opacity: 0.5;
+  opacity: 0;
 }
 
 .fadein_left_after {
