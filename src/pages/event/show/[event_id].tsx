@@ -327,7 +327,10 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
                           group.check ? styles.group_container_checked : styles.group_container
                         }
                       >
-                        <p className={styles.s_item_name}>{group.item_name}</p>
+                        <p className={styles.s_item_name}>
+                          {group.item_name} {group.item_version_count}{' '}
+                          {group.check ? 'true' : 'false'}
+                        </p>
                         {items.map((item: ShowItem, index) =>
                           (() => {
                             if (group.group == item.group) {
