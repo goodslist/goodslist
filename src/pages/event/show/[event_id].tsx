@@ -186,6 +186,8 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
               newItems.push(showItem)
               newGroup[showItem.group - 1].item_version_count =
                 newGroup[showItem.group - 1].item_version_count + 1
+
+              newGroup[showItem.group - 1].check = false
             }
           })
         })
