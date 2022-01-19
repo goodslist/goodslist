@@ -65,7 +65,7 @@ const EventList = (props: any) => {
         </div>
       </ScrollAnimation>
       <ul className={styles.ul_event}>
-        {props.events.map((event: Events, index: number) => (
+        {/* {props.events.map((event: Events, index: number) => (
           <ScrollAnimation index={index} onIntersection={intersectCallback}>
             <li
               ref={ref}
@@ -90,7 +90,7 @@ const EventList = (props: any) => {
               </Link>
             </li>
           </ScrollAnimation>
-        ))}
+        ))} */}
       </ul>
     </div>
   )
