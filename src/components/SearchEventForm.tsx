@@ -77,7 +77,7 @@ export default function SearchEventForm(props: any) {
   const moveEvent = async (event_id: number) => {
     await router.push({
       pathname: '/event/' + event_id, //URL
-      query: { keyword: input }, //検索クエリ
+      // query: { keyword: input }, //検索クエリ
     })
     props.setIsSearchOpen(false)
     setInput('')
