@@ -166,6 +166,7 @@
   .ul_event {
     margin: 0;
     padding: 0 10px;
+    background: red;
   }
 
   .li_event {
