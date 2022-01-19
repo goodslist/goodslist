@@ -61,6 +61,7 @@ export type Group = {
 
 export type ShowGroup = {
   group: number
+  item_name: string
   item_version_count: number
   item_check_count: number
   check: boolean

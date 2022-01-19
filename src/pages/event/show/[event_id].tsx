@@ -113,6 +113,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     if (item.group == now_group) {
       groups[now_group - 1] = {
         group: item.group,
+        item_name: item.item_name,
         item_version_count: 0,
         item_check_count: 0,
         check: false,
@@ -176,15 +177,19 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
         //ローカルストレージのアイテムカウントを読み込み、アイテムを更新する。
         const localStorageItemCounts = JSON.parse(localStorage.getItem('itemCounts')!)
         const newItems: ShowItem[] = []
+        const newGroup: ShowGroup[] = [...propsShowGroups]
         localStorageItemCounts.map((ItemCount: ItemCount) => {
           propsShowItems.map((showItem: ShowItem) => {
             if (ItemCount.item_id == showItem.item_id) {
               showItem.item_count = ItemCount.item_count
               newItems.push(showItem)
+              newGroup[showItem.group - 1].item_version_count =
+                newGroup[showItem.group - 1].item_version_count + 1
             }
           })
         })
         setItems(newItems)
+        setGroup(newGroup)
 
         //リストIDがあるなら、ステートに読み込む。
         const localStorageListId = localStorage.getItem('listId')
@@ -212,12 +217,10 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
       }
       //引き継がれたイベントIDがない場合、新規にイベントIDを追加
     } else localStorage.setItem('eventId', String(propsEvent.event_id))
-  }, [])
 
-  useEffect(() => {
     let totalPrice: number = 0
     let totalCount: number = 0
-    items.map((item) => {
+    propsShowItems.map((item) => {
       if (item.item_count > 0) {
         totalPrice = totalPrice + item.price * item.item_count
         totalCount = totalCount + item.item_count
@@ -225,30 +228,38 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
     })
     setTotalPrice(totalPrice)
     setTotalCount(totalCount)
-  }, [items])
+  }, [])
 
   let prevGroupId = 0
 
   const checkItem = (index: number) => {
-    const newitems = [...items]
-    if (newitems[index].check == false) newitems[index].check = true
-    else newitems[index].check = false
-    setItems(newitems)
+    const newItems = [...items]
+    const newGroup = [...group]
+    if (newItems[index].check == false) {
+      newItems[index].check = true
+      newGroup[newItems[index].group - 1].item_check_count =
+        newGroup[newItems[index].group - 1].item_check_count + 1
+    } else {
+      newItems[index].check = false
+      newGroup[newItems[index].group - 1].item_check_count =
+        newGroup[newItems[index].group - 1].item_check_count - 1
+    }
+    if (
+      newGroup[newItems[index].group - 1].item_check_count ==
+      newGroup[newItems[index].group - 1].item_version_count
+    )
+      newGroup[newItems[index].group - 1].check = true
+    else newGroup[newItems[index].group - 1].check = false
+    setItems(newItems)
+    setGroup(newGroup)
+    console.log(newGroup)
   }
-
-  // useEffect(() => {
-
-  // },[items])
 
   const meta: MetaProps = {
     title: propsEvent.content_name + ' ' + propsEvent.event_name,
     url: 'https://goodslist-pearl.vercel.app/event/' + propsEvent.event_id,
     image: 'https://goodslist-pearl.vercel.app/ogp/' + propsEvent.event_id,
   }
-
-  const [isCheckItem, setIsCheckItem] = useState<boolean[]>(
-    new Array<boolean>(items.length).fill(false),
-  )
 
   return (
     <>
@@ -287,7 +298,60 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
                 <div className={styles.s_total_count}>{totalCount}点</div>
                 <div className={styles.s_total_price}>&yen;{numberFormat(totalPrice)}</div>
               </div>
-              {items.map((item: ShowItem, index) =>
+              {group.map((group: ShowGroup, index) =>
+                (() => {
+                  if (group.item_version_count > 0) {
+                    return (
+                      <div
+                        className={
+                          group.check ? styles.group_container_checked : styles.group_container
+                        }
+                      >
+                        <p className={styles.s_item_name}>{group.item_name}</p>
+                        {items.map((item: ShowItem, index) =>
+                          (() => {
+                            if (group.group == item.group) {
+                              return (
+                                <div
+                                  className={
+                                    items[index].check
+                                      ? styles.s_detail_container_checked
+                                      : styles.s_detail_container
+                                  }
+                                  onClick={() => checkItem(index)}
+                                >
+                                  <p className={styles.s_item_type}>
+                                    {item.item_type}
+                                    {item.item_type && item.color ? ' ' : ''}
+                                    {item.color}
+                                    {item.color && item.size ? ' ' : ''}
+                                    {item.size}
+                                  </p>
+                                  <p className={styles.s_price}>
+                                    &yen;{numberFormat(Number(item.price))} x {item.item_count}
+                                  </p>
+                                </div>
+                              )
+                            }
+                          })(),
+                        )}
+                      </div>
+                    )
+                  }
+                })(),
+              )}
+            </div>
+          </main>
+        </div>
+      </div>
+    </>
+  )
+}
+
+export default Home
+
+{
+  /* {items.map((item: ShowItem, index) =>
                 (() => {
                   if (item.item_count > 0) {
                     if (prevGroupId != item.group) {
@@ -344,13 +408,5 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
                     }
                   }
                 })(),
-              )}
-            </div>
-          </main>
-        </div>
-      </div>
-    </>
-  )
+              )} */
 }
-
-export default Home
