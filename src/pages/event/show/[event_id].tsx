@@ -180,6 +180,7 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
         const newGroup: ShowGroup[] = [...propsShowGroups]
         localStorageItemCounts.map((ItemCount: ItemCount) => {
           propsShowItems.map((showItem: ShowItem) => {
+            showItem.check = false
             if (ItemCount.item_id == showItem.item_id) {
               showItem.item_count = ItemCount.item_count
               newItems.push(showItem)
