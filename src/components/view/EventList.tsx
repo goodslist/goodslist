@@ -72,8 +72,8 @@ const EventList = (props: any) => {
               key={event.event_id}
               className={
                 isFadein[index]
-                  ? `${styles.li_event} ${startAfter}`
-                  : `${styles.li_event} ${startBefore}`
+                  ? `${styles.li_event} ${styles.fadein_right_after}`
+                  : `${styles.li_event} ${styles.fadein_right_before}`
               }
             >
               <Link href={'event/' + event.event_id}>
