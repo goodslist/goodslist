@@ -67,7 +67,15 @@ const EventList = (props: any) => {
       <ul className={styles.ul_event}>
         {props.events.map((event: Events, index: number) => (
           <ScrollAnimation index={index} onIntersection={intersectCallback}>
-            <li ref={ref} key={event.event_id} className={styles.li_event}>
+            <li
+              ref={ref}
+              key={event.event_id}
+              className={
+                isFadein[index]
+                  ? `${styles.li_event} ${styles.fadein_left_after}`
+                  : `${styles.li_event} ${styles.fadein_left_after}`
+              }
+            >
               <Link href={'event/' + event.event_id}>
                 <a>
                   <div className={styles.li_event_padding}>
