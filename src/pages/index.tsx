@@ -140,45 +140,11 @@ const Home = ({ eventList }: Props) => {
         <main className={styles.main}>
           <h1 className={styles.title}>GOODSist</h1>
           <h2 className={styles.sub_title}>イベントグッズ代が計算できるWEBアプリ</h2>
-          {/* <form className={styles.search_container} onSubmit={enterForm}>
-            <input
-              type='text'
-              className={input ? styles.search_active : styles.search}
-              placeholder='アーティスト・イベント名で検索'
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onFocus={() => onFocusInput()}
-              onBlur={(e) => onBlurInput(e.target)}
-              ref={searchRef}
-            />
-            <span
-              className={input ? styles.search_button_active : styles.search_button}
-              onClick={clickButton}
-            >
-            </span>
-            {(events?.length > 0 && input.length > 0 && searchFocus) || searchFocus2 ? (
-              <ul className={styles.search_result_active}>
-                {events.map((event) => (
-                  <li key={event.event_id} onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
-                    <Link href={'event/' + event.event_id}>
-                      <a>
-                        <b>{event.content_name}</b>
-                        <br />
-                        {event.event_name}
-                      </a>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <></>
-            )}
-          </form> */}
           <SearchEventForm />
         </main>
       </div>
 
-      <div className={styles.wrapper_glay}>
+      {/* <div className={styles.wrapper_glay}>
         <div className={styles.grid}>
           <EventList events={eventList} title='Hot Event' start='left' />
           <EventList events={eventList} title='New Event' start='right' />
@@ -207,7 +173,7 @@ const Home = ({ eventList }: Props) => {
           title='取り扱いジャンル'
           text='コンサート、フェス、映画、アニメ、漫画、ミュージカル、演劇、スポーツなど様々なジャンルのイベントを扱います。'
         />
-      </div>
+      </div> */}
     </>
   )
 }
