@@ -19,8 +19,13 @@ export default function Header() {
   }
 
   useEffect(() => {
-    if (isSearchOpen == true) document.addEventListener('touchmove', noScroll, { passive: false })
-    else document.addEventListener('mousewheel', noScroll, { passive: false })
+    if (isSearchOpen == true) {
+      document.addEventListener('touchmove', noScroll, { passive: false })
+      document.addEventListener('mousewheel', noScroll, { passive: false })
+    } else {
+      document.removeEventListener('touchmove', noScroll)
+      document.removeEventListener('mousewheel', noScroll)
+    }
   }, [isSearchOpen])
 
   return (
