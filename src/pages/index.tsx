@@ -16,8 +16,8 @@ import { MetaProps } from '../components/types'
 import EventList from '../components/view/EventList'
 import searchEvent from '../components/db/SearchEvent'
 import SearchEventForm from '../components/SearchEventForm'
-import BoxWhite from '../components/view/BoxWhite'
-import BoxGray from '../components/view/BoxGray'
+import Box from '../components/view/Box'
+import BoxGrid from '../components/view/BoxGrid'
 
 // ページコンポーネントに渡されるデータ
 type Props = {
@@ -132,21 +132,19 @@ const Home = ({ eventList }: Props) => {
     <>
       <Meta title={meta.title} url={meta.url} image={meta.image} />
       <Header />
-      <div className={styles.wrapper_white}>
+      <Box background='#fff' padding='0 0 0 0'>
         <main className={styles.main}>
           <h1 className={styles.title}>GOODSist</h1>
           <h2 className={styles.sub_title}>イベントグッズ代が計算できるWEBアプリ</h2>
           <SearchEventForm />
         </main>
-      </div>
+      </Box>
 
-      <BoxGray>
-        <div className={styles.grid}>
-          <EventList events={eventList} title='Hot Event' start='left' />
-          <EventList events={eventList} title='New Event' start='right' />
-        </div>
-      </BoxGray>
-      <BoxWhite>
+      <BoxGrid background='#f1f1f1' padding='80px 0 60px 0'>
+        <EventList events={eventList} title='Hot Event' start='left' />
+        <EventList events={eventList} title='New Event' start='right' />
+      </BoxGrid>
+      <Box background='#fff' padding='100px 0 40px 0'>
         <Topic
           image='/images/iphone.png'
           alt='はじめに'
@@ -169,7 +167,7 @@ const Home = ({ eventList }: Props) => {
           title='取り扱いジャンル'
           text='コンサート、フェス、映画、アニメ、漫画、ミュージカル、演劇、スポーツなど様々なジャンルのイベントを扱います。'
         />
-      </BoxWhite>
+      </Box>
     </>
   )
 }

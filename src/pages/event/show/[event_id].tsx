@@ -41,6 +41,7 @@ import BoxWhite from '../../../components/view/BoxWhite'
 import BoxGray from '../../../components/view/BoxGray'
 import SocialButton from '../../../components/form/SocialButton'
 import InputTextArea from '../../../components/form/InputTextArea'
+import Box from '../../../components/view/Box'
 
 type PathParams = {
   event_id: string
@@ -343,91 +344,87 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
       <Meta title={meta.title} url={meta.url} image={meta.image} />
       <Header />
       <div className={styles.sticky_container}>
-        <div className={styles.wrapper_white}>
-          <main className={styles.main}>
-            <Title title='Show List' />
-            <div className={styles.contant_name_container}>
-              <p className={styles.content_name}>{propsEvent.content_name}</p>
+        <Box background='#fff' padding='60px 0 90px 0'>
+          <Title title='Show List' />
+          <div className={styles.contant_name_container}>
+            <p className={styles.content_name}>{propsEvent.content_name}</p>
+          </div>
+          <div className={styles.event_title_container}>
+            <h1 className={styles.h1}>{propsEvent.event_name}</h1>
+          </div>
+          <div className={styles.event_date_container}>
+            <p className={styles.event_date}>{dateFormat(date)}</p>
+            {place ? <p className={styles.s_event_date}>{place}</p> : <></>}
+          </div>
+          <Link href={'../../event/' + propsEvent.event_id}>
+            <a>
+              <button className={styles.btn_show_list_active}>Create List</button>
+            </a>
+          </Link>
+        </Box>
+        <Box background='#f1f1f1' padding='90px 0 60px 0'>
+          <div
+            className={
+              checkedItems == items.length
+                ? styles.screenshot_container_checked
+                : styles.screenshot_container
+            }
+          >
+            <p className={styles.s_content_name}>{propsEvent.content_name}</p>
+            <p className={styles.s_event_name}>{propsEvent.event_name}</p>
+            <p className={styles.s_event_date}>{dateFormat(date)}</p>
+            {place ? <p className={styles.s_event_date}>{place}</p> : <></>}
+            {memo ? <p className={styles.s_event_date}>{memo}</p> : <></>}
+            {group.map((group: ShowGroup, index) =>
+              (() => {
+                if (group.item_version_count > 0) {
+                  return (
+                    <div
+                      className={
+                        group.check ? styles.group_container_checked : styles.group_container
+                      }
+                    >
+                      <p className={styles.s_item_name}>
+                        {group.item_name} {group.item_version_count}{' '}
+                        {group.check ? 'true' : 'false'}
+                      </p>
+                      {items.map((item: ShowItem, index) =>
+                        (() => {
+                          if (group.group == item.group) {
+                            return (
+                              <div
+                                className={
+                                  items[index].check
+                                    ? styles.s_detail_container_checked
+                                    : styles.s_detail_container
+                                }
+                                onClick={() => checkItem(index)}
+                              >
+                                <p className={styles.s_item_type}>
+                                  {item.item_type}
+                                  {item.item_type && item.color ? ' ' : ''}
+                                  {item.color}
+                                  {item.color && item.size ? ' ' : ''}
+                                  {item.size}
+                                </p>
+                                <p className={styles.s_price}>
+                                  &yen;{numberFormat(Number(item.price))} x {item.item_count}
+                                </p>
+                              </div>
+                            )
+                          }
+                        })(),
+                      )}
+                    </div>
+                  )
+                }
+              })(),
+            )}
+            <div className={styles.s_total_container}>
+              <div className={styles.s_total_count}>{totalCount}点</div>
+              <div className={styles.s_total_price}>&yen;{numberFormat(totalPrice)}</div>
             </div>
-            <div className={styles.event_title_container}>
-              <h1 className={styles.h1}>{propsEvent.event_name}</h1>
-            </div>
-            <div className={styles.event_date_container}>
-              <p className={styles.event_date}>{dateFormat(date)}</p>
-              {place ? <p className={styles.s_event_date}>{place}</p> : <></>}
-            </div>
-            <Link href={'../../event/' + propsEvent.event_id}>
-              <a>
-                <button className={styles.btn_show_list_active}>Create List</button>
-              </a>
-            </Link>
-          </main>
-        </div>
-        <BoxGray>
-          <main className={styles.main}>
-            <div
-              className={
-                checkedItems == items.length
-                  ? styles.screenshot_container_checked
-                  : styles.screenshot_container
-              }
-            >
-              <p className={styles.s_content_name}>{propsEvent.content_name}</p>
-              <p className={styles.s_event_name}>{propsEvent.event_name}</p>
-              <p className={styles.s_event_date}>{dateFormat(date)}</p>
-              {place ? <p className={styles.s_event_date}>{place}</p> : <></>}
-              {memo ? <p className={styles.s_event_date}>{memo}</p> : <></>}
-              {group.map((group: ShowGroup, index) =>
-                (() => {
-                  if (group.item_version_count > 0) {
-                    return (
-                      <div
-                        className={
-                          group.check ? styles.group_container_checked : styles.group_container
-                        }
-                      >
-                        <p className={styles.s_item_name}>
-                          {group.item_name} {group.item_version_count}{' '}
-                          {group.check ? 'true' : 'false'}
-                        </p>
-                        {items.map((item: ShowItem, index) =>
-                          (() => {
-                            if (group.group == item.group) {
-                              return (
-                                <div
-                                  className={
-                                    items[index].check
-                                      ? styles.s_detail_container_checked
-                                      : styles.s_detail_container
-                                  }
-                                  onClick={() => checkItem(index)}
-                                >
-                                  <p className={styles.s_item_type}>
-                                    {item.item_type}
-                                    {item.item_type && item.color ? ' ' : ''}
-                                    {item.color}
-                                    {item.color && item.size ? ' ' : ''}
-                                    {item.size}
-                                  </p>
-                                  <p className={styles.s_price}>
-                                    &yen;{numberFormat(Number(item.price))} x {item.item_count}
-                                  </p>
-                                </div>
-                              )
-                            }
-                          })(),
-                        )}
-                      </div>
-                    )
-                  }
-                })(),
-              )}
-              <div className={styles.s_total_container}>
-                <div className={styles.s_total_count}>{totalCount}点</div>
-                <div className={styles.s_total_price}>&yen;{numberFormat(totalPrice)}</div>
-              </div>
-            </div>
-          </main>
+          </div>
           <div className={styles.show_list_reset_container}>
             {checkedItems > 0 ? (
               <button className={styles.btn_show_list_reset_active} onClick={() => resetChecked()}>
@@ -437,35 +434,33 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
               <button className={styles.btn_show_list_reset}>Reset</button>
             )}
           </div>
-        </BoxGray>
-        <BoxWhite>
-          <div className={styles.list_sns_container}>
-            <Title title='Share List' />
-            <p className={styles.list_sns_text}>
-              完成したリストをSNS等で共有しよう。
-              <br />
-              Twitterは140文字の制限があるので、分割するかスクリーンショットを撮影して投稿できます。
-              <br />
-              LINEとメールはボタンを押せば投稿できます。
-            </p>
-            <InputTextArea
-              name='share'
-              placeholder='リストの内容(Twitterは140文字以内)'
-              value={shareListText}
-              onChange={setShareListText}
-            />
-            <p>{shareListText.length} / 140文字</p>
-            <button className={styles.btn_login_twitter}>
-              Twitterで共有
-              <span></span>
-            </button>
-            <br></br>
-            <button className={styles.btn_login_line}>
-              LINEで共有
-              <span></span>
-            </button>
-          </div>
-        </BoxWhite>
+        </Box>
+        <Box background='#fff' padding='60px 0 90px 0'>
+          <Title title='Share List' />
+          <p className={styles.list_sns_text}>
+            完成したリストをSNS等で共有しよう。
+            <br />
+            Twitterは140文字の制限があるので、分割するかスクリーンショットを撮影して投稿できます。
+            <br />
+            LINEとメールはボタンを押せば投稿できます。
+          </p>
+          <InputTextArea
+            name='share'
+            placeholder='リストの内容(Twitterは140文字以内)'
+            value={shareListText}
+            onChange={setShareListText}
+          />
+          <p>{shareListText.length} / 140文字</p>
+          <button className={styles.btn_login_twitter}>
+            Twitterで共有
+            <span></span>
+          </button>
+          <br></br>
+          <button className={styles.btn_login_line}>
+            LINEで共有
+            <span></span>
+          </button>
+        </Box>
       </div>
     </>
   )
