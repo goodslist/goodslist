@@ -14,11 +14,19 @@
 }
 
 @media screen and (max-width: 839px) {
+  .box_nomal {
+    padding: 0 10px;
+  }
+
   .box_grid {
     justify-content: center;
   }
 }
 @media screen and (min-width: 840px) {
+  .box_nomal {
+    padding: 0;
+  }
+
   .box_grid {
     justify-content: space-between;
   }
