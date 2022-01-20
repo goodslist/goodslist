@@ -3,28 +3,11 @@ import React from 'react'
 import { GetStaticProps } from 'next'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import {
-  useState,
-  useEffect,
-  useRef,
-  createRef,
-  useCallback,
-  useContext,
-  useLayoutEffect,
-} from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { supabase } from '../../../components/supabase'
 import styles from '../../../styles/Goods.module.css'
 import { GetStaticPaths } from 'next'
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
-import Calendar from '../../img/calendar.svg'
-import Official_mobile from '../../img/official_mobile.svg'
-import IconTwitter from '../../img/icon_twitter.svg'
-import IconMemo from '../../../../public/images/memo.svg'
-import IconScreenshot from '../../../../public/images/screenshot.svg'
-import Newlist from '../../../../public/images/newlist.svg'
-import Line from '../../img/line.svg'
-import Reset from '../../img/reset.svg'
-import Save from '../../img/save.svg'
 import Button_top from '../../../components/Button_top'
 import { animateScroll as scroll } from 'react-scroll'
 import { numberFormat, dateFormat } from '../../../components/Utils'
@@ -37,8 +20,6 @@ import Header from '../../../components/Header'
 import Meta from '../../../components/Meta'
 import { MetaProps } from '../../../components/types'
 import Title from '../../../components/view/title'
-import BoxWhite from '../../../components/view/BoxWhite'
-import BoxGray from '../../../components/view/BoxGray'
 import SocialButton from '../../../components/form/SocialButton'
 import InputTextArea from '../../../components/form/InputTextArea'
 import Box from '../../../components/view/Box'
@@ -451,23 +432,20 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
             <br />
             LINEとメールはボタンを押せば投稿できます。
           </p>
+          <p className={styles.textCount}>{shareListText.length} / 140文字</p>
           <InputTextArea
             name='share'
             placeholder='リストの内容(Twitterは140文字以内)'
             value={shareListText}
             onChange={setShareListText}
           />
-          <p>{shareListText.length} / 140文字</p>
           <button className={styles.btn_login_twitter}>
             Twitterで共有
             <span></span>
           </button>
           <br></br>
           <a href={shareLineUrl} target='_blank'>
-            <button className={styles.btn_login_line}>
-              LINEで共有
-              <span></span>
-            </button>
+            <SocialButton provider='LINE' />
           </a>
         </Box>
       </div>

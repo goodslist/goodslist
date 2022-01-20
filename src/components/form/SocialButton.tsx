@@ -38,7 +38,7 @@ const SocialButton = (props: any) => {
   return (
     <button className={style} onClick={auth}>
       {props.provider}
-      {props.type == 'signin' ? 'でログイン' : 'で登録'}
+      {props.type == 'signin' ? 'でログイン' : 'でシェアする'}
       <span>{icon}</span>
     </button>
   )
