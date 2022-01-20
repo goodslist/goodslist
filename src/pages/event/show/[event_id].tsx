@@ -333,6 +333,9 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
     console.log(newGroup)
   }
 
+  const shareLineUrl =
+    'https://line.me/R/share?text=' + encodeURIComponent('好きなバンドはBUMP OF CHICKEN')
+
   const meta: MetaProps = {
     title: propsEvent.content_name + ' ' + propsEvent.event_name,
     url: 'https://goodslist-pearl.vercel.app/event/' + propsEvent.event_id,
@@ -456,10 +459,12 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
             <span></span>
           </button>
           <br></br>
-          <button className={styles.btn_login_line}>
-            LINEで共有
-            <span></span>
-          </button>
+          <a href={shareLineUrl} target='_blank'>
+            <button className={styles.btn_login_line}>
+              LINEで共有
+              <span></span>
+            </button>
+          </a>
         </Box>
       </div>
     </>
