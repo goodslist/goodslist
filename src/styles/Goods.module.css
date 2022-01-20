@@ -218,7 +218,7 @@
 .event_title_container {
   width: 100%;
   margin: 6px 0 10px 0;
-  padding: 0 20px;
+  padding: 0;
   text-align: left;
 }
 
@@ -235,7 +235,7 @@
 
 .contant_name_container {
   margin: 10px 0 0 0;
-  padding: 0 20px;
+  padding: 0;
   text-align: left;
 }
 
@@ -247,7 +247,7 @@
 .event_date_container {
   margin: 0 20px 0 0;
   width: 100%;
-  padding: 0px 20px;
+  padding: 0px;
   text-align: left;
   font-size: 1.6rem;
   color: #666;
@@ -260,7 +260,7 @@
 .event_place_container_active {
   margin: 10px 0 0 0;
   width: 100%;
-  padding: 0 20px;
+  padding: 0;
   transition: all 0.5s;
   overflow: hidden;
 }
@@ -600,7 +600,7 @@
 
 .list_header_container {
   width: 100%;
-  padding: 15px 20px 10px 20px;
+  padding: 15px 0 10px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -632,7 +632,7 @@
 
 .event_link_container {
   width: 100%;
-  padding: 20px 20px 0 20px;
+  padding: 20px 0 0 0;
   display: flex;
   justify-content: left;
   flex-wrap: wrap;
@@ -765,7 +765,7 @@
 
 .sort_arrow_container {
   margin: 0 0 20px 0;
-  padding: 0 10px;
+  padding: 0;
   width: 100%;
   height: auto;
   display: -webkit-flex;
@@ -955,7 +955,7 @@
   min-width: 320px;
   max-width: 100%;
   margin: 0;
-  padding: 0 10px;
+  padding: 0;
 }
 .card2 {
   margin: 0 0 40px 0;

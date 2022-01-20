@@ -26,7 +26,7 @@ const Topic = (props: TopicProps) => {
               : `${styles.topic_image} ${styles.fadein_bottom_before}`
           }
         >
-          <Image src={props.image} width={355} height={355} alt={props.alt} />
+          <Image src={props.image} width={450} height={450} alt={props.alt} />
         </div>
       </ScrollAnimation>
       <div className={styles.topic_text_container}>
