@@ -40,6 +40,7 @@ import Title from '../../../components/view/title'
 import BoxWhite from '../../../components/view/BoxWhite'
 import BoxGray from '../../../components/view/BoxGray'
 import SocialButton from '../../../components/form/SocialButton'
+import InputTextArea from '../../../components/form/InputTextArea'
 
 type PathParams = {
   event_id: string
@@ -380,8 +381,9 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
           </div>
         </BoxGray>
         <BoxWhite>
-          <main className={styles.main}>
-            <div className={styles.card2}>リストを共有しよう</div>
+          <div className={styles.list_sns_container}>
+            <p className={styles.list_sns_title}>リストを共有しよう</p>
+            <InputTextArea />
             <button className={styles.btn_login_twitter}>
               Twitterで共有
               <span></span>
@@ -391,7 +393,7 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
               LINEで共有
               <span></span>
             </button>
-          </main>
+          </div>
         </BoxWhite>
       </div>
     </>
