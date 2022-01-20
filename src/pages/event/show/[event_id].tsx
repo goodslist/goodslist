@@ -23,6 +23,7 @@ import Title from '../../../components/view/title'
 import SocialButton from '../../../components/form/SocialButton'
 import InputTextArea from '../../../components/form/InputTextArea'
 import Box from '../../../components/view/Box'
+import BoxLine from '../../../components/view/BoxLine'
 
 type PathParams = {
   event_id: string
@@ -114,7 +115,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   return { props }
 }
 
-const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
+const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
   //ログインユーザー
   const { currentUser }: any = useContext(AuthContext)
 
@@ -321,6 +322,10 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
     console.log(newGroup)
   }
 
+  const copyShareText = () => {
+    navigator.clipboard.writeText(shareListText)
+  }
+
   const meta: MetaProps = {
     title: propsEvent.content_name + ' ' + propsEvent.event_name,
     url: 'https://goodslist-pearl.vercel.app/event/' + propsEvent.event_id,
@@ -425,93 +430,43 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
         </Box>
         <Box background='#fff' padding='60px 0 90px 0'>
           <Title title='Share List' />
-          <p className={styles.list_sns_text}>
-            完成したリストをSNS等で共有しよう。
-            <br />
-            Twitterは140文字の制限があるので、分割するかスクリーンショットを撮影して投稿できます。
-            <br />
-            LINEとメールはボタンを押せば投稿できます。
-          </p>
-          <p className={styles.textCount}>{shareListText.length} / 140文字</p>
-          <InputTextArea
-            name='share'
-            placeholder='リストの内容(Twitterは140文字以内)'
-            value={shareListText}
-            onChange={setShareListText}
-          />
-          <button className={styles.btn_login_twitter}>
-            Twitterで共有
-            <span></span>
-          </button>
-          <br></br>
-          <a href={shareLineUrl} target='_blank'>
-            <SocialButton provider='LINE' />
-          </a>
+          <BoxLine>
+            <p className={styles.list_sns_text}>
+              完成したリストをSNS等で共有しよう。
+              <br />
+              Twitterは140文字の制限があるので、分割するかスクリーンショットを撮影して投稿できます。
+              <br />
+              LINEとメールはボタンを押せば投稿できます。
+            </p>
+            <p className={styles.textCount}>{shareListText.length} / 140文字</p>
+            <InputTextArea
+              name='share'
+              placeholder='リストの内容(Twitterは140文字以内)'
+              value={shareListText}
+              onChange={setShareListText}
+            />
+            <div className={styles.show_list_reset_container}>
+              {shareListText.length > 0 ? (
+                <button
+                  className={styles.btn_show_list_reset_active}
+                  onClick={() => copyShareText()}
+                >
+                  Copy
+                </button>
+              ) : (
+                <button className={styles.btn_show_list_reset}>Copy</button>
+              )}
+            </div>
+            <SocialButton provider='Twitter' />
+            <br></br>
+            <a href={shareLineUrl} target='_blank'>
+              <SocialButton provider='LINE' />
+            </a>
+          </BoxLine>
         </Box>
       </div>
     </>
   )
 }
 
-export default Home
-
-{
-  /* {items.map((item: ShowItem, index) =>
-                (() => {
-                  if (item.item_count > 0) {
-                    if (prevGroupId != item.group) {
-                      prevGroupId = item.group
-                      return (
-                        <>
-                          <hr className={styles.li_goods_line} />
-                          <p className={styles.s_item_name}>{item.item_name}</p>
-                          <div
-                            className={
-                              items[index].check
-                                ? styles.s_detail_container_checked
-                                : styles.s_detail_container
-                            }
-                            onClick={() => checkItem(index)}
-                          >
-                            <p className={styles.s_item_type}>
-                              {item.item_type}
-                              {item.item_type && item.color ? ' ' : ''}
-                              {item.color}
-                              {item.color && item.size ? ' ' : ''}
-                              {item.size}
-                            </p>
-                            <p className={styles.s_price}>
-                              &yen;{numberFormat(Number(item.price))} x {item.item_count}
-                            </p>
-                          </div>
-                        </>
-                      )
-                    } else {
-                      return (
-                        <>
-                          <div
-                            className={
-                              items[index].check
-                                ? styles.s_detail_container_checked
-                                : styles.s_detail_container
-                            }
-                            onClick={() => checkItem(index)}
-                          >
-                            <p className={styles.s_item_type}>
-                              {item.item_type}
-                              {item.item_type && item.color ? ' ' : ''}
-                              {item.color}
-                              {item.color && item.size ? ' ' : ''}
-                              {item.size}
-                            </p>
-                            <p className={styles.s_price}>
-                              &yen;{numberFormat(Number(item.price))} x {item.item_count}
-                            </p>
-                          </div>
-                        </>
-                      )
-                    }
-                  }
-                })(),
-              )} */
-}
+export default ShareList

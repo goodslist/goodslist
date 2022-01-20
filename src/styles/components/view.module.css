@@ -13,6 +13,15 @@
   max-width: 840px;
 }
 
+.box_line {
+  margin: 0 auto;
+  min-width: 320px;
+  max-width: 500px;
+  padding: 40px 20px;
+  border: 1px #ccc solid;
+  border-radius: 20px;
+}
+
 @media screen and (max-width: 839px) {
   .box_nomal {
     padding: 0 10px;

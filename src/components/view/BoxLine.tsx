@@ -5,8 +5,8 @@ type Props = {
   children: ReactNode
 }
 
-const BoxGray = ({ children }: Props) => {
-  return <div className={styles.box_gray}>{children}</div>
+const BoxLine = ({ children }: Props) => {
+  return <div className={styles.box_line}>{children}</div>
 }
 
-export default BoxGray
+export default BoxLine
