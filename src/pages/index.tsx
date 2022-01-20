@@ -144,7 +144,7 @@ const Home = ({ eventList }: Props) => {
         <EventList events={eventList} title='Hot Event' start='left' />
         <EventList events={eventList} title='New Event' start='right' />
       </BoxGrid>
-      <Box background='#fff' padding='100px 0 40px 0'>
+      <Box background='#fff' padding='100px 20px 40px 20px'>
         <Topic
           image='/images/iphone.png'
           alt='はじめに'
