@@ -337,7 +337,7 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
       <Meta title={meta.title} url={meta.url} image={meta.image} />
       <Header />
       <div className={styles.sticky_container}>
-        <Box background='#fff' padding='60px 0 90px 0'>
+        <Box background='#fff' padding='60px 20px 90px 20px'>
           <Title title='Show List' />
           <div className={styles.contant_name_container}>
             <p className={styles.content_name}>{propsEvent.content_name}</p>
@@ -345,13 +345,13 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
           <div className={styles.event_title_container}>
             <h1 className={styles.h1}>{propsEvent.event_name}</h1>
           </div>
-          <div className={styles.event_date_container}>
+          {/* <div className={styles.event_date_container}>
             <p className={styles.event_date}>{dateFormat(date)}</p>
             {place ? <p className={styles.s_event_date}>{place}</p> : <></>}
-          </div>
+          </div> */}
           <Link href={'../../event/' + propsEvent.event_id}>
             <a>
-              <button className={styles.btn_show_list_active}>Create List</button>
+              <button className={styles.btn_show_create_active}>Create List</button>
             </a>
           </Link>
         </Box>
@@ -428,7 +428,7 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
             )}
           </div>
         </Box>
-        <Box background='#fff' padding='60px 0 90px 0'>
+        <Box background='#fff' padding='60px 20px 90px 20px'>
           <Title title='Share List' />
           <p className={styles.list_sns_text}>
             完成したリストをSNS等で共有しよう。
@@ -444,7 +444,7 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
             value={shareListText}
             onChange={setShareListText}
           />
-          <div className={styles.show_list_reset_container}>
+          <div className={styles.show_list_copy_container}>
             {shareListText.length > 0 ? (
               <button className={styles.btn_show_list_reset_active} onClick={() => copyShareText()}>
                 Copy

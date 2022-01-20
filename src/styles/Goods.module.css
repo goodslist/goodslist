@@ -1129,7 +1129,7 @@
 
 .btn_show_list,
 .btn_show_list_active,
-.btn_create_list {
+.btn_show_create_active {
   margin: 40px 0 0 0;
   width: 200px;
   border-radius: 30px;
@@ -1144,19 +1144,19 @@
 
 .btn_show_list,
 .btn_show_list_active {
-  padding: 15px 20px 15px 34px;
+  padding: 15px 0 15px 36px;
   text-align: left;
 }
 
-.btn_create_list {
-  padding: 20px 40px 20px 20px;
+.btn_show_create_active {
+  padding: 15px 28px 15px 0;
   text-align: right;
 }
 .btn_show_list {
   background-color: #ccc;
 }
 .btn_show_list_active,
-.btn_create_list {
+.btn_show_create_active {
   background-color: #f2c746;
   cursor: pointer;
 }
@@ -1178,7 +1178,7 @@
   cursor: pointer;
 }
 
-.btn_create_list:before {
+.btn_show_create_active:before {
   content: '';
   width: 10px;
   height: 10px;
@@ -1224,14 +1224,22 @@
   margin: 10px 0;
 } */
 
-.show_list_reset_container {
+.show_list_reset_container,
+.show_list_copy_container {
   max-width: 800px;
   min-width: 320px;
   margin: 20px auto;
-  padding: 0;
   position: relative;
   display: flex;
   justify-content: flex-end;
+}
+
+.show_list_reset_container {
+  padding: 0 20px 0 0;
+}
+
+.show_list_copy_container {
+  padding: 0;
 }
 
 .btn_show_list_reset,
