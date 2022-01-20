@@ -1228,7 +1228,7 @@
   max-width: 800px;
   min-width: 320px;
   margin: 20px auto;
-  padding: 0 10px;
+  padding: 0;
   position: relative;
   display: flex;
   justify-content: flex-end;

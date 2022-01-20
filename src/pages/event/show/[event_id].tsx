@@ -430,39 +430,34 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
         </Box>
         <Box background='#fff' padding='60px 0 90px 0'>
           <Title title='Share List' />
-          <BoxLine>
-            <p className={styles.list_sns_text}>
-              完成したリストをSNS等で共有しよう。
-              <br />
-              Twitterは140文字の制限があるので、分割するかスクリーンショットを撮影して投稿できます。
-              <br />
-              LINEとメールはボタンを押せば投稿できます。
-            </p>
-            <p className={styles.textCount}>{shareListText.length} / 140文字</p>
-            <InputTextArea
-              name='share'
-              placeholder='リストの内容(Twitterは140文字以内)'
-              value={shareListText}
-              onChange={setShareListText}
-            />
-            <div className={styles.show_list_reset_container}>
-              {shareListText.length > 0 ? (
-                <button
-                  className={styles.btn_show_list_reset_active}
-                  onClick={() => copyShareText()}
-                >
-                  Copy
-                </button>
-              ) : (
-                <button className={styles.btn_show_list_reset}>Copy</button>
-              )}
-            </div>
-            <SocialButton provider='Twitter' />
-            <br></br>
-            <a href={shareLineUrl} target='_blank'>
-              <SocialButton provider='LINE' />
-            </a>
-          </BoxLine>
+          <p className={styles.list_sns_text}>
+            完成したリストをSNS等で共有しよう。
+            <br />
+            Twitterは140文字の制限があるので、分割するかスクリーンショットを撮影して投稿できます。
+            <br />
+            LINEとメールはボタンを押せば投稿できます。
+          </p>
+          <p className={styles.textCount}>{shareListText.length} / 140文字</p>
+          <InputTextArea
+            name='share'
+            placeholder='リストの内容(Twitterは140文字以内)'
+            value={shareListText}
+            onChange={setShareListText}
+          />
+          <div className={styles.show_list_reset_container}>
+            {shareListText.length > 0 ? (
+              <button className={styles.btn_show_list_reset_active} onClick={() => copyShareText()}>
+                Copy
+              </button>
+            ) : (
+              <button className={styles.btn_show_list_reset}>Copy</button>
+            )}
+          </div>
+          <SocialButton provider='Twitter' />
+          <br></br>
+          <a href={shareLineUrl} target='_blank'>
+            <SocialButton provider='LINE' />
+          </a>
         </Box>
       </div>
     </>
