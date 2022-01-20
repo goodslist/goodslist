@@ -162,7 +162,14 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
   const [totalCount, setTotalCount] = useState(0)
 
   //シェアリストのテキスト
-  const [shareListText, setShareListText] = useState('BUMP OF CHICKEN')
+  const [shareListText, setShareListText] = useState('')
+
+  //LINEのシェアURL
+  const [shareLineUrl, setShareLineUrl] = useState('')
+
+  useEffect(() => {
+    setShareLineUrl('https://line.me/R/share?text=' + encodeURIComponent(shareListText))
+  }, [shareListText])
 
   const router = useRouter()
 
@@ -332,9 +339,6 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
     setGroup(newGroup)
     console.log(newGroup)
   }
-
-  const shareLineUrl =
-    'https://line.me/R/share?text=' + encodeURIComponent('好きなバンドはBUMP OF CHICKEN')
 
   const meta: MetaProps = {
     title: propsEvent.content_name + ' ' + propsEvent.event_name,
