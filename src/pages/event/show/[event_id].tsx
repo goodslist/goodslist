@@ -160,6 +160,9 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
   //合計個数
   const [totalCount, setTotalCount] = useState(0)
 
+  //シェアリストのテキスト
+  const [shareListText, setShareListText] = useState('BUMP OF CHICKEN')
+
   const router = useRouter()
 
   useEffect(() => {
@@ -207,6 +210,64 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
         const localStorageMemo = localStorage.getItem('memo')
         if (localStorageMemo) setMemo(localStorageMemo)
 
+        let totalPrice: number = 0
+        let totalCount: number = 0
+        propsShowItems.map((item) => {
+          if (item.item_count > 0) {
+            totalPrice = totalPrice + item.price * item.item_count
+            totalCount = totalCount + item.item_count
+          }
+        })
+        setTotalPrice(totalPrice)
+        setTotalCount(totalCount)
+
+        let createShareListText = propsEvent.content_name + '\n' + propsEvent.event_name
+        if (localStorageDate) createShareListText += '\n' + dateFormat(localStorageDate)
+        else createShareListText += '\n' + dateFormat(propsEvent.date)
+        if (localStoragePlace) createShareListText += '\n' + localStoragePlace
+        if (localStorageMemo) createShareListText += '\n' + localStorageMemo
+        createShareListText += '\n' + '\n'
+        newGroup.map((group) => {
+          if (group.item_version_count == 1) {
+            newItems.map((item) => {
+              if (group.group == item.group) {
+                createShareListText += item.item_name + ' '
+                createShareListText += createShareListVersionText(item)
+                createShareListText +=
+                  '￥' + numberFormat(Number(item.price)) + ' x' + item.item_count + '\n\n'
+              }
+            })
+          } else if (group.item_version_count > 1) {
+            let count = false
+            newItems.map((item) => {
+              if (group.group == item.group) {
+                if (count == false) {
+                  createShareListText += item.item_name + '\n'
+                  count = true
+                }
+                createShareListText += createShareListVersionText(item) + ' '
+                createShareListText +=
+                  numberFormat(Number(item.price)) + ' x' + item.item_count + '\n'
+              }
+            })
+            createShareListText += '\n'
+          }
+        })
+        createShareListText +=
+          totalCount +
+          '点 ￥' +
+          numberFormat(Number(totalPrice)) +
+          '\n\n' +
+          'GOODSist' +
+          '\n' +
+          'イベントグッズ代が計算できるWEBアプリ' +
+          '\n' +
+          'https://goodslist-pearl.vercel.app/' +
+          'event/' +
+          propsEvent.event_id
+
+        setShareListText(createShareListText)
+
         //一致しない場合、ローカルストレージの情報を削除して新規にイベントIDを追加
       } else {
         localStorage.removeItem('listId')
@@ -217,18 +278,15 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
       }
       //引き継がれたイベントIDがない場合、新規にイベントIDを追加
     } else localStorage.setItem('eventId', String(propsEvent.event_id))
-
-    let totalPrice: number = 0
-    let totalCount: number = 0
-    propsShowItems.map((item) => {
-      if (item.item_count > 0) {
-        totalPrice = totalPrice + item.price * item.item_count
-        totalCount = totalCount + item.item_count
-      }
-    })
-    setTotalPrice(totalPrice)
-    setTotalCount(totalCount)
   }, [])
+
+  const createShareListVersionText = (item: ShowItem) => {
+    let versionText: string = ''
+    if (item.item_type.length > 0) versionText += item.item_type + ' '
+    if (item.color.length > 0) versionText += item.color + ' '
+    if (item.size.length > 0) versionText += item.size + ' '
+    return versionText
+  }
 
   const resetChecked = () => {
     const newGroup = [...group]
@@ -382,8 +440,21 @@ const Home = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
         </BoxGray>
         <BoxWhite>
           <div className={styles.list_sns_container}>
-            <p className={styles.list_sns_title}>リストを共有しよう</p>
-            <InputTextArea />
+            <Title title='Share List' />
+            <p className={styles.list_sns_text}>
+              完成したリストをSNS等で共有しよう。
+              <br />
+              Twitterは140文字の制限があるので、分割するかスクリーンショットを撮影して投稿できます。
+              <br />
+              LINEとメールはボタンを押せば投稿できます。
+            </p>
+            <InputTextArea
+              name='share'
+              placeholder='リストの内容(Twitterは140文字以内)'
+              value={shareListText}
+              onChange={setShareListText}
+            />
+            <p>{shareListText.length} / 140文字</p>
             <button className={styles.btn_login_twitter}>
               Twitterで共有
               <span></span>

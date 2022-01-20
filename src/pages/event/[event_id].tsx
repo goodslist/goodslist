@@ -338,11 +338,14 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   }
 
   const twitterShareUrl =
-    'https://twitter.com/share?url=https://goodslist-pearl.vercel.app/event/1&text=SANKYO presents マクロスF ギャラクシーライブ 2021［リベンジ］〜まだまだふたりはこれから！私たちの歌を聴け！！〜%0aGoods List イベントのグッズ代が計算できるWEBアプリ%0a&hashtags=マクロスF'
+    'https://twitter.com/share?url=https://goodslist-pearl.vercel.app/event/1&text=' +
+    propsEvent.event_name +
+    '%0aGOODSist イベントのグッズ代が計算できるWEBアプリ%0a&hashtags=マクロスF'
   // const twitterShareUrl = "https://twitter.com/share?url={{URL}}&text={{本文}}&hashtags={{ハッシュタグ}}"
 
   const lineShareUrl =
-    'https://social-plugins.line.me/lineit/share?url=https://goodslist-pearl.vercel.app/event/1'
+    'https://social-plugins.line.me/lineit/share?url=https://goodslist-pearl.vercel.app/event/' +
+    propsEvent.event_id
 
   const meta: MetaProps = {
     title: propsEvent.content_name + ' ' + propsEvent.event_name,

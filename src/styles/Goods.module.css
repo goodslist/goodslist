@@ -1320,3 +1320,9 @@
   width: 100%;
   max-width: 500px;
 }
+
+.list_sns_text {
+  margin: 0 0 30px 0;
+  font-size: 1.6rem;
+  text-align: left;
+}
