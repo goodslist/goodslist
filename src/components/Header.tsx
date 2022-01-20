@@ -14,20 +14,6 @@ export default function Header() {
     else setIsSearchOpen(false)
   }
 
-  function noScroll(event: any) {
-    event.preventDefault()
-  }
-
-  useEffect(() => {
-    if (isSearchOpen == true) {
-      document.addEventListener('touchmove', noScroll, { passive: false })
-      document.addEventListener('mousewheel', noScroll, { passive: false })
-    } else {
-      document.removeEventListener('touchmove', noScroll)
-      document.removeEventListener('mousewheel', noScroll)
-    }
-  }, [isSearchOpen])
-
   return (
     <>
       <div className={isSearchOpen ? styles.header_container_fixed : styles.header_container}>
