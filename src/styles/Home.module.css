@@ -165,7 +165,6 @@
 @media screen and (max-width: 839px) {
   .ul_event {
     margin: 0;
-    padding: 0 10px;
   }
 
   .li_event {
@@ -387,7 +386,6 @@
 .topic_title {
   margin: 40px 0 0 0;
   width: 100%;
-  padding: 0 20px;
   font-size: 2.4rem;
   font-weight: bold;
   position: relative;
@@ -397,7 +395,6 @@
 .topic_text {
   margin: 20px 0;
   width: 100%;
-  padding: 0 20px;
   font-size: 1.6rem;
   text-align: left;
   line-height: 3.2rem;
