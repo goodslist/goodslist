@@ -9,6 +9,7 @@ import { MetaProps, Events } from '../components/types'
 import Header from '../components/Header'
 import Meta from '../components/Meta'
 import searchEvent from '../components/db/SearchEvent'
+import { dateFormat } from '../components/Utils'
 
 type Props = {
   searchResults: Events[]
@@ -114,6 +115,7 @@ export default function Output(props: Props) {
                         <p className={styles.contents_title}>
                           <b>{searchResult.content_name}</b>
                         </p>
+                        <p className={styles.event_date}>{dateFormat(searchResult.date)}</p>
                         <hr className={styles.li_event_line} />
                         <p className={styles.event_title}>{searchResult.event_name}</p>
                       </div>
