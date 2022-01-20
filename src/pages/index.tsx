@@ -140,7 +140,7 @@ const Home = ({ eventList }: Props) => {
         </main>
       </Box>
 
-      <BoxGrid background='#f1f1f1' padding='80px 0 60px 0'>
+      <BoxGrid background='#f1f1f1' padding='50px 0 60px 0'>
         <EventList events={eventList} title='Hot Event' start='left' />
         <EventList events={eventList} title='New Event' start='right' />
       </BoxGrid>

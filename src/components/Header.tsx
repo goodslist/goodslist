@@ -1,6 +1,6 @@
 import Link from 'next/dist/client/link'
 import styles from '../styles/Header.module.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Title from '../components/view/title'
 import SearchEventForm from '../components/SearchEventForm'
@@ -13,6 +13,15 @@ export default function Header() {
     if (isSearchOpen == false) setIsSearchOpen(true)
     else setIsSearchOpen(false)
   }
+
+  function noScroll(event: any) {
+    event.preventDefault()
+  }
+
+  useEffect(() => {
+    if (isSearchOpen == true) document.addEventListener('touchmove', noScroll, { passive: false })
+    else document.addEventListener('mousewheel', noScroll, { passive: false })
+  }, [isSearchOpen])
 
   return (
     <>
