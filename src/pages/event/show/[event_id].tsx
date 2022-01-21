@@ -345,6 +345,14 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
           <div className={styles.event_title_container}>
             <h1 className={styles.h1}>{propsEvent.event_name}</h1>
           </div>
+          <p className={styles.list_sns_text}>
+            <br />
+            スクロールすると購入リストが表示されます。
+            <br />
+            スクリーンショットを撮影して保存したりSNSでのシェアにご利用ください。
+            <br />
+            またそれぞれのグッズの行をタップorクリックすると色が変わります。購入時にチェックリストとしてご利用ください。
+          </p>
           {/* <div className={styles.event_date_container}>
             <p className={styles.event_date}>{dateFormat(date)}</p>
             {place ? <p className={styles.s_event_date}>{place}</p> : <></>}
