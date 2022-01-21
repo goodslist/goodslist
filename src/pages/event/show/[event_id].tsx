@@ -173,9 +173,11 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
         ),
     )
     setShareLineMail(
-      'mailto:bnoreply@goodsist.jp?subject=グッズリスト&amp;body=' +
+      'mailto:cnoreply@goodsist.jp?subject=グッズリスト&amp;body=' +
         // shareListText + '\n' +
-        'https://goodslist-pearl.vercel.app/event/' +
+        // 'https://goodslist-pearl.vercel.app/event/' +
+
+        'aaaaaaa' +
         propsEvent.event_id,
     )
   }, [shareListText])
