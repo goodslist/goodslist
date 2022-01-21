@@ -497,7 +497,7 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
           <a href={shareLineUrl} target='_blank'>
             <SocialButton provider='LINE' />
           </a>
-          <a href='mailto:noreply@goodsist.jp?subject=グッズリスト&amp;body='>
+          <a href={shareLineMail} target='_blank'>
             <SocialButton provider='メール' />
           </a>
         </Box>
