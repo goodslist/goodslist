@@ -502,7 +502,7 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
             <SocialButton provider='LINE' />
           </a>
           <a
-            href={'mailto:info@example.com?subject=' + subject + '&amp;body=ご記入ください'}
+            href='mailto:info@example.com?subject=問sい合わせ&amp;body=ご記入ください'
             target='_blank'
           >
             <SocialButton provider='メール' />
