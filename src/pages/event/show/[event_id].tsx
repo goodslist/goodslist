@@ -153,7 +153,7 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
   const [shareLineUrl, setShareLineUrl] = useState('')
 
   //メールのシェアリンク
-  const [shareLineMail, setShareLineMail] = useState('')
+  const [shareMailLink, setShareMailLink] = useState('')
 
   const mail = 'abc@example.com'
 
@@ -176,7 +176,13 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
           shareListText + '\n' + 'https://goodslist-pearl.vercel.app/event/' + propsEvent.event_id,
         ),
     )
-    setShareLineMail('mailto:info@example.com?subject=問い合わせ&amp;body=ご記入ください')
+    setShareMailLink(
+      'mailto:noreply@goodsist.jp?subject=グッズリスト&body=' +
+        shareListText +
+        '\n' +
+        'https://goodslist-pearl.vercel.app/event/' +
+        propsEvent.event_id,
+    )
     // shareListText + '\n' +
     // 'https://goodslist-pearl.vercel.app/event/' +
 
@@ -501,10 +507,7 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
           <a href={shareLineUrl} target='_blank'>
             <SocialButton provider='LINE' />
           </a>
-          <a
-            href={'mailto:info@example.com?subject=' + subject + '&body=aaご記入ください'}
-            target='_blank'
-          >
+          <a href={shareMailLink} target='_blank'>
             <SocialButton provider='メール' />
           </a>
         </Box>
