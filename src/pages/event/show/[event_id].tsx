@@ -347,11 +347,11 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
           </div>
           <p className={styles.list_sns_text}>
             <br />
-            スクロールすると購入リストが表示されます。
+            購入リストの表示ページです。
             <br />
-            スクリーンショットを撮影して保存したりSNSでのシェアにご利用ください。
+            それぞれのグッズの行をタップorクリックすると色が変わります。購入時にチェックリストとしてご利用ください。
             <br />
-            またそれぞれのグッズの行をタップorクリックすると色が変わります。購入時にチェックリストとしてご利用ください。
+            またスクリーンショットを撮影して他の人に送信したりSNSでのシェアにご利用ください。
           </p>
           {/* <div className={styles.event_date_container}>
             <p className={styles.event_date}>{dateFormat(date)}</p>
@@ -439,9 +439,9 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
         <Box background='#fff' padding='60px 20px 90px 20px'>
           <Title title='Share List' />
           <p className={styles.list_sns_text}>
-            リストが完成したらSNS等でシェアしましょう。
+            リストができたらシェアしましょう。
             <br />
-            Twitterは140文字の制限があるので、分割するかスクリーンショットを撮影してツイートするのが便利です。
+            Twitterは140字制限があるので、分割するかスクリーンショットを撮影してツイートするのが便利です。
             <br />
             シェアボタンを押すとアプリが起動します。
             <br />
