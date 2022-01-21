@@ -146,11 +146,29 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
   //シェアリストのテキスト
   const [shareListText, setShareListText] = useState('')
 
+  //TwitterのシェアURL
+  const [shareTwitterUrl, setShareTwitterUrl] = useState('')
+
   //LINEのシェアURL
   const [shareLineUrl, setShareLineUrl] = useState('')
 
   useEffect(() => {
-    setShareLineUrl('https://line.me/R/share?text=' + encodeURIComponent(shareListText))
+    const twitterShareUrl =
+      'https://twitter.com/share?url=https://goodslist-pearl.vercel.app/event/' +
+      propsEvent.event_id +
+      '&text=%0a' +
+      encodeURIComponent(shareListText) +
+      '%0a&hashtags=' +
+      propsEvent.content_name
+
+    setShareTwitterUrl(twitterShareUrl)
+
+    setShareLineUrl(
+      'https://line.me/R/share?text=' +
+        encodeURIComponent(
+          shareListText + 'https://goodslist-pearl.vercel.app/event/' + propsEvent.event_id,
+        ),
+    )
   }, [shareListText])
 
   const router = useRouter()
@@ -251,10 +269,7 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
           'GOODSist' +
           '\n' +
           'イベントグッズ代が計算できるWEBアプリ' +
-          '\n' +
-          'https://goodslist-pearl.vercel.app/' +
-          'event/' +
-          propsEvent.event_id
+          '\n'
 
         setShareListText(createShareListText)
 
@@ -462,7 +477,9 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
               <button className={styles.btn_show_list_reset}>Copy</button>
             )}
           </div>
-          <SocialButton provider='Twitter' />
+          <a href={shareTwitterUrl} target='_blank'>
+            <SocialButton provider='Twitter' />
+          </a>
           <br></br>
           <a href={shareLineUrl} target='_blank'>
             <SocialButton provider='LINE' />

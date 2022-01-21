@@ -1,5 +1,6 @@
 import styles from '../../../styles/Modal.module.css'
 import InputTextArea from '../../form/InputTextArea'
+import InputError from '../../../components/form/InputError'
 
 const Memo = (props: any) => {
   return (
@@ -17,6 +18,7 @@ const Memo = (props: any) => {
         value={props.memo}
         onChange={props.onChange}
       />
+      <InputError error={props.error} />
       <button className={styles.button} onClick={props.close}>
         決定
       </button>

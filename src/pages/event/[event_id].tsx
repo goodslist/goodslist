@@ -341,7 +341,8 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   const twitterShareUrl =
     'https://twitter.com/share?url=https://goodslist-pearl.vercel.app/event/1&text=' +
     propsEvent.event_name +
-    '%0aGOODSist イベントのグッズ代が計算できるWEBアプリ%0a&hashtags=マクロスF'
+    '%0aGOODSist イベントのグッズ代が計算できるWEBアプリ%0a&hashtags=' +
+    propsEvent.content_name
   // const twitterShareUrl = "https://twitter.com/share?url={{URL}}&text={{本文}}&hashtags={{ハッシュタグ}}"
 
   const lineShareUrl =
