@@ -146,6 +146,9 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
   //シェアリストのテキスト
   const [shareListText, setShareListText] = useState('')
 
+  //シェアリストのテキスト表示用(URL有り)
+  const [shareListViewText, setShareListViewText] = useState('')
+
   //TwitterのシェアURL
   const [shareTwitterUrl, setShareTwitterUrl] = useState('')
 
@@ -164,7 +167,9 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
       'https://twitter.com/share?url=https://goodslist-pearl.vercel.app/event/' +
       propsEvent.event_id +
       '&text=%0a' +
-      encodeURIComponent(shareListText) +
+      encodeURIComponent(
+        shareListText + '\n\n' + 'GOODSist' + '\n' + 'イベントグッズ代が計算できるWEBアプリ',
+      ) +
       '%0a&hashtags=' +
       propsEvent.content_name
 
@@ -173,13 +178,27 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
     setShareLineUrl(
       'https://line.me/R/share?text=' +
         encodeURIComponent(
-          shareListText + '\n' + 'https://goodslist-pearl.vercel.app/event/' + propsEvent.event_id,
+          shareListText +
+            '\n\n' +
+            'GOODSist' +
+            '\n' +
+            'イベントグッズ代が計算できるWEBアプリ' +
+            '\n' +
+            'https://goodslist-pearl.vercel.app/event/' +
+            propsEvent.event_id,
         ),
     )
     setShareMailLink(
       'mailto:noreply@goodsist.jp?subject=グッズリスト&body=' +
         encodeURIComponent(
-          shareListText + '\n' + 'https://goodslist-pearl.vercel.app/event/' + propsEvent.event_id,
+          shareListText +
+            '\n\n' +
+            'GOODSist' +
+            '\n' +
+            'イベントグッズ代が計算できるWEBアプリ' +
+            '\n' +
+            'https://goodslist-pearl.vercel.app/event/' +
+            propsEvent.event_id,
         ),
     )
   }, [shareListText])
@@ -277,17 +296,16 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
             createShareListText += '\n'
           }
         })
-        createShareListText +=
-          '合計 ' +
-          totalCount +
-          '点 ￥' +
-          numberFormat(Number(totalPrice)) +
-          '\n\n' +
-          'GOODSist' +
-          '\n' +
-          'イベントグッズ代が計算できるWEBアプリ'
+        createShareListText += '合計 ' + totalCount + '点 ￥' + numberFormat(Number(totalPrice))
 
         setShareListText(createShareListText)
+
+        setShareListViewText(
+          createShareListText +
+            '\n' +
+            'https://goodslist-pearl.vercel.app/event/' +
+            propsEvent.event_id,
+        )
 
         //一致しない場合、ローカルストレージの情報を削除して新規にイベントIDを追加
       } else {
@@ -479,13 +497,16 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
             <br />
             その他のアプリを利用の場合は下のテキストボックスからコピー＆ペーストしてください。
           </p>
-          <p className={styles.textCount}>{shareListText.length} / 140文字</p>
+          <p className={styles.textCount}>
+            <span className={shareListText.length > 139 ? styles.textCountError : styles.textCount}>
+              {shareListText.length}
+            </span>
+            / 140文字
+          </p>
           <InputTextArea
             name='share'
             placeholder='リストの内容(Twitterは140文字以内)'
-            value={
-              shareListText + '\nhttps://goodslist-pearl.vercel.app/event/' + propsEvent.event_id
-            }
+            value={shareListText}
             onChange={setShareListText}
           />
           <div className={styles.show_list_copy_container}>

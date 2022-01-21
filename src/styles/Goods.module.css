@@ -1332,11 +1332,19 @@
   border-radius: 10px;
 }
 
-.textCount {
+.textCount,
+.textCountError {
   margin: 0;
   width: 100%;
   padding: 0 10px 10px 10px;
   text-align: right;
   font-size: 1.2rem;
+}
+
+.textCount {
   color: #999;
+}
+
+.textCountError {
+  color: #cf6775;
 }
