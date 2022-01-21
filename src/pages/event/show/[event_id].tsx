@@ -155,6 +155,10 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
   //メールのシェアリンク
   const [shareMailLink, setShareMailLink] = useState('')
 
+  //モーダル関連のコンテキスト
+  const { setOpenModalFlag, setModalType, setOpenModalContentFlag, setIsLoading }: any =
+    useContext(ModalContext)
+
   useEffect(() => {
     const twitterShareUrl =
       'https://twitter.com/share?url=https://goodslist-pearl.vercel.app/event/' +
@@ -353,6 +357,13 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
     navigator.clipboard.writeText(
       shareListText + '\nhttps://goodslist-pearl.vercel.app/event/' + propsEvent.event_id,
     )
+    setOpenModalFlag(true)
+    setOpenModalContentFlag(true)
+    setModalType('copy')
+    setTimeout(function () {
+      setOpenModalFlag(false)
+      setOpenModalContentFlag(false)
+    }, 1000)
   }
 
   const meta: MetaProps = {
@@ -498,6 +509,7 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
           </a>
         </Box>
       </div>
+      <Modal />
     </>
   )
 }

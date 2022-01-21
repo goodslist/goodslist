@@ -59,6 +59,8 @@ export default function Modal(props: any) {
         )
       case 'save':
         return <Message message='セーブしました' />
+      case 'copy':
+        return <Message message='コピーしました' />
     }
   }
   return (
