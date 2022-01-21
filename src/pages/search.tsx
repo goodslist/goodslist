@@ -10,6 +10,8 @@ import Header from '../components/Header'
 import Meta from '../components/Meta'
 import searchEvent from '../components/db/SearchEvent'
 import { dateFormat } from '../components/Utils'
+import Box from '../components/view/Box'
+import BoxGrid from '../components/view/BoxGrid'
 
 type Props = {
   searchResults: Events[]
@@ -95,38 +97,34 @@ export default function Output(props: Props) {
     <>
       <Meta title={meta.title} url={meta.url} image={meta.image} />
       <Header />
-      <div className={styles.wrapper_white}>
-        <main className={styles.main}>
-          <Title title='Search Result' />
-        </main>
-      </div>
-      <div className={styles.wrapper_glay}>
-        <main className={styles.main2}>
-          <div className={styles.grid}>
-            <div className={styles.search_result_title}>
-              {keyword}　を含む検索結果({props.searchResults.length}件)
-            </div>
-            <ul className={styles.ul_event}>
-              {props.searchResults?.map((searchResult: Events) => (
-                <li key={searchResult.event_id} className={styles.li_event}>
-                  <Link href={'event/' + searchResult.event_id}>
-                    <a>
-                      <div className={styles.li_event_padding}>
-                        <p className={styles.contents_title}>
-                          <b>{searchResult.content_name}</b>
-                        </p>
-                        <p className={styles.event_date}>{dateFormat(searchResult.date)}</p>
-                        <hr className={styles.li_event_line} />
-                        <p className={styles.event_title}>{searchResult.event_name}</p>
-                      </div>
-                    </a>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </main>
-      </div>
+      <Box background='#fff' padding='60px 20px 20px 20px'>
+        <Title title='Search Result' />
+      </Box>
+      <BoxGrid background='#f1f1f1' padding='80px 20px 60px 20px'>
+        <div className={styles.search_result_title}>
+          {keyword}　を含む検索結果({props.searchResults.length}件)
+        </div>
+        <div className={styles.grid}>
+          <ul className={styles.ul_event}>
+            {props.searchResults?.map((searchResult: Events) => (
+              <li key={searchResult.event_id} className={styles.li_event}>
+                <Link href={'event/' + searchResult.event_id}>
+                  <a>
+                    <div className={styles.li_event_padding}>
+                      <p className={styles.contents_title}>
+                        <b>{searchResult.content_name}</b>
+                      </p>
+                      <p className={styles.event_date}>{dateFormat(searchResult.date)}</p>
+                      <hr className={styles.li_event_line} />
+                      <p className={styles.event_title}>{searchResult.event_name}</p>
+                    </div>
+                  </a>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </BoxGrid>
     </>
   )
 }
