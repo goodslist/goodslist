@@ -155,10 +155,6 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
   //メールのシェアリンク
   const [shareMailLink, setShareMailLink] = useState('')
 
-  const mail = 'abc@example.com'
-
-  const subject = '質問だー'
-
   useEffect(() => {
     const twitterShareUrl =
       'https://twitter.com/share?url=https://goodslist-pearl.vercel.app/event/' +
@@ -182,11 +178,6 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
           shareListText + '\n' + 'https://goodslist-pearl.vercel.app/event/' + propsEvent.event_id,
         ),
     )
-    // shareListText + '\n' +
-    // 'https://goodslist-pearl.vercel.app/event/' +
-
-    // 'aaaaaaa' +
-    // propsEvent.event_id,
   }, [shareListText])
 
   const router = useRouter()
@@ -203,6 +194,9 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
         const localStorageItemCounts = JSON.parse(localStorage.getItem('itemCounts')!)
         const newItems: ShowItem[] = []
         const newGroup: ShowGroup[] = [...propsShowGroups]
+        newGroup.map((group) => {
+          group.item_version_count = 0
+        })
         localStorageItemCounts.map((ItemCount: ItemCount) => {
           propsShowItems.map((showItem: ShowItem) => {
             showItem.check = false
@@ -387,10 +381,6 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
             <br />
             またスクリーンショットを撮影して他の人に送信したりSNSでのシェアにご利用ください。
           </p>
-          {/* <div className={styles.event_date_container}>
-            <p className={styles.event_date}>{dateFormat(date)}</p>
-            {place ? <p className={styles.s_event_date}>{place}</p> : <></>}
-          </div> */}
           <Link href={'../../event/' + propsEvent.event_id}>
             <a>
               <button className={styles.btn_show_create_active}>Create List</button>
@@ -506,7 +496,7 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
           <a href={shareLineUrl} target='_blank'>
             <SocialButton provider='LINE' />
           </a>
-          <a href={shareMailLink} target='_blank'>
+          <a href={shareMailLink}>
             <SocialButton provider='メール' />
           </a>
         </Box>
