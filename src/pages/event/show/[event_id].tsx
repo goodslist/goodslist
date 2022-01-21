@@ -337,7 +337,7 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
       <Meta title={meta.title} url={meta.url} image={meta.image} />
       <Header />
       <div className={styles.sticky_container}>
-        <Box background='#fff' padding='60px 20px 90px 20px'>
+        <Box background='#fff' padding='60px 20px 60px 20px'>
           <Title title='Show List' />
           <div className={styles.contant_name_container}>
             <p className={styles.content_name}>{propsEvent.content_name}</p>
@@ -346,7 +346,6 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
             <h1 className={styles.h1}>{propsEvent.event_name}</h1>
           </div>
           <p className={styles.list_sns_text}>
-            <br />
             購入リストの表示ページです。
             <br />
             それぞれのグッズの行をタップorクリックすると色が変わります。購入時にチェックリストとしてご利用ください。

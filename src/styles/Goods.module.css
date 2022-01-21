@@ -1130,7 +1130,7 @@
 .btn_show_list,
 .btn_show_list_active,
 .btn_show_create_active {
-  margin: 40px 0 0 0;
+  margin: 30px 0 0 0;
   width: 200px;
   border-radius: 30px;
   border: 0px;
@@ -1330,10 +1330,13 @@
 }
 
 .list_sns_text {
-  margin: 0 0 30px 0;
+  margin: 50px 0 30px 0;
   font-size: 1.6rem;
   text-align: left;
   line-height: 3.2rem;
+  padding: 20px;
+  border: 1px #ccc solid;
+  border-radius: 10px;
 }
 
 .textCount {

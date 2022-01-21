@@ -364,7 +364,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
             <p className={styles.total}>&yen;{numberFormat(totalPrice)}</p>
           </div>
         </div>
-        <Box background='#fff' padding='60px 20px 90px 20px'>
+        <Box background='#fff' padding='60px 20px 60px 20px'>
           <Title title='Create List' />
           <div className={styles.list_header_container}>
             <div className={styles.list_header_sns}>
