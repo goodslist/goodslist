@@ -172,14 +172,12 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
           shareListText + '\n' + 'https://goodslist-pearl.vercel.app/event/' + propsEvent.event_id,
         ),
     )
-    setShareLineMail(
-      'mailto:cnoreply@goodsist.jp?subject=グッズリスト&amp;body=' +
-        // shareListText + '\n' +
-        // 'https://goodslist-pearl.vercel.app/event/' +
+    setShareLineMail('mailto:info@example.com?subject=問い合わせ&amp;body=ご記入ください')
+    // shareListText + '\n' +
+    // 'https://goodslist-pearl.vercel.app/event/' +
 
-        'aaaaaaa' +
-        propsEvent.event_id,
-    )
+    // 'aaaaaaa' +
+    // propsEvent.event_id,
   }, [shareListText])
 
   const router = useRouter()
