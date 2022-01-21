@@ -1,8 +1,18 @@
 import styles from '../../../styles/Modal.module.css'
 import InputTextArea from '../../form/InputTextArea'
 import InputError from '../../../components/form/InputError'
+import ModalButton from './ModalButton'
+import { useState } from 'react'
 
 const Memo = (props: any) => {
+  const [memo, setMemo] = useState(props.memo)
+
+  //エンターが押下されたら、メモを更新して閉じる。
+  const updateMemo = () => {
+    props.onChangeMemo(memo)
+    props.onClickClose()
+  }
+
   return (
     <>
       <div className={styles.title}>メモを入力</div>
@@ -12,16 +22,14 @@ const Memo = (props: any) => {
         </span>{' '}
         / 100
       </div>
-      <InputTextArea
-        name='memo'
-        placeholder='メモの内容'
-        value={props.memo}
-        onChange={props.onChange}
-      />
+      <InputTextArea name='memo' placeholder='メモの内容' value={memo} onChange={setMemo} />
       <InputError error={props.error} />
-      <button className={styles.button} onClick={props.close}>
-        決定
-      </button>
+
+      <ModalButton
+        onClickClose={props.onClickClose}
+        btn_text={props.btn_text}
+        onClickEnter={updateMemo}
+      />
     </>
   )
 }

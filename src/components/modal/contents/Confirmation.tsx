@@ -1,4 +1,5 @@
 import styles from '../../../styles/Modal.module.css'
+import ModalButton from './ModalButton'
 
 const Confirmation = (props: any) => {
   return (
@@ -6,9 +7,11 @@ const Confirmation = (props: any) => {
       <div className={styles.title}>{props.title}</div>
       <div className={styles.text}>{props.text}</div>
       <div className={styles.modal_space}></div>
-      <button className={styles.button} onClick={() => props.onClick()}>
-        {props.btn_text}
-      </button>
+      <ModalButton
+        onClickClose={props.onClickClose}
+        btn_text={props.btn_text}
+        onClickEnter={props.onClickEnter}
+      />
     </>
   )
 }

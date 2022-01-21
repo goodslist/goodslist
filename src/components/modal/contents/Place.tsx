@@ -1,7 +1,17 @@
 import styles from '../../../styles/Modal.module.css'
 import InputText from '../../form/InputText'
+import ModalButton from './ModalButton'
+import { useState } from 'react'
 
 const Place = (props: any) => {
+  // const [place, setPlace] = useState(props.place)
+
+  // //エンターが押下されたら、メモを更新して閉じる。
+  // const updatePlace = () => {
+  //   props.onChangePlace(place)
+  //   props.onClickClose()
+  // }
+
   return (
     <>
       <div className={styles.title}>会場名を入力</div>
@@ -11,16 +21,12 @@ const Place = (props: any) => {
         </span>{' '}
         / 30
       </div>
-      <InputText
-        name='place'
-        type='text'
-        placeholder='会場名'
-        value={props.place}
-        onChange={props.onChange}
-      />
-      <button className={styles.button} onClick={props.close}>
-        決定
-      </button>
+      {/* <InputText name='place' type='text' placeholder='会場名' value={place} onChange={setPlace} />
+      <ModalButton
+        onClickClose={props.onClickClose}
+        btn_text={props.btn_text}
+        onClickEnter={updatePlace}
+      /> */}
     </>
   )
 }

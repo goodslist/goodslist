@@ -35,28 +35,42 @@ export default function Modal(props: any) {
   const renderModalContent = () => {
     switch (modalType) {
       case 'place':
-        return <Place place={props.place} onChange={props.onChangePlace} close={onClickClose} />
-      case 'memo':
-        return <Memo memo={props.memo} onChange={props.onChangeMemo} close={onClickClose} />
-      case 'reset':
         return (
-          <Confirmation
-            title='リストをリセットしますか？'
-            text='リセット項目：購入数、並び順、入力欄の開閉'
-            btn_text='リセットする'
-            onClick={props.onClick}
+          <Place
+          // place={props.place}
+          // btn_text='決定'
+          // onChangePlace={props.onChangePlace}
+          // onClickClose={onClickClose}
           />
         )
-      case 'date':
-        return (
-          <Date
-            date={props.date}
-            setDate={props.setDate}
-            place={props.place}
-            onChange={props.onChangePlace}
-            close={onClickClose}
-          />
-        )
+      // case 'memo':
+      //   return (
+      //     <Memo
+      //       memo={props.memo}
+      //       btn_text='決定'
+      //       onChangeMemo={props.onChangeMemo}
+      //       onClickClose={onClickClose}
+      //     />
+      //   )
+      // case 'reset':
+      //   return (
+      //     <Confirmation
+      //       title='リセットしますか？'
+      //       text='購入数、並び順、入力欄の開閉'
+      //       btn_text='リセット'
+      //       onClickClose={onClickClose}
+      //       onClickEnter={props.onClick}
+      //     />
+      //   )
+      // case 'date':
+      //   return (
+      //     <Date
+      //       date={props.date}
+      //       setDate={props.setDate}
+      //       btn_text='決定'
+      //       onClickClose={onClickClose}
+      //     />
+      //   )
       case 'save':
         return <Message message='セーブしました' />
       case 'copy':

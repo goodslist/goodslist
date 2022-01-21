@@ -1,6 +1,7 @@
 import styles from '../../../styles/Modal.module.css'
 import { useEffect, useState } from 'react'
 import SelectDate from '../../form/SelectDate'
+import ModalButton from './ModalButton'
 
 const Date = (props: any) => {
   const [year, setYear] = useState(2021)
@@ -19,11 +20,6 @@ const Date = (props: any) => {
   useEffect(() => {
     changeLastDay(year, month, day)
   }, [year, month])
-
-  //年、月、日いずれかが変更されたら、日程を更新する。
-  useEffect(() => {
-    setDate()
-  }, [year, month, day])
 
   //月の最終日を変更をする。
   const changeLastDay = (year: number, month: number, day: number) => {
@@ -57,11 +53,12 @@ const Date = (props: any) => {
     return [newMonth, newDay]
   }
 
-  //日程を更新する。
+  //エンターが押下されたら、日程を更新して閉じる。
   const setDate = () => {
     const [newMonth, newDay] = addZero(month, day)
     const selectedDate = year + '-' + newMonth + '-' + newDay
     props.setDate(selectedDate)
+    props.onClickClose()
   }
   return (
     <>
@@ -75,9 +72,14 @@ const Date = (props: any) => {
         setDay={setDay}
         lastDay={lastDay}
       />
-      <button className={styles.button} onClick={() => props.close()}>
-        決定
+      <button className={styles.modal_btn_enter} onClick={setDate}>
+        {props.btn_text}
       </button>
+      {/* <ModalButton
+        onClickClose={props.onClickClose}
+        btn_text={props.btn_text}
+        onClickEnter={setDate}
+      /> */}
     </>
   )
 }
