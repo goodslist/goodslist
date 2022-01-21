@@ -68,7 +68,7 @@ export default function SearchEventForm(props: any) {
       query: { keyword: input }, //検索クエリ
     })
 
-    props.setIsSearchOpen(false)
+    // props.setIsSearchOpen(false)
     setInput('')
     setEvents([])
     setSearchFocus(false)
@@ -79,7 +79,7 @@ export default function SearchEventForm(props: any) {
       pathname: '/event/' + event_id, //URL
       // query: { keyword: input }, //検索クエリ
     })
-    props.setIsSearchOpen(false)
+    // props.setIsSearchOpen(false)
     setInput('')
     setEvents([])
     setSearchFocus(false)
