@@ -177,6 +177,10 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   //メモ入力のエラー
   const [errorMemo, setErrorMemo] = useState('')
 
+  useEffect(() => {
+    console.log(groups)
+  }, [groups])
+
   //クライアントサイドでの初回レンダリング前の処理
   useEffect(() => {
     const localStorageEventId = localStorage.getItem('eventId')

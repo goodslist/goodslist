@@ -103,7 +103,8 @@ export default function SearchEventForm(props: any) {
       >
         {/* <Search /> */}
       </span>
-      {(events?.length > 0 && input.length > 0 && searchFocus) || searchFocus2 ? (
+      {/* {(events?.length > 0 && input.length > 0 && searchFocus) || searchFocus2 ? ( */}
+      {(events?.length > 0 && input.length > 0) || searchFocus2 ? (
         <ul className={styles.search_result_active}>
           {events.map((event) => (
             // <li key={event.event_id} onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>

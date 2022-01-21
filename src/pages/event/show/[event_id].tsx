@@ -208,115 +208,126 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
   useEffect(() => {
     const localStorageEventId = localStorage.getItem('eventId')
     //ローカルストレージに引き継がれたイベントIDがあるかどうか
-    if (localStorageEventId) {
-      //引き継がれたイベントIDと今表示しているイベントが一致するかどうか
-      if (localStorageEventId == String(propsEvent.event_id)) {
-        //一致しているなら、ローカルストレージから情報を読み込む
+    if (localStorageEventId && localStorageEventId == String(propsEvent.event_id)) {
+      // //引き継がれたイベントIDと今表示しているイベントが一致するかどうか
+      // if (localStorageEventId == String(propsEvent.event_id)) {
+      //一致しているなら、ローカルストレージから情報を読み込む
 
-        //ローカルストレージのアイテムカウントを読み込み、アイテムを更新する。
-        const localStorageItemCounts = JSON.parse(localStorage.getItem('itemCounts')!)
-        const newItems: ShowItem[] = []
-        const newGroup: ShowGroup[] = [...propsShowGroups]
-        newGroup.map((group) => {
-          group.item_version_count = 0
+      //ローカルストレージのアイテムカウントを読み込み、アイテムを更新する。
+      const localStorageItemCounts = JSON.parse(localStorage.getItem('itemCounts')!)
+
+      //アイテムカウントが0ならクリエイトページにリダイレクトする。
+      if (localStorageItemCounts.length == 0) {
+        router.push({
+          pathname: '/event/' + propsEvent.event_id, //URL
         })
-        localStorageItemCounts.map((ItemCount: ItemCount) => {
-          propsShowItems.map((showItem: ShowItem) => {
-            showItem.check = false
-            if (ItemCount.item_id == showItem.item_id) {
-              showItem.item_count = ItemCount.item_count
-              newItems.push(showItem)
-              newGroup[showItem.group - 1].item_version_count =
-                newGroup[showItem.group - 1].item_version_count + 1
+      }
+      const newItems: ShowItem[] = []
+      const newGroup: ShowGroup[] = [...propsShowGroups]
+      newGroup.map((group) => {
+        group.item_version_count = 0
+      })
+      localStorageItemCounts.map((ItemCount: ItemCount) => {
+        propsShowItems.map((showItem: ShowItem) => {
+          showItem.check = false
+          if (ItemCount.item_id == showItem.item_id) {
+            showItem.item_count = ItemCount.item_count
+            newItems.push(showItem)
+            newGroup[showItem.group - 1].item_version_count =
+              newGroup[showItem.group - 1].item_version_count + 1
 
-              newGroup[showItem.group - 1].check = false
-              newGroup[showItem.group - 1].item_check_count = 0
+            newGroup[showItem.group - 1].check = false
+            newGroup[showItem.group - 1].item_check_count = 0
+          }
+        })
+      })
+      setItems(newItems)
+      setGroup(newGroup)
+
+      //リストIDがあるなら、ステートに読み込む。
+      const localStorageListId = localStorage.getItem('listId')
+      if (localStorageListId) setListId(Number(localStorageListId))
+
+      //会場名があるなら、ステートに読み込む。
+      const localStorageDate = localStorage.getItem('date')
+      if (localStorageDate) setDate(localStorageDate)
+
+      //会場名があるなら、ステートに読み込む。
+      const localStoragePlace = localStorage.getItem('place')
+      if (localStoragePlace) setPlace(localStoragePlace)
+
+      //メモがあるなら、ステートに読み込む。
+      const localStorageMemo = localStorage.getItem('memo')
+      if (localStorageMemo) setMemo(localStorageMemo)
+
+      let totalPrice: number = 0
+      let totalCount: number = 0
+      propsShowItems.map((item) => {
+        if (item.item_count > 0) {
+          totalPrice = totalPrice + item.price * item.item_count
+          totalCount = totalCount + item.item_count
+        }
+      })
+      setTotalPrice(totalPrice)
+      setTotalCount(totalCount)
+
+      let createShareListText = propsEvent.content_name + '\n' + propsEvent.event_name
+      if (localStorageDate) createShareListText += '\n' + dateFormat(localStorageDate)
+      else createShareListText += '\n' + dateFormat(propsEvent.date)
+      if (localStoragePlace) createShareListText += '\n' + localStoragePlace
+      if (localStorageMemo) createShareListText += '\n' + localStorageMemo
+      createShareListText += '\n' + '\n'
+      newGroup.map((group) => {
+        if (group.item_version_count == 1) {
+          newItems.map((item) => {
+            if (group.group == item.group) {
+              createShareListText += item.item_name + ' '
+              createShareListText += createShareListVersionText(item)
+              createShareListText +=
+                '￥' + numberFormat(Number(item.price)) + ' x' + item.item_count + '\n\n'
             }
           })
-        })
-        setItems(newItems)
-        setGroup(newGroup)
-
-        //リストIDがあるなら、ステートに読み込む。
-        const localStorageListId = localStorage.getItem('listId')
-        if (localStorageListId) setListId(Number(localStorageListId))
-
-        //会場名があるなら、ステートに読み込む。
-        const localStorageDate = localStorage.getItem('date')
-        if (localStorageDate) setDate(localStorageDate)
-
-        //会場名があるなら、ステートに読み込む。
-        const localStoragePlace = localStorage.getItem('place')
-        if (localStoragePlace) setPlace(localStoragePlace)
-
-        //メモがあるなら、ステートに読み込む。
-        const localStorageMemo = localStorage.getItem('memo')
-        if (localStorageMemo) setMemo(localStorageMemo)
-
-        let totalPrice: number = 0
-        let totalCount: number = 0
-        propsShowItems.map((item) => {
-          if (item.item_count > 0) {
-            totalPrice = totalPrice + item.price * item.item_count
-            totalCount = totalCount + item.item_count
-          }
-        })
-        setTotalPrice(totalPrice)
-        setTotalCount(totalCount)
-
-        let createShareListText = propsEvent.content_name + '\n' + propsEvent.event_name
-        if (localStorageDate) createShareListText += '\n' + dateFormat(localStorageDate)
-        else createShareListText += '\n' + dateFormat(propsEvent.date)
-        if (localStoragePlace) createShareListText += '\n' + localStoragePlace
-        if (localStorageMemo) createShareListText += '\n' + localStorageMemo
-        createShareListText += '\n' + '\n'
-        newGroup.map((group) => {
-          if (group.item_version_count == 1) {
-            newItems.map((item) => {
-              if (group.group == item.group) {
-                createShareListText += item.item_name + ' '
-                createShareListText += createShareListVersionText(item)
-                createShareListText +=
-                  '￥' + numberFormat(Number(item.price)) + ' x' + item.item_count + '\n\n'
+        } else if (group.item_version_count > 1) {
+          let count = false
+          newItems.map((item) => {
+            if (group.group == item.group) {
+              if (count == false) {
+                createShareListText += item.item_name + '\n'
+                count = true
               }
-            })
-          } else if (group.item_version_count > 1) {
-            let count = false
-            newItems.map((item) => {
-              if (group.group == item.group) {
-                if (count == false) {
-                  createShareListText += item.item_name + '\n'
-                  count = true
-                }
-                createShareListText += createShareListVersionText(item) + ' '
-                createShareListText +=
-                  numberFormat(Number(item.price)) + ' x' + item.item_count + '\n'
-              }
-            })
-            createShareListText += '\n'
-          }
-        })
-        createShareListText += '合計 ' + totalCount + '点 ￥' + numberFormat(Number(totalPrice))
+              createShareListText += createShareListVersionText(item) + ' '
+              createShareListText +=
+                numberFormat(Number(item.price)) + ' x' + item.item_count + '\n'
+            }
+          })
+          createShareListText += '\n'
+        }
+      })
+      createShareListText += '合計 ' + totalCount + '点 ￥' + numberFormat(Number(totalPrice))
 
-        setShareListText(createShareListText)
+      setShareListText(createShareListText)
 
-        setShareListViewText(
-          createShareListText +
-            '\n' +
-            'https://goodslist-pearl.vercel.app/event/' +
-            propsEvent.event_id,
-        )
+      setShareListViewText(
+        createShareListText +
+          '\n' +
+          'https://goodslist-pearl.vercel.app/event/' +
+          propsEvent.event_id,
+      )
 
-        //一致しない場合、ローカルストレージの情報を削除して新規にイベントIDを追加
-      } else {
-        localStorage.removeItem('listId')
-        localStorage.removeItem('items')
-        localStorage.removeItem('date')
-        localStorage.removeItem('place')
-        localStorage.setItem('eventId', String(propsEvent.event_id))
-      }
+      //   //一致しない場合、ローカルストレージの情報を削除して新規にイベントIDを追加
+      // } else {
+      //   localStorage.removeItem('listId')
+      //   localStorage.removeItem('items')
+      //   localStorage.removeItem('date')
+      //   localStorage.removeItem('place')
+      //   localStorage.setItem('eventId', String(propsEvent.event_id))
+      // }
       //引き継がれたイベントIDがない場合、新規にイベントIDを追加
-    } else localStorage.setItem('eventId', String(propsEvent.event_id))
+    } else {
+      router.push({
+        pathname: '/event/' + propsEvent.event_id, //URL
+      })
+    }
   }, [])
 
   const createShareListVersionText = (item: ShowItem) => {
@@ -373,7 +384,14 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
 
   const copyShareText = () => {
     navigator.clipboard.writeText(
-      shareListText + '\nhttps://goodslist-pearl.vercel.app/event/' + propsEvent.event_id,
+      shareListText +
+        '\n\n' +
+        'GOODSist' +
+        '\n' +
+        'イベントグッズ代が計算できるWEBアプリ' +
+        '\n' +
+        'https://goodslist-pearl.vercel.app/event/' +
+        propsEvent.event_id,
     )
     setOpenModalFlag(true)
     setOpenModalContentFlag(true)
@@ -383,6 +401,8 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
       setOpenModalContentFlag(false)
     }, 1000)
   }
+
+  const noOnChange = () => {}
 
   const meta: MetaProps = {
     title: propsEvent.content_name + ' ' + propsEvent.event_name,
@@ -507,7 +527,7 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
             name='share'
             placeholder='リストの内容(Twitterは140文字以内)'
             value={shareListText}
-            onChange={setShareListText}
+            onChange={noOnChange}
           />
           <div className={styles.show_list_copy_container}>
             {shareListText.length > 0 ? (
