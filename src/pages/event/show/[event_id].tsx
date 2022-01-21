@@ -155,6 +155,10 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
   //メールのシェアリンク
   const [shareLineMail, setShareLineMail] = useState('')
 
+  const mail = 'abc@example.com'
+
+  const subject = '質問だー'
+
   useEffect(() => {
     const twitterShareUrl =
       'https://twitter.com/share?url=https://goodslist-pearl.vercel.app/event/' +
@@ -498,7 +502,7 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
             <SocialButton provider='LINE' />
           </a>
           <a
-            href={'mailto:info@example.com?subject=問sい合わせ&amp;body=ご記入ください' + 'aaa'}
+            href={'mailto:info@example.com?subject=' + subject + '&amp;body=ご記入ください'}
             target='_blank'
           >
             <SocialButton provider='メール' />
