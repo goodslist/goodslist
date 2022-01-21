@@ -431,11 +431,13 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
         <Box background='#fff' padding='60px 20px 90px 20px'>
           <Title title='Share List' />
           <p className={styles.list_sns_text}>
-            完成したリストをSNS等で共有しよう。
+            リストが完成したらSNS等でシェアしましょう。
             <br />
-            Twitterは140文字の制限があるので、分割するかスクリーンショットを撮影して投稿できます。
+            Twitterは140文字の制限があるので、分割するかスクリーンショットを撮影してツイートするのが便利です。
             <br />
-            LINEとメールはボタンを押せば投稿できます。
+            シェアボタンを押すとアプリが起動します。
+            <br />
+            その他のアプリを利用の場合は下のテキストボックスからコピー＆ペーストしてください。
           </p>
           <p className={styles.textCount}>{shareListText.length} / 140文字</p>
           <InputTextArea
