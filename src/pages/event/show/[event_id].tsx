@@ -338,7 +338,9 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
   }
 
   const copyShareText = () => {
-    navigator.clipboard.writeText(shareListText)
+    navigator.clipboard.writeText(
+      shareListText + '\nhttps://goodslist-pearl.vercel.app/event/' + propsEvent.event_id,
+    )
   }
 
   const meta: MetaProps = {
@@ -465,7 +467,9 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
           <InputTextArea
             name='share'
             placeholder='リストの内容(Twitterは140文字以内)'
-            value={shareListText}
+            value={
+              shareListText + '\nhttps://goodslist-pearl.vercel.app/event/' + propsEvent.event_id
+            }
             onChange={setShareListText}
           />
           <div className={styles.show_list_copy_container}>
