@@ -85,6 +85,18 @@ export default function SearchEventForm(props: any) {
     setSearchFocus(false)
   }
 
+  const [isShowSearchResult, setIsShowSearchResult] = useState(false)
+  const menuRef: any = useRef()
+  useEffect(() => {
+    if (events?.length > 0) {
+      setIsShowSearchResult(true)
+    }
+  }, [events])
+
+  useEffect(() => {
+    isShowSearchResult && menuRef.current.focus()
+  }, [isShowSearchResult])
+
   return (
     <form className={styles.search_container} onSubmit={enterForm}>
       <input
@@ -104,8 +116,12 @@ export default function SearchEventForm(props: any) {
         {/* <Search /> */}
       </span>
       {/* {(events?.length > 0 && input.length > 0 && searchFocus) || searchFocus2 ? ( */}
-      {(events?.length > 0 && input.length > 0) || searchFocus2 ? (
-        <ul className={styles.search_result_active}>
+      {isShowSearchResult ? (
+        <ul
+          className={styles.search_result_active}
+          ref={menuRef}
+          onBlur={() => console.log('onBlur')}
+        >
           {events.map((event) => (
             // <li key={event.event_id} onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
             //   <Link href={'/event/' + event.event_id}>
@@ -129,8 +145,39 @@ export default function SearchEventForm(props: any) {
           ))}
         </ul>
       ) : (
-        <></>
+        <ul ref={menuRef}></ul>
       )}
     </form>
   )
 }
+
+//   {/* {(events?.length > 0 && input.length > 0 && searchFocus) || searchFocus2 ? ( */}
+//     {(events?.length > 0 && input.length > 0) || searchFocus2 ? (
+//       <ul className={styles.search_result_active} ref={menuRef} onBlur={() => console.log('aaa')}>
+//         {events.map((event) => (
+//           // <li key={event.event_id} onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
+//           //   <Link href={'/event/' + event.event_id}>
+//           //     <a>
+//           //       <b>{event.content_name}</b>
+//           //       <br />
+//           //       {event.event_name}
+//           //     </a>
+//           //   </Link>
+//           // </li>
+//           <li
+//             key={event.event_id}
+//             onMouseOver={onMouseOver}
+//             onMouseLeave={onMouseLeave}
+//             onClick={() => moveEvent(event.event_id)}
+//           >
+//             <b>{event.content_name}</b>
+//             <br />
+//             {event.event_name}
+//           </li>
+//         ))}
+//       </ul>
+//     ) : (
+//       <></>
+//     )}
+//   </form>
+// )
