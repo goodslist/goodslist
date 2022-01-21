@@ -177,13 +177,10 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
         ),
     )
     setShareMailLink(
-      encodeURIComponent(
-        'mailto:noreply@goodsist.jp?subject=グッズリスト&body=' +
-          shareListText +
-          '\n' +
-          'https://goodslist-pearl.vercel.app/event/' +
-          propsEvent.event_id,
-      ),
+      'mailto:noreply@goodsist.jp?subject=グッズリスト&body=' +
+        encodeURIComponent(
+          shareListText + '\n' + 'https://goodslist-pearl.vercel.app/event/' + propsEvent.event_id,
+        ),
     )
     // shareListText + '\n' +
     // 'https://goodslist-pearl.vercel.app/event/' +
