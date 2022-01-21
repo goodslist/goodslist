@@ -166,7 +166,7 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
     setShareLineUrl(
       'https://line.me/R/share?text=' +
         encodeURIComponent(
-          shareListText + 'https://goodslist-pearl.vercel.app/event/' + propsEvent.event_id,
+          shareListText + '\n' + 'https://goodslist-pearl.vercel.app/event/' + propsEvent.event_id,
         ),
     )
   }, [shareListText])
@@ -262,14 +262,14 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
           }
         })
         createShareListText +=
+          '合計 ' +
           totalCount +
           '点 ￥' +
           numberFormat(Number(totalPrice)) +
           '\n\n' +
           'GOODSist' +
           '\n' +
-          'イベントグッズ代が計算できるWEBアプリ' +
-          '\n'
+          'イベントグッズ代が計算できるWEBアプリ'
 
         setShareListText(createShareListText)
 
