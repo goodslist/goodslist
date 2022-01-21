@@ -150,11 +150,11 @@
 
 .modal_btn_container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .modal_btn_enter {
-  margin: 0;
+  margin: 0 0 0 10px;
   padding: 10px 0;
   width: 40%;
   background-color: #68a9cf;
@@ -168,7 +168,7 @@
 
 .modal_btn_cancel {
   box-sizing: border-box;
-  margin: 0;
+  margin: 0 10px 0 0;
   padding: 10px 0;
   width: 40%;
   background-color: #fff;

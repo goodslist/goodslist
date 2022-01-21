@@ -558,15 +558,15 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
         </Box>
       </div>
       <Modal
-        onClick={reset}
+        onClickReset={reset}
         place={place}
-        date={date}
-        setDate={setDate}
         onChangePlace={validatePlace}
-        errorPlace={errorPlace}
         memo={memo}
         onChangeMemo={validateMemo}
-        errorMemo={errorMemo}
+        date={date}
+        setDate={setDate}
+        // errorPlace={errorPlace}
+        // errorMemo={errorMemo}
       />
       <Loading />
     </>

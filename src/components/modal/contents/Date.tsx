@@ -1,13 +1,16 @@
 import styles from '../../../styles/Modal.module.css'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import SelectDate from '../../form/SelectDate'
 import ModalButton from './ModalButton'
+import { ModalContext } from '../ModalContext'
 
 const Date = (props: any) => {
   const [year, setYear] = useState(2021)
   const [month, setMonth] = useState(1)
   const [day, setDay] = useState(1)
   const [lastDay, setLastDay] = useState(31)
+
+  const { setModalType }: any = useContext(ModalContext)
 
   useEffect(() => {
     const [defaultYear, defaultMonth, defaultDay] = props.date.split('-')
@@ -59,6 +62,7 @@ const Date = (props: any) => {
     const selectedDate = year + '-' + newMonth + '-' + newDay
     props.setDate(selectedDate)
     props.onClickClose()
+    setModalType('blank')
   }
   return (
     <>
@@ -72,14 +76,11 @@ const Date = (props: any) => {
         setDay={setDay}
         lastDay={lastDay}
       />
-      <button className={styles.modal_btn_enter} onClick={setDate}>
-        {props.btn_text}
-      </button>
-      {/* <ModalButton
+      <ModalButton
         onClickClose={props.onClickClose}
         btn_text={props.btn_text}
         onClickEnter={setDate}
-      /> */}
+      />
     </>
   )
 }

@@ -20,12 +20,14 @@ export default function Modal(props: any) {
     setOpenModalContentFlag,
     showLogin,
     setShowLogin,
+    setModalType,
   }: any = useContext(ModalContext)
 
   //CLOSEボタン、overrayをクリックするとモーダルを閉じる
   const onClickClose = () => {
     setOpenModalFlag(false)
     setOpenModalContentFlag(false)
+    setModalType('blank')
   }
 
   //モーダルウインドウの領域をクリックした時にオーバーレイの閉じるが発火しないための処理
@@ -37,44 +39,46 @@ export default function Modal(props: any) {
       case 'place':
         return (
           <Place
-          // place={props.place}
-          // btn_text='決定'
-          // onChangePlace={props.onChangePlace}
-          // onClickClose={onClickClose}
+            place={props.place}
+            onChangePlace={props.onChangePlace}
+            btn_text='決定'
+            onClickClose={onClickClose}
           />
         )
-      // case 'memo':
-      //   return (
-      //     <Memo
-      //       memo={props.memo}
-      //       btn_text='決定'
-      //       onChangeMemo={props.onChangeMemo}
-      //       onClickClose={onClickClose}
-      //     />
-      //   )
-      // case 'reset':
-      //   return (
-      //     <Confirmation
-      //       title='リセットしますか？'
-      //       text='購入数、並び順、入力欄の開閉'
-      //       btn_text='リセット'
-      //       onClickClose={onClickClose}
-      //       onClickEnter={props.onClick}
-      //     />
-      //   )
-      // case 'date':
-      //   return (
-      //     <Date
-      //       date={props.date}
-      //       setDate={props.setDate}
-      //       btn_text='決定'
-      //       onClickClose={onClickClose}
-      //     />
-      //   )
-      case 'save':
-        return <Message message='セーブしました' />
+      case 'memo':
+        return (
+          <Memo
+            memo={props.memo}
+            btn_text='決定'
+            onChangeMemo={props.onChangeMemo}
+            onClickClose={onClickClose}
+          />
+        )
+      case 'reset':
+        return (
+          <Confirmation
+            title='リセットしますか？'
+            text='購入数、並び順、入力欄の開閉'
+            btn_text='リセット'
+            onClickClose={onClickClose}
+            onClickEnter={props.onClickReset}
+          />
+        )
+      case 'date':
+        return (
+          <Date
+            date={props.date}
+            setDate={props.setDate}
+            btn_text='決定'
+            onClickClose={onClickClose}
+          />
+        )
+      // case: 'save':
+      //   return <Message message='セーブしました' />
       case 'copy':
         return <Message message='コピーしました' />
+      case 'blank':
+        return <></>
     }
   }
   return (
@@ -91,9 +95,6 @@ export default function Modal(props: any) {
               }
               onClick={clickModalContent}
             >
-              {/* <div className={styles.close_button_container}> */}
-              <span className={styles.close_button} onClick={() => onClickClose()}></span>
-              {/* </div> */}
               <div className={styles.modal_content}>{renderModalContent()}</div>
             </div>
           </div>
