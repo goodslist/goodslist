@@ -2,6 +2,7 @@ import styles from '../../styles/components/SocialButton.module.css'
 import Twitter from '../../../public/images/twitter.svg'
 import Line from '../../../public/images/line.svg'
 import Google from '../../../public/images/google.svg'
+import Mail from '../../../public/images/email.svg'
 // import Yahoo from '../../../public/images/yahoo.png'
 // import BtnSpinner from '../Spinner'
 // import { OAuthTwitter } from '../auth/AuthTwitter'
@@ -33,6 +34,10 @@ const SocialButton = (props: any) => {
       icon = <Line />
       auth = props.auth
       break
+    case 'メール':
+      style = styles.btn_login_mail
+      icon = <Mail />
+      auth = props.auth
   }
 
   return (

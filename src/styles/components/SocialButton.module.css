@@ -3,10 +3,11 @@
 .btn_login_twitter,
 .btn_login_line,
 .btn_login_google,
-.btn_login_yahoo {
+.btn_login_yahoo,
+.btn_login_mail {
   box-sizing: border-box;
   margin: 30px 0 0 0;
-  width: 300px;
+  width: 100%;
   padding: 15px 0;
   position: relative;
   border: none;
@@ -34,10 +35,16 @@
   color: #fff;
 }
 
+.btn_login_mail {
+  background-color: #000;
+  color: #fff;
+}
+
 .btn_login_twitter svg,
 .btn_login_line svg,
 .btn_login_google svg,
-.btn_login_yahoo svg {
+.btn_login_yahoo svg,
+.btn_login_mail svg {
   position: absolute;
   width: 30px;
   height: 30px;

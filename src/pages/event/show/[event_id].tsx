@@ -458,6 +458,7 @@ const ShareList = ({ propsEvent, propsShowItems, propsShowGroups }: Props) => {
           <a href={shareLineUrl} target='_blank'>
             <SocialButton provider='LINE' />
           </a>
+          <SocialButton provider='メール' />
         </Box>
       </div>
     </>
