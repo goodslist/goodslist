@@ -5,10 +5,10 @@ class MyDocument extends Document {
       <Html lang='ja'>
         <Head></Head>
         <body>
-          <Main />
-          <NextScript />
           {/* 空のscriptタグを入れることにより、styleが当たらないバグを解消 */}
           <script> </script>
+          <Main />
+          <NextScript />
         </body>
       </Html>
     )
