@@ -25,20 +25,19 @@ const createOgp = async (req: NextApiRequest, res: NextApiResponse): Promise<voi
   // })
   // res.end(buffer, 'binary')
   // res.send('aaHTTP POST request sent to the webhook URL!')
-  const DX = 0 as const;
-  const DY = 0 as const;
+  const DX = 0 as const
+  const DY = 0 as const
 
-  ctx.fillStyle = "#FFF";
-  ctx.fillRect(DX, DY, WIDTH, HEIGHT);
+  ctx.fillStyle = '#FFF'
+  ctx.fillRect(DX, DY, WIDTH, HEIGHT)
 
-  const buffer = canvas.toBuffer();
+  const buffer = canvas.toBuffer()
 
   res.writeHead(200, {
-    "Content-Type": "image/png",
-    "Content-Length": buffer.length,
-  });
-  res.end(buffer, "binary");
-};
+    'Content-Type': 'image/png',
+    'Content-Length': buffer.length,
+  })
+  res.end(buffer, 'binary')
 }
 
 export default createOgp
