@@ -37,24 +37,24 @@ export default function SearchEventForm(props: any) {
     }
   }
 
-  const onFocusInput = () => {
-    setSearchFocus(true)
-    console.log(searchRef.current!.getBoundingClientRect())
-  }
-  const onBlurInput = (e: any) => {
-    console.log(e)
-    setSearchFocus(false)
-  }
+  // const onFocusInput = () => {
+  //   setSearchFocus(true)
+  //   console.log(searchRef.current!.getBoundingClientRect())
+  // }
+  // const onBlurInput = (e: any) => {
+  //   console.log(e)
+  //   setSearchFocus(false)
+  // }
 
-  const onMouseOver = (e: any) => {
-    setSearchFocus2(true)
-    console.log(e)
-  }
+  // const onMouseOver = (e: any) => {
+  //   setSearchFocus2(true)
+  //   console.log(e)
+  // }
 
-  const onMouseLeave = (e: any) => {
-    setSearchFocus2(false)
-    console.log(e)
-  }
+  // const onMouseLeave = (e: any) => {
+  //   setSearchFocus2(false)
+  //   console.log(e)
+  // }
 
   //入力テキストを元に検索結果へ遷移する
   const clickButton = async () => {
@@ -87,69 +87,69 @@ export default function SearchEventForm(props: any) {
 
   const [isShowSearchResult, setIsShowSearchResult] = useState(false)
   const [isShowSearchResult2, setIsShowSearchResult2] = useState(false)
-  const [isShowSearchResult3, setIsShowSearchResult3] = useState(false)
+  // const [isShowSearchResult3, setIsShowSearchResult3] = useState(false)
   const textInputRef: any = useRef()
-  useEffect(() => {
-    if (events?.length > 0) {
-      setIsShowSearchResult3(true)
-    } else setIsShowSearchResult3(false)
-  }, [events])
+  // useEffect(() => {
+  //   if (events?.length > 0) {
+  //     setIsShowSearchResult3(true)
+  //   } else setIsShowSearchResult3(false)
+  // }, [events])
 
   return (
-    <div>
-      {isShowSearchResult ? 'isShowSearchResulttrue' : 'isShowSearchResultfalse'}
-      <br></br>
-      {isShowSearchResult2 ? 'isShowSearchResult2true' : 'isShowSearchResult2false'}
-      <form className={styles.search_container} onSubmit={enterForm}>
-        <div onBlur={() => setIsShowSearchResult(false)}>
-          <input
-            type='text'
-            className={input ? styles.search_active : styles.search}
-            placeholder='アーティスト・イベント名で検索'
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onFocus={() => setIsShowSearchResult(true)}
-            onBlur={(e) => onBlurInput(e.target)}
-            // ref={searchRef}
-            ref={searchRef}
-          />
-          <span
-            className={input ? styles.search_button_active : styles.search_button}
-            onClick={clickButton}
-          >
-            {/* <Search /> */}
-          </span>
-          {/* {(events?.length > 0 && input.length > 0 && searchFocus) || searchFocus2 ? ( */}
-          {isShowSearchResult || isShowSearchResult2 ? (
-            <ul className={styles.search_result_active} onBlur={() => console.log('onBlur')}>
-              {events.map((event) => (
-                // <li key={event.event_id} onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
-                //   <Link href={'/event/' + event.event_id}>
-                //     <a>
-                //       <b>{event.content_name}</b>
-                //       <br />
-                //       {event.event_name}
-                //     </a>
-                //   </Link>
-                // </li>
-                <li
-                  key={event.event_id}
-                  onMouseOver={() => setIsShowSearchResult2(true)}
-                  onMouseLeave={() => setIsShowSearchResult2(false)}
-                  onClick={() => moveEvent(event.event_id)}
-                >
-                  <b>{event.content_name}</b>
-                  <br />
-                  {event.event_name}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <></>
-          )}
-        </div>
-      </form>
-    </div>
+    // <div>
+    //   {isShowSearchResult ? 'isShowSearchResulttrue' : 'isShowSearchResultfalse'}
+    //   <br></br>
+    //   {isShowSearchResult2 ? 'isShowSearchResult2true' : 'isShowSearchResult2false'}
+    <form className={styles.search_container} onSubmit={enterForm}>
+      <div onBlur={() => setIsShowSearchResult(false)}>
+        <input
+          type='text'
+          className={input ? styles.search_active : styles.search}
+          placeholder='アーティスト・イベント名で検索'
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onFocus={() => setIsShowSearchResult(true)}
+          // onBlur={(e) => onBlurInput(e.target)}
+          // // ref={searchRef}
+          ref={searchRef}
+        />
+        <span
+          className={input ? styles.search_button_active : styles.search_button}
+          onClick={clickButton}
+        >
+          {/* <Search /> */}
+        </span>
+        {/* {(events?.length > 0 && input.length > 0 && searchFocus) || searchFocus2 ? ( */}
+        {isShowSearchResult || isShowSearchResult2 ? (
+          <ul className={styles.search_result_active}>
+            {events.map((event) => (
+              // <li key={event.event_id} onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
+              //   <Link href={'/event/' + event.event_id}>
+              //     <a>
+              //       <b>{event.content_name}</b>
+              //       <br />
+              //       {event.event_name}
+              //     </a>
+              //   </Link>
+              // </li>
+              <li
+                key={event.event_id}
+                onMouseOver={() => setIsShowSearchResult2(true)}
+                onMouseLeave={() => setIsShowSearchResult2(false)}
+                onClick={() => moveEvent(event.event_id)}
+              >
+                <b>{event.content_name}</b>
+                <br />
+                {event.event_name}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <></>
+        )}
+      </div>
+    </form>
+    // </div>
   )
 }
 
