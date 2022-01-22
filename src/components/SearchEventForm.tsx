@@ -87,11 +87,12 @@ export default function SearchEventForm(props: any) {
 
   const [isShowSearchResult, setIsShowSearchResult] = useState(false)
   const [isShowSearchResult2, setIsShowSearchResult2] = useState(false)
+  const [isShowSearchResult3, setIsShowSearchResult3] = useState(false)
   const textInputRef: any = useRef()
   useEffect(() => {
     if (events?.length > 0) {
-      setIsShowSearchResult(true)
-    }
+      setIsShowSearchResult3(true)
+    } else setIsShowSearchResult3(false)
   }, [events])
 
   return (
