@@ -441,3 +441,8 @@
   right: 0px;
   opacity: 1;
 }
+
+.search_result_active_hr {
+  margin: 0;
+  border: 1px solid #ccc;
+}

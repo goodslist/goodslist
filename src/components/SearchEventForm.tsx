@@ -91,8 +91,11 @@ export default function SearchEventForm(props: any) {
         ></span>
         {isFocusSearchInput || isHoverSearchResult ? (
           <ul className={styles.search_result_active}>
-            {events.map((event) => (
+            {events.map((event, index) => (
               <li
+                className={
+                  index == 0 ? styles.search_result_active_li_top : styles.search_result_active_li
+                }
                 key={event.event_id}
                 onMouseOver={() => setIsHoverSearchResult(true)}
                 onMouseLeave={() => setIsHoverSearchResult(false)}

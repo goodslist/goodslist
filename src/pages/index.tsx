@@ -1,23 +1,20 @@
 import Link from 'next/link'
-import React, { useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
 import { GetStaticProps } from 'next'
-import { useState } from 'react'
 import { supabase } from '../components/supabase'
 import styles from '../styles/Home.module.css'
 import { useRouter } from 'next/router'
-import Loading from '../components/modal/Loading'
 import { AuthContext } from '../components/auth/AuthContext'
-import { useContext } from 'react'
 import { Events } from '../components/types'
-import Header from '../components/Header'
-import Topic from '../components/view/top/Topic'
-import Meta from '../components/Meta'
 import { MetaProps } from '../components/types'
-import EventList from '../components/view/EventList'
-import searchEvent from '../components/db/SearchEvent'
-import SearchEventForm from '../components/SearchEventForm'
+import Meta from '../components/Meta'
+import Header from '../components/Header'
+import Loading from '../components/modal/Loading'
 import Box from '../components/view/Box'
 import BoxGrid from '../components/view/BoxGrid'
+import SearchEventForm from '../components/SearchEventForm'
+import EventList from '../components/view/EventList'
+import Topic from '../components/view/top/Topic'
 
 // ページコンポーネントに渡されるデータ
 type Props = {
@@ -52,75 +49,8 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
 // ページコンポーネントの実装
 const Home = ({ eventList }: Props) => {
   const router = useRouter()
-  const [input, setInput] = useState<string>('')
-  const [events, setEvents] = useState<Events[]>([])
-  const [searchFocus, setSearchFocus] = useState<boolean>(false)
-
-  //エンターキーを押した時、submitを止める
-  const enterForm = (e: React.FormEvent<HTMLFormElement>) => {
-    if (e) e.preventDefault()
-    clickButton()
-  }
-
-  useEffect(() => {
-    inputSearchWord()
-  }, [input])
-
-  const inputSearchWord = async () => {
-    if (input?.length > 0) {
-      const SearchResults: Events[] = await searchEvent(input)
-      setEvents(SearchResults)
-    }
-  }
-
-  //入力テキストを元に検索結果へ遷移する
-  const clickButton = () => {
-    //テキストが未入力の時は無効にする
-    if (!input) {
-      return
-    }
-
-    router.push({
-      pathname: '/search', //URL
-      query: { keyword: input }, //検索クエリ
-    })
-  }
 
   const { setCurrentUser }: any = useContext(AuthContext)
-
-  const [searchTop, setSearchTop] = useState(0)
-
-  const searchRef = useRef<HTMLInputElement>(null)
-
-  useEffect(() => {
-    if (searchRef.current) setSearchTop(searchRef.current.getBoundingClientRect().y)
-  }, [])
-
-  const [searchFocus2, setSearchFocus2] = useState<boolean>(false)
-  const onFocusInput = () => {
-    setSearchFocus(true)
-    // if (!(window.scrollY == searchTop)) {
-    //   window.scrollTo({
-    //     top: searchTop,
-    //     behavior: 'smooth',
-    //   })
-    // }
-    console.log(searchRef.current!.getBoundingClientRect())
-  }
-  const onBlurInput = (e: any) => {
-    console.log(e)
-    setSearchFocus(false)
-  }
-
-  const onMouseOver = (e: any) => {
-    setSearchFocus2(true)
-    console.log(e)
-  }
-
-  const onMouseLeave = (e: any) => {
-    setSearchFocus2(false)
-    console.log(e)
-  }
 
   const meta: MetaProps = {
     title: 'GOODSist イベントのグッズ代が計算できるWEBアプリ',
