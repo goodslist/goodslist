@@ -1226,12 +1226,20 @@
 
 .show_list_reset_container,
 .show_list_copy_container {
-  max-width: 800px;
+  max-width: 840px;
   min-width: 320px;
   margin: 20px auto;
   position: relative;
   display: flex;
   justify-content: flex-end;
+  padding: 0 20px;
+}
+
+.show_list_reset_container {
+  padding: 0 20px;
+}
+
+.show_list_copy_container {
   padding: 0;
 }
 

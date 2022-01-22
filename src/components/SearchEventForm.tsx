@@ -86,78 +86,63 @@ export default function SearchEventForm(props: any) {
   }
 
   const [isShowSearchResult, setIsShowSearchResult] = useState(false)
-  const menuRef: any = useRef()
+  const [isShowSearchResult2, setIsShowSearchResult2] = useState(false)
+  const textInputRef: any = useRef()
   useEffect(() => {
     if (events?.length > 0) {
       setIsShowSearchResult(true)
     }
   }, [events])
 
-  useEffect(() => {
-    isShowSearchResult && menuRef.current.focus()
-  }, [isShowSearchResult])
-
-  useEffect(() => {
-    document.body.addEventListener('click', () => {
-      console.log('click on body')
-    })
-
-    document.querySelector('.search_container')?.addEventListener('click', (e) => {
-      e.stopPropagation()
-      alert('bbb')
-    })
-  }, [])
-
   return (
     <form className={styles.search_container} onSubmit={enterForm}>
-      <input
-        type='text'
-        className={input ? styles.search_active : styles.search}
-        placeholder='アーティスト・イベント名で検索'
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onFocus={() => onFocusInput()}
-        onBlur={(e) => onBlurInput(e.target)}
-        ref={searchRef}
-      />
-      <span
-        className={input ? styles.search_button_active : styles.search_button}
-        onClick={clickButton}
-      >
-        {/* <Search /> */}
-      </span>
-      {/* {(events?.length > 0 && input.length > 0 && searchFocus) || searchFocus2 ? ( */}
-      {isShowSearchResult ? (
-        <ul
-          className={styles.search_result_active}
-          ref={menuRef}
-          onBlur={() => console.log('onBlur')}
+      <div onBlur={() => setIsShowSearchResult(false)}>
+        <input
+          type='text'
+          className={input ? styles.search_active : styles.search}
+          placeholder='アーティスト・イベント名で検索'
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onFocus={() => setIsShowSearchResult(true)}
+          onBlur={(e) => onBlurInput(e.target)}
+          // ref={searchRef}
+          ref={searchRef}
+        />
+        <span
+          className={input ? styles.search_button_active : styles.search_button}
+          onClick={clickButton}
         >
-          {events.map((event) => (
-            // <li key={event.event_id} onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
-            //   <Link href={'/event/' + event.event_id}>
-            //     <a>
-            //       <b>{event.content_name}</b>
-            //       <br />
-            //       {event.event_name}
-            //     </a>
-            //   </Link>
-            // </li>
-            <li
-              key={event.event_id}
-              onMouseOver={onMouseOver}
-              onMouseLeave={onMouseLeave}
-              onClick={() => moveEvent(event.event_id)}
-            >
-              <b>{event.content_name}</b>
-              <br />
-              {event.event_name}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <ul ref={menuRef}></ul>
-      )}
+          {/* <Search /> */}
+        </span>
+        {/* {(events?.length > 0 && input.length > 0 && searchFocus) || searchFocus2 ? ( */}
+        {isShowSearchResult || isShowSearchResult2 ? (
+          <ul className={styles.search_result_active} onBlur={() => console.log('onBlur')}>
+            {events.map((event) => (
+              // <li key={event.event_id} onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
+              //   <Link href={'/event/' + event.event_id}>
+              //     <a>
+              //       <b>{event.content_name}</b>
+              //       <br />
+              //       {event.event_name}
+              //     </a>
+              //   </Link>
+              // </li>
+              <li
+                key={event.event_id}
+                onMouseOver={() => setIsShowSearchResult2(true)}
+                onMouseLeave={() => setIsShowSearchResult2(false)}
+                onClick={() => moveEvent(event.event_id)}
+              >
+                <b>{event.content_name}</b>
+                <br />
+                {event.event_name}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <></>
+        )}
+      </div>
     </form>
   )
 }
