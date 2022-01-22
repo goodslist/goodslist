@@ -7,7 +7,7 @@ const createOgp = async (req: NextApiRequest, res: NextApiResponse): Promise<voi
   const HEIGHT = 630 as const
   const canvas = createCanvas(WIDTH, HEIGHT)
   const ctx = canvas.getContext('2d')
-  registerFont(path.resolve('./public/fonts/NotoSansJP-Regular.otf'), {
+  registerFont(path.resolve('.fonts/NotoSansJP-Regular.otf'), {
     family: 'Noto',
   })
   ctx.fillStyle = '#FFF'
