@@ -95,55 +95,60 @@ export default function SearchEventForm(props: any) {
   }, [events])
 
   return (
-    <form className={styles.search_container} onSubmit={enterForm}>
-      <div onBlur={() => setIsShowSearchResult(false)}>
-        <input
-          type='text'
-          className={input ? styles.search_active : styles.search}
-          placeholder='アーティスト・イベント名で検索'
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onFocus={() => setIsShowSearchResult(true)}
-          onBlur={(e) => onBlurInput(e.target)}
-          // ref={searchRef}
-          ref={searchRef}
-        />
-        <span
-          className={input ? styles.search_button_active : styles.search_button}
-          onClick={clickButton}
-        >
-          {/* <Search /> */}
-        </span>
-        {/* {(events?.length > 0 && input.length > 0 && searchFocus) || searchFocus2 ? ( */}
-        {isShowSearchResult || isShowSearchResult2 ? (
-          <ul className={styles.search_result_active} onBlur={() => console.log('onBlur')}>
-            {events.map((event) => (
-              // <li key={event.event_id} onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
-              //   <Link href={'/event/' + event.event_id}>
-              //     <a>
-              //       <b>{event.content_name}</b>
-              //       <br />
-              //       {event.event_name}
-              //     </a>
-              //   </Link>
-              // </li>
-              <li
-                key={event.event_id}
-                onMouseOver={() => setIsShowSearchResult2(true)}
-                onMouseLeave={() => setIsShowSearchResult2(false)}
-                onClick={() => moveEvent(event.event_id)}
-              >
-                <b>{event.content_name}</b>
-                <br />
-                {event.event_name}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <></>
-        )}
-      </div>
-    </form>
+    <div>
+      {isShowSearchResult ? 'isShowSearchResulttrue' : 'isShowSearchResultfalse'}
+      <br></br>
+      {isShowSearchResult2 ? 'isShowSearchResult2true' : 'isShowSearchResult2false'}
+      <form className={styles.search_container} onSubmit={enterForm}>
+        <div onBlur={() => setIsShowSearchResult(false)}>
+          <input
+            type='text'
+            className={input ? styles.search_active : styles.search}
+            placeholder='アーティスト・イベント名で検索'
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onFocus={() => setIsShowSearchResult(true)}
+            onBlur={(e) => onBlurInput(e.target)}
+            // ref={searchRef}
+            ref={searchRef}
+          />
+          <span
+            className={input ? styles.search_button_active : styles.search_button}
+            onClick={clickButton}
+          >
+            {/* <Search /> */}
+          </span>
+          {/* {(events?.length > 0 && input.length > 0 && searchFocus) || searchFocus2 ? ( */}
+          {isShowSearchResult || isShowSearchResult2 ? (
+            <ul className={styles.search_result_active} onBlur={() => console.log('onBlur')}>
+              {events.map((event) => (
+                // <li key={event.event_id} onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
+                //   <Link href={'/event/' + event.event_id}>
+                //     <a>
+                //       <b>{event.content_name}</b>
+                //       <br />
+                //       {event.event_name}
+                //     </a>
+                //   </Link>
+                // </li>
+                <li
+                  key={event.event_id}
+                  onMouseOver={() => setIsShowSearchResult2(true)}
+                  onMouseLeave={() => setIsShowSearchResult2(false)}
+                  onClick={() => moveEvent(event.event_id)}
+                >
+                  <b>{event.content_name}</b>
+                  <br />
+                  {event.event_name}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <></>
+          )}
+        </div>
+      </form>
+    </div>
   )
 }
 
