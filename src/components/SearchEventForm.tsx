@@ -55,6 +55,7 @@ export default function SearchEventForm(props: any) {
 
     setInput('')
     setEvents([])
+    props.setIsSearchOpen(false)
   }
 
   //サジェストのイベントが押下されたら、イベントページに遷移する。
@@ -65,6 +66,7 @@ export default function SearchEventForm(props: any) {
 
     setInput('')
     setEvents([])
+    props.setIsSearchOpen(false)
   }
 
   return (
