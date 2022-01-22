@@ -26,7 +26,6 @@
 .event_list_title_container {
   margin: 0;
   width: 100%;
-  position: relative;
 }
 
 .event_list_title {
@@ -39,6 +38,7 @@
   text-align: center;
   width: 100%;
   transition: all 0.2s;
+  z-index: 0;
 }
 
 .event_list_title_bar {

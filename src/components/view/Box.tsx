@@ -5,6 +5,7 @@ type Props = {
   children: ReactNode
   background: string
   padding: string
+  // zIndex: string
 }
 
 const Box = ({ children, background, padding }: Props) => {
@@ -13,12 +14,7 @@ const Box = ({ children, background, padding }: Props) => {
     width: '100%',
     padding: padding,
     background: background,
-  }
-
-  const responsible = {
-    margin: '0 auto',
-    minwidth: '320px',
-    maxwidth: '840px',
+    // zIndex: Number(zIndex),
   }
 
   return (
