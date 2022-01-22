@@ -97,6 +97,17 @@ export default function SearchEventForm(props: any) {
     isShowSearchResult && menuRef.current.focus()
   }, [isShowSearchResult])
 
+  useEffect(() => {
+    document.body.addEventListener('click', () => {
+      console.log('click on body')
+    })
+
+    document.querySelector('.search_container')?.addEventListener('click', (e) => {
+      e.stopPropagation()
+      alert('bbb')
+    })
+  }, [])
+
   return (
     <form className={styles.search_container} onSubmit={enterForm}>
       <input
