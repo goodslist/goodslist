@@ -284,3 +284,14 @@
   margin: 10px 0 0 0;
   line-height: 20px;
 }
+
+.no_search_result_container {
+  margin: 40px auto 30px auto;
+  min-width: 300px;
+  max-width: 400px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  font-size: 1.6rem;
+  line-height: 3.2rem;
+}
