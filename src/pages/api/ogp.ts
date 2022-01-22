@@ -7,9 +7,9 @@ const createOgp = async (req: NextApiRequest, res: NextApiResponse): Promise<voi
   const HEIGHT = 630 as const
   const canvas = createCanvas(WIDTH, HEIGHT)
   const ctx = canvas.getContext('2d')
-  registerFont(path.resolve('.fonts/NotoSansJP-Regular.otf'), {
-    family: 'Noto',
-  })
+  // registerFont(path.resolve('.fonts/NotoSansJP-Regular.otf'), {
+  //   family: 'Noto',
+  // })
   // ctx.fillStyle = '#FFF'
   // ctx.fillRect(0, 0, WIDTH, HEIGHT)
   // ctx.font = '60px ipagp'
@@ -24,7 +24,21 @@ const createOgp = async (req: NextApiRequest, res: NextApiResponse): Promise<voi
   //   'Content-Length': buffer.length,
   // })
   // res.end(buffer, 'binary')
-  res.send('aaHTTP POST request sent to the webhook URL!')
+  // res.send('aaHTTP POST request sent to the webhook URL!')
+  const DX = 0 as const;
+  const DY = 0 as const;
+
+  ctx.fillStyle = "#FFF";
+  ctx.fillRect(DX, DY, WIDTH, HEIGHT);
+
+  const buffer = canvas.toBuffer();
+
+  res.writeHead(200, {
+    "Content-Type": "image/png",
+    "Content-Length": buffer.length,
+  });
+  res.end(buffer, "binary");
+};
 }
 
 export default createOgp
