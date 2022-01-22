@@ -1,4 +1,4 @@
-import { Group, Item } from '../types'
+import { Group } from '../types'
 
 //ソート前のグループの高さを取得する
 export const getPrevGroupHeights = (nowGroupHeights: any) => {
@@ -21,53 +21,25 @@ export const sortGroups = (sortType: string, groups: Group[]) => {
       if (group.group_count > 0) groupCountTrue.push(group)
       else groupCountFalse.push(group)
     })
+
     groupCountTrue.sort(function (a, b) {
-      if (a.group > b.group) {
-        return 1
-      }
-      if (a.group < b.group) {
-        return -1
-      }
-      return 0
+      return a.group - b.group
     })
+
     groupCountFalse.sort(function (a, b) {
-      if (a.group > b.group) {
-        return 1
-      }
-      if (a.group < b.group) {
-        return -1
-      }
-      return 0
+      return a.group - b.group
     })
 
     sortedGroups = groupCountTrue.concat(groupCountFalse)
   } else {
     sortedGroups = [...groups]
     sortedGroups.sort(function (a, b) {
-      if (a.group > b.group) {
-        return 1
-      }
-      if (a.group < b.group) {
-        return -1
-      }
-      return 0
+      return a.group - b.group
     })
   }
 
   return sortedGroups
 }
-
-//ソートしたグループと同じ順にアイテムをソートする
-// export const sortItems = (sortedGroups: Group[], items: Item[]) => {
-//   const sortedItems: Item[] = []
-//   sortedGroups.map((sortedGroup) => {
-//     items.map((newItem) => {
-//       if (sortedGroup.group == newItem.group) sortedItems.push(newItem)
-//     })
-//   })
-
-//   return sortedItems
-// }
 
 //ソート後のリストの高さを取得する
 export const getAfterGroupHeights = (nowGroupHeights: any) => {
