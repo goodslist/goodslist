@@ -27,6 +27,8 @@ export interface ModalContextProps {
   setOpenClearOverlay: Dispatch<SetStateAction<boolean>>
   isLoading: boolean
   setIsLoading: Dispatch<SetStateAction<boolean>>
+  isShowSearch: boolean
+  setIsShowSearch: Dispatch<SetStateAction<boolean>>
 }
 
 export const ModalContext = createContext({} as ModalContextProps)
@@ -46,7 +48,10 @@ export const useProvideModal = () => {
 
   const [openClearOverlay, setOpenClearOverlay] = useState(false)
 
-  //ローディング中のスピナーを表示
+  //イベント検索ウインドウの表示
+  const [isShowSearch, setIsShowSearch] = useState(false)
+
+  //ローディング中のスピナーの表示
   const [isLoading, setIsLoading] = useState(false)
 
   //モーダルを開く処理
@@ -83,6 +88,8 @@ export const useProvideModal = () => {
     setOpenClearOverlay,
     isLoading,
     setIsLoading,
+    isShowSearch,
+    setIsShowSearch,
   }
 }
 
@@ -104,6 +111,8 @@ export const ModalProvider: FC = ({ children }) => {
     setOpenClearOverlay,
     isLoading,
     setIsLoading,
+    isShowSearch,
+    setIsShowSearch,
   } = useProvideModal()
 
   return (
@@ -125,6 +134,8 @@ export const ModalProvider: FC = ({ children }) => {
         setOpenClearOverlay,
         isLoading,
         setIsLoading,
+        isShowSearch,
+        setIsShowSearch,
       }}
     >
       {/* {openModalFlag && <Modal modalContent={modalContent} onClose={closeModal} />} */}

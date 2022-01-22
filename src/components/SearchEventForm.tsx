@@ -1,12 +1,16 @@
 import Link from 'next/dist/client/link'
 import styles from '../styles/components/SearchEventForm.module.css'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
 import { useRouter } from 'next/router'
 import { Events } from '../components/types'
-import searchEvent from '../components/db/SearchEvent'
+import { searchEvent } from '../components/db/SearchEvent'
+import { ModalContext } from '../components/modal/ModalContext'
 
 export default function SearchEventForm(props: any) {
   const router = useRouter()
+
+  //検索ウインドウのコンテキスト
+  const { setIsLoading, setIsShowSearch }: any = useContext(ModalContext)
 
   const [input, setInput] = useState<string>('')
   const [events, setEvents] = useState<Events[]>([])
@@ -20,8 +24,6 @@ export default function SearchEventForm(props: any) {
   useEffect(() => {
     if (searchRef.current) setSearchTop(searchRef.current.getBoundingClientRect().y)
   }, [])
-
-  const [searchFocus2, setSearchFocus2] = useState<boolean>(false)
 
   //エンターキーを押した時、submitを止める
   const enterForm = (e: React.FormEvent<HTMLFormElement>) => {
@@ -43,6 +45,8 @@ export default function SearchEventForm(props: any) {
 
   //虫眼鏡ボタンかエンターが押下されたら、検索結果ページに遷移する。
   const clickButton = async () => {
+    await setIsLoading(true)
+
     //テキストが未入力の時は無効にする
     if (!input) {
       return
@@ -55,18 +59,22 @@ export default function SearchEventForm(props: any) {
 
     setInput('')
     setEvents([])
-    props.setIsSearchOpen(false)
+    setIsShowSearch(false)
+    await setIsLoading(false)
   }
 
   //サジェストのイベントが押下されたら、イベントページに遷移する。
   const moveEvent = async (event_id: number) => {
+    await setIsLoading(true)
+
     await router.push({
       pathname: '/event/' + event_id,
     })
 
     setInput('')
     setEvents([])
-    props.setIsSearchOpen(false)
+    setIsShowSearch(false)
+    await setIsLoading(false)
   }
 
   return (

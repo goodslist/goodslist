@@ -8,7 +8,7 @@ import { GetServerSideProps } from 'next'
 import { MetaProps, Events } from '../components/types'
 import Header from '../components/Header'
 import Meta from '../components/Meta'
-import searchEvent from '../components/db/SearchEvent'
+import { searchEvent10 } from '../components/db/SearchEvent'
 import { dateFormat } from '../components/Utils'
 import Box from '../components/view/Box'
 import BoxGrid from '../components/view/BoxGrid'
@@ -64,7 +64,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   //     config: 'english',
   //   })
   if (searchWord != undefined) {
-    const data: Events[] = await searchEvent(searchWord)
+    const data: Events[] = await searchEvent10(searchWord)
 
     data?.map((doc) => {
       const searchResult: Events = {

@@ -231,6 +231,12 @@
   .topic_image img {
     border-radius: 20px;
   }
+
+  .topic_text_container {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 400px;
+  }
 }
 @media screen and (min-width: 840px) {
   .topic_image {
@@ -250,6 +256,11 @@
     width: 840px;
     padding: 0 0 100px 0;
     margin: 0 auto;
+  }
+
+  .topic_text_container {
+    margin: 0;
+    width: 400px;
   }
 
   .grid {
@@ -440,9 +451,4 @@
 .fadein_right_after {
   right: 0px;
   opacity: 1;
-}
-
-.search_result_active_hr {
-  margin: 0;
-  border: 1px solid #ccc;
 }
