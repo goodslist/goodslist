@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import React from 'react'
-import styles from '../styles/Contact.module.css'
+import { useState } from 'react'
+import styles from '../../styles/Contact.module.css'
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import Title from '../../components/view/title'
 import Form from '../../components/form/Form'
@@ -13,6 +13,7 @@ import InputText from '../../components/form/InputText'
 import InputLabel from '../../components/form/InputLabel'
 import InputTextArea from '../../components/form/InputTextArea'
 import SubmitButton from '../../components/form/SubmitButton'
+import InputNotes from '../../components/form/InputNotes'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -25,6 +26,18 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 }
 
 const Contact = (data: Props) => {
+  //クイズの答え
+  const [answer, setAnswer] = useState(0)
+
+  const min = 1
+  const max = 9
+
+  const quizNumber = []
+  for (let i = 0; i < 3; i++) {
+    const num = Math.floor(Math.random() * (max + 1 - min)) + min
+    quizNumber.push(num)
+  }
+
   const meta: MetaProps = {
     title: 'GOODSist イベントのグッズ代が計算できるWEBアプリ',
     url: 'https://goodslist-pearl.vercel.app/',
@@ -37,14 +50,25 @@ const Contact = (data: Props) => {
       <Box background='#fff' padding='60px 20px 60px 20px'>
         <Title title='Contact' />
         <BoxLineText>
+          <div className={styles.contact_text_container}>
+            お問い合わせをご希望の方は、全ての項目を入力して送信ください。
+          </div>
           <InputLabel label='お名前' />
           <InputText />
+          <InputNotes notes='20文字以内' />
           <InputLabel label='メールアドレス' />
           <InputText />
+          <InputNotes notes='50文字以内' />
           <InputLabel label='お問い合わせ内容' />
           <InputTextArea />
+          <InputNotes notes='500文字以内' />
           <InputLabel label='クイズ' />
+
+          <div className={styles.contact_text_container}>
+            {quizNumber[0]} + {quizNumber[1]} + {quizNumber[2]} = ?
+          </div>
           <InputText />
+          <InputNotes notes='半角数字' />
           <SubmitButton type='email' btn_name='送信' />
         </BoxLineText>
       </Box>
