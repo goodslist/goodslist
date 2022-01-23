@@ -49,7 +49,7 @@ export default function Modal(props: any) {
         return (
           <Memo
             memo={props.memo}
-            btn_text='決定'
+            btn_text='Enter'
             onChangeMemo={props.onChangeMemo}
             onClickClose={onClickClose}
           />
@@ -59,7 +59,7 @@ export default function Modal(props: any) {
           <Confirmation
             title='リセットしますか？'
             text='購入数、並び順、入力欄の開閉'
-            btn_text='リセット'
+            btn_text='Reset'
             onClickClose={onClickClose}
             onClickEnter={props.onClickReset}
           />
@@ -69,7 +69,7 @@ export default function Modal(props: any) {
           <Date
             date={props.date}
             setDate={props.setDate}
-            btn_text='決定'
+            btn_text='Enter'
             onClickClose={onClickClose}
           />
         )
