@@ -11,7 +11,7 @@ const InputText = (props: any) => {
         placeholder={props.placeholder}
         onChange={(e) => props.onChange(e.target.value)}
       />
-      <div className={styles.input_error}>{props.error}</div>
+      {/* <div className={styles.input_error}>{props.error}</div> */}
     </>
   )
 }

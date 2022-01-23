@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from '../../styles/Contact.module.css'
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import Title from '../../components/view/title'
@@ -27,20 +27,23 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
 const Contact = (data: Props) => {
   //クイズの答え
-  const [answer, setAnswer] = useState(0)
+  const [quizNumbers, setQuizNumbers] = useState<Number[]>([])
 
   const min = 1
   const max = 9
 
-  const quizNumber = []
-  for (let i = 0; i < 3; i++) {
-    const num = Math.floor(Math.random() * (max + 1 - min)) + min
-    quizNumber.push(num)
-  }
+  useEffect(() => {
+    const newQuizNumbers = []
+    for (let i = 0; i < 3; i++) {
+      const num = Math.floor(Math.random() * (max + 1 - min)) + min
+      newQuizNumbers.push(num)
+    }
+    setQuizNumbers(newQuizNumbers)
+  }, [])
 
   const meta: MetaProps = {
     title: 'GOODSist イベントのグッズ代が計算できるWEBアプリ',
-    url: 'https://goodslist-pearl.vercel.app/',
+    url: 'https://goodslist-pearl.vercel.app/contact',
     image: 'https://goodslist-pearl.vercel.app/images/ogp9.png',
   }
   return (
@@ -51,7 +54,7 @@ const Contact = (data: Props) => {
         <Title title='Contact' />
         <BoxLineText>
           <div className={styles.contact_text_container}>
-            お問い合わせをご希望の方は、全ての項目を入力して送信ください。
+            お問い合わせをご希望の方は、全ての項目を入力してください。
           </div>
           <InputLabel label='お名前' />
           <InputText />
@@ -65,7 +68,7 @@ const Contact = (data: Props) => {
           <InputLabel label='クイズ' />
 
           <div className={styles.contact_text_container}>
-            {quizNumber[0]} + {quizNumber[1]} + {quizNumber[2]} = ?
+            {quizNumbers[0]} + {quizNumbers[1]} + {quizNumbers[2]} = ?
           </div>
           <InputText />
           <InputNotes notes='半角数字' />
