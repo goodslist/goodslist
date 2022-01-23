@@ -26,7 +26,7 @@ const LoginGate = (data: Props) => {
   const meta: MetaProps = {
     title: 'GOODSist イベントのグッズ代が計算できるWEBアプリ',
     url: 'https://goodslist-pearl.vercel.app/',
-    image: 'https://goodslist-pearl.vercel.app/images/ogp23.png',
+    image: 'https://goodslist-pearl.vercel.app/images/ogp9.png',
   }
   return (
     <>
