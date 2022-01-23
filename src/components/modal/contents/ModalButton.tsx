@@ -4,7 +4,7 @@ const ModalButton = (props: any) => {
   return (
     <div className={styles.modal_btn_container}>
       <button className={styles.modal_btn_cancel} onClick={() => props.onClickClose()}>
-        キャンセル
+        Cancel
       </button>
       <button className={styles.modal_btn_enter} onClick={() => props.onClickEnter()}>
         {props.btn_text}

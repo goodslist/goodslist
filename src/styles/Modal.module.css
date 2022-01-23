@@ -155,30 +155,32 @@
 
 .modal_btn_enter {
   margin: 0 0 0 10px;
-  padding: 10px 0;
+  padding: 5px 0;
   width: 40%;
   background-color: #68a9cf;
   border-radius: 5px;
   border: 0;
-  font-size: 1.6rem;
+  font-size: 2.4rem;
   color: #fff;
   text-align: center;
   cursor: pointer;
+  font-family: 'FuturaPTMedium', sans-serif;
 }
 
 .modal_btn_cancel {
   box-sizing: border-box;
   margin: 0 10px 0 0;
-  padding: 10px 0;
+  padding: 5px 0;
   width: 40%;
   background-color: #fff;
   border-radius: 5px;
   border: 0;
-  font-size: 1.6rem;
+  font-size: 2.4rem;
   color: #68a9cf;
   text-align: center;
   cursor: pointer;
   border: 1px solid #68a9cf;
+  font-family: 'FuturaPTMedium', sans-serif;
 }
 
 .link {

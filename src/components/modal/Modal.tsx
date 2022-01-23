@@ -41,7 +41,7 @@ export default function Modal(props: any) {
           <Place
             place={props.place}
             onChangePlace={props.onChangePlace}
-            btn_text='決定'
+            btn_text='Enter'
             onClickClose={onClickClose}
           />
         )
