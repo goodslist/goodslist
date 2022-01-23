@@ -16,7 +16,7 @@ const SubmitButton = (props: any) => {
         className={props.isSubmit ? styles.btn_submit_active : styles.btn_submit}
         onClick={() => props.onClick()}
       >
-        {props.title}
+        {props.btn_name}
         {svg}
       </button>
       <div className={styles.input_error}>{props.error}</div>

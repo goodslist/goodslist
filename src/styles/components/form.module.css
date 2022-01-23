@@ -16,9 +16,10 @@
 .btn_submit,
 .btn_submit_active {
   box-sizing: border-box;
-  margin: 0;
-  padding: 10px 0;
+  margin: 0 auto;
+  padding: 15px 0;
   width: 100%;
+  max-width: 400px;
   position: relative;
   border: none;
   border-radius: 5px;
@@ -112,9 +113,9 @@
 .input_label {
   display: flex;
   align-items: center;
-  font-size: 1.4rem;
-  color: #666;
+  font-size: 1.6rem;
   margin: 0 0 20px 0;
+  font-weight: bold;
 }
 
 .input_label:before,

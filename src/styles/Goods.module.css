@@ -600,7 +600,7 @@
 
 .list_header_container {
   width: 100%;
-  padding: 15px 0 10px 0;
+  padding: 0 0 10px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1322,16 +1322,9 @@
   font-size: 3rem;
 }
 
-.list_sns_container {
-  margin: 0 auto;
-  padding: 0 10px 0 10px;
-  min-width: 300px;
-  width: 100%;
-  max-width: 500px;
-}
-
 .list_sns_text {
   margin: 50px 0 30px 0;
+  width: 100%;
   font-size: 1.6rem;
   text-align: left;
   line-height: 3.2rem;
