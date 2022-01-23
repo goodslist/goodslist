@@ -9,7 +9,8 @@ const createOgp = async (req: NextApiRequest, res: NextApiResponse): Promise<voi
   const DY = 0 as const
   const canvas = createCanvas(WIDTH, HEIGHT)
   const ctx = canvas.getContext('2d')
-  registerFont(path.resolve('./public/fonts/KosugiMaru-Regular.ttf'), {
+
+  registerFont(path.resolve('./public/fonts/kosugi.ttf'), {
     family: 'Noto',
   })
 
@@ -17,10 +18,10 @@ const createOgp = async (req: NextApiRequest, res: NextApiResponse): Promise<voi
   ctx.fillRect(DX, DY, WIDTH, HEIGHT)
   ctx.font = '60px ipagp'
   ctx.fillStyle = '#000000'
-  ctx.textAlign = 'center'
-  ctx.textBaseline = 'middle'
-  const text = '入力した文字は' + String(id) + 'なのねん'
-  ctx.fillText(text, WIDTH / 2, HEIGHT / 2)
+  // ctx.textAlign = 'center'
+  // ctx.textBaseline = 'middle'
+  const text = String(id)
+  ctx.fillText(text, 150, 150)
 
   const buffer = canvas.toBuffer()
 
