@@ -126,7 +126,7 @@ const Contact = (data: Props) => {
       .post('/api/recaptcha', { token: token })
       .then(function (result) {
         console.log(result.data.data)
-        alert(result.data.data.score)
+        // alert(result.data.data.score)
       })
       .catch(function (error) {
         console.log(error)
