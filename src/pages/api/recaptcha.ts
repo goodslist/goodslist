@@ -5,34 +5,34 @@ export default async function recaptcha(req: Req, res: Res) {
   // "POST"以外は、"404 Not Found"を返す
   if (req.method !== 'POST') return res.status(404).send('Not Found')
 
-  const token = req.body.token
+  // const token = req.body.token
 
-  // await axios
-  //   .get(
-  //     `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_PUBLIC_RECAPTCHA_SECRETKEY}&response=${token}`,
-  //   )
+  // // await axios
+  // //   .get(
+  // //     `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_PUBLIC_RECAPTCHA_SECRETKEY}&response=${token}`,
+  // //   )
+  // //   .then((result) => {
+  // //     console.log(result.data)
+  // //     res.send(JSON.stringify({ status: result }))
+  // //   })
+  // //   .catch(() => {
+  // //     res.send(JSON.stringify({ status: 'エラー' }))
+  // //   })
+
+  // await axios({
+  //   method: 'post',
+  //   url: 'https://www.google.com/recaptcha/api/siteverify',
+  //   params: {
+  //     secret: process.env.NEXT_PUBLIC_RECAPTCHA_SECRETKEY,
+  //     response: token,
+  //   },
+  // })
   //   .then((result) => {
-  //     console.log(result.data)
-  //     res.send(JSON.stringify({ status: result }))
+  //     res.send(JSON.stringify({ status: '成功', data: result.data }))
   //   })
   //   .catch(() => {
   //     res.send(JSON.stringify({ status: 'エラー' }))
   //   })
-
-  await axios({
-    method: 'post',
-    url: 'https://www.google.com/recaptcha/api/siteverify',
-    params: {
-      secret: process.env.NEXT_PUBLIC_RECAPTCHA_SECRETKEY,
-      response: token,
-    },
-  })
-    .then((result) => {
-      res.send(JSON.stringify({ status: '成功', data: result.data }))
-    })
-    .catch(() => {
-      res.send(JSON.stringify({ status: 'エラー' }))
-    })
 
   res.send(JSON.stringify({ status: '終わり' }))
 }
