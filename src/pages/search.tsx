@@ -56,7 +56,7 @@ export default function Search(props: Props) {
     <>
       <Meta title={meta.title} url={meta.url} image={meta.image} />
       <Header />
-      <Box background='#fff' padding='60px 20px 20px 20px'>
+      <Box background='#fff' padding='60px 20px 0px 20px'>
         <Title title='Search Result' />
       </Box>
       {props.searchResults.length > 0 ? (

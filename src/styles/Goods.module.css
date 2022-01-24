@@ -1012,15 +1012,16 @@
   transition: all 0.3s;
   font-size: 1.4rem;
   position: relative;
-  border: 10px solid #fff;
 }
 
 .screenshot_container {
   background-color: #fff;
+  border: 10px solid #fff;
 }
 
 .screenshot_container_checked {
   background-color: #eaeaea;
+  border: 10px solid #f2c746;
 }
 
 .s_content_name {
