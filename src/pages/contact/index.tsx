@@ -128,7 +128,7 @@ const Contact = (data: Props) => {
       .then(function (result) {
         console.log(result)
         console.log('成功')
-        // alert(result.data.data.score)
+        alert(result.data.data.score)
       })
       .catch(function (error) {
         console.log('エラー')
