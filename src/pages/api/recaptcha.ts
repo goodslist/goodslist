@@ -7,17 +7,17 @@ export default async function recaptcha(req: Req, res: Res) {
 
   const token = req.body.token
 
-  await axios
-    .post(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_PUBLIC_RECAPTCHA_SECRETKEY}&response=${token}`,
-    )
-    .then((result) => {
-      console.log(result.data)
-      res.send(JSON.stringify({ status: '成功', data: result.data }))
-    })
-    .catch(() => {
-      res.send(JSON.stringify({ status: 'エラー' }))
-    })
+  // await axios
+  //   .post(
+  //     `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_PUBLIC_RECAPTCHA_SECRETKEY}&response=${token}`,
+  //   )
+  //   .then((result) => {
+  //     console.log(result.data)
+  //     res.send(JSON.stringify({ status: '成功', data: result.data }))
+  //   })
+  //   .catch(() => {
+  //     res.send(JSON.stringify({ status: 'エラー' }))
+  //   })
 
   // await axios({
   //   method: 'post',
@@ -37,22 +37,22 @@ export default async function recaptcha(req: Req, res: Res) {
   //     res.send(JSON.stringify({ status: 'エラー2' }))
   //   })
 
-  // await fetch('https://www.google.com/recaptcha/api/siteverify', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/x-www-form-urlencoded',
-  //   },
-  //   body: new URLSearchParams({
-  //     secret: '6LdOJjQeAAAAABN76BZSuFRuYNA-jdL7TBkHJChO', // シークレット
-  //     response: token, // トークン
-  //   }),
-  // })
-  //   .then((result) => {
-  //     res.send(JSON.stringify({ status: '成功', data: result }))
-  //   })
-  //   .catch(() => {
-  //     res.send(JSON.stringify({ status: 'エラー' }))
-  //   })
+  await fetch('https://www.google.com/recaptcha/api/siteverify', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      secret: '6LccjjUeAAAAAO1GxRTUqPM9WB9TeYYoWIQJzkNQ', // シークレット
+      response: token, // トークン
+    }),
+  })
+    .then((result) => {
+      res.send(JSON.stringify({ status: '成功', data: result }))
+    })
+    .catch(() => {
+      res.send(JSON.stringify({ status: 'エラーなのだ' }))
+    })
   res.send(JSON.stringify({ status: '終わり' }))
 }
 
