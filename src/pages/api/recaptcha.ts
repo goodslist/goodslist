@@ -36,7 +36,22 @@ export default async function recaptcha(req: Req, res: Res) {
   //   .catch(() => {
   //     res.send(JSON.stringify({ status: 'エラー' }))
   //   })
-
+  await fetch('https://www.google.com/recaptcha/api/siteverify', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      secret: '6LdOJjQeAAAAABN76BZSuFRuYNA-jdL7TBkHJChO', // シークレット
+      response: token, // トークン
+    }),
+  })
+    .then((result) => {
+      res.send(JSON.stringify({ status: '成功', data: result }))
+    })
+    .catch(() => {
+      res.send(JSON.stringify({ status: 'エラー' }))
+    })
   res.send(JSON.stringify({ status: '終わり' }))
 }
 

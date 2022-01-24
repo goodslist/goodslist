@@ -126,7 +126,7 @@ const Contact = (data: Props) => {
     await axios
       .post('/api/recaptcha', { token: token })
       .then(function (result) {
-        console.log(result.data.data)
+        console.log(result)
         console.log('成功')
         // alert(result.data.data.score)
       })
