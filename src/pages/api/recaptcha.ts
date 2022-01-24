@@ -19,23 +19,23 @@ export default async function recaptcha(req: Req, res: Res) {
   //     res.send(JSON.stringify({ status: 'エラー' }))
   //   })
 
-  await axios({
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    url: 'https://www.google.com/recaptcha/api/siteverify',
-    params: {
-      secret: '6Ld_GTQeAAAAAERWYM1AJnhxqZb-uOtCuT3WQRlP',
-      response: token,
-    },
-  })
-    .then((result) => {
-      res.send(JSON.stringify({ status: '成功', data: result.data }))
-    })
-    .catch(() => {
-      res.send(JSON.stringify({ status: 'エラー' }))
-    })
+  // await axios({
+  //   method: 'post',
+  //   headers: {
+  //     'Content-Type': 'application/x-www-form-urlencoded',
+  //   },
+  //   url: 'https://www.google.com/recaptcha/api/siteverify',
+  //   params: {
+  //     secret: process.env.NEXT_PUBLIC_RECAPTCHA_SECRETKEY,
+  //     response: token,
+  //   },
+  // })
+  //   .then((result) => {
+  //     res.send(JSON.stringify({ status: '成功', data: result.data }))
+  //   })
+  //   .catch(() => {
+  //     res.send(JSON.stringify({ status: 'エラー' }))
+  //   })
 
   res.send(JSON.stringify({ status: '終わり' }))
 }
