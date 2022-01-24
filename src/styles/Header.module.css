@@ -188,7 +188,7 @@
   height: 100%;
   top: 0;
   position: fixed;
-  opacity: 1;
+  opacity: 0.5;
   padding: 120px 0 70px 0;
   transition: all 0.3s;
 }
