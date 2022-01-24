@@ -7,35 +7,35 @@ export default async function recaptcha(req: Req, res: Res) {
 
   const token = req.body.token
 
-  // await axios
-  //   .post(
-  //     `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_PUBLIC_RECAPTCHA_SECRETKEY}&response=${token}`,
-  //   )
-  //   .then((result) => {
-  //     console.log(result.data)
-  //     res.send(JSON.stringify({ status: '成功', data: result.data }))
-  //   })
-  //   .catch(() => {
-  //     res.send(JSON.stringify({ status: 'エラー' }))
-  //   })
-
-  await axios({
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    url: 'https://www.google.com/recaptcha/api/siteverify',
-    params: {
-      secret: process.env.NEXT_PUBLIC_RECAPTCHA_SECRETKEY,
-      response: token,
-    },
-  })
+  await axios
+    .post(
+      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_PUBLIC_RECAPTCHA_SECRETKEY}&response=${token}`,
+    )
     .then((result) => {
+      console.log(result.data)
       res.send(JSON.stringify({ status: '成功', data: result.data }))
     })
     .catch(() => {
       res.send(JSON.stringify({ status: 'エラー' }))
     })
+
+  // await axios({
+  //   method: 'post',
+  //   headers: {
+  //     'Content-Type': 'application/x-www-form-urlencoded',
+  //   },
+  //   url: 'https://www.google.com/recaptcha/api/siteverify',
+  //   params: {
+  //     secret: process.env.NEXT_PUBLIC_RECAPTCHA_SECRETKEY,
+  //     response: token,
+  //   },
+  // })
+  //   .then((result) => {
+  //     res.send(JSON.stringify({ status: '成功', data: result.data }))
+  //   })
+  //   .catch(() => {
+  //     res.send(JSON.stringify({ status: 'エラー2' }))
+  //   })
 
   // await fetch('https://www.google.com/recaptcha/api/siteverify', {
   //   method: 'POST',
