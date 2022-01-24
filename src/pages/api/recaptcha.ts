@@ -23,7 +23,7 @@ export default async function recaptcha(req: Req, res: Res) {
     method: 'post',
     url: 'https://www.google.com/recaptcha/api/siteverify',
     params: {
-      secret: '6LdOJjQeAAAAABN76BZSuFRuYNA-jdL7TBkHJChO',
+      secret: process.env.NEXT_PUBLIC_RECAPTCHA_SECRETKEY,
       response: token,
     },
   })
