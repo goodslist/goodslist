@@ -6,7 +6,6 @@ import Title from '../../components/view/title'
 import Head from 'next/head'
 import { GetServerSideProps } from 'next'
 import InputText from '../../components/form/InputText'
-import Form from '../../components/form/Form'
 import { useEffect, useState } from 'react'
 
 export default function AdminLogin() {
@@ -25,15 +24,8 @@ export default function AdminLogin() {
   return (
     <main className={styles.main}>
       <Title title='管理者ログイン' />
-      <Form>
-        <InputText name='id' type='text' placeholder='ID' onChange={setId} />
-        <InputText
-          name='password'
-          type='password'
-          placeholder='パスワード'
-          onChange={setPassword}
-        />
-      </Form>
+      <InputText name='id' type='text' placeholder='ID' onChange={setId} />
+      <InputText name='password' type='password' placeholder='パスワード' onChange={setPassword} />
     </main>
   )
 }
