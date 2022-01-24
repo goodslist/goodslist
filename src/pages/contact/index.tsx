@@ -127,10 +127,11 @@ const Contact = (data: Props) => {
       .post('/api/recaptcha', { token: token })
       .then(function (result) {
         console.log(result.data.data)
+        console.log('成功')
         // alert(result.data.data.score)
       })
       .catch(function (error) {
-        console.log(error)
+        console.log('エラー')
       })
 
     // const result = fetch('/api/recaptcha', params)
