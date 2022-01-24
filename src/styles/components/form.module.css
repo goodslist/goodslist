@@ -84,15 +84,23 @@
   border: 1px solid #68a9cf;
 }
 
-.input_error {
-  margin: 10px auto 20px auto;
-  padding: 0 10px;
+.input_error,
+.input_error_active {
+  margin: 0 auto;
+  padding: 0;
   width: 100%;
-  min-height: 1.2rem;
   text-align: left;
   font-size: 1.2rem;
-  line-height: 2rem;
   color: #cf6775;
+  line-height: 2rem;
+}
+
+.input_error {
+  height: 0px;
+}
+
+.input_error_active {
+  padding: 10px 0 0 0;
 }
 
 /* インプット注意事項 */

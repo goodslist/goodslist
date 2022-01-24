@@ -55,3 +55,38 @@ export const validateName = (name: string) => {
   }
   return errorName
 }
+
+//ContactのTextのバリデーション
+export const validateContactText = (contactText: string) => {
+  let errorContactText = ''
+  if (contactText.length > 0) {
+    if (contactText.length > 500)
+      errorContactText = errorContactText + '500文字以内で入力してください。'
+    if (!contactText.match(/^[0-9a-zA-Zぁ-んーァ-ヶー一-龠]+$/)) {
+      errorContactText = errorContactText + '全角半角英数字のみ使用できます。'
+    }
+  }
+  return errorContactText
+}
+
+//Quizのバリデーション
+export const validateQuiz = (quiz: number, quizNumbers: number[]) => {
+  let errorQuiz = ''
+
+  let Answer = quizNumbers.reduce(function (a, b) {
+    return a + b
+  })
+
+  if (quiz) {
+    if (!String(quiz).match(/^[1-9]*$/)) {
+      errorQuiz = errorQuiz + '半角英数字で入力してください。'
+    }
+
+    if (quiz > 0) {
+      if (quiz != Answer) {
+        errorQuiz = errorQuiz + '答えが間違えています。'
+      }
+    }
+  }
+  return errorQuiz
+}
