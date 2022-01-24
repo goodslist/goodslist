@@ -37,3 +37,7 @@
   background-color: #fff;
   transition: all 0.3s;
 }
+
+.contact_text_container {
+  margin: 20px 0 30px 0;
+}

@@ -1,9 +1,8 @@
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import styles from '../../styles/Contact.module.css'
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import Title from '../../components/view/title'
-import Form from '../../components/form/Form'
 import Header from '../../components/Header'
 import Meta from '../../components/Meta'
 import { MetaProps } from '../../components/types'
@@ -14,6 +13,8 @@ import InputLabel from '../../components/form/InputLabel'
 import InputTextArea from '../../components/form/InputTextArea'
 import SubmitButton from '../../components/form/SubmitButton'
 import InputNotes from '../../components/form/InputNotes'
+import { ModalContext } from '../../components/modal/ModalContext'
+import Loading from '../../components/modal/Loading'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -26,6 +27,9 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 }
 
 const Contact = (data: Props) => {
+  //モーダル関連のコンテキスト
+  const { setIsLoading }: any = useContext(ModalContext)
+
   //クイズの答え
   const [quizNumbers, setQuizNumbers] = useState<Number[]>([])
 
@@ -40,6 +44,10 @@ const Contact = (data: Props) => {
     }
     setQuizNumbers(newQuizNumbers)
   }, [])
+
+  const submitMail = async () => {
+    await setIsLoading(true)
+  }
 
   const meta: MetaProps = {
     title: 'GOODSist イベントのグッズ代が計算できるWEBアプリ',
@@ -56,23 +64,22 @@ const Contact = (data: Props) => {
           <div className={styles.contact_text_container}>
             お問い合わせをご希望の方は、全ての項目を入力してください。
           </div>
-          <InputLabel label='お名前' />
-          <InputText />
+          <InputLabel id='name' label='お名前' />
+          <InputText id='name' />
           <InputNotes notes='20文字以内' />
-          <InputLabel label='メールアドレス' />
-          <InputText />
+          <InputLabel id='email' label='メールアドレス' />
+          <InputText id='email' />
           <InputNotes notes='50文字以内' />
-          <InputLabel label='お問い合わせ内容' />
-          <InputTextArea />
+          <InputLabel id='text' label='お問い合わせ内容' />
+          <InputTextArea id='text' />
           <InputNotes notes='500文字以内' />
-          <InputLabel label='クイズ' />
-
+          <InputLabel id='quiz' label='クイズ' />
           <div className={styles.contact_text_container}>
             {quizNumbers[0]} + {quizNumbers[1]} + {quizNumbers[2]} = ?
           </div>
-          <InputText />
+          <InputText id='quiz' />
           <InputNotes notes='半角数字' />
-          <SubmitButton type='email' btn_name='送信' />
+          <SubmitButton type='email' btn_name='送信' onClick={submitMail} />
         </BoxLineText>
       </Box>
     </>

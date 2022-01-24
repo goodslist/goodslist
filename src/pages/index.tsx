@@ -15,6 +15,7 @@ import BoxGrid from '../components/view/BoxGrid'
 import SearchEventForm from '../components/SearchEventForm'
 import EventList from '../components/view/EventList'
 import Topic from '../components/view/top/Topic'
+import { ModalContext } from '../components/modal/ModalContext'
 
 // ページコンポーネントに渡されるデータ
 type Props = {

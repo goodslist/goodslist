@@ -3,7 +3,6 @@ import React from 'react'
 import styles from '../styles/Privacy.module.css'
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import Title from '../components/view/title'
-import Form from '../components/form/Form'
 import Header from '../components/Header'
 import Meta from '../components/Meta'
 import { MetaProps } from '../components/types'
@@ -34,26 +33,24 @@ const PrivacyPolicy = (data: Props) => {
         <Title title='Privacy Policy' />
       </Box>
       <Box background='#ccc' padding='60px 20px 60px 20px'>
-        <Form>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-        </Form>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
       </Box>
     </>
   )

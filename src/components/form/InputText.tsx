@@ -6,6 +6,7 @@ const InputText = (props: any) => {
       <input
         className={props.valid ? styles.input_text_validated : styles.input_text}
         type={props.type}
+        id={props.id}
         name={props.name}
         value={props.value}
         placeholder={props.placeholder}

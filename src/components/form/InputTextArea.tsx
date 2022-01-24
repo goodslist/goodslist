@@ -4,6 +4,7 @@ const InputTextArea = (props: any) => {
   return (
     <textarea
       className={props.valid ? styles.input_text_validated : styles.inputTextArea}
+      id={props.id}
       name={props.name}
       value={props.value}
       placeholder={props.placeholder}
