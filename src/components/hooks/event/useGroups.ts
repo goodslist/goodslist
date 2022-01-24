@@ -1,4 +1,4 @@
-import { useState, useRef, useLayoutEffect, createRef } from 'react'
+import { useState, useRef, createRef } from 'react'
 import { Item, Group } from '../../types'
 import {
   getPrevGroupHeights,
@@ -8,6 +8,7 @@ import {
   returnPosition,
   startSortAnimation,
 } from '../../event/Sort'
+import useEffectSelect from '../../../components/hooks/event/useEffectSelect'
 
 export const useGroups = (propsGroups: Group[]) => {
   //グループの配列
@@ -103,6 +104,8 @@ export const useGroups = (propsGroups: Group[]) => {
     // フラグを変えてuseLayoutEffectを呼び出す
     sortFlag ? setSortFlag(false) : setSortFlag(true)
   }
+
+  const useLayoutEffect = useEffectSelect()
 
   //ソート処理の続き（useLayoutEffectなのでまだレンダリング前）
   useLayoutEffect(() => {

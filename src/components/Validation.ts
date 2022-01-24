@@ -77,15 +77,13 @@ export const validateQuiz = (quiz: number, quizNumbers: number[]) => {
     return a + b
   })
 
-  if (quiz) {
-    if (!String(quiz).match(/^[1-9]*$/)) {
-      errorQuiz = errorQuiz + '半角英数字で入力してください。'
-    }
+  if (!String(quiz).match(/^[1-9]*$/)) {
+    errorQuiz = errorQuiz + '半角英数字で入力してください。'
+  }
 
-    if (quiz > 0) {
-      if (quiz != Answer) {
-        errorQuiz = errorQuiz + '答えが間違えています。'
-      }
+  if (quiz > 0) {
+    if (quiz != Answer) {
+      errorQuiz = errorQuiz + '答えが間違えています。'
     }
   }
   return errorQuiz

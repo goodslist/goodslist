@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState, useContext, useCallback } from 'react'
 import styles from '../../styles/Contact.module.css'
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import Title from '../../components/view/title'
@@ -9,6 +9,7 @@ import { MetaProps } from '../../components/types'
 import Box from '../../components/view/Box'
 import BoxLineText from '../../components/view/BoxLineText'
 import InputText from '../../components/form/InputText'
+import InputText2 from '../../components/form/InputText2'
 import InputLabel from '../../components/form/InputLabel'
 import InputTextArea from '../../components/form/InputTextArea'
 import SubmitButton from '../../components/form/SubmitButton'
@@ -20,6 +21,13 @@ import {
   validateContactText,
   validateQuiz,
 } from '../../components/Validation'
+import { useRouter } from 'next/router'
+import {
+  useGoogleReCaptcha,
+  GoogleReCaptchaProvider,
+  GoogleReCaptcha,
+} from 'react-google-recaptcha-v3'
+import axios from 'axios'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -32,6 +40,8 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 }
 
 const Contact = (data: Props) => {
+  const router = useRouter()
+
   //モーダル関連のコンテキスト
   const { setIsLoading }: any = useContext(ModalContext)
 
@@ -50,11 +60,13 @@ const Contact = (data: Props) => {
   //クイズの問題
   const [quizNumbers, setQuizNumbers] = useState<number[]>([])
 
-  const [quiz, setQuiz] = useState<number>()
+  const [quiz, setQuiz] = useState<number>(0)
 
   const [errorQuiz, setErrorQuiz] = useState<string>('')
 
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
+
+  const [token, setToken] = useState<string>()
 
   const min = 1
   const max = 9
@@ -86,15 +98,55 @@ const Contact = (data: Props) => {
 
   useEffect(() => {
     console.log('a')
-    if (name.length > 0 && errorName.length == 0 && email.length > 0 && errorEmail.length == 0)
+    if (
+      name.length > 0 &&
+      errorName.length == 0 &&
+      email.length > 0 &&
+      errorEmail.length == 0 &&
+      contactText.length > 0 &&
+      errorContactText.length == 0 &&
+      // quiz > 0 &&
+      errorQuiz.length == 0
+    )
       setIsSubmit(true)
     else setIsSubmit(false)
   }, [name, email, contactText, quiz])
 
+  const { executeRecaptcha } = useGoogleReCaptcha()
   const submitMail = async () => {
-    await setIsLoading(true)
-    alert(name)
-    await setIsLoading(false)
+    if (!executeRecaptcha) {
+      return
+    }
+
+    const token = await executeRecaptcha('contact')
+
+    // const result = await axios.post('/api/recaptcha', { token: token })
+
+    await axios
+      .post('/api/recaptcha', { token: token })
+      .then(function (result) {
+        console.log(result.data.data)
+        alert(result.data.data.score)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+
+    // const result = fetch('/api/recaptcha', params)
+
+    // const params = {
+    //   method: 'POST',
+    //   body: JSON.stringify({ token: token }),
+    // }
+
+    // const result = fetch('/api/recaptcha', params)
+    //   .then(function (response) {
+    //     console.log(response)
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error)
+    //   })
+    // console.log(result.data.data)
   }
 
   const meta: MetaProps = {
@@ -122,9 +174,9 @@ const Contact = (data: Props) => {
             onChange={setName}
             error={errorName}
           />
+
           <InputNotes notes='30文字以内' />
           <InputLabel id='email' label='メールアドレス' />
-          {email}
           <InputText
             id='email'
             type='email'
@@ -134,7 +186,7 @@ const Contact = (data: Props) => {
             onChange={setEmail}
             error={errorEmail}
           />
-          <InputNotes notes='50文字以内' />
+          <InputNotes notes='' />
           <InputLabel id='text' label='お問い合わせ内容' />
           <InputTextArea
             id='text'
@@ -147,9 +199,9 @@ const Contact = (data: Props) => {
           />
           <InputNotes notes='500文字以内' />
           <InputLabel id='quiz' label='クイズ' />
-          <div className={styles.contact_text_container}>
+          {/* <div className={styles.contact_text_container}>
             {quizNumbers[0]} + {quizNumbers[1]} + {quizNumbers[2]} = ?
-          </div>
+          </div> */}
           <InputText
             id='quiz'
             type='text'
@@ -160,6 +212,7 @@ const Contact = (data: Props) => {
             error={errorQuiz}
           />
           <InputNotes notes='半角数字' />
+          {/* <GoogleReCaptcha onVerify={(t) => console.log({ t })} /> */}
           <SubmitButton type='email' btn_name='送信' onClick={submitMail} isSubmit={isSubmit} />
         </BoxLineText>
       </Box>

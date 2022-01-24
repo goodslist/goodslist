@@ -4,6 +4,8 @@ import Layout from '../components/Layout'
 import { AuthProvider } from '../components/auth/AuthContext'
 import { ModalProvider } from '../components/modal/ModalContext'
 import Loading from '../components/modal/Loading'
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3'
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
@@ -11,7 +13,12 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ModalProvider>
         <Layout>
           <Loading />
-          <Component {...pageProps} />
+          <GoogleReCaptchaProvider
+            reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY}
+            language='ja'
+          >
+            <Component {...pageProps} />
+          </GoogleReCaptchaProvider>
         </Layout>
       </ModalProvider>
     </AuthProvider>

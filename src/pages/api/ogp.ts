@@ -23,7 +23,7 @@ const createOgp = async (req: NextApiRequest, res: NextApiResponse): Promise<voi
   const text = String(id)
   ctx.fillText(text, 150, 150)
   ctx.font = '100px ipagp'
-  const text2 = String('1st TOUR 2021 ')
+  const text2 = String('1st TOUR 2021 aaa')
   ctx.fillText(text2, 300, 300)
   // ctx.fillText(text2, 150, 250)
   // const text3 = String('COLORFUL LIVE 1st - Link -')

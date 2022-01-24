@@ -68,7 +68,6 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       'event_id, event_name, date, url, items, content_id2, content_id3, contents(content_id, content_name)',
     )
     .eq('event_id', event_id)
-  console.log(data![0])
   const event: Event = {
     content_id: data![0].contents.content_id,
     content_name: data![0].contents.content_name,
@@ -177,10 +176,6 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
   //メモ入力のエラー
   const [errorMemo, setErrorMemo] = useState('')
 
-  useEffect(() => {
-    console.log(groups)
-  }, [groups])
-
   //クライアントサイドでの初回レンダリング前の処理
   useEffect(() => {
     const localStorageEventId = localStorage.getItem('eventId')
@@ -281,7 +276,6 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
 
       //リストIDが存在するなら、上書き保存する。
       if (listId) {
-        console.log('リストあり')
         const { data, error } = await supabase
           .from('lists')
           .update({
@@ -295,7 +289,6 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
           .eq('list_id', listId)
         //リストIDが存在しないなら、新規保存し、ローカルストレージにリストIDを追加する。
       } else {
-        console.log('リストなし')
         const { data, error } = await supabase.from('lists').insert([
           {
             user_id: currentUser.user_id,
@@ -514,7 +507,7 @@ const Home = ({ propsEvent, propsItems, propsGroups }: Props) => {
                           if (group.group == item.group) {
                             return (
                               <>
-                                <div className={styles.goods_detail_container}>
+                                <div key={item.order} className={styles.goods_detail_container}>
                                   <div className={styles.goods_type_container}>
                                     {item.item_type} {item.color} {item.size}
                                   </div>
