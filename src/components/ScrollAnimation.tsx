@@ -1,4 +1,3 @@
-import { StylesProvider } from '@material-ui/core'
 import React, { useEffect } from 'react'
 
 type Props = {
