@@ -69,7 +69,7 @@ const EventList = (props: any) => {
           <ScrollAnimation index={index} onIntersection={intersectCallback}>
             <li
               ref={ref}
-              key={event.event_id}
+              key={String(event.event_id)}
               className={
                 isFadein[index]
                   ? `${styles.li_event} ${startAfter}`

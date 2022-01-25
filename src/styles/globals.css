@@ -62,3 +62,7 @@ textarea:-webkit-autofill {
 li {
   list-style: none;
 }
+
+.grecaptcha-badge {
+  visibility: hidden;
+}

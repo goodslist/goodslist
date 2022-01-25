@@ -65,7 +65,9 @@ const Home = ({ eventList }: Props) => {
       <Header />
       <Box background='#fff' padding='0 0 0 0'>
         <main className={styles.main}>
-          <h1 className={styles.title}>GOODSist</h1>
+          <h1 className={styles.title}>
+            <span>GOODS</span>ist
+          </h1>
           <h2 className={styles.sub_title}>グッズ代が計算できるWEBアプリ</h2>
           <SearchEventForm />
         </main>
