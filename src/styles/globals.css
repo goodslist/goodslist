@@ -12,6 +12,7 @@ body {
   min-width: 320px;
   color: #000;
 }
+
 @font-face {
   font-family: 'FuturaPTMedium';
   src: url('/fonts/FuturaPTMedium.otf');

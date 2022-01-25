@@ -26,7 +26,7 @@ const Topic = (props: TopicProps) => {
               : `${styles.topic_image} ${styles.fadein_bottom_before}`
           }
         >
-          <Image src={props.image} width={355} height={355} alt={props.alt} loading={'lazy'} />
+          <Image src={props.image} width={355} height={355} alt={props.alt} />
         </div>
       </ScrollAnimation>
       <ScrollAnimation index={1} onIntersection={intersectCallback}>
