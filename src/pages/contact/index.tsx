@@ -15,18 +15,9 @@ import InputTextArea from '../../components/form/InputTextArea'
 import SubmitButton from '../../components/form/SubmitButton'
 import InputNotes from '../../components/form/InputNotes'
 import { ModalContext } from '../../components/modal/ModalContext'
-import {
-  validateName,
-  validateEmail,
-  validateContactText,
-  validateQuiz,
-} from '../../components/Validation'
+import { validateName, validateEmail, validateContactText } from '../../components/Validation'
 import { useRouter } from 'next/router'
-import {
-  useGoogleReCaptcha,
-  GoogleReCaptchaProvider,
-  GoogleReCaptcha,
-} from 'react-google-recaptcha-v3'
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import axios from 'axios'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
@@ -57,28 +48,9 @@ const Contact = (data: Props) => {
 
   const [errorContactText, setErrorContactText] = useState<string>('')
 
-  //クイズの問題
-  const [quizNumbers, setQuizNumbers] = useState<number[]>([])
-
-  const [quiz, setQuiz] = useState<number>(0)
-
-  const [errorQuiz, setErrorQuiz] = useState<string>('')
-
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
 
-  const [token, setToken] = useState<string>()
-
-  const min = 1
-  const max = 9
-
-  useEffect(() => {
-    const newQuizNumbers = []
-    for (let i = 0; i < 3; i++) {
-      const num = Math.floor(Math.random() * (max + 1 - min)) + min
-      newQuizNumbers.push(num)
-    }
-    setQuizNumbers(newQuizNumbers)
-  }, [])
+  const [errorSubmit, setErrorSubmit] = useState<string>('')
 
   useEffect(() => {
     setErrorName(validateName(name))
@@ -89,12 +61,9 @@ const Contact = (data: Props) => {
   }, [email])
 
   useEffect(() => {
-    setErrorContactText(validateContactText(contactText))
+    // setErrorContactText(validateContactText(contactText))
+    // setErrorContactText(contactText)
   }, [contactText])
-
-  useEffect(() => {
-    if (quiz) setErrorQuiz(validateQuiz(quiz, quizNumbers))
-  }, [quiz])
 
   useEffect(() => {
     console.log('a')
@@ -104,51 +73,56 @@ const Contact = (data: Props) => {
       email.length > 0 &&
       errorEmail.length == 0 &&
       contactText.length > 0 &&
-      errorContactText.length == 0 &&
-      // quiz > 0 &&
-      errorQuiz.length == 0
+      errorContactText.length == 0
     )
       setIsSubmit(true)
     else setIsSubmit(false)
-  }, [name, email, contactText, quiz])
+  }, [name, email, contactText])
 
   const { executeRecaptcha } = useGoogleReCaptcha()
+
+  //送信ボタンが押下されたら、reCAPTCHAで認証してからメールを送信し、送信完了ページへ遷移する。
   const submitMail = async () => {
+    setIsLoading(true)
+
     if (!executeRecaptcha) {
       return
     }
 
     const token = await executeRecaptcha('contact')
 
-    // const result = await axios.post('/api/recaptcha', { token: token })
+    const result = await axios.post('/api/recaptcha', { token: token })
 
-    console.log(token)
-    await axios
-      .post('/api/recaptcha', { token: token })
-      .then(function (result) {
-        console.log(result)
-        console.log('成功')
-        alert(result.data.data.score)
-      })
-      .catch(function (error) {
-        console.log('エラー')
-      })
+    if (result.data.status != 'success') {
+      setErrorSubmit('エラーが発生しました。しばらく経ってから再度お試しください。')
+      return
+    }
 
-    // const result = fetch('/api/recaptcha', params)
+    const mailInfo = {
+      subject: 'お問い合わせ(' + name + '様)',
+      email: email,
+      text:
+        '【お名前】' +
+        name +
+        '様\n【メールアドレス】' +
+        email +
+        '\n【メール本文】\n\n' +
+        contactText,
+    }
+    const resultSubmit = await fetch('/api/contact', {
+      method: 'POST',
+      body: JSON.stringify(mailInfo),
+    })
 
-    // const params = {
-    //   method: 'POST',
-    //   body: JSON.stringify({ token: token }),
-    // }
+    if (resultSubmit.status != 200) {
+      setErrorSubmit('エラーが発生しました。しばらく経ってから再度お試しください。')
+    }
 
-    // const result = fetch('/api/recaptcha', params)
-    //   .then(function (response) {
-    //     console.log(response)
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error)
-    //   })
-    // console.log(result.data.data)
+    await router.push({
+      pathname: '/contact/complete',
+    })
+
+    setIsLoading(false)
   }
 
   const meta: MetaProps = {
@@ -163,9 +137,9 @@ const Contact = (data: Props) => {
       <Box background='#fff' padding='60px 20px 60px 20px'>
         <Title title='Contact' />
         <BoxLineText>
-          <div className={styles.contact_text_container}>
+          <p className={styles.contact_text}>
             お問い合わせをご希望の方は、全ての項目を入力してください。
-          </div>
+          </p>
           <InputLabel id='name' label='お名前' />
           <InputText
             id='name'
@@ -200,21 +174,6 @@ const Contact = (data: Props) => {
             error={errorContactText}
           />
           <InputNotes notes='500文字以内' />
-          <InputLabel id='quiz' label='クイズ' />
-          {/* <div className={styles.contact_text_container}>
-            {quizNumbers[0]} + {quizNumbers[1]} + {quizNumbers[2]} = ?
-          </div> */}
-          <InputText
-            id='quiz'
-            type='text'
-            name='quiz'
-            value={quiz}
-            placeholder='答えを入力(半角数字)'
-            onChange={setQuiz}
-            error={errorQuiz}
-          />
-          <InputNotes notes='半角数字' />
-          {/* <GoogleReCaptcha onVerify={(t) => console.log({ t })} /> */}
           <SubmitButton type='email' btn_name='送信' onClick={submitMail} isSubmit={isSubmit} />
         </BoxLineText>
       </Box>
@@ -223,11 +182,3 @@ const Contact = (data: Props) => {
 }
 
 export default Contact
-
-// className={props.valid ? styles.input_text_validated : styles.input_text}
-// type={props.type}
-// id={props.id}
-// name={props.name}
-// value={props.value}
-// placeholder={props.placeholder}
-// onChange={(e) => props.onChange(e.target.value)}

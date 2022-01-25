@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { useEffect, useState, useContext } from 'react'
 import styles from '../../styles/Contact.module.css'
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import Title from '../../components/view/title'
@@ -8,18 +7,7 @@ import Meta from '../../components/Meta'
 import { MetaProps } from '../../components/types'
 import Box from '../../components/view/Box'
 import BoxLineText from '../../components/view/BoxLineText'
-import InputText from '../../components/form/InputText'
-import InputLabel from '../../components/form/InputLabel'
-import InputTextArea from '../../components/form/InputTextArea'
-import SubmitButton from '../../components/form/SubmitButton'
-import InputNotes from '../../components/form/InputNotes'
-import { ModalContext } from '../../components/modal/ModalContext'
-import {
-  validateName,
-  validateEmail,
-  validateContactText,
-  validateQuiz,
-} from '../../components/Validation'
+import LinkButton from '../../components/view/LinkButton'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -44,7 +32,14 @@ const ContactComplete = (data: Props) => {
       <Box background='#fff' padding='60px 20px 60px 20px'>
         <Title title='Contact' />
         <BoxLineText>
-          <div className={styles.contact_text_container}>お問い合わせありがとうございます。</div>
+          <p className={styles.contact_text_title}>お問い合わせを受け付けました。</p>
+          <p className={styles.contact_text}>
+            全て拝見させていただきますが、返信の確約はできかねますこと、また日数がかかることををご了承ください。
+            <br />
+            この度はお問い合わせいただきありがとうございました。
+            今後とも当サイトをよろしくお願いいたします。
+          </p>
+          <LinkButton text='Top' />
         </BoxLineText>
       </Box>
     </>

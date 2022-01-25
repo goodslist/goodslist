@@ -38,6 +38,12 @@
   transition: all 0.3s;
 }
 
-.contact_text_container {
+.contact_text {
   margin: 20px 0 30px 0;
+  text-align: left;
+}
+
+.contact_text_title {
+  margin: 20px 0 30px 0;
+  font-weight: bold;
 }

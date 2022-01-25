@@ -68,23 +68,3 @@ export const validateContactText = (contactText: string) => {
   }
   return errorContactText
 }
-
-//Quizのバリデーション
-export const validateQuiz = (quiz: number, quizNumbers: number[]) => {
-  let errorQuiz = ''
-
-  let Answer = quizNumbers.reduce(function (a, b) {
-    return a + b
-  })
-
-  if (!String(quiz).match(/^[1-9]*$/)) {
-    errorQuiz = errorQuiz + '半角英数字で入力してください。'
-  }
-
-  if (quiz > 0) {
-    if (quiz != Answer) {
-      errorQuiz = errorQuiz + '答えが間違えています。'
-    }
-  }
-  return errorQuiz
-}
