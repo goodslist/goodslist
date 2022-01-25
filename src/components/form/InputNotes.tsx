@@ -1,7 +1,16 @@
 import styles from '../../styles/components/form.module.css'
 
 const InputNotes = (props: any) => {
-  return <div className={styles.input_notes}>{props.notes}</div>
+  return (
+    <p className={styles.input_notes}>
+      {props.legnth > props.limit ? (
+        <span className={styles.input_notes_over}>{props.legnth}</span>
+      ) : (
+        <span>{props.legnth}</span>
+      )}{' '}
+      / {props.limit}文字以内
+    </p>
+  )
 }
 
 export default InputNotes

@@ -24,9 +24,7 @@ export default function Header() {
           <div className={styles.logo_container}>
             <Link href='/'>
               <a>
-                <p className={styles.logo}>
-                  <span>GOODS</span>ist
-                </p>
+                <p className={styles.logo}>GOODSist</p>
               </a>
             </Link>
           </div>

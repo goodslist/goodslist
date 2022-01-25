@@ -49,9 +49,9 @@ export const validateName = (name: string) => {
   let errorName = ''
   if (name.length > 0) {
     if (name.length > 30) errorName = errorName + '30文字以内で入力してください。'
-    if (!name.match(/^[0-9a-zA-Zぁ-んーァ-ヶー一-龠]+$/)) {
-      errorName = errorName + '全角半角英数字のみ使用できます。'
-    }
+    // if (!name.match(/^[0-9a-zA-Zぁ-んーァ-ヶー一-龠]+$/)) {
+    //   errorName = errorName + '全角半角英数字のみ使用できます。'
+    // }
   }
   return errorName
 }
@@ -62,9 +62,9 @@ export const validateContactText = (contactText: string) => {
   if (contactText.length > 0) {
     if (contactText.length > 500)
       errorContactText = errorContactText + '500文字以内で入力してください。'
-    if (!contactText.match(/^[0-9a-zA-Zぁ-んーァ-ヶー一-龠]+$/)) {
-      errorContactText = errorContactText + '全角半角英数字のみ使用できます。'
-    }
+    // if (!contactText.match(/^[0-9a-zA-Zぁ-んーァ-ヶー一-龠]+$/)) {
+    //   errorContactText = errorContactText + '全角半角英数字のみ使用できます。'
+    // }
   }
   return errorContactText
 }

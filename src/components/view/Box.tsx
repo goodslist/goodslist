@@ -5,20 +5,18 @@ type Props = {
   children: ReactNode
   background: string
   padding: string
-  // zIndex: string
 }
 
 const Box = ({ children, background, padding }: Props) => {
-  const box = {
+  const style = {
     margin: 0,
     width: '100%',
     padding: padding,
     background: background,
-    // zIndex: Number(zIndex),
   }
 
   return (
-    <div style={box}>
+    <div style={style}>
       <div className={styles.box_nomal}>{children}</div>
     </div>
   )

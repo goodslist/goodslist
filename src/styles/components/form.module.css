@@ -25,6 +25,7 @@
   font-size: 1.6rem;
   cursor: pointer;
   border-radius: 5px;
+  color: #fff;
 }
 
 .btn_submit {
@@ -52,7 +53,8 @@
 
 /* テキスト入力 */
 
-.inputTextArea {
+.input_TextArea,
+.input_TextArea_validated {
   margin: 0;
   padding: 10px;
   width: 100%;
@@ -74,12 +76,13 @@
 
 .input_text:focus,
 .input_password:focus,
-.inputTextArea:focus {
+.input_TextArea:focus {
   border: 1px solid #68a9cf;
 }
 
 .input_text_validated,
-.input_password_checked {
+.input_password_checked,
+.input_TextArea_validated {
   background-color: #fff;
   border: 1px solid #68a9cf;
 }
@@ -111,6 +114,10 @@
   font-size: 1.2rem;
   color: #999;
   text-align: right;
+}
+
+.input_notes_over {
+  color: #cf6775;
 }
 
 .input_notes a {

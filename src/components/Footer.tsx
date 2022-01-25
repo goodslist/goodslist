@@ -9,18 +9,20 @@ export default function Footer() {
       <div className={styles.footer_container}>
         <div className={styles.footer}>
           <p>
-            |　
+            <Link href={'/'}>
+              <a>Top</a>
+            </Link>
+            　　
             <Link href={'/privacy'}>
               <a>Privacy Policy</a>
             </Link>
-            　|　
+            　　
             <Link href={'/contact'}>
               <a>Contact</a>
             </Link>
-            　|
           </p>
           <br />
-          <p>© {thisYear} GOODSist</p>
+          <p>© {thisYear} GOODSist All rights reserved.</p>
         </div>
       </div>
     </>

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useEffect, useState, useContext, useCallback } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import styles from '../../styles/Contact.module.css'
 import { InferGetStaticPropsType, GetStaticPropsContext } from 'next'
 import Title from '../../components/view/title'
@@ -9,7 +9,6 @@ import { MetaProps } from '../../components/types'
 import Box from '../../components/view/Box'
 import BoxLineText from '../../components/view/BoxLineText'
 import InputText from '../../components/form/InputText'
-import InputText2 from '../../components/form/InputText2'
 import InputLabel from '../../components/form/InputLabel'
 import InputTextArea from '../../components/form/InputTextArea'
 import SubmitButton from '../../components/form/SubmitButton'
@@ -19,6 +18,7 @@ import { validateName, validateEmail, validateContactText } from '../../componen
 import { useRouter } from 'next/router'
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import axios from 'axios'
+import Spacer from '../../components/view/Spacer'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -40,44 +40,42 @@ const Contact = (data: Props) => {
 
   const [errorName, setErrorName] = useState<string>('')
 
+  const [checkName, setCheckName] = useState<boolean>(false)
+
   const [email, setEmail] = useState<string>('')
 
   const [errorEmail, setErrorEmail] = useState<string>('')
+
+  const [checkEmail, setCheckEmail] = useState<boolean>(false)
 
   const [contactText, setContactText] = useState<string>('')
 
   const [errorContactText, setErrorContactText] = useState<string>('')
 
-  const [isSubmit, setIsSubmit] = useState<boolean>(false)
+  const [checkContactText, setCheckContactText] = useState<boolean>(false)
 
   const [errorSubmit, setErrorSubmit] = useState<string>('')
 
   useEffect(() => {
-    setErrorName(validateName(name))
+    const newErrorName = validateName(name)
+    setErrorName(newErrorName)
+    if (name != '' && newErrorName == '') setCheckName(true)
+    else setCheckName(false)
   }, [name])
 
   useEffect(() => {
-    setErrorEmail(validateEmail(email))
+    const newErrorEmail = validateEmail(email)
+    setErrorEmail(newErrorEmail)
+    if (email != '' && newErrorEmail == '') setCheckEmail(true)
+    else setCheckEmail(false)
   }, [email])
 
   useEffect(() => {
-    // setErrorContactText(validateContactText(contactText))
-    // setErrorContactText(contactText)
+    const newErrorContactText = validateContactText(contactText)
+    setErrorContactText(newErrorContactText)
+    if (contactText != '' && newErrorContactText == '') setCheckContactText(true)
+    else setCheckContactText(false)
   }, [contactText])
-
-  useEffect(() => {
-    console.log('a')
-    if (
-      name.length > 0 &&
-      errorName.length == 0 &&
-      email.length > 0 &&
-      errorEmail.length == 0 &&
-      contactText.length > 0 &&
-      errorContactText.length == 0
-    )
-      setIsSubmit(true)
-    else setIsSubmit(false)
-  }, [name, email, contactText])
 
   const { executeRecaptcha } = useGoogleReCaptcha()
 
@@ -102,12 +100,7 @@ const Contact = (data: Props) => {
       subject: 'お問い合わせ(' + name + '様)',
       email: email,
       text:
-        '【お名前】' +
-        name +
-        '様\n【メールアドレス】' +
-        email +
-        '\n【メール本文】\n\n' +
-        contactText,
+        '【お名前】' + name + '様\n【メールアドレス】' + email + '\n【メール本文】\n' + contactText,
     }
     const resultSubmit = await fetch('/api/contact', {
       method: 'POST',
@@ -149,9 +142,9 @@ const Contact = (data: Props) => {
             placeholder='名前を入力'
             onChange={setName}
             error={errorName}
+            valid={checkName}
           />
-
-          <InputNotes notes='30文字以内' />
+          <InputNotes limit='30' legnth={name.length} />
           <InputLabel id='email' label='メールアドレス' />
           <InputText
             id='email'
@@ -161,8 +154,9 @@ const Contact = (data: Props) => {
             placeholder='メールアドレスを入力'
             onChange={setEmail}
             error={errorEmail}
+            valid={checkEmail}
           />
-          <InputNotes notes='' />
+          <InputNotes limit='256' legnth={email.length} />
           <InputLabel id='text' label='お問い合わせ内容' />
           <InputTextArea
             id='text'
@@ -172,9 +166,17 @@ const Contact = (data: Props) => {
             placeholder='お問い合わせの内容を入力'
             onChange={setContactText}
             error={errorContactText}
+            valid={checkContactText}
           />
-          <InputNotes notes='500文字以内' />
-          <SubmitButton type='email' btn_name='送信' onClick={submitMail} isSubmit={isSubmit} />
+          <InputNotes limit='500' legnth={contactText.length} />
+          <SubmitButton
+            type='email'
+            btn_name='送信'
+            onClick={submitMail}
+            isSubmit={checkName && checkEmail && checkContactText}
+          />
+          <div className={styles.spacer}></div>
+          <Spacer padding='30px 0px 0px 0px' />
         </BoxLineText>
       </Box>
     </>
