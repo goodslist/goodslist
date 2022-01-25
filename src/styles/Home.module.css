@@ -3,10 +3,10 @@
   min-width: 320px;
   margin: 0 auto 0 auto;
   padding: 100px 0 170px 0;
-  /* background: url('/images/background11.png');
+  background: url('/images/background11.png');
   background-repeat: repeat-x;
   background-position: 50% 0%;
-  background-size: 400px 600px; */
+  background-size: 400px 600px;
 }
 
 .main_g {
@@ -14,14 +14,6 @@
   min-width: 320px;
   margin: 0 auto 0 auto;
 }
-
-/* .new_hot_label {
-  width: 100%;
-  text-align: left;
-  padding: 0 20px;
-  font-size: 1.8rem;
-  font-weight: bold;
-} */
 
 .event_list_title_container {
   margin: 0;
