@@ -8,7 +8,7 @@ const InputNotes = (props: any) => {
       ) : (
         <span>{props.legnth}</span>
       )}{' '}
-      / {props.limit}文字以内
+      / {props.limit}
     </p>
   )
 }

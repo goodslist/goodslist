@@ -131,10 +131,9 @@ const Contact = (data: Props) => {
       <Box background='#fff' padding='60px 20px 60px 20px'>
         <Title title='Contact' />
         <BoxLineText>
-          <p className={styles.contact_text}>
-            お問い合わせをご希望の方は、全ての項目を入力してください。
-          </p>
+          <p className={styles.contact_text}>全ての項目を入力してください。</p>
           <InputLabel id='name' label='お名前' />
+          <InputNotes limit='30' legnth={name.length} />
           <InputText
             id='name'
             type='text'
@@ -145,8 +144,8 @@ const Contact = (data: Props) => {
             valid={checkName}
           />
           <InputError error={errorName} />
-          <InputNotes limit='30' legnth={name.length} />
           <InputLabel id='email' label='メールアドレス' />
+          <InputNotes limit='256' legnth={email.length} />
           <InputText
             id='email'
             type='email'
@@ -157,8 +156,8 @@ const Contact = (data: Props) => {
             valid={checkEmail}
           />
           <InputError error={errorEmail} />
-          <InputNotes limit='256' legnth={email.length} />
           <InputLabel id='text' label='お問い合わせ内容' />
+          <InputNotes limit='500' legnth={contactText.length} />
           <InputTextArea
             id='text'
             type='text'
@@ -169,7 +168,6 @@ const Contact = (data: Props) => {
             valid={checkContactText}
           />
           <InputError error={errorContactText} />
-          <InputNotes limit='500' legnth={contactText.length} />
           <SubmitButton
             type='email'
             btn_name='送信'

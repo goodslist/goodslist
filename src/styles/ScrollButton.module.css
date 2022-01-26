@@ -58,11 +58,13 @@
 
 .scrollContainer {
   width: 100%;
-  max-width: 800px;
+  max-width: 840px;
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
   margin: 0 auto;
   pointer-events: none;
+  display: flex;
+  justify-content: flex-start;
 }

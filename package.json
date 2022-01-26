@@ -25,8 +25,7 @@
     "react-google-recaptcha-v3": "^1.9.7",
     "react-modal-hook": "^3.0.0",
     "react-papaparse": "^3.18.2",
-    "react-scroll": "^1.8.4",
-    "scroll-behavior-polyfill": "^2.0.13"
+    "react-scroll": "^1.8.4"
   },
   "devDependencies": {
     "@types/nodemailer": "^6.4.4",

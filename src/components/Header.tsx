@@ -19,7 +19,10 @@ export default function Header() {
 
   return (
     <>
-      <div className={isShowSearch ? styles.header_container_fixed : styles.header_container}>
+      <div
+        id='top'
+        className={isShowSearch ? styles.header_container_fixed : styles.header_container}
+      >
         <div className={styles.header}>
           <div className={styles.logo_container}>
             <Link href='/'>

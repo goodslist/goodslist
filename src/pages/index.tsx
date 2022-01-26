@@ -16,6 +16,7 @@ import SearchEventForm from '../components/SearchEventForm'
 import EventList from '../components/view/EventList'
 import Topic from '../components/view/top/Topic'
 import { ModalContext } from '../components/modal/ModalContext'
+import { Link as Scroll } from 'react-scroll'
 
 // ページコンポーネントに渡されるデータ
 type Props = {
@@ -99,6 +100,9 @@ const Home = ({ eventList }: Props) => {
           text='コンサート、フェス、映画、アニメ、漫画、ミュージカル、演劇、スポーツなど様々なジャンルのイベントを扱います。'
         />
       </Box>
+      {/* <Scroll to='top' smooth={true} duration={400}>
+        コンセプト
+      </Scroll> */}
     </>
   )
 }
