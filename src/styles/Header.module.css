@@ -60,7 +60,6 @@
   cursor: pointer;
   border: 0;
   transition: all 0.3s;
-  background-color: #fff;
 }
 .btn_search_active:before {
   content: '';
@@ -96,8 +95,8 @@
   left: 20px;
   cursor: pointer;
   display: inline-block;
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
   text-align: center;
   line-height: 14px;
   border-radius: 50%;

@@ -90,7 +90,6 @@
 .input_error,
 .input_error_active {
   margin: 0 auto;
-  padding: 0;
   width: 100%;
   text-align: left;
   font-size: 1.2rem;
@@ -100,6 +99,7 @@
 
 .input_error {
   height: 0px;
+  padding: 0;
 }
 
 .input_error_active {

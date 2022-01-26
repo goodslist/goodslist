@@ -27,8 +27,6 @@ const Memo = (props: any) => {
         / 100
       </div>
       <InputTextArea name='memo' placeholder='メモの内容' value={memo} onChange={setMemo} />
-      <InputError error={props.error} />
-
       <ModalButton
         onClickClose={props.onClickClose}
         btn_text={props.btn_text}

@@ -151,6 +151,7 @@
 .modal_btn_container {
   display: flex;
   justify-content: center;
+  margin: 30px 0 0 0;
 }
 
 .modal_btn_enter {

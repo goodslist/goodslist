@@ -93,10 +93,11 @@ export default function SearchEventForm(props: any) {
           onFocus={() => setIsFocusSearchInput(true)}
           ref={searchRef}
         />
-        <span
-          className={input ? styles.search_button_active : styles.search_button}
-          onClick={clickButton}
-        ></span>
+        {input.length != 0 ? (
+          <span className={styles.search_button_active} onClick={clickButton} />
+        ) : (
+          <span className={styles.search_button} />
+        )}
         {isFocusSearchInput || isHoverSearchResult ? (
           <ul className={styles.search_result_active}>
             {events.map((event, index) => (

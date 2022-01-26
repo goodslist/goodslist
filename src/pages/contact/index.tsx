@@ -10,6 +10,7 @@ import Box from '../../components/view/Box'
 import BoxLineText from '../../components/view/BoxLineText'
 import InputText from '../../components/form/InputText'
 import InputLabel from '../../components/form/InputLabel'
+import InputError from '../../components/form/InputError'
 import InputTextArea from '../../components/form/InputTextArea'
 import SubmitButton from '../../components/form/SubmitButton'
 import InputNotes from '../../components/form/InputNotes'
@@ -141,9 +142,9 @@ const Contact = (data: Props) => {
             value={name}
             placeholder='名前を入力'
             onChange={setName}
-            error={errorName}
             valid={checkName}
           />
+          <InputError error={errorName} />
           <InputNotes limit='30' legnth={name.length} />
           <InputLabel id='email' label='メールアドレス' />
           <InputText
@@ -153,9 +154,9 @@ const Contact = (data: Props) => {
             value={email}
             placeholder='メールアドレスを入力'
             onChange={setEmail}
-            error={errorEmail}
             valid={checkEmail}
           />
+          <InputError error={errorEmail} />
           <InputNotes limit='256' legnth={email.length} />
           <InputLabel id='text' label='お問い合わせ内容' />
           <InputTextArea
@@ -165,9 +166,9 @@ const Contact = (data: Props) => {
             value={contactText}
             placeholder='お問い合わせの内容を入力'
             onChange={setContactText}
-            error={errorContactText}
             valid={checkContactText}
           />
+          <InputError error={errorContactText} />
           <InputNotes limit='500' legnth={contactText.length} />
           <SubmitButton
             type='email'
