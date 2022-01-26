@@ -60,6 +60,7 @@
   cursor: pointer;
   border: 0;
   transition: all 0.3s;
+  background-color: #fff;
 }
 .btn_search_active:before {
   content: '';
@@ -91,8 +92,8 @@
 .btn_search:before {
   content: '';
   position: absolute;
-  top: 18px;
-  left: 20px;
+  top: 16px;
+  left: 18px;
   cursor: pointer;
   display: inline-block;
   width: 18px;
@@ -109,8 +110,8 @@
   position: absolute;
   width: 2px;
   height: 8px;
-  top: 36px;
-  left: 38px;
+  top: 38px;
+  left: 40px;
   border-radius: 10px;
   transform: translate(-50%, -50%) rotate(-45deg);
   transition: all 0.3s;
