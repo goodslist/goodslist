@@ -21,13 +21,46 @@
 }
 
 .footer_twitter {
-  margin: 30px 0 20px 0;
+  margin: 30px auto 20px auto;
+  width: 200px;
   font-size: 2rem;
   font-family: 'FuturaPTMedium', sans-serif;
   color: #1da1f2;
+  position: relative;
+  display: flex;
+  flex-flow: column;
+}
+
+.footer_twitter span:before {
+  content: '';
+  position: absolute;
+  width: 3px;
+  height: 30px;
+  top: 20px;
+  left: 20px;
+  border-radius: 10px;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  transition: all 0.7s;
+  cursor: pointer;
+  background-color: #1da1f2;
+}
+
+.footer_twitter span:after {
+  content: '';
+  position: absolute;
+  width: 3px;
+  height: 30px;
+  top: 20px;
+  right: 20px;
+  border-radius: 10px;
+  transform: translate(-50%, -50%) rotate(-135deg);
+  transition: all 0.7s;
+  cursor: pointer;
+  background-color: #1da1f2;
 }
 
 .footter_twitter_icon svg {
+  margin: 10px 0 0 0;
   width: 40px;
   height: 40px;
   fill: #1da1f2;
