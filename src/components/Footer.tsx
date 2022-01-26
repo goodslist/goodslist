@@ -7,23 +7,21 @@ export default function Footer() {
   return (
     <>
       <div className={styles.footer_container}>
-        <div className={styles.footer}>
-          <p>
-            <Link href={'/'}>
-              <a>Top</a>
-            </Link>
-            　　
-            <Link href={'/privacy'}>
-              <a>Privacy Policy</a>
-            </Link>
-            　　
-            <Link href={'/contact'}>
-              <a>Contact</a>
-            </Link>
-          </p>
-          <br />
-          <p>© {thisYear} GOODSist All rights reserved.</p>
-        </div>
+        <p className={styles.footer_twitter}>Follow me!!</p>
+        <p className={styles.footer_nav}>
+          <Link href={'/'}>
+            <a>Home</a>
+          </Link>
+          　　
+          <Link href={'/privacy'}>
+            <a>Privacy Policy</a>
+          </Link>
+          　　
+          <Link href={'/contact'}>
+            <a>Contact</a>
+          </Link>
+        </p>
+        <p className={styles.copyright}>© {thisYear} GOODSist All rights reserved.</p>
       </div>
     </>
   )

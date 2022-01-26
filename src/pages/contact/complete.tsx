@@ -41,7 +41,7 @@ const ContactComplete = (data: Props) => {
             この度はお問い合わせいただきありがとうございました。
             今後とも当サイトをよろしくお願いいたします。
           </p>
-          <LinkButton text='Top' />
+          <LinkButton text='Home' />
         </BoxLineText>
       </Box>
     </>
