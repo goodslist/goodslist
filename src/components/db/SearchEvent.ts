@@ -33,7 +33,7 @@ const searchEventWord1 = async (search_word: string[]) => {
     .from('search_events')
     .select('event_id, event_name, content_name, date, search_word')
     .ilike('search_word', '%' + search_word[0] + '%')
-    .limit(20)
+    .limit(5)
 
   return data
 }

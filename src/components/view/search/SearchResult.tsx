@@ -3,6 +3,7 @@ import BoxGrid from '../../../components/view/BoxGrid'
 import { dateFormat } from '../../../components/Utils'
 import Link from 'next/link'
 import { Events } from '../../../components/types'
+import Pagination from './Pagination'
 
 const SearchResult = (props: any) => {
   //ページ数を計算する
@@ -43,28 +44,7 @@ const SearchResult = (props: any) => {
             </li>
           ))}
         </ul>
-
-        <div className={styles.pagination_container}>
-          <ul>
-            {[...Array(pageCount)].map((link, index) => (
-              <>
-                {props.currentPage == index + 1 ? (
-                  <li className={styles.pagination_current} key={index}>
-                    <b>{index + 1}</b>
-                  </li>
-                ) : (
-                  <Link href={`/search?keyword=${props.keyword}&page=${index + 1}`}>
-                    <a>
-                      <li className={styles.pagination_link} key={index}>
-                        {index + 1}
-                      </li>
-                    </a>
-                  </Link>
-                )}
-              </>
-            ))}
-          </ul>
-        </div>
+        <Pagination param={props.keyword} pageCount={pageCount} currentPage={props.currentPage} />
       </div>
     </BoxGrid>
   )
