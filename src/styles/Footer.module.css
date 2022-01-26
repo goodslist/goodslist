@@ -17,18 +17,27 @@
 .copyright {
   font-size: 1.6rem;
   font-family: 'FuturaPTMedium', sans-serif;
-  margin: 0 0 30px 0;
+  margin: 0 0 50px 0;
 }
 
 .footer_twitter {
-  margin: 30px auto 20px auto;
-  width: 200px;
+  margin: 50px 0 10px 0;
+  width: 120px;
   font-size: 2rem;
   font-family: 'FuturaPTMedium', sans-serif;
   color: #1da1f2;
   position: relative;
-  display: flex;
+  /* display: flex;
   flex-flow: column;
+  background-color: brown; */
+  display: inline-block;
+}
+
+.footer_twitter p {
+  margin: 0;
+  width: 120px;
+  font-size: 2rem;
+  font-family: 'FuturaPTMedium', sans-serif;
 }
 
 .footer_twitter span:before {
@@ -36,8 +45,8 @@
   position: absolute;
   width: 3px;
   height: 30px;
-  top: 20px;
-  left: 20px;
+  top: 30px;
+  left: 0px;
   border-radius: 10px;
   transform: translate(-50%, -50%) rotate(-45deg);
   transition: all 0.7s;
@@ -50,8 +59,8 @@
   position: absolute;
   width: 3px;
   height: 30px;
-  top: 20px;
-  right: 20px;
+  top: 30px;
+  right: 0px;
   border-radius: 10px;
   transform: translate(-50%, -50%) rotate(-135deg);
   transition: all 0.7s;
