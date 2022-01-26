@@ -73,9 +73,9 @@
   content: '';
   position: absolute;
   width: 2px;
-  height: 8px;
-  top: 28px;
-  left: 30px;
+  height: 10px;
+  top: 27px;
+  left: 29px;
   border-radius: 10px;
   transform: translate(-50%, -50%) rotate(-45deg);
   transition: all 0.7s;
