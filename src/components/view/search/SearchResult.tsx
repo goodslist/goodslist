@@ -49,13 +49,15 @@ const SearchResult = (props: any) => {
             {[...Array(pageCount)].map((link, index) => (
               <>
                 {props.currentPage == index + 1 ? (
-                  <li key={index}>
+                  <li className={styles.pagination_current} key={index}>
                     <b>{index + 1}</b>
                   </li>
                 ) : (
                   <Link href={`/search?keyword=${props.keyword}&page=${index + 1}`}>
                     <a>
-                      <li key={index}>{index + 1}</li>
+                      <li className={styles.pagination_link} key={index}>
+                        {index + 1}
+                      </li>
                     </a>
                   </Link>
                 )}

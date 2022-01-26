@@ -295,3 +295,37 @@
   font-size: 1.6rem;
   line-height: 3.2rem;
 }
+
+.pagination_container {
+  width: 100%;
+  /* background-color: red; */
+}
+
+.pagination_container ul {
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination_current {
+  margin: 0 5px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #ccc;
+  border-radius: 40px;
+  color: #fff;
+  font-size: 1.6rem;
+}
+
+.pagination_link {
+  margin: 0 5px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #fff;
+  border-radius: 40px;
+  font-size: 1.6rem;
+  color: #68a9cf;
+}
